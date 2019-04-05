@@ -7,29 +7,30 @@ public class PlanetWalker : MonoBehaviour {
 
     //--- Attribute -----------------------------
 
-    //--- public ----------------------
+    //--- private ---------------------
     [Header("Stats")]
-    public Transform cameraTransform;
-    public Transform raycastTransform;
-    public LayerMask Hitlayer;
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] Transform raycastTransform;
+    [SerializeField] LayerMask Hitlayer;
     [Space(10)]
-    public float speed = 2f;
-    public float runSpeed = 7f;
+    [SerializeField] float speed = 2f;
+    [SerializeField] float runSpeed = 7f;
 
     [Header("Status")]
-    public bool onGround = false;
+    [SerializeField] bool onGround = false;
 
     //--- private ---------------------
-    private Rigidbody rigidbody = null;
-    private RaycastHit casthit;
+    new Rigidbody rigidbody = null;
+    RaycastHit casthit;
 
     //Input
-    private bool jump;
-    private float horizontal;
-    private float vertical;
+    bool jump;
+    float horizontal;
+    float vertical;
 
-    //MoveChanger
-    private Vector3 oldPosition;
+    //Move
+    Vector3 MoveVec;
+    [SerializeField]Vector3 oldPosition;
 
     //--- MonoBehavior --------------------------
 
@@ -37,25 +38,31 @@ public class PlanetWalker : MonoBehaviour {
 	void Start ()
     {
         rigidbody = this.GetComponent<Rigidbody>();
+        oldPosition = this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        oldPosition = this.transform.position;
-
         Get_Input();
-        Get_RayCast();
-	}
+    }
 
     void FixedUpdate()
     {
+        Get_RayCast();
+        
+            oldPosition = this.transform.position;
+            Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
+            Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
+            MoveVec = (forward * vertical + right * horizontal).normalized;
+
+            rigidbody.AddForce(MoveVec * speed, ForceMode.VelocityChange);
         
     }
 
     void LateUpdate()
     {
-
+        
     }
 
     //--- Method --------------------------------
@@ -71,8 +78,8 @@ public class PlanetWalker : MonoBehaviour {
     //RayCast
     void Get_RayCast()
     {
-        Debug.DrawRay(this.transform.position, -this.transform.up * 10f, Color.red);
-        if (Physics.Raycast(this.transform.position, -this.transform.up, out casthit, float.MaxValue, Hitlayer))
+        Debug.DrawRay(this.transform.position + rigidbody.velocity, -this.transform.up * 0.5f, Color.red);
+        if (Physics.Raycast(this.transform.position + rigidbody.velocity, -this.transform.up, out casthit, 0.5f, Hitlayer))
         {
             onGround = true;
         }
@@ -80,4 +87,5 @@ public class PlanetWalker : MonoBehaviour {
     }
 
     //
+
 }
