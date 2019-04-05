@@ -13,10 +13,11 @@ public class SpaceWalker : MonoBehaviour {
     private float xRotation;
     private float yRotation;
 	public Rigidbody rigidbody;
- 
+
     // Use this for initialization
-    void Start () {
- 
+    void Start()
+    {
+
     }
  
     // Update is called once per frame
