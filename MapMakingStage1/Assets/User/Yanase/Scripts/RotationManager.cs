@@ -4,86 +4,80 @@ using UnityEngine;
 
 public class RotationManager : Singleton<RotationManager> {
 
-    [SerializeField,Header("星")]
-    private Transform Planet = null;
+    [SerializeField, Header("星")]
+    private Transform corePlanet = null;
+    [SerializeField, Header("回転させるオブジェクト")]
+    private Transform rotationTarget = null;
+    [SerializeField, Header("回転加速度")]
+    private float accelSpeed = 1.0f;
+    [SerializeField, Header("回転最高速度")]
+    private float maxSpeed = 1.0f;
 
-    [SerializeField, Header("回転させる")]
-    private Transform RotTarget = null;
+    private float speed = 0.0f;
 
-    [SerializeField,Header("旗")]
-    private Transform Flag = null;
-
-    [SerializeField,Header("地軸(回転軸)")]
-    private Vector3 EarthAxis = Vector3.zero;
-
-    [SerializeField]
-    private GameObject AxisObj = null;
-
-    [SerializeField, Header("回転方向")]
-    private Vector3 AxisDir = Vector3.zero;
-
-    public Quaternion q;
-
-    [SerializeField, Header("回転速度")]
-    private float Angle;
+    public Transform planetTransform
+    {
+        get { return corePlanet; }
+    }
 
     //Initialize
-	private void Start ()
+    private void Start ()
     {
-        AxisDir = Vector3.zero;
-
-        q = Quaternion.AngleAxis(Mathf.PI / 180, EarthAxis).normalized;
-        AxisDir = q.eulerAngles;
-        if(AxisObj == null) AxisObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
     }
 	
     //Update
 	private void Update ()
     {
-        Set_EarthAxis(Flag.transform.position);
-        DebugMethod();
-
-        AxisObj.transform.position = Planet.position;
-        AxisObj.transform.rotation = Quaternion.FromToRotation(Vector3.up,EarthAxis);
+        PlanetRotation();
     }
 
     //FixedUpdate
     private void FixedUpdate()
     {
-        
+        speed *= 0.1f;    
     }
 
-    private void DebugMethod()
+    private void PlanetRotation()
     {
-        if (RotTarget == null) return;
-        //Debug用に組んでいるのでUpdate書き変えてもいいよ
+        // フラグマネージャー取得
+        FlagManager flagManager = FlagManager.Instance;
 
-        //回転軸の設定
-        Debug.DrawRay(Planet.position, EarthAxis, Color.red);   //地軸のDebug表示
-        RotTarget.transform.rotation = Quaternion.AngleAxis(Angle * Time.deltaTime, EarthAxis.normalized) * RotTarget.transform.rotation;  //回転オブジェクトを回転させる
+        if (flagManager.flagActive)
+        {
+            if (Input.GetKey(KeyCode.Z))
+            {
+                speed += accelSpeed;
+            }
+            if (Input.GetKey(KeyCode.X))
+            {
+                speed -= accelSpeed;
+            }
+            speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
 
-        q = Quaternion.AngleAxis(Mathf.PI / 180, EarthAxis).normalized;
-        AxisDir = q.eulerAngles;
+
+            Quaternion quaternion;
+            Transform axisTransform = flagManager.flagTransform;
+
+            quaternion = Quaternion.AngleAxis(speed * Time.deltaTime, axisTransform.up);
+            // 回転値を合成
+            axisTransform.rotation = quaternion * axisTransform.rotation;
+            rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
+        }
     }
 
-    //回転軸の設定
-    public void Set_EarthAxis(Vector3 FlagPos)
+    public Vector3 GetMoveDir(Vector3 position)
     {
-        //距離ベクトル
-        EarthAxis = FlagPos - Planet.position;
-        //方向ベクトル(地軸)
-        EarthAxis = EarthAxis.normalized;
-    }
+        // フラグマネージャー取得
+        FlagManager flagManager = FlagManager.Instance;
 
-    //地軸の取得
-    public Vector3 Get_EarthAxis()
-    {
-        return this.EarthAxis;
-    }
+        if (!flagManager.flagActive || 
+            (speed < 0.1f && speed > -0.1f))
+            return Vector3.zero;
 
-    //中心位置の設定
-    public void Set_CorePosition(Transform Planet)
-    {
-        this.Planet = Planet;
+        Transform flagTransform = flagManager.flagTransform;
+        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized;
+        if (speed > 0.0f) moveDir *= -1;
+
+        return moveDir;
     }
 }
