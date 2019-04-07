@@ -15,6 +15,7 @@ public class PlanetWalker : MonoBehaviour {
     [Space(10)]
     [SerializeField] float speed = 2f;
     [SerializeField] float runSpeed = 7f;
+    [SerializeField] float castDistance = 0.5f;
 
     [Header("Status")]
     [SerializeField] bool onGround = false;
@@ -49,15 +50,20 @@ public class PlanetWalker : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Get_RayCast();
-        
-            oldPosition = this.transform.position;
-            Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
-            Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-            MoveVec = (forward * vertical + right * horizontal).normalized;
+        MoveVec = Get_MoveDirection() * speed;
 
+        Get_RayCast();
+
+        if (onGround)
+        {
+            oldPosition = this.transform.position;
             rigidbody.AddForce(MoveVec * speed, ForceMode.VelocityChange);
-        
+        }
+        else
+        {
+            this.transform.position = oldPosition;
+            rigidbody.velocity = Vector3.zero;
+        }
     }
 
     void LateUpdate()
@@ -78,14 +84,20 @@ public class PlanetWalker : MonoBehaviour {
     //RayCast
     void Get_RayCast()
     {
-        Debug.DrawRay(this.transform.position + rigidbody.velocity, -this.transform.up * 0.5f, Color.red);
-        if (Physics.Raycast(this.transform.position + rigidbody.velocity, -this.transform.up, out casthit, 0.5f, Hitlayer))
+        Debug.DrawRay(this.transform.position + (rigidbody.velocity.normalized * castDistance), -this.transform.up * .5f, Color.red);
+        if (Physics.Raycast(this.transform.position + (rigidbody.velocity.normalized * castDistance), -this.transform.up * .5f, out casthit, 0.5f, Hitlayer))
         {
             onGround = true;
         }
         else onGround = false;
     }
 
-    //
+    //MoveDirection
+    Vector3 Get_MoveDirection()
+    {
+        Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
+        Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
+        return (forward * vertical + right * horizontal).normalized;
+    }
 
 }

@@ -831,10 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationTransform: {fileID: 1003540241}
-  speed: 30
   flag: {fileID: 1588088389}
-  planet: {fileID: 989770525}
   axis: {fileID: 2143498538}
 --- !u!1 &600757073
 GameObject:
@@ -1733,16 +1730,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 932030088}
   m_CullTransparentMesh: 0
---- !u!4 &989770525 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4712604987769876, guid: 0b76efb790414b94ba2c8600b72665c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 1514779118}
---- !u!4 &1003540241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4576918833358062, guid: 0b76efb790414b94ba2c8600b72665c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 1514779118}
 --- !u!1 &1059299134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2397,6 +2384,7 @@ MonoBehaviour:
     m_Bits: 1024
   speed: 0.5
   runSpeed: 7
+  castDistance: 0.1
   onGround: 0
   oldPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1189688555
