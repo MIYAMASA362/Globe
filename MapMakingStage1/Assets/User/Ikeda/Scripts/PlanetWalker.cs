@@ -7,17 +7,23 @@ public class PlanetWalker : MonoBehaviour {
 
     //--- Attribute -----------------------------
 
+    //--- public ----------------------
+
     //--- private ---------------------
     [Header("Stats")]
     [SerializeField] Transform cameraTransform;
-    [SerializeField] Transform raycastTransform;
     [SerializeField] LayerMask Hitlayer;
     [Space(10)]
     [SerializeField] float speed = 2f;
     [SerializeField] float runSpeed = 7f;
+    [SerializeField] float castDistance = 0.5f;
+    [SerializeField] float maxVelocityChange = 0.5f;
+    [SerializeField] float rayLength = 0.75f;
+    [SerializeField] float castHeight = 0.5f;
 
     [Header("Status")]
     [SerializeField] bool onGround = false;
+    [SerializeField] float normalvsAngle = 0f;
 
     //--- private ---------------------
     new Rigidbody rigidbody = null;
@@ -50,14 +56,8 @@ public class PlanetWalker : MonoBehaviour {
     void FixedUpdate()
     {
         Get_RayCast();
-        
-            oldPosition = this.transform.position;
-            Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
-            Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-            MoveVec = (forward * vertical + right * horizontal).normalized;
-
-            rigidbody.AddForce(MoveVec * speed, ForceMode.VelocityChange);
-        
+        MoveVec = MoveDirection();
+        Move(MoveVec);
     }
 
     void LateUpdate()
@@ -78,14 +78,49 @@ public class PlanetWalker : MonoBehaviour {
     //RayCast
     void Get_RayCast()
     {
-        Debug.DrawRay(this.transform.position + rigidbody.velocity, -this.transform.up * 0.5f, Color.red);
-        if (Physics.Raycast(this.transform.position + rigidbody.velocity, -this.transform.up, out casthit, 0.5f, Hitlayer))
-        {
+        Vector3 origin = this.transform.position + (rigidbody.velocity.normalized * castDistance) + (this.transform.up * castHeight);
+
+        Debug.DrawRay(origin, -this.transform.up * rayLength, Color.red);
+        if (Physics.Raycast(origin, -this.transform.up, out casthit, rayLength, Hitlayer))
             onGround = true;
-        }
-        else onGround = false;
+        else
+            onGround = false;
     }
 
-    //
+    //MoveDirection
+    Vector3 MoveDirection()
+    {
+        Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
+        Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
+        return (forward * vertical + right * horizontal).normalized;
+    }
 
+    //Charactor Move
+    void Move(Vector3 MoveDir)
+    {
+        rigidbody.AddForce(VelocityChanger(MoveDir * speed),ForceMode.VelocityChange);
+
+        if (!onGround)
+            this.transform.position = oldPosition;
+        else
+            oldPosition = this.transform.position;
+
+        return;
+    }
+
+    //VelocityChanger 未使用
+    Vector3 VelocityChanger(Vector3 targetVelocity)
+    {
+        Vector3 velocity = transform.InverseTransformDirection(rigidbody.velocity);
+        velocity.y = 0f;
+        velocity = transform.TransformDirection(velocity);
+
+        Vector3 velocityChange = transform.InverseTransformDirection(targetVelocity - velocity);
+        velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+        velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+        velocityChange.y = 0;
+        velocityChange = transform.TransformDirection(velocityChange);
+
+        return velocityChange;
+    }
 }
