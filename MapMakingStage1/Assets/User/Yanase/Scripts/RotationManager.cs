@@ -53,7 +53,7 @@ public class RotationManager : Singleton<RotationManager> {
                 speed -= accelSpeed;
             }
             speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
-
+            Debug.Log(speed);
 
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
@@ -79,5 +79,10 @@ public class RotationManager : Singleton<RotationManager> {
         if (speed > 0.0f) moveDir *= -1;
 
         return moveDir;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
     }
 }
