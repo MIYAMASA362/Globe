@@ -47,23 +47,10 @@ public class FlagManager : Singleton<FlagManager> {
     }
 	
 	void Update () {
-        if (flag)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (flagActive)
-                {
-                    DestoyFlag();
-                }
-                else
-                {
-                    SetFlag(axis.position);
-                }
-            }
-        }
+        
 	}
 
-    void SetFlag(Vector3 axisPos)
+    public void SetFlag(Vector3 axisPos)
     {
         if(!flag)
         {
@@ -84,7 +71,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.SetActive(true);
     }
 
-    void DestoyFlag()
+    public void DestoyFlag()
     {
         if (!flag)
         {
