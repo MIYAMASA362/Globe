@@ -194,23 +194,27 @@ namespace SA
 
             if(OnAxis)
             {
-                
-                if (Input.GetKeyDown(KeyCode.C))
+                FlagSet();
+            }
+        }
+
+        void FlagSet()
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                FlagManager flagManager = FlagManager.Instance;
+                if (flagManager.flagActive)
                 {
-                    FlagManager flagManager = FlagManager.Instance;
-                    if (flagManager.flagActive)
+                    if (axisObject == axisTransform.parent.gameObject)
                     {
-                        if (axisObject == axisTransform.parent.gameObject)
-                        {
-                            flagManager.DestoyFlag();
-                            axisObject = null;
-                        }
+                        flagManager.DestoyFlag();
+                        axisObject = null;
                     }
-                    else
-                    {
-                        flagManager.SetFlag(axisTransform.position);
-                        axisObject = axisTransform.parent.gameObject;
-                    }
+                }
+                else
+                {
+                    flagManager.SetFlag(axisTransform.position);
+                    axisObject = axisTransform.parent.gameObject;
                 }
             }
         }
