@@ -14,6 +14,8 @@ public class PlanetObject : MonoBehaviour
     private float yRotation;
     private Rigidbody rigidbody = null;
 
+    public Vector3 velocity;
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +26,8 @@ public class PlanetObject : MonoBehaviour
     {
         // 移動方向を取得
         moveDir = RotationManager.Instance.GetMoveDir(this.transform.position);
+
+        velocity = rigidbody.velocity;
     }
 
     // Update is called once per frame
@@ -46,5 +50,21 @@ public class PlanetObject : MonoBehaviour
 
         Transform planet = RotationManager.Instance.planetTransform;
         rigidbody.AddForce((planet.position - transform.position) * 3.0f);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Character"))
+        {
+            Debug.Log("Stay!!!");
+
+            Rigidbody otherRigid = other.GetComponent<Rigidbody>();
+            if (otherRigid == null) return;
+
+            Vector3 vec = this.rigidbody.velocity.normalized;
+            vec.y = 0f;
+
+            //otherRigid.AddForce(,ForceMode.VelocityChange);
+        }
     }
 }
