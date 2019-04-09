@@ -64,7 +64,7 @@ public class PlanetObject : MonoBehaviour
             Vector3 vec = this.rigidbody.velocity.normalized;
             vec.y = 0f;
 
-            otherRigid.AddForce(,ForceMode.VelocityChange);
+            //otherRigid.AddForce(,ForceMode.VelocityChange);
         }
     }
 }
