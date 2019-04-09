@@ -57,6 +57,10 @@ namespace SA
         public Vector3 moveDr;
 
 
+        public bool OnAxis = false;
+        private Transform axisTransform = null;
+        private GameObject axisObject = null;
+
         //------------------------------------------
         //------------------------------------------
         public void Init()
@@ -70,6 +74,8 @@ namespace SA
 
             gameObject.layer = 8;
             ignoreLayers = ~(1 << 9);
+
+            OnAxis = false;
 
         }//Init end
          //------------------------------------------
@@ -165,19 +171,50 @@ namespace SA
                 r = true;
                 Vector3 targetPosition = hit.point + (transform.up * 0.2f);
                 transform.position = targetPosition;//Vector3.Lerp
-                
-                
+
+                // 設置軸の上にいるかどうか
+                OnAxis = JudgeAxis(hit.collider.gameObject);
             }
 
             return r;
         }
 
+        private bool JudgeAxis(GameObject hitObject)
+        {
+            if (hitObject.tag != "Axis") return false;
+
+            axisTransform = hitObject.transform;
+
+            return true;
+        }
 
         public void Tick(float d)
         {
             delta = d;
 
+            if(OnAxis)
+            {
+                
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    FlagManager flagManager = FlagManager.Instance;
+                    if (flagManager.flagActive)
+                    {
+                        if (axisObject == axisTransform.parent.gameObject)
+                        {
+                            flagManager.DestoyFlag();
+                            axisObject = null;
+                        }
+                    }
+                    else
+                    {
+                        flagManager.SetFlag(axisTransform.position);
+                        axisObject = axisTransform.parent.gameObject;
+                    }
+                }
+            }
         }
+
         void HandleMovementAnimations()
         {
             //	anim.SetFloat("vertical",moveAmount,0.1f,delta);
