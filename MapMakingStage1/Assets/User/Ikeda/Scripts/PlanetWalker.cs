@@ -81,7 +81,7 @@ public class PlanetWalker : MonoBehaviour {
         Vector3 origin = this.transform.position + (rigidbody.velocity.normalized * castDistance) + (this.transform.up * castHeight);
 
         Debug.DrawRay(origin, -this.transform.up * rayLength, Color.red);
-        if (Physics.Raycast(origin, -this.transform.up, out casthit, rayLength, Hitlayer))
+        if (Physics.Raycast(origin, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
             onGround = true;
         else
             onGround = false;
@@ -92,13 +92,13 @@ public class PlanetWalker : MonoBehaviour {
     {
         Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
         Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-        return (forward * vertical + right * horizontal).normalized;
+        return (forward * vertical + right * horizontal);
     }
 
     //Charactor Move
     void Move(Vector3 MoveDir)
     {
-        rigidbody.AddForce(VelocityChanger(MoveDir * speed),ForceMode.VelocityChange);
+        rigidbody.AddForce(VelocityChanger(MoveDir * speed), ForceMode.VelocityChange);
 
         if (!onGround)
             this.transform.position = oldPosition;
