@@ -27,7 +27,8 @@ namespace SA
         public Transform anglePivot;
         public float crossMult = 6;
         [Header("States")]
-        public bool onGround;
+        public bool onGround = false;
+        public bool OnAxis = false;
         public bool run;
         public GameObject activeModel;
         [HideInInspector]
@@ -54,10 +55,8 @@ namespace SA
         public float r;
 
         public Transform camHolder;
-        public Vector3 moveDr;
 
 
-        public bool OnAxis = false;
         private Transform axisTransform = null;
         private GameObject axisObject = null;
 
