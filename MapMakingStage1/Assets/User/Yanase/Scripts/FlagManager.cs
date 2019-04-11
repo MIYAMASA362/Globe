@@ -7,9 +7,6 @@ public class FlagManager : Singleton<FlagManager> {
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
 
-    // 仮
-    public Transform axis = null;
-
     public bool flagActive
     {
         get

@@ -53,7 +53,7 @@ public class RotationManager : Singleton<RotationManager> {
                 speed -= accelSpeed;
             }
             speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
-            Debug.Log(speed);
+            //Debug.Log(speed);
 
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
