@@ -44,7 +44,6 @@ namespace SA
         public Vector3 groundNormal;
         public Transform raycastTransform;
 
-        public Transform gravityCenter;
         public Vector3 gravityDirection;
         public float gravity = 3f;
 
@@ -103,7 +102,7 @@ namespace SA
         {
             delta = d;
             onGround = OnGround();
-
+            Transform gravityCenter = RotationManager.Instance.planetTransform;
 
             // vertical = Input.GetAxis("Vertical");
             // horizontal = Input.GetAxis("Horizontal");

@@ -13,7 +13,8 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField, Header("回転最高速度")]
     private float maxSpeed = 1.0f;
 
-    private float speed = 0.0f;
+    private float rotationSpeed = 0.0f;
+    private bool isRotation = false;
 
     public Transform planetTransform
     {
@@ -34,31 +35,35 @@ public class RotationManager : Singleton<RotationManager> {
     //FixedUpdate
     private void FixedUpdate()
     {
-        speed *= 0.1f;    
+        if(!isRotation) rotationSpeed *= 0.9f;    
     }
 
     private void PlanetRotation()
     {
         // フラグマネージャー取得
         FlagManager flagManager = FlagManager.Instance;
+        isRotation = false;
 
         if (flagManager.flagActive)
         {
             if (Input.GetKey(KeyCode.Z))
             {
-                speed += accelSpeed;
+                rotationSpeed += accelSpeed;
+                isRotation = true;
             }
             if (Input.GetKey(KeyCode.X))
             {
-                speed -= accelSpeed;
+                rotationSpeed -= accelSpeed;
+                isRotation = true;
             }
-            speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
+
+            rotationSpeed = Mathf.Clamp(rotationSpeed, -maxSpeed, maxSpeed);
             //Debug.Log(speed);
 
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
 
-            quaternion = Quaternion.AngleAxis(speed * Time.deltaTime, axisTransform.up);
+            quaternion = Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, axisTransform.up);
             // 回転値を合成
             axisTransform.rotation = quaternion * axisTransform.rotation;
             rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
@@ -71,18 +76,17 @@ public class RotationManager : Singleton<RotationManager> {
         FlagManager flagManager = FlagManager.Instance;
 
         if (!flagManager.flagActive || 
-            (speed < 0.1f && speed > -0.1f))
+            (rotationSpeed < 0.1f && rotationSpeed > -0.1f))
             return Vector3.zero;
 
         Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized;
-        if (speed > 0.0f) moveDir *= -1;
+        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * (rotationSpeed * Time.deltaTime);
 
         return moveDir;
     }
 
     public float GetSpeed()
     {
-        return speed;
+        return rotationSpeed;
     }
 }
