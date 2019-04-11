@@ -61,6 +61,14 @@ public class PlanetSelecter : MonoBehaviour {
         
     }
 
+    private void OnDrawGizmos()
+    {
+        for(int i = 0; i < Stage.Length-1; i++)
+        {
+            Gizmos.DrawLine(Stage[i].transform.position,Stage[i+1].transform.position);
+        }
+    }
+
     //--- Method ------------------------------------------
 
     int Selecter(int num,int length)
