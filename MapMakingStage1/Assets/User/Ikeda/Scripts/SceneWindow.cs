@@ -41,24 +41,16 @@ public static class SceneIndex
             m_SceneAssets[i] = (SceneAsset)EditorGUILayout.ObjectField(m_SceneAssets[i], typeof(SceneAsset), false);
         }
 
-        if (GUILayout.Button("Add"))
-        {
-            m_SceneAssets.Add(null);
-        }
+        if (GUILayout.Button("Add")) m_SceneAssets.Add(null);
 
         GUILayout.Space(8);
 
-        if (GUILayout.Button("Apply To Build Settings"))
-        {
-            SetEditorBuildSettingsScenes();
-        }
+        if (GUILayout.Button("Apply To Build Settings")) SetEditorBuildSettingsScenes();
 
         GUILayout.Space(8);
 
-        if (GUILayout.Button("Clear",GUILayout.Width(200f)))
-        {
-            m_SceneAssets.Clear();
-        }
+        if (GUILayout.Button("Clear",GUILayout.Width(200f))) m_SceneAssets.Clear();
+
     }
 
     public void SetEditorBuildSettingsScenes()
@@ -74,15 +66,9 @@ public static class SceneIndex
             {
                 editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(scenePath, true));
 
-                string Name = string.Format(NAME_STRING, sceneAsset.name.Replace(" ", "_"), sceneAsset.name);
-
-                NameIndex += Name;
+                NameIndex += string.Format(NAME_STRING, sceneAsset.name.Replace(" ", "_"), sceneAsset.name);
             }
         }
-
-        Debug.Log(NameIndex);
-
-
 
         var Result = string.Format(TEMPLATE,NameIndex);
 
@@ -92,7 +78,7 @@ public static class SceneIndex
         sr.Write(Result);
         sr.Close();
 
-        Debug.Log(SceneWindowResult);
+        Debug.Log("Success!!:Path > " + SceneWindowResult);
 
         AssetDatabase.ImportAsset(SceneWindowResult,ImportAssetOptions.ForceUpdate);
 
