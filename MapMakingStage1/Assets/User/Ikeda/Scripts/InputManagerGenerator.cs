@@ -14,6 +14,7 @@ public class InputManagerGenerator : AssetPostprocessor
         JoystickAxis = 2
     };
 
+
     private class InputAxis
     {
         public string name;
@@ -176,6 +177,7 @@ public static class InputManager {{
 
             string name = String.Format(INPUT_NAME,axis.name.Replace(" ","_"),axis.name);
 
+            //被りをなくす
             NameIndex = NameIndex.Replace(name, "");
             NameIndex += name;
             
