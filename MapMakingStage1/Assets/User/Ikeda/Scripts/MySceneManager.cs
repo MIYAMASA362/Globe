@@ -7,7 +7,10 @@ using System.IO;
 
 public class MySceneManager : Singleton<MySceneManager>
 {
-    
+    //--- Attribute ---------------------------------------
+
+    private Scene none;
+
 
     //--- MonoBehavior ------------------------------------
 
