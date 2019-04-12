@@ -16,10 +16,11 @@ public class PlanetWalker : MonoBehaviour {
     [Space(10)]
     [SerializeField] float speed = 2f;
     [SerializeField] float runSpeed = 7f;
-    [SerializeField] float castDistance = 0.5f;
     [SerializeField] float maxVelocityChange = 0.5f;
-    [SerializeField] float rayLength = 0.75f;
-    [SerializeField] float castHeight = 0.5f;
+    [SerializeField] float castDistance = 0.15f;
+    [SerializeField] float rayStartPosition = 0.4f;
+    [SerializeField] float rayEndPosition = -0.5f;
+    [SerializeField] float rayRadius = 0.025f;
 
     [Header("Status")]
     [SerializeField] bool onGround = false;
@@ -36,27 +37,41 @@ public class PlanetWalker : MonoBehaviour {
 
     //Move
     Vector3 MoveVec;
-    [SerializeField]Vector3 oldPosition;
+    [SerializeField] public Vector3 oldPosition;
+    [SerializeField] public Vector3 defaultScale;
+
+    Vector3 origin;
+    Vector3 end;
 
     //--- MonoBehavior --------------------------
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         rigidbody = this.GetComponent<Rigidbody>();
         oldPosition = this.transform.position;
-	}
+        defaultScale = this.transform.lossyScale;
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         Get_Input();
+
+        Vector3 lossScale = transform.lossyScale;
+        Vector3 localScale = transform.localScale;
+        transform.localScale = new Vector3(
+                localScale.x / lossScale.x * defaultScale.x,
+                localScale.y / lossScale.y * defaultScale.y,
+                localScale.z / lossScale.z * defaultScale.z
+        );
     }
 
     void FixedUpdate()
     {
-        Get_RayCast();
         MoveVec = MoveDirection();
+        Get_RayCast();
         Move(MoveVec);
     }
 
@@ -78,13 +93,54 @@ public class PlanetWalker : MonoBehaviour {
     //RayCast
     void Get_RayCast()
     {
-        Vector3 origin = this.transform.position + (rigidbody.velocity.normalized * castDistance) + (this.transform.up * castHeight);
+        onGround = false;
+        float maxAngle = 40.0f;
 
-        Debug.DrawRay(origin, -this.transform.up * rayLength, Color.red);
-        if (Physics.Raycast(origin, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
+        Vector3 velocity = transform.InverseTransformDirection(rigidbody.velocity);
+        velocity.y = 0.0f;
+        velocity = transform.TransformDirection(velocity);
+
+        Vector3 movePos = this.transform.position + (velocity.normalized * castDistance);
+        Vector3 rayPos = this.transform.position + (velocity.normalized * (castDistance * 0.5f)) + (this.transform.up * rayStartPosition);
+        origin = movePos + (this.transform.up * rayStartPosition);
+        end = movePos + (this.transform.up * rayEndPosition);
+        float rayLength = rayStartPosition - rayEndPosition;
+
+        Debug.DrawRay(rayPos, -transform.up * rayLength, Color.red);
+
+        if (Physics.SphereCast(origin, rayRadius, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
+        {
+            end = casthit.point;
+            float sphereNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
+            if (sphereNormalAngle > maxAngle)
+            {
+                if (Physics.Raycast(rayPos, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer))
+                {
+                    float rayNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
+                    // 当たった法線が一定以上なら進めない
+                    if (rayNormalAngle > maxAngle)
+                    {
+                        Vector3 right = transform.position + Vector3.Cross(transform.up, velocity.normalized) * 0.3f + (this.transform.up * rayStartPosition);
+                        Vector3 left = transform.position - Vector3.Cross(transform.up, velocity.normalized) * 0.3f + (this.transform.up * rayStartPosition);
+                        Debug.DrawRay(right, -transform.up * rayLength, Color.red);
+                        Debug.DrawRay(left, -transform.up * rayLength, Color.red);
+                        if (!(Physics.Raycast(right, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer) &&
+                              Physics.Raycast(left, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer)))
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
             onGround = true;
-        else
-            onGround = false;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(origin, rayRadius);
+        Gizmos.DrawWireSphere(end, rayRadius);
+        Gizmos.DrawLine(origin, end);
     }
 
     //MoveDirection
@@ -100,16 +156,26 @@ public class PlanetWalker : MonoBehaviour {
     {
         rigidbody.AddForce(VelocityChanger(MoveDir * speed), ForceMode.VelocityChange);
 
-        if (!onGround)
-            this.transform.position = oldPosition;
+        if(transform.parent)
+        {
+            if (!onGround)
+            {
+                rigidbody.AddForce(-rigidbody.velocity);
+            }
+            
+               // oldPosition = this.transform.localPosition;
+        }
         else
-            oldPosition = this.transform.position;
-
-        return;
+        {
+            if (!onGround)
+                this.transform.position = oldPosition;
+            else
+                oldPosition = this.transform.position;
+        }
     }
 
-    //VelocityChanger 未使用
-    Vector3 VelocityChanger(Vector3 targetVelocity)
+    //VelocityChanger
+    public Vector3 VelocityChanger(Vector3 targetVelocity)
     {
         Vector3 velocity = transform.InverseTransformDirection(rigidbody.velocity);
         velocity.y = 0f;
