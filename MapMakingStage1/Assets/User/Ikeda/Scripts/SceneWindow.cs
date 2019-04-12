@@ -28,13 +28,18 @@ public static class SceneIndex
     [MenuItem("User/Ikeda/Window/SceneWindow")]
     public static void ShowWindow()
     {
+        
+        //Show existing window instance. If one doesn't exist, make one.
+        EditorWindow.GetWindow(typeof(SceneWindow));
+    }
+
+    private void Awake()
+    {
         //EditorBuildSettingsに設定してあるSceneを読み込む
-        foreach(var scene in EditorBuildSettings.scenes)
+        foreach (var scene in EditorBuildSettings.scenes)
         {
             m_SceneAssets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
         }
-        //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(SceneWindow));
     }
 
     void OnGUI()
@@ -54,8 +59,8 @@ public static class SceneIndex
 
         GUILayout.Space(8);
 
-        if (GUILayout.Button("Clear",GUILayout.Width(200f))) m_SceneAssets.Clear();
-
+        if (GUILayout.Button("ReLoad", GUILayout.Width(200f))) ReLoad();
+        if (GUILayout.Button("Clear", GUILayout.Width(200f))) m_SceneAssets.Clear();
     }
 
     public void SetEditorBuildSettingsScenes()
@@ -91,5 +96,14 @@ public static class SceneIndex
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
     }
 
+    public void ReLoad()
+    {
+        m_SceneAssets.Clear();
 
+        //EditorBuildSettingsに設定してあるSceneを読み込む
+        foreach (var scene in EditorBuildSettings.scenes)
+        {
+            m_SceneAssets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+        }
+    }
 }
