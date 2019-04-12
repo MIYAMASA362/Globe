@@ -36,9 +36,7 @@ namespace SA
 
 		public GameObject body;
 
-
 		public Vector3 gravityDirection;
-		public Transform gravityCenter;
 
 		
 		//------------------------------------------
@@ -60,10 +58,10 @@ namespace SA
 			transform.position = targetPosition;
 
 
-			
 
+            Vector3 planetPosition = RotationManager.Instance.planetTransform.position;
 
-			gravityDirection = (transform.position - gravityCenter.position);
+			gravityDirection = (transform.position - planetPosition);
 			gravityDirection.Normalize();
 
 			Quaternion q = Quaternion.FromToRotation(-transform.up, -gravityDirection);

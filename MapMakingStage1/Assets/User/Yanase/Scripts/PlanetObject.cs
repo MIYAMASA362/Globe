@@ -7,12 +7,11 @@ using SA;
 public class PlanetObject : MonoBehaviour
 {
     public Vector3 moveDir = Vector3.zero;
-    public float speed = 1.0f;
     public float maxVelocityChange = 10.0f;
     [SerializeField] LayerMask Hitlayer;
     [SerializeField] private float rayDistance = 0.5f;
-    [SerializeField] private float rayBigin = 0.75f;
-    [SerializeField] private float rayEnd = 0.5f;
+    [SerializeField] private float rayBigin = 0.2f;
+    [SerializeField] private float rayEnd = -0.2f;
 
 
     private Rigidbody rigidbody = null;
@@ -23,6 +22,11 @@ public class PlanetObject : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        rigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotationY;
+        rigidbody.useGravity = false;
+        rigidbody.drag = 3;
+        rigidbody.angularDrag = 999;
     }
 
     void Update()
@@ -63,18 +67,7 @@ public class PlanetObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //if(other.gameObject.layer == LayerMask.NameToLayer("Character"))
-        //{
-        //    Debug.Log("Stay!!!");
-
-        //    Rigidbody otherRigid = other.GetComponent<Rigidbody>();
-        //    if (otherRigid == null) return;
-
-        //    Vector3 vec = this.rigidbody.velocity.normalized;
-        //    vec.y = 0f;
-
-        //    //otherRigid.AddForce(,ForceMode.VelocityChange);
-        //}
+        
     }
 
     //RayCast
