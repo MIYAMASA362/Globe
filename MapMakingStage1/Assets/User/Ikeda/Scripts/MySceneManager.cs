@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.IO;
 
-public class SceneManager : Singleton<SceneManager>
+public class MySceneManager : Singleton<MySceneManager>
 {
+    
+
+    //--- MonoBehavior ------------------------------------
+
     private void Start()
     {
         
@@ -13,6 +18,10 @@ public class SceneManager : Singleton<SceneManager>
 
     private void Update()
     {
-        
+
     }
+
+    //--- Method ------------------------------------------
+
+
 }
