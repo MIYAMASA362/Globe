@@ -153,8 +153,8 @@ public class PlanetWalker : MonoBehaviour {
         return;
     }
 
-    //VelocityChanger 未使用
-    Vector3 VelocityChanger(Vector3 targetVelocity)
+    //VelocityChanger
+    public Vector3 VelocityChanger(Vector3 targetVelocity)
     {
         Vector3 velocity = transform.InverseTransformDirection(rigidbody.velocity);
         velocity.y = 0f;
