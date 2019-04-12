@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 public class SceneWindow : EditorWindow
 {
-    List<SceneAsset> m_SceneAssets = new List<SceneAsset>();
+    static List<SceneAsset> m_SceneAssets = new List<SceneAsset>();
 
     private const string TEMPLATE =
 @"
@@ -24,10 +25,14 @@ public static class SceneIndex
 @"
     public static string {0} = ""{1}"";";
 
-
     [MenuItem("User/Ikeda/Window/SceneWindow")]
     public static void ShowWindow()
     {
+        //EditorBuildSettingsに設定してあるSceneを読み込む
+        foreach(var scene in EditorBuildSettings.scenes)
+        {
+            m_SceneAssets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.path));
+        }
         //Show existing window instance. If one doesn't exist, make one.
         EditorWindow.GetWindow(typeof(SceneWindow));
     }
@@ -66,7 +71,7 @@ public static class SceneIndex
             {
                 editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(scenePath, true));
 
-                NameIndex += string.Format(NAME_STRING, sceneAsset.name.Replace(" ", "_"), sceneAsset.name);
+                NameIndex += string.Format(NAME_STRING, sceneAsset.name.Replace(" ", "_"), scenePath);
             }
         }
 
@@ -85,4 +90,6 @@ public static class SceneIndex
         // Set the Build Settings window Scene list
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
     }
+
+
 }

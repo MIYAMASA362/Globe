@@ -7,5 +7,8 @@ public static class SceneIndex
 {
     //This string will be registered by pushing [Apply To Build Settings] button
     
-    public static string ManagerScene = "ManagerScene";
+    public static string Title = "Assets/User/Ikeda/Scenes/Title.unity";
+    public static string ManagerScene = "Assets/User/Ikeda/Scenes/ManagerScene.unity";
+    public static string Pause = "Assets/User/Ikeda/Scenes/Pause.unity";
+    public static string Ikeda_PlanetScene = "Assets/User/Ikeda/Scenes/Ikeda_PlanetScene.unity";
 }
