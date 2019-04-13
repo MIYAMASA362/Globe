@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class DecreaseObject : MonoBehaviour {
 
+    //オブジェクトを消す（作用）させることができるギミックのタグ
     [Tag] public string Tag;
+
     [SerializeField] float value = 0f;
-    [SerializeField] Transform ScaleDown;
+  //  [SerializeField] Transform ScaleDown;
 
     float InitValue = 0f;
     Vector3 InitScale = Vector3.zero;
@@ -17,14 +19,14 @@ public class DecreaseObject : MonoBehaviour {
     void Start () {
 
         InitValue = value;
-        InitScale = ScaleDown.localScale;
+        InitScale = this.gameObject.transform.localScale;
     }
 
     // Update is called once per frame
     void Update () {
 
-        this.ScaleDown.localScale = InitScale * Mathf.Min(value / InitValue, 1f);
-
+       // this.ScaleDown.localScale = InitScale * Mathf.Min(value / InitValue, 1f);
+        this.gameObject.transform.localScale = InitScale * Mathf.Min(value / InitValue, 1f);
         if (value <= 0f)
         {
             this.gameObject.SetActive(false);
