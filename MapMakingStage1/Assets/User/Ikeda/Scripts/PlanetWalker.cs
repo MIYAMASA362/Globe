@@ -37,7 +37,8 @@ public class PlanetWalker : MonoBehaviour {
 
     //Move
     Vector3 MoveVec;
-    [SerializeField]Vector3 oldPosition;
+    [SerializeField] public Vector3 oldPosition;
+    [SerializeField] public Vector3 defaultScale;
 
     Vector3 origin;
     Vector3 end;
@@ -49,12 +50,22 @@ public class PlanetWalker : MonoBehaviour {
     {
         rigidbody = this.GetComponent<Rigidbody>();
         oldPosition = this.transform.position;
-	}
+        defaultScale = this.transform.lossyScale;
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         Get_Input();
+
+        Vector3 lossScale = transform.lossyScale;
+        Vector3 localScale = transform.localScale;
+        transform.localScale = new Vector3(
+                localScale.x / lossScale.x * defaultScale.x,
+                localScale.y / lossScale.y * defaultScale.y,
+                localScale.z / lossScale.z * defaultScale.z
+        );
     }
 
     void FixedUpdate()
@@ -145,12 +156,22 @@ public class PlanetWalker : MonoBehaviour {
     {
         rigidbody.AddForce(VelocityChanger(MoveDir * speed), ForceMode.VelocityChange);
 
-        if (!onGround)
-            this.transform.position = oldPosition;
+        if(transform.parent)
+        {
+            if (!onGround)
+            {
+                rigidbody.AddForce(-rigidbody.velocity);
+            }
+            
+               // oldPosition = this.transform.localPosition;
+        }
         else
-            oldPosition = this.transform.position;
-
-        return;
+        {
+            if (!onGround)
+                this.transform.position = oldPosition;
+            else
+                oldPosition = this.transform.position;
+        }
     }
 
     //VelocityChanger

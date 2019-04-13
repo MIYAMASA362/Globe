@@ -66,8 +66,8 @@ namespace SA
 
             SetupAnimator();
             rigid = GetComponent<Rigidbody>();
-            // rigid.angularDrag = 999;
-            // rigid.drag = 4;
+            rigid.angularDrag = 999;
+            rigid.drag = 3;
             rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             gameObject.layer = 8;
@@ -172,6 +172,8 @@ namespace SA
 
                 // 設置軸の上にいるかどうか
                 OnAxis = JudgeAxis(hit.collider.gameObject);
+
+                SetParent(hit.collider.gameObject);
             }
 
             return r;
@@ -184,6 +186,23 @@ namespace SA
             axisTransform = hitObject.transform;
 
             return true;
+        }
+
+        private void SetParent(GameObject hitObject)
+        {
+            Transform parent = hitObject.transform.parent;
+            
+            if (parent)
+            {
+                Rigidbody castRigid = parent.GetComponent<Rigidbody>();
+                if (castRigid)
+                {
+                    transform.parent = parent;
+                    return;
+                }
+            }
+
+            transform.parent = null;
         }
 
         public void Tick(float d)
