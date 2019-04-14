@@ -772,7 +772,6 @@ GameObject:
   - component: {fileID: 568480667}
   - component: {fileID: 568480669}
   - component: {fileID: 568480670}
-  - component: {fileID: 568480671}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -839,17 +838,6 @@ MonoBehaviour:
   rotationTarget: {fileID: 1937713485}
   accelSpeed: 30
   maxSpeed: 30
---- !u!114 &568480671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 568480666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &600757073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,7 +1934,6 @@ MonoBehaviour:
     m_Bits: 1335
   groundNormal: {x: 0, y: 0, z: 0}
   raycastTransform: {fileID: 1189688555}
-  gravityCenter: {fileID: 1612694791}
   gravityDirection: {x: 0, y: 0, z: 0}
   gravity: 30
   newMov: 0
@@ -1997,10 +1984,11 @@ MonoBehaviour:
     m_Bits: 1024
   speed: 1
   runSpeed: 7
-  castDistance: 0.2
   maxVelocityChange: 5
-  rayLength: 0.9
-  castHeight: 0.5
+  castDistance: 0.2
+  rayStartPosition: 0.4
+  rayEndPosition: -0.5
+  rayRadius: 0.025
   onGround: 0
   normalvsAngle: 0
   oldPosition: {x: 0, y: 0, z: 0}
@@ -3261,6 +3249,7 @@ GameObject:
   - component: {fileID: 1900677366}
   - component: {fileID: 1900677365}
   - component: {fileID: 1900677364}
+  - component: {fileID: 1900677368}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3324,6 +3313,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900677368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1900677363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029fefb2632be2c48bebababc510185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPausing: 1
+  Next_Scene: 3
+  Next_SceneIndex: 
+  TransCode: 9
+  SelectUp: 97
+  SelectDown: 100
 --- !u!1 &1907785063
 GameObject:
   m_ObjectHideFlags: 0
