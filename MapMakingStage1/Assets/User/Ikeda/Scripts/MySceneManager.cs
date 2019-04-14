@@ -37,13 +37,13 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void Update()
     {
-        
-    }
+
+    }       //No Coding
 
     private void LateUpdate()
     {
 
-    }
+    }   //No Coding
 
     //--- Method ------------------------------------------
 
