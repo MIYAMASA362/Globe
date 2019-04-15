@@ -29,8 +29,6 @@ public class InputHandler : MonoBehaviour {
 
 		//camManager = //Camera.main.transform.gameObject.GetComponent<CameraManager>();
 		camManager.Init(CameraPivot.transform);
-		
-
 	}//Start end 
 	//------------------------------------------
 	void FixedUpdate()

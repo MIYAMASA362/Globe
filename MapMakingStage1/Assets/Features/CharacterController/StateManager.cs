@@ -132,10 +132,7 @@ namespace SA
             Quaternion tr = Quaternion.LookRotation(targetDir);
             targetRotation = Quaternion.Slerp(transform.rotation, tr, delta * (moveAmount * moveAmountMult) * turnSpeed);
 
-
             transform.rotation = targetRotation;
-
-            // transform.rotation = targetRotation;
 
             HandleMovementAnimations();
 
