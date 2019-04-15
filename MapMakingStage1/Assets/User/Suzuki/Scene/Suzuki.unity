@@ -1219,7 +1219,6 @@ MonoBehaviour:
   z: 0
   body: {fileID: 0}
   gravityDirection: {x: 0, y: 0, z: 0}
-  gravityCenter: {fileID: 0}
 --- !u!1 &740259018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,6 +2096,7 @@ MonoBehaviour:
   onGround: 0
   normalvsAngle: 0
   oldPosition: {x: 0, y: 0, z: 0}
+  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!114 &1136673567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2175,12 +2175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: Rain
   value: 1
-  ScaleDown: {fileID: 1182164383}
---- !u!4 &1182164383 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4022685598443072, guid: d8cd7fe4c8a3ee34b91c9071ec65ee85,
-    type: 2}
-  m_PrefabInternal: {fileID: 106644657}
+  reducedSpeed: 0.01
 --- !u!136 &1182164384
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2752,7 +2747,6 @@ MonoBehaviour:
   z: 0
   body: {fileID: 1404924836}
   gravityDirection: {x: -0.57746536, y: -0.21862039, z: 0.78659964}
-  gravityCenter: {fileID: 1882694438}
 --- !u!4 &1577312537
 Transform:
   m_ObjectHideFlags: 0
