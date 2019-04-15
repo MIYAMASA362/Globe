@@ -9,7 +9,7 @@ public class PlanetObject : MonoBehaviour
     public Vector3 moveDir = Vector3.zero;
     public float maxVelocityChange = 10.0f;
     [SerializeField] LayerMask Hitlayer;
-    [SerializeField] private float rayDistance = 0.5f;
+    [SerializeField] private float rayDistance = 0.4f;
     [SerializeField] private float rayBigin = 0.2f;
     [SerializeField] private float rayEnd = -0.2f;
 

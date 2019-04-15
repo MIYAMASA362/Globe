@@ -18,9 +18,9 @@ public class PlanetWalker : MonoBehaviour {
     [SerializeField] float runSpeed = 7f;
     [SerializeField] float maxVelocityChange = 0.5f;
     [SerializeField] float castDistance = 0.15f;
-    [SerializeField] float rayStartPosition = 0.4f;
+    [SerializeField] float rayStartPosition = 0.3f;
     [SerializeField] float rayEndPosition = -0.5f;
-    [SerializeField] float rayRadius = 0.025f;
+    [SerializeField] float rayRadius = 0.013f;
 
     [Header("Status")]
     [SerializeField] bool onGround = false;
@@ -40,8 +40,8 @@ public class PlanetWalker : MonoBehaviour {
     [SerializeField] public Vector3 oldPosition;
     [SerializeField] public Vector3 defaultScale;
 
-    Vector3 origin;
-    Vector3 end;
+    private Vector3 origin;
+    private Vector3 end;
 
     //--- MonoBehavior --------------------------
 
@@ -114,7 +114,7 @@ public class PlanetWalker : MonoBehaviour {
             float sphereNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
             if (sphereNormalAngle > maxAngle)
             {
-                if (Physics.Raycast(rayPos, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer))
+                if (Physics.Raycast(rayPos, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
                 {
                     float rayNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
                     // 当たった法線が一定以上なら進めない
@@ -159,11 +159,9 @@ public class PlanetWalker : MonoBehaviour {
         if(transform.parent)
         {
             if (!onGround)
-            {
-                rigidbody.AddForce(-rigidbody.velocity);
-            }
-            
-               // oldPosition = this.transform.localPosition;
+                this.transform.localPosition = oldPosition;
+            else
+                oldPosition = this.transform.localPosition;
         }
         else
         {
