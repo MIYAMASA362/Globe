@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class RotationManager : Singleton<RotationManager> {
 
-    [SerializeField, Header("星")]
-    private Transform corePlanet = null;
-    [SerializeField, Header("回転させるオブジェクト")]
-    private Transform rotationTarget = null;
-    [SerializeField, Header("回転加速度")]
-    private float accelSpeed = 1.0f;
-    [SerializeField, Header("回転最高速度")]
-    private float maxSpeed = 1.0f;
+    [SerializeField] private Transform corePlanet = null;
+    [SerializeField] private Transform rotationTarget = null;
+    [SerializeField] private float accelSpeed = 1.0f;
+    [SerializeField] private float maxSpeed = 1.0f;
 
     private float rotationSpeed = 0.0f;
     private bool isRotation = false;
