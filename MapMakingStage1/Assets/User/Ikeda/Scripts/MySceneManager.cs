@@ -32,18 +32,19 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void Start()
     {
-        SceneManager.LoadScene(Title_Scene);        //初期読み込み
+        SceneManager.LoadScene(Title_Scene);    //初期読み込み
     }
 
     private void Update()
     {
+        bPausing = SceneManager.GetSceneByPath(Pause_Scene).isLoaded;
+    }
 
-    }       //No Coding
-
+    //No Coding
     private void LateUpdate()
     {
 
-    }   //No Coding
+    }   
 
     //--- Method ------------------------------------------
 
@@ -54,18 +55,12 @@ public class MySceneManager : Singleton<MySceneManager>
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
         //Pause状態とbEnableが逆であるのか
-        if (SceneManager.GetSceneByPath(Pause_Scene).isLoaded != bEnable)
+        if (bPausing != bEnable)
         {
             if (bEnable)
-            {
                 SceneManager.LoadScene(Pause_Scene, LoadSceneMode.Additive);
-                bPausing = true;
-            }
             else
-            {
                 SceneManager.UnloadSceneAsync(Pause_Scene);
-                bPausing = false;
-            }
         }
     }
 
