@@ -18,9 +18,9 @@ namespace SA
         [Header("Stats")]
         public float moveSpeed = 3;
         public float moveAmountMult = 0.3f;
-        public float runSpeed = 6;
         public float turnSpeed = 2;
-        public float toGround = .5f;
+        [SerializeField] float rayStartPosition = 0.4f;
+        [SerializeField] float rayEndPosition = -0.5f;
 
         public float angle;
         public Vector3 cross;
@@ -55,7 +55,6 @@ namespace SA
 
         public Transform camHolder;
 
-
         private Transform axisTransform = null;
         private GameObject axisObject = null;
 
@@ -89,7 +88,6 @@ namespace SA
                 else
                 {
                     activeModel = anim.gameObject;
-
                 }
             }
 
@@ -103,16 +101,6 @@ namespace SA
             delta = d;
             onGround = OnGround();
             Transform gravityCenter = RotationManager.Instance.planetTransform;
-
-            // vertical = Input.GetAxis("Vertical");
-            // horizontal = Input.GetAxis("Horizontal");
-
-            //rigid.drag = (moveAmount > 0  || onGround == false) ? 0 : 4; 
-
-            float targetSpeed = moveSpeed;
-            if (run)
-                targetSpeed = runSpeed;
-
 
             gravityDirection = (transform.position - gravityCenter.position).normalized;
 
@@ -157,26 +145,36 @@ namespace SA
 
         public bool OnGround()
         {
-            bool r = false;
+            bool isHit = false;
 
-            Vector3 origin = transform.position + (raycastTransform.TransformDirection(Vector3.up) * toGround);
-            Vector3 dir = raycastTransform.TransformDirection(-Vector3.up);
-            float dis = toGround + 0.3f;
+            Vector3 origin = transform.position + (raycastTransform.up * rayStartPosition);
+
+            float rayLength = rayStartPosition - rayEndPosition;
+            Vector3 dir = -raycastTransform.up * rayLength;
             RaycastHit hit;
-            Debug.DrawRay(origin, dir * dis);
-            if (Physics.Raycast(origin, dir, out hit, dis, ignoreLayers))
+
+            if (Physics.Raycast(origin, dir, out hit, rayLength, ignoreLayers))
             {
-                r = true;
-                Vector3 targetPosition = hit.point + (transform.up * 0.2f);
-                transform.position = targetPosition;//Vector3.Lerp
+                if(hit.collider.isTrigger)
+                {
+                    isHit = false;
+                }
+                else
+                {
+                    isHit = true;
+                    Vector3 targetPosition = hit.point + (transform.up * 0.2f);
+                    transform.position = targetPosition;//Vector3.Lerp
 
-                // 設置軸の上にいるかどうか
-                OnAxis = JudgeAxis(hit.collider.gameObject);
+                    // 設置軸の上にいるかどうか
+                    OnAxis = JudgeAxis(hit.collider.gameObject);
 
-                SetParent(hit.collider.gameObject);
+                    SetParent(hit.collider.gameObject);
+                }
             }
 
-            return r;
+            if(!isHit) transform.parent = null;
+
+            return isHit;
         }
 
         private bool JudgeAxis(GameObject hitObject)
@@ -200,6 +198,12 @@ namespace SA
                     transform.parent = parent;
                     return;
                 }
+            }
+            if (transform.parent && hitObject.layer.ToString() == "Water")
+            {
+                Debug.Log("WaterHIt");
+                PlanetWalker planetWalker = GetComponent<PlanetWalker>();
+                transform.localPosition = planetWalker.oldPosition;
             }
 
             transform.parent = null;

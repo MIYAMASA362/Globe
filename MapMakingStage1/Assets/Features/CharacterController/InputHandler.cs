@@ -13,7 +13,7 @@ public class InputHandler : MonoBehaviour {
 
 	StateManager states;
 
-	public CameraManager camManager;
+	public CharacterCamera camManager;
 	public float delta;
 	public GameObject pi;
 
