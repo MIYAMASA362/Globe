@@ -9,16 +9,67 @@ using System.IO;
 //んで、読み込んだSceneをちゃんと精査しろ！って骨に彫ってやる。
 public class MySceneManager : Singleton<MySceneManager>
 {
+    [System.Serializable]
+    public class Galaxy
+    {
+        [Tooltip("銀河")]
+        public SceneAsset Asset_Galaxy;
+        [Tooltip("惑星")]
+        public SceneAsset[] Asset_Planets;
+    }
+
     //--- Attribute ---------------------------------------
+
+    //--- public --------------------------------
 
     //--- private -------------------------------
 
-    //共通化されいてるべきScene
-    private static readonly string Title_Scene = SceneIndex.Ikeda_PlanetScene;
-    private static readonly string Pause_Scene = SceneIndex.Pause;
+    [SerializeField,Tooltip("マネージャー管理Scene")]
+    private SceneAsset Asset_ManagerScene;
+    [SerializeField,Tooltip("タイトル")]
+    private SceneAsset Asset_TitleScene;
+    [SerializeField,Tooltip("Pause画面")]
+    private SceneAsset Asset_PauseScene;
+    [SerializeField,Tooltip("銀河選択")]
+    public SceneAsset Asset_GalexySelect;
 
-    //--- Status ----------------------
-    private static bool bPausing = false;       //Pause中:true
+    [SerializeField, Tooltip("銀河")]
+    public Galaxy[] galaxies;
+
+    public static string TitleScene
+    {
+        get;
+        private set;
+    }
+    public static string PauseScene
+    {
+        get;
+        private set;
+    }
+    public static string GalaxySelect
+    {
+        get;
+        private set;
+    }
+
+    public static bool bPausing
+    {
+        get;
+        private set;
+    }   //Pause中:true
+    public static int nMaxGalaxyNum
+    {
+        get;
+        private set;
+    }
+    public static int nMaxPlanetNum
+    {
+        get;
+        private set;
+    }
+
+    public static int nSelecter_Galaxy = 0;
+    public static int nSelecter_Planet = 0;
 
     //--- MonoBehavior ------------------------------------
 
@@ -27,23 +78,33 @@ public class MySceneManager : Singleton<MySceneManager>
         //Awake に SceneManagerの関数などを使うとバグにつながる。
         //現象：Sceneが二重にロードされる
 
+        nMaxGalaxyNum = galaxies.Length;
         DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        SceneManager.LoadScene(Title_Scene);    //初期読み込み
+        bPausing = false;
+
+        TitleScene = AssetDatabase.GetAssetPath(Asset_TitleScene);
+        PauseScene = AssetDatabase.GetAssetPath(Asset_PauseScene);
+        GalaxySelect = AssetDatabase.GetAssetPath(Asset_GalexySelect);
+
+        SceneManager.LoadScene(TitleScene);    //初期読み込み
     }
 
     private void Update()
     {
-        bPausing = SceneManager.GetSceneByPath(Pause_Scene).isLoaded;
+        bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
     }
 
-    //No Coding
     private void LateUpdate()
     {
-
+        nMaxPlanetNum = MySceneManager.Instance.galaxies[nSelecter_Galaxy].Asset_Planets.Length;
+        if (bPausing)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }   
 
     //--- Method ------------------------------------------
@@ -58,50 +119,47 @@ public class MySceneManager : Singleton<MySceneManager>
         if (bPausing != bEnable)
         {
             if (bEnable)
-                SceneManager.LoadScene(Pause_Scene, LoadSceneMode.Additive);
+                SceneManager.LoadScene(PauseScene,LoadSceneMode.Additive);
             else
-                SceneManager.UnloadSceneAsync(Pause_Scene);
+                SceneManager.UnloadSceneAsync(PauseScene);
         }
     }
 
-    public static void Pause()
+    public static void Load_Planet()
     {
-        //Pause切り替え
-        Pause(!bPausing);
+        SceneManager.LoadScene(AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]));
     }
 
-    //SceneManagerが良くわかない人が使う LoadScene
-    //  path:   SceneIndex.ooo 読み込みたいシーン
-    //  bAdd:   シーンを上に重ねるか[重ねる:true]
-    //  bAsync: 非同期で読み込み[非同期:true]
-    public static void LoadScene(string path, bool bAdd, bool bAsync)
+    public static void Load_Galaxy()
     {
-        if (bAdd)
+        SceneManager.LoadScene(AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Galaxy));
+    }
+
+    public static void Next_LoadPlanet()
+    {
+        nSelecter_Planet++;
+
+        //それ以上ない
+        if (nSelecter_Planet >= nMaxPlanetNum)
         {
-            if (bAsync) SceneManager.LoadSceneAsync(path, LoadSceneMode.Additive);
-            else SceneManager.LoadScene(path, LoadSceneMode.Additive);
+            Load_Galaxy();
+            return;
         }
-        else
+
+        Load_Planet();
+    }
+
+    public static void Next_LoadGalaxy()
+    {
+        nSelecter_Galaxy++;
+
+        //それ以上ない
+        if(nSelecter_Galaxy >= nMaxGalaxyNum)
         {
-            if (bAsync) SceneManager.LoadSceneAsync(path, LoadSceneMode.Single);
-            else SceneManager.LoadScene(path, LoadSceneMode.Single);
+            SceneManager.LoadScene(TitleScene);
+            return;
         }
-    }
 
-    public static void LoadScene(SceneIndex.ENUM_SCENE eNUM, bool bAdd, bool bAsync)
-    {
-        LoadScene(SceneIndex.Path_Index[(int)eNUM], bAdd,bAsync);
+        Load_Galaxy();
     }
-
-    //SceneManagerが良く分からない人が使う UnLoadScene
-    public static void UnLoadScene(string path)
-    {
-        SceneManager.UnloadSceneAsync(path);
-    }
-
-    public static void UnLoadScene(SceneIndex.ENUM_SCENE eNUM)
-    {
-        UnLoadScene(SceneIndex.Path_Index[(int)eNUM]);
-    }
-
 }
