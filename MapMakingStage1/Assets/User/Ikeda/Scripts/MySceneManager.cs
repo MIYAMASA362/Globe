@@ -162,4 +162,54 @@ public class MySceneManager : Singleton<MySceneManager>
 
         Load_Galaxy();
     }
+
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(MySceneManager))]
+    class ThisEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            GUILayout.Space(4);
+            if (GUILayout.Button("Apply To Build Settings")) BuildSetting();
+        }
+
+        public void BuildSetting()
+        {
+            var mySceneManager = target as MySceneManager;
+
+            List<EditorBuildSettingsScene> editorBuildSettingsScenes = new List<EditorBuildSettingsScene>();
+
+            //Manager Register
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_ManagerScene),true));
+
+            //Title Register
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_TitleScene), true));
+
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_PauseScene), true));
+
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_GalexySelect), true));
+
+            foreach (var galaxy in mySceneManager.galaxies)
+            {
+                string galaxyPath = AssetDatabase.GetAssetPath(galaxy.Asset_Galaxy);
+                if (!string.IsNullOrEmpty(galaxyPath))
+                {
+                    editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(galaxyPath, true));
+
+                    foreach (var planet in galaxy.Asset_Planets)
+                    {
+                        string planetPath = AssetDatabase.GetAssetPath(planet);
+                        if(!string.IsNullOrEmpty(planetPath))
+                            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(planetPath, true));
+                    }
+                }
+            }
+
+            EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
+
+            Debug.Log("Success!");
+        }
+    }
 }
