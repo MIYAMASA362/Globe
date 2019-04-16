@@ -59,7 +59,7 @@ public class RotationManager : Singleton<RotationManager> {
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
 
-            quaternion = Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, axisTransform.up);
+            quaternion = Quaternion.AngleAxis(-rotationSpeed * Time.deltaTime, axisTransform.up);
             // 回転値を合成
             axisTransform.rotation = quaternion * axisTransform.rotation;
             rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
@@ -76,7 +76,7 @@ public class RotationManager : Singleton<RotationManager> {
             return Vector3.zero;
 
         Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * (rotationSpeed * Time.deltaTime);
+        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * ((rotationSpeed * 1.5f) * Time.deltaTime);
 
         return moveDir;
     }

@@ -186,7 +186,7 @@ namespace SA
         private void SetParent(GameObject hitObject)
         {
             Transform parent = hitObject.transform.parent;
-            
+
             if (parent)
             {
                 Rigidbody castRigid = parent.GetComponent<Rigidbody>();
@@ -196,14 +196,17 @@ namespace SA
                     return;
                 }
             }
+
             if (transform.parent && hitObject.layer.ToString() == "Water")
             {
-                Debug.Log("WaterHIt");
                 PlanetWalker planetWalker = GetComponent<PlanetWalker>();
                 transform.localPosition = planetWalker.oldPosition;
+                planetWalker.oldPosition = transform.position;
             }
-
-            transform.parent = null;
+            else
+            {
+                transform.parent = null;
+            }
         }
 
         public void Tick(float d)

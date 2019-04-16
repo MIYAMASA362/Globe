@@ -10,11 +10,11 @@ namespace SA
         public Transform rotationPivot;
         public Transform cameraTransform;
 
-        public float followSpeed = 9;
-        public float mouseSpeed = 2;
+        public float followSpeed = 6;
+        public float mouseSpeed = 3;
         
-        public float minAngle = -35;
-        public float maxAngle = 35;
+        public float minAngle = -5;
+        public float maxAngle = 50;
         public float distance = 1.6f;
 
         public float lookAngle;

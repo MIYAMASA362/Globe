@@ -120,12 +120,12 @@ public class PlanetWalker : MonoBehaviour {
                     // 当たった法線が一定以上なら進めない
                     if (rayNormalAngle > maxAngle)
                     {
-                        Vector3 right = transform.position + Vector3.Cross(transform.up, velocity.normalized) * 0.3f + (this.transform.up * rayStartPosition);
-                        Vector3 left = transform.position - Vector3.Cross(transform.up, velocity.normalized) * 0.3f + (this.transform.up * rayStartPosition);
+                        Vector3 right = transform.position + Vector3.Cross(transform.up, velocity.normalized) * 0.2f + (this.transform.up * rayStartPosition);
+                        Vector3 left = transform.position - Vector3.Cross(transform.up, velocity.normalized) * 0.2f + (this.transform.up * rayStartPosition);
                         Debug.DrawRay(right, -transform.up * rayLength, Color.red);
                         Debug.DrawRay(left, -transform.up * rayLength, Color.red);
-                        if (!(Physics.Raycast(right, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer) &&
-                              Physics.Raycast(left, -this.transform.up * rayLength * 1.5f, out casthit, rayLength * 1.5f, Hitlayer)))
+                        if (!(Physics.Raycast(right, -this.transform.up * rayLength, out casthit, rayLength * 1.5f, Hitlayer) &&
+                              Physics.Raycast(left, -this.transform.up * rayLength, out casthit, rayLength * 1.5f, Hitlayer)))
                         {
                             return;
                         }
