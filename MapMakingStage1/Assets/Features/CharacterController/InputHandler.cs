@@ -13,7 +13,7 @@ public class InputHandler : MonoBehaviour {
 
 	StateManager states;
 
-	public CameraManager camManager;
+	public CharacterCamera camManager;
 	public float delta;
 	public GameObject pi;
 
@@ -29,8 +29,6 @@ public class InputHandler : MonoBehaviour {
 
 		//camManager = //Camera.main.transform.gameObject.GetComponent<CameraManager>();
 		camManager.Init(CameraPivot.transform);
-		
-
 	}//Start end 
 	//------------------------------------------
 	void FixedUpdate()
