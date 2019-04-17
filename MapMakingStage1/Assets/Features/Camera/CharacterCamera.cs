@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SA
+namespace FrameWork.Camera
 {
     public class CharacterCamera : MonoBehaviour
     {
