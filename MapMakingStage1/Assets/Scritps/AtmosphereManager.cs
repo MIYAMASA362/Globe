@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrameWork.Camera;
 
 public class AtmosphereManager : MonoBehaviour {
 
