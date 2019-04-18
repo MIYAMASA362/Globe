@@ -21,7 +21,7 @@ public class PauseScene : SceneBase
         ReSetGalaxy = false;
         ReternTitle = false;
 
-        tm_StateName.text = SceneManager.GetActiveScene().name;
+        tm_StateName.text = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 	
 	// Update is called once per frame
