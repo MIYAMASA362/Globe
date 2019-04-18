@@ -165,7 +165,9 @@ namespace SA
                     // 設置軸の上にいるかどうか
                     OnAxis = JudgeAxis(hit.collider.gameObject);
 
-                    SetParent(hit.collider.gameObject);
+                    if(hit.collider.gameObject.tag != "Axis")
+                      transform.parent = hit.collider.transform;
+                    //SetParent(hit.collider.gameObject);
                 }
             }
 
