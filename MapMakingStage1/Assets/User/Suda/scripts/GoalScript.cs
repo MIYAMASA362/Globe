@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GoalScript : MonoBehaviour {
-    //ゴールテキスト
-    public GameObject goalObject;
 
 	// Use this for initialization
 	void Start () {
-        goalObject.SetActive(false);
+        
 	}
 
+    //ゴールに触れたとき処理
     private void OnTriggerEnter(Collider collider)
     {
         if(collider.gameObject.name== "Character")
         {
+            //ゴール後処理(シーン遷移)
             Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
         }
     }
