@@ -15,26 +15,19 @@ namespace SA
         public GameObject pi;
 
         public Transform CameraPivot;
-
         private StateManager states;
-        private CharacterCamera characterCamera;
-
+        CharacterCamera characterCamera;
         //------------------------------------------
         //------------------------------------------
         void Start()
         {
-
             states = GetComponent<StateManager>();
             states.Init();
-            
-            characterCamera.Init(CameraPivot.transform);
+           
         }//Start end 
          //------------------------------------------
         void FixedUpdate()
         {
-            if(!characterCamera)
-                characterCamera = CameraManager.Instance.characterCamera.GetComponent<CharacterCamera>();
-
             delta = Time.fixedDeltaTime;
             GetInput();
             UpdateStates();
@@ -44,6 +37,12 @@ namespace SA
          //------------------------------------------
         void Update()
         {
+            if (!characterCamera)
+            {
+                characterCamera = CameraManager.Instance.characterCamera.GetComponent<CharacterCamera>();
+                characterCamera.Init(CameraPivot.transform);
+            }
+
             delta = Time.deltaTime;
             states.Tick(delta);
         }
