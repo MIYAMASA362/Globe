@@ -25,7 +25,10 @@ public class DecreaseObject : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        this.gameObject.transform.localScale = InitScale * Mathf.Min(value / InitValue, 1f);
+        float v = value / InitValue;
+        if(v < 0.5f) value -= reducedSpeed;
+
+        this.gameObject.transform.localScale = InitScale * Mathf.Min(v, 1f);
         if (value <= 0f)
         {
             this.gameObject.SetActive(false);
@@ -38,7 +41,6 @@ public class DecreaseObject : MonoBehaviour {
     {
         if (other.transform.tag == Tag)
         {
-
             value -= reducedSpeed;
         }
     }

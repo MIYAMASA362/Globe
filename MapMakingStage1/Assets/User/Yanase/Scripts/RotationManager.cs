@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class RotationManager : Singleton<RotationManager> {
 
-    [SerializeField, Header("星")]
-    private Transform corePlanet = null;
-    [SerializeField, Header("回転させるオブジェクト")]
-    private Transform rotationTarget = null;
-    [SerializeField, Header("回転加速度")]
-    private float accelSpeed = 1.0f;
-    [SerializeField, Header("回転最高速度")]
-    private float maxSpeed = 1.0f;
+    [SerializeField] private Transform corePlanet = null;
+    [SerializeField] private Transform rotationTarget = null;
+    [SerializeField] private float accelSpeed = 1.0f;
+    [SerializeField] private float maxSpeed = 1.0f;
 
     private float rotationSpeed = 0.0f;
     private bool isRotation = false;
@@ -63,7 +59,7 @@ public class RotationManager : Singleton<RotationManager> {
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
 
-            quaternion = Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, axisTransform.up);
+            quaternion = Quaternion.AngleAxis(-rotationSpeed * Time.deltaTime, axisTransform.up);
             // 回転値を合成
             axisTransform.rotation = quaternion * axisTransform.rotation;
             rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
@@ -80,7 +76,7 @@ public class RotationManager : Singleton<RotationManager> {
             return Vector3.zero;
 
         Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * (rotationSpeed * Time.deltaTime);
+        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * ((rotationSpeed * 1.5f) * Time.deltaTime);
 
         return moveDir;
     }
