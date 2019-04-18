@@ -22,7 +22,7 @@ public class PlanetScene :SceneBase {
 
         if (GameClear)
         {
-            MySceneManager.Next_LoadPlanet();
+            MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet());
         }
 	}
 }

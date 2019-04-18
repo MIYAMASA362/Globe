@@ -12,7 +12,7 @@ public class GalaxySelectScene : SceneBase {
 	public override void Start () {
         base.Start();
         nGalaxyNum = 0;
-
+        MySceneManager.nSelecter_Galaxy = nGalaxyNum;
     }
 	
 	// Update is called once per frame
@@ -30,11 +30,13 @@ public class GalaxySelectScene : SceneBase {
         if (nGalaxyNum <= -1) nGalaxyNum = MySceneManager.nMaxGalaxyNum;
 
         nGalaxyNum = nGalaxyNum % MySceneManager.nMaxGalaxyNum;
-	}
+
+        if (Input.GetKeyDown(KeyCode.Return))LoadGalaxyScene();
+        MySceneManager.nSelecter_Galaxy = nGalaxyNum;
+    }
 
     public void LoadGalaxyScene()
     {
-        SceneManager.LoadScene(AssetDatabase.GetAssetPath(MySceneManager.Instance.galaxies[nGalaxyNum].Asset_Galaxy));
-        MySceneManager.nSelecter_Galaxy = nGalaxyNum;
+        MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy());
     }
 }
