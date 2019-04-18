@@ -39,7 +39,6 @@ public class OpeningScene : SceneBase {
 
             if (Input.anyKeyDown)
             {
-                videoPlayer.Stop();
                 MySceneManager.FadeInLoad(MySceneManager.TitleScene);
             }
         }
