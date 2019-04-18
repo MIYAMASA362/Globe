@@ -17,7 +17,7 @@ namespace SA
         public Transform CameraPivot;
 
         private StateManager states;
-        private CharacterCamera characterCamera;
+        public CharacterCamera characterCamera;
 
         //------------------------------------------
         //------------------------------------------
