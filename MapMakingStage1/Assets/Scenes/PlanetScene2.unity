@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 794828}
-  - component: {fileID: 794827}
+  - component: {fileID: 794826}
   m_Layer: 0
   m_Name: CharacterCamera
   m_TagString: Untagged
@@ -129,7 +129,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &794827
+--- !u!114 &794826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,13 +137,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 794825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49468895d562f4f47b568fa29435541b, type: 3}
+  m_Script: {fileID: 11500000, guid: cb1992c9c51e72f4cbcb4e2c2a9bb612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isChange: 0
-  keycode: 0
-  planetCamera: {fileID: 0}
-  characterCamera: {fileID: 0}
+  followTarget: {fileID: 2125911780}
+  rotationPivot: {fileID: 304885111}
+  cameraTransform: {fileID: 1418012514}
+  followSpeed: 6
+  mouseSpeed: 3
+  minAngle: -5
+  maxAngle: 50
+  distance: 1.6
+  lookAngle: 0
+  tiltAngle: 0
 --- !u!4 &794828
 Transform:
   m_ObjectHideFlags: 0
@@ -516,10 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49468895d562f4f47b568fa29435541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isChange: 0
-  keycode: 0
-  planetCamera: {fileID: 0}
-  characterCamera: {fileID: 0}
 --- !u!4 &189589329
 Transform:
   m_ObjectHideFlags: 0
@@ -906,6 +908,7 @@ GameObject:
   - component: {fileID: 568480667}
   - component: {fileID: 568480669}
   - component: {fileID: 568480670}
+  - component: {fileID: 568480671}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -972,6 +975,21 @@ MonoBehaviour:
   rotationTarget: {fileID: 651544848}
   accelSpeed: 2
   maxSpeed: 25
+--- !u!114 &568480671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 568480666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChange: 0
+  keycode: 0
+  planetCamera: {fileID: 1536838250}
+  characterCamera: {fileID: 794825}
 --- !u!1 &600757073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2015,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 109.99801
       objectReference: {fileID: 0}
+    - target: {fileID: 114885068520548688, guid: d520774a5030e9e4cb4345ee04386bb8,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d520774a5030e9e4cb4345ee04386bb8, type: 2}
   m_IsPrefabAsset: 0
@@ -2091,7 +2114,7 @@ MonoBehaviour:
   newMov: 0
   e: 0
   r: 0
-  camHolder: {fileID: 1278949711}
+  camHolder: {fileID: 1536838252}
 --- !u!54 &1189688551
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3050,6 +3073,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1534300292}
   m_Mesh: {fileID: 4300000, guid: 35b185ce8cde468428ea9b9dcfd32dff, type: 3}
+--- !u!1 &1536838250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536838252}
+  - component: {fileID: 1536838251}
+  m_Layer: 0
+  m_Name: PlanetCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1536838251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536838250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2742c26908270904889b50c11a67d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonName: Fire1
+  turnSpeed: 1.5
+  smoothness: 3
+  tiltAngle: 0
+  lookAngle: 0
+  canMove: 0
+--- !u!4 &1536838252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536838250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1588088389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1657467802385834, guid: a5ed9349addad604da4f7800d239013a,
