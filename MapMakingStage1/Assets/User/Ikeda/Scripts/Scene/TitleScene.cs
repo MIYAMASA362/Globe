@@ -51,6 +51,8 @@ public class TitleScene : SceneBase
 
         time += Time.deltaTime;
 
+
+
         if (MySceneManager.bOption) return;
 
         int n = SelectNum;
@@ -81,7 +83,7 @@ public class TitleScene : SceneBase
                     MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
                     break;
                 case 2:
-                    SceneManager.LoadScene(MySceneManager.OpsitionScene, LoadSceneMode.Additive);
+                    SceneManager.LoadScene(MySceneManager.OpsitionScene);
                     break;
                 case 3:
                     MySceneManager.Game_Exit();
