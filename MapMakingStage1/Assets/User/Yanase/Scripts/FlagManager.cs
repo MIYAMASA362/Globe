@@ -6,6 +6,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
+    [Tag] public string findTag;
+    FloatGround[] floatObjects;
 
     public bool flagActive
     {
@@ -22,6 +24,7 @@ public class FlagManager : Singleton<FlagManager> {
             }
         }
     }
+    public bool onFloat = false;
 
     public Transform flagTransform
     {
@@ -41,10 +44,29 @@ public class FlagManager : Singleton<FlagManager> {
 
     void Start () {
         if (flag) flag.SetActive(false);
+
+        GameObject[] findObject = GameObject.FindGameObjectsWithTag(findTag);
+
+        floatObjects = new FloatGround[findObject.Length];
+        for (int i = 0; i < findObject.Length; i++) 
+        {
+            floatObjects[i] = findObject[i].GetComponent<FloatGround>();
+        }
     }
 	
 	void Update () {
-        
+        if(RotationManager.Instance.rotationSpeed == 0.0f)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                foreach(var floatobj in floatObjects)
+                {
+                    if (floatobj.onGround) return;
+                }
+
+                onFloat = !onFloat;
+            } 
+        }
 	}
 
     public void SetFlag(Vector3 axisPos)

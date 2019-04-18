@@ -9,12 +9,17 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField] private float accelSpeed = 1.0f;
     [SerializeField] private float maxSpeed = 1.0f;
 
-    private float rotationSpeed = 0.0f;
+    public float rotationSpeed = 0.0f;
     private bool isRotation = false;
 
     public Transform planetTransform
     {
         get { return corePlanet; }
+    }
+
+    public Transform rotationTransform
+    {
+        get { return rotationTarget; }
     }
 
     //Initialize
@@ -31,7 +36,10 @@ public class RotationManager : Singleton<RotationManager> {
     //FixedUpdate
     private void FixedUpdate()
     {
-        if(!isRotation) rotationSpeed *= 0.9f;    
+        if (!isRotation)
+        {
+            rotationSpeed = 0.0f;
+        }
     }
 
     private void PlanetRotation()
@@ -54,7 +62,6 @@ public class RotationManager : Singleton<RotationManager> {
             }
 
             rotationSpeed = Mathf.Clamp(rotationSpeed, -maxSpeed, maxSpeed);
-            //Debug.Log(speed);
 
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
