@@ -85,7 +85,7 @@ public class NavigationManager : MonoBehaviour {
 		}
 		pathRenderer.enabled = true;
 		int i = 0;
-		pathRenderer.numPositions = pathStack.Count;
+		pathRenderer.positionCount = pathStack.Count;
 		while (pathStack.Count > 0) {
 			pathRenderer.SetPosition(i, pathStack.Pop().center);
 			i++;
