@@ -10,7 +10,7 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField] private float maxSpeed = 1.0f;
 
     [Header("回転表示オブジェクト群"), SerializeField]
-    private GameObject ArrowObject = null;
+    public GameObject ArrowObject = null;
 
     public Material ArrowMaterial;
 
@@ -87,9 +87,6 @@ public class RotationManager : Singleton<RotationManager> {
             // 回転値を合成
             axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
             rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
-
-            if (!isRotation)
-                ArrowObject.transform.up = flagManager.flagTransform.up;
 
             ArrowObject.transform.position = flagManager.flagTransform.position;
             ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
