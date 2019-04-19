@@ -9,6 +9,12 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField] private float accelSpeed = 1.0f;
     [SerializeField] private float maxSpeed = 1.0f;
 
+    [Header("回転表示オブジェクト群"), SerializeField]
+    private GameObject ArrowObject = null;
+
+    [HideInInspector]
+    public Material ArrowMaterial;
+
     private float rotationSpeed = 0.0f;
     private bool isRotation = false;
 
@@ -20,6 +26,8 @@ public class RotationManager : Singleton<RotationManager> {
     //Initialize
     private void Start ()
     {
+        ArrowMaterial = ArrowObject.transform.GetChild(0).GetComponent<Renderer>().material;
+        ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
     }
 	
     //Update
@@ -40,18 +48,24 @@ public class RotationManager : Singleton<RotationManager> {
         FlagManager flagManager = FlagManager.Instance;
         isRotation = false;
 
+        ArrowObject.transform.up = flagManager.flagTransform.up;
+
         if (flagManager.flagActive)
         {
             if (Input.GetKey(KeyCode.Z))
             {
                 rotationSpeed += accelSpeed;
+                ArrowMaterial.SetTextureOffset("_MainTex",new Vector2(0f,0f));
                 isRotation = true;
             }
             if (Input.GetKey(KeyCode.X))
             {
                 rotationSpeed -= accelSpeed;
+                ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
                 isRotation = true;
             }
+
+            
 
             rotationSpeed = Mathf.Clamp(rotationSpeed, -maxSpeed, maxSpeed);
             //Debug.Log(speed);
@@ -63,6 +77,8 @@ public class RotationManager : Singleton<RotationManager> {
             // 回転値を合成
             axisTransform.rotation = quaternion * axisTransform.rotation;
             rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
+
+            ArrowObject.transform.rotation = quaternion * ArrowObject.transform.rotation;
         }
     }
 
