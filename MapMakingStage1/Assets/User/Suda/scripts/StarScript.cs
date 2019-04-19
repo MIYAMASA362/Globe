@@ -12,5 +12,7 @@ public class StarScript : MonoBehaviour {
         player = GameObject.Find("Character");
         //プレイヤーをスタート位置に設置
         player.transform.position = transform.position;
+        //プレイヤーのrotationを修正
+        player.transform.rotation = transform.rotation;
 	}
 }
