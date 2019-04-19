@@ -140,19 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49468895d562f4f47b568fa29435541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOn: 0
-  followSpeed: 6
-  mouseSpeed: 3
-  target: {fileID: 2125911780}
-  pivot: {fileID: 1171355453}
-  camTrans: {fileID: 607785243}
-  minAngle: -5
-  maxAngle: 50
-  lookAngle: 3557.7927
-  tiltAngle: -5
-  z: 0
-  body: {fileID: 1706943252}
-  gravityDirection: {x: -0.57746536, y: -0.21862039, z: 0.78659964}
 --- !u!4 &794828
 Transform:
   m_ObjectHideFlags: 0
@@ -376,19 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49468895d562f4f47b568fa29435541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOn: 0
-  followSpeed: 6
-  mouseSpeed: 3
-  target: {fileID: 2125911780}
-  pivot: {fileID: 304885111}
-  camTrans: {fileID: 1121851023}
-  minAngle: -5
-  maxAngle: 50
-  lookAngle: 0
-  tiltAngle: 0
-  z: 0
-  body: {fileID: 0}
-  gravityDirection: {x: 0, y: 0, z: 0}
 --- !u!4 &189589329
 Transform:
   m_ObjectHideFlags: 0
@@ -767,7 +741,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568480668}
-  - component: {fileID: 568480667}
   - component: {fileID: 568480669}
   - component: {fileID: 568480670}
   m_Layer: 0
@@ -777,25 +750,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &568480667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 568480666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa4d80c2f76b266488481c1157529d92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enabled: 0
-  keycode: 113
-  charCam: {fileID: 794825}
-  skyMat: {fileID: 2100000, guid: bf036ce109b450b419e6b1c8e517e245, type: 2}
-  skyFloat: 0
-  colorSmooth: 0.1
-  clouds: {fileID: 1183123413}
-  cloudsScaleSmooth: 11
 --- !u!4 &568480668
 Transform:
   m_ObjectHideFlags: 0
@@ -821,6 +775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: {fileID: 1588088389}
+  findTag: 
+  onFloat: 0
 --- !u!114 &568480670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,6 +792,9 @@ MonoBehaviour:
   rotationTarget: {fileID: 1937713485}
   accelSpeed: 30
   maxSpeed: 30
+  ArrowObject: {fileID: 0}
+  ArrowMaterial: {fileID: 0}
+  rotationSpeed: 0
 --- !u!1 &600757073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,11 +1829,6 @@ Transform:
   m_Father: {fileID: 1706943253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1183123413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1258477268015924, guid: f80fcc6d10d2fc34eb7f979a89266ee9,
-    type: 2}
-  m_PrefabInternal: {fileID: 1281441411}
 --- !u!1 &1189688549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,9 +1867,9 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0, z: 0}
   moveSpeed: 3
   moveAmountMult: 0.3
-  runSpeed: 6
   turnSpeed: 2
-  toGround: 0.4
+  rayStartPosition: 0.4
+  rayEndPosition: -0.5
   angle: 0
   cross: {x: 0, y: 0, z: 0}
   anglePivot: {fileID: 0}
@@ -2020,7 +1974,6 @@ MonoBehaviour:
   vertical: 0
   horizontal: 0
   moveDir: {x: 0, y: 0, z: 0}
-  camManager: {fileID: 794827}
   delta: 0
   pi: {fileID: 1974055058}
   CameraPivot: {fileID: 2125911780}
@@ -2051,21 +2004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a375dd065e2cf8c4fbce30c0b8238bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonName: Fire1
-  turnSpeed: 2
-  turnSmoothing: 0.1
-  lerp1: 8.20012
-  lerp2: -1.7000213
-  smoothXvelocity: 0
-  smoothYvelocity: 0
-  pivot: {fileID: 0}
-  body: {fileID: 1278949711}
-  tiltAngle: -1.7000229
-  lookAngle: 8.200133
-  canMove: 0
-  sun: 0
-  cam: {fileID: 0}
-  smoothness: 3
 --- !u!4 &1278949711
 Transform:
   m_ObjectHideFlags: 0
