@@ -16,11 +16,17 @@ public class RotationManager : Singleton<RotationManager> {
     public Material ArrowMaterial;
 
     private float rotationSpeed = 0.0f;
+
     private bool isRotation = false;
 
     public Transform planetTransform
     {
         get { return corePlanet; }
+    }
+
+    public Transform rotationTransform
+    {
+        get { return rotationTarget; }
     }
 
     //Initialize
@@ -39,7 +45,10 @@ public class RotationManager : Singleton<RotationManager> {
     //FixedUpdate
     private void FixedUpdate()
     {
-        if(!isRotation) rotationSpeed *= 0.9f;    
+        if (!isRotation)
+        {
+            rotationSpeed = 0.0f;
+        }
     }
 
     private void PlanetRotation()
@@ -68,7 +77,6 @@ public class RotationManager : Singleton<RotationManager> {
             
 
             rotationSpeed = Mathf.Clamp(rotationSpeed, -maxSpeed, maxSpeed);
-            //Debug.Log(speed);
 
             Quaternion quaternion;
             Transform axisTransform = flagManager.flagTransform;
