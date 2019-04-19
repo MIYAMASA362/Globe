@@ -14,8 +14,8 @@ namespace FrameWork.Camera
         public float mouseSpeed = 3;
         
         public float minAngle = -5;
-        public float maxAngle = 50;
-        public float distance = 1.6f;
+        public float maxAngle = 80;
+        public float distance = 5f;
 
         public float lookAngle;
         public float tiltAngle;
