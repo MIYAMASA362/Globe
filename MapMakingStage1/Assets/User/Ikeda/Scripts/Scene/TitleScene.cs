@@ -16,7 +16,10 @@ public class TitleScene : SceneBase
     [SerializeField]
     private GameObject[] select = new GameObject[4];
 
-    private float time;
+    [Space(4),SerializeField]
+    private float WaitTime = 10f;
+
+    private float time = 0f;
 
     //定数系
     private int MaxNum = 0;
@@ -92,11 +95,12 @@ public class TitleScene : SceneBase
             }
         }
 
+        //何か入力があれば
         if (Input.anyKey)
         {
             time = 0f;
         }
-        else if(time >= 5f)
+        else if(time >= WaitTime)
         {
             MySceneManager.FadeInLoad(MySceneManager.OpeningScene);
         }

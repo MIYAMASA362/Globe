@@ -14,8 +14,8 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        [Tooltip("銀河")]
-        public SceneAsset Asset_Galaxy;
+        [Tooltip("惑星選択")]
+        public SceneAsset Asset_PlanetSelect;
         [Tooltip("惑星")]
         public SceneAsset[] Asset_Planets;
     }
@@ -152,7 +152,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
     public static string Get_NowGalaxy()
     {
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Galaxy);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
     }
 
     //次の銀河のPath 次がなければTitleへ
@@ -163,7 +163,7 @@ public class MySceneManager : Singleton<MySceneManager>
         if (nSelecter_Galaxy >= nMaxGalaxyNum)
             return TitleScene;
 
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Galaxy);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
     }
 
     //次の惑星へのPath なければ
@@ -172,7 +172,7 @@ public class MySceneManager : Singleton<MySceneManager>
         nSelecter_Planet++;
 
         if (nSelecter_Planet >= nMaxPlanetNum)
-            return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Galaxy);
+            return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
 
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
     }
@@ -301,7 +301,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
             foreach (var galaxy in mySceneManager.galaxies)
             {
-                string galaxyPath = AssetDatabase.GetAssetPath(galaxy.Asset_Galaxy);
+                string galaxyPath = AssetDatabase.GetAssetPath(galaxy.Asset_PlanetSelect);
                 if (!string.IsNullOrEmpty(galaxyPath))
                 {
                     editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(galaxyPath, true));
