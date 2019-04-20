@@ -88,6 +88,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.transform.position = planetTransform.transform.position;
         flag.transform.up = axisPos - planetTransform.transform.position;
         flag.SetActive(true);
+        RotationManager.instance.ArrowObject.transform.up = flag.transform.up;
     }
 
     public void DestoyFlag()

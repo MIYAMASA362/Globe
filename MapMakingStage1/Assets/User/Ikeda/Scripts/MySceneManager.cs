@@ -29,8 +29,6 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField,Tooltip("Debug：現在の選択Scene名")]
     private TextMeshProUGUI tm_text;
-    [SerializeField]
-    private Image Fade_Image;
     [SerializeField,Tooltip("Fadeのアニメータ")]
     private Animator animator;
 
