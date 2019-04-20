@@ -6,7 +6,7 @@ public class FlagManager : Singleton<FlagManager> {
 
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
-    [Tag] public string findTag;
+    [Tag] public string findTag = "FloatGround";
     FloatGround[] floatObjects;
 
     public bool flagActive
