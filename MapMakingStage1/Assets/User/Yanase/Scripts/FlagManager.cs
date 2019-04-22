@@ -6,7 +6,7 @@ public class FlagManager : Singleton<FlagManager> {
 
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
-    [Tag] public string findTag;
+    [Tag] public string findTag = "FloatGround";
     FloatGround[] floatObjects;
 
     public bool flagActive
@@ -88,6 +88,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.transform.position = planetTransform.transform.position;
         flag.transform.up = axisPos - planetTransform.transform.position;
         flag.SetActive(true);
+        RotationManager.instance.ArrowObject.transform.up = flag.transform.up;
     }
 
     public void DestoyFlag()

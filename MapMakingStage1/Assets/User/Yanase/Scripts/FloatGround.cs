@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class FloatGround : MonoBehaviour
 {
-//     public Transform subObject;
+    public Transform wireObject;
+    private WireFrameTrigger wireFrameTrigger;
+    private Renderer wireRenderer;
 
-    public float floatHeight = 10.0f;
-    public float floatSpeed = 1.0f;
+    public float floatHeight = 8.0f;
+    public float floatSpeed = 5.0f;
     public bool isFloat = false;
-    public LayerMask hitLayer = LayerMask.NameToLayer("Ground");
-    private float startHeight;
     public bool onGround = false;
-    bool onFloat = false;
-
-    public float rayRadius = 0.7f;
-    public float rayStart = 0.2f;
-    public float rayLength = 0.3f;
-
-    Vector3 origin;
-    Vector3 end;
+    private bool onFloat = false;
+    private float startHeight;
+    private float startWireHeight;
 
 
     // Use this for initialization
     void Start()
     {
         startHeight = transform.localPosition.y;
-//      subObject.transform.rotation = transform.rotation;
+        startWireHeight = wireObject.transform.localPosition.y - startHeight;
+        wireObject.gameObject.SetActive(true);
+        wireObject.transform.rotation = transform.rotation;
+        wireRenderer = wireObject.GetComponent<Renderer>();
+        wireFrameTrigger = wireObject.GetComponent<WireFrameTrigger>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        onGround = wireFrameTrigger.onTrigger;
+
         if (onFloat != FlagManager.Instance.onFloat)
         {
             isFloat = !isFloat;
@@ -43,23 +44,18 @@ public class FloatGround : MonoBehaviour
         if (isFloat)
         {
             transform.parent.parent = RotationManager.Instance.rotationTransform;
-            subTargetHeight = startHeight;
+            subTargetHeight = startHeight + startWireHeight;
+            wireRenderer.enabled = true;
             MoveHeight(floatHeight);
         }
         else
         {
             transform.parent.parent = RotationManager.Instance.planetTransform;
-            subTargetHeight = floatHeight;
+            wireRenderer.enabled = false;
             MoveHeight(startHeight);
         }
 
- //       subObject.transform.localPosition = new Vector3(0.0f, subTargetHeight, 0.0f);
-        
-    }
-
-    private void FixedUpdate()
-    {
-        OnSphereCast();
+        wireObject.transform.localPosition = new Vector3(0.0f, subTargetHeight, 0.0f);
     }
 
     void MoveHeight(float target)
@@ -69,37 +65,5 @@ public class FloatGround : MonoBehaviour
             float height = Mathf.Lerp(transform.localPosition.y, target, floatSpeed * Time.deltaTime);
             transform.localPosition = new Vector3(0.0f, height, 0.0f);
         }
-    }
-
-    void OnSphereCast()
-    {
-        onGround = false;
-        Vector3 centerPos = RotationManager.Instance.planetTransform.position;
-        Vector3 dir = centerPos - transform.position;
-        float len = 0.0f;
-
-        if (!isFloat)
-        {
-            dir *= -1f;
-            len = 0.4f;
-        }
-
-        origin = transform.position + (dir * rayStart);
-        end = origin + (dir * (rayLength + len));
-
-        RaycastHit castHit;
-
-        if (Physics.SphereCast(origin, rayRadius, dir.normalized, out castHit, rayLength + len, hitLayer))
-        {
-            onGround = true;
-            end = castHit.point;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(origin, rayRadius);
-        Gizmos.DrawLine(origin, end);
-        Gizmos.DrawWireSphere(end, rayRadius);
     }
 }

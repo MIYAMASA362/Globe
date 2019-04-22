@@ -29,7 +29,6 @@ namespace SA
         [Header("States")]
         public bool onGround = false;
         public bool OnAxis = false;
-        public bool run;
         public GameObject activeModel;
         [HideInInspector]
         public Animator anim;
@@ -40,20 +39,11 @@ namespace SA
 
         public LayerMask ignoreLayers;
 
-
         public Vector3 groundNormal;
         public Transform raycastTransform;
 
         public Vector3 gravityDirection;
         public float gravity = 3f;
-
-
-        public float newMov;
-
-        public float e;
-        public float r;
-
-        public Transform camHolder;
 
         private Transform axisTransform = null;
         private GameObject axisObject = null;
@@ -70,7 +60,6 @@ namespace SA
             rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             gameObject.layer = 8;
-            ignoreLayers = ~(1 << 9);
 
             OnAxis = false;
 
@@ -165,9 +154,10 @@ namespace SA
                     // 設置軸の上にいるかどうか
                     OnAxis = JudgeAxis(hit.collider.gameObject);
 
-                    if(hit.collider.gameObject.tag != "Axis")
-                      transform.parent = hit.collider.transform;
-                    //SetParent(hit.collider.gameObject);
+                    if (hit.collider.gameObject.tag == "FloatGround")
+                        transform.parent = hit.collider.transform;
+                    else
+                        transform.parent = null;
                 }
             }
 

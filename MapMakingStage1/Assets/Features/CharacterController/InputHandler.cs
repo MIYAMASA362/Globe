@@ -6,7 +6,7 @@ namespace SA
 {
     public class InputHandler : MonoBehaviour {
 
-
+        public CharacterCamera characterCamera;
         public float vertical;
         public float horizontal;
         public Vector3 moveDir;
@@ -16,7 +16,7 @@ namespace SA
 
         public Transform CameraPivot;
         private StateManager states;
-        CharacterCamera characterCamera;
+        
         //------------------------------------------
         //------------------------------------------
         void Start()
