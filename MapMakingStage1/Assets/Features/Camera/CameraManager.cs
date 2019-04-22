@@ -7,13 +7,12 @@ namespace FrameWork.Camera
     public class CameraManager : Singleton<CameraManager>
     {
         public bool isChange;
-        public KeyCode keycode;
         public GameObject planetCamera;
         public GameObject characterCamera;
 
         void Update()
         {
-            if (Input.GetKeyDown(keycode))
+            if (Input.GetButtonDown(InputManager.View_Swith))
             {
                 isChange = !isChange;
                 planetCamera.SetActive(!isChange);

@@ -5,7 +5,6 @@ namespace FrameWork.Camera
 {
     public class PlanetCamera : MonoBehaviour
     {
-        public string buttonName = "Fire1";
 
         public float turnSpeed = 1.5f;
         public float smoothness = 3;
@@ -16,21 +15,15 @@ namespace FrameWork.Camera
         public float lookAngle;
 
 
-        public bool canMove;
-
-
         void Update()
         {
-            canMove = Input.GetButton(buttonName);
 
-            float smoothX = Input.GetAxis("Mouse X");
-            float smoothY = Input.GetAxis("Mouse Y");
+            float smoothX = Input.GetAxis(InputManager.Camera_Horizontal);
+            float smoothY = Input.GetAxis(InputManager.Camera_Vertical);
 
-            if (canMove)
-            {
-                lookAngle += smoothX * turnSpeed;
-                tiltAngle += smoothY * turnSpeed;
-            }
+            lookAngle += smoothX * turnSpeed;
+            tiltAngle += smoothY * turnSpeed;
+            
 
             lerp1 = Mathf.Lerp(lerp1, lookAngle, Time.deltaTime * smoothness);
             lerp2 = Mathf.Lerp(lerp2, tiltAngle, Time.deltaTime * smoothness);
