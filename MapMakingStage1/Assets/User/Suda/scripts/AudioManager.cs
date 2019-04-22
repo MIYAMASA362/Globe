@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// BGMとSEの管理をするマネージャ。シングルトン。
@@ -105,7 +105,7 @@ public class AudioManager : Singleton<AudioManager>
     /// <summary>
     /// 指定したファイル名のSEを流す。第二引数のdelayに指定した時間だけ再生までの間隔を空ける
     /// </summary>
-    public void PlaySE(string seName, float delay)
+    public void PlaySE(string seName, float delay = 0.0f)
     {
         if (!_seDic.ContainsKey(seName))
         {
@@ -159,7 +159,7 @@ public class AudioManager : Singleton<AudioManager>
             FadeOutBGM(fadeSpeedRate);
         }
     }
-    
+
     /// <summary>
     /// BGMをすぐに止める
     /// </summary>
