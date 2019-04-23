@@ -56,7 +56,7 @@ public class GalaxySelectScene : SceneBase {
             }
         }
 
-        if (nGalaxyNum <= -1) nGalaxyNum = MySceneManager.nMaxGalaxyNum;
+        if (nGalaxyNum <= -1) nGalaxyNum = MySceneManager.nMaxGalaxyNum-1;
 
         nGalaxyNum = nGalaxyNum % MySceneManager.nMaxGalaxyNum;
 

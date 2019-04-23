@@ -15,6 +15,8 @@ public class Timer : MonoBehaviour {
     [SerializeField]
     private bool bCount = false;
 
+    //--- MonoBhaviour ------------------------------------
+
     private void Awake()
     {
         time = 0f;
@@ -47,6 +49,8 @@ public class Timer : MonoBehaviour {
 
         TimerText.text = "Time:"+minutes.ToString("00")+":"+seconds.ToString("00");
 	}
+
+    //--- Method ------------------------------------------
 
     public void StartTimer()
     {

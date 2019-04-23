@@ -52,7 +52,7 @@ public class PlanetSelectScene : SceneBase
             }
         }
 
-        if (nPanetNum <= -1) nPanetNum = MySceneManager.nMaxPlanetNum;
+        if (nPanetNum <= -1) nPanetNum = MySceneManager.nMaxPlanetNum -1;
 
         nPanetNum = nPanetNum % MySceneManager.nMaxPlanetNum;
 

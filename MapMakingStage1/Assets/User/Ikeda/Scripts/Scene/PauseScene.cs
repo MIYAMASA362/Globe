@@ -45,6 +45,7 @@ public class PauseScene : SceneBase
                 SelectNum--;
                 bInput = false;
             }
+
             if (selecter <= -0.5f)
             {
                 SelectNum++;
