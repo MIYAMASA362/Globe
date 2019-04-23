@@ -40,6 +40,15 @@ public class DebugInput : MonoBehaviour {
     public bool X_Button;
     public bool Y_Button;
 
+    [Space(4)]
+    public bool Up;
+    public bool Down;
+    public bool Left;
+    public bool Right;
+
+    [Space(4)]
+    public bool On;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -78,7 +87,12 @@ public class DebugInput : MonoBehaviour {
         B_Button = Input.GetButton(InputManager.Change_AscDes);
         X_Button = Input.GetButton(InputManager.X_Button);
         Y_Button = Input.GetButton(InputManager.Y_Button);
-        
 
+        Up = Input.GetButton(InputManager.Cross_Up);
+        Down = Input.GetButton(InputManager.Cross_Down);
+        Right = Input.GetButton(InputManager.Cross_Right);
+        Left = Input.GetButton(InputManager.Cross_Left);
+
+        On = Input.GetButton(InputManager.Y_Selecter);
     }
 }

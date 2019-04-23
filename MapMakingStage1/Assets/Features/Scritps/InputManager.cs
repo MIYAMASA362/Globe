@@ -4,7 +4,7 @@ using System.Collections;
  
 public static class InputManager {
 
-    public static int Num = 42;
+    public static int Num = 46;
 
     //Input Name String
     
@@ -21,12 +21,18 @@ public static class InputManager {
     public const string Cancel = "Cancel";
     public const string Left_Push = "Left Push";
     public const string Left_Back = "Left Back";
+    public const string Bug_Left_AxisRotation = "Bug Left AxisRotation";
     public const string Left_AxisRotation = "Left AxisRotation";
     public const string View = "View";
     public const string Menu = "Menu";
     public const string Right_Back = "Right Back";
+    public const string Bug_Right_AxisRotation = "Bug Right AxisRotation";
     public const string Right_AxisRotation = "Right AxisRotation";
+    public const string Cross_Right = "Cross Right";
+    public const string Cross_Left = "Cross Left";
     public const string X_Selecter = "X Selecter";
+    public const string Cross_Up = "Cross Up";
+    public const string Cross_Down = "Cross Down";
     public const string Y_Selecter = "Y Selecter";
     public const string Camera_Horizontal = "Camera Horizontal";
     public const string Camera_Vertical = "Camera Vertical";
@@ -423,7 +429,7 @@ public static class InputManager {
         },
         
         new InputAxis {
-            name = "Left AxisRotation",
+            name = "Bug Left AxisRotation",
             descriptiveName = "XBox-Controller LeftTrigger",
             descriptiveNegativeName = "",
             negativeButton = "",
@@ -431,8 +437,8 @@ public static class InputManager {
             altNegativeButton = "",
             altPositiveButton = "",
             gravity = 0f,
-            dead = 0.01f,
-            sensitivity = 1f,
+            dead = 0.2f,
+            sensitivity = 1000f,
             snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
@@ -513,7 +519,7 @@ public static class InputManager {
         },
         
         new InputAxis {
-            name = "Right AxisRotation",
+            name = "Bug Right AxisRotation",
             descriptiveName = "XBox-Controller RightTrigger",
             descriptiveNegativeName = "",
             negativeButton = "",
@@ -521,8 +527,8 @@ public static class InputManager {
             altNegativeButton = "",
             altPositiveButton = "",
             gravity = 0f,
-            dead = 0.05f,
-            sensitivity = 1f,
+            dead = 0.2f,
+            sensitivity = 1000f,
             snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
@@ -549,8 +555,8 @@ public static class InputManager {
         },
         
         new InputAxis {
-            name = "X Selecter",
-            descriptiveName = "XBox-Controller Cross Key Left and Right",
+            name = "Cross Right",
+            descriptiveName = "XBox-Controller Cross Button Left and Right",
             descriptiveNegativeName = "",
             negativeButton = "",
             positiveButton = "",
@@ -559,7 +565,43 @@ public static class InputManager {
             gravity = 0f,
             dead = 0.19f,
             sensitivity = 1f,
-            snap = false,
+            snap = true,
+            invert = true,
+            type = AxisType.JoystickAxis,
+            axis = 5,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "Cross Left",
+            descriptiveName = "XBox-Controller Cross Button Left and Right",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0.19f,
+            sensitivity = 1f,
+            snap = true,
+            invert = false,
+            type = AxisType.JoystickAxis,
+            axis = 5,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "X Selecter",
+            descriptiveName = "XBox-Controller Cross Button Left and Right",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0.19f,
+            sensitivity = 1f,
+            snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
             axis = 5,
@@ -577,7 +619,7 @@ public static class InputManager {
             gravity = 0f,
             dead = 0.19f,
             sensitivity = 1f,
-            snap = false,
+            snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
             axis = 0,
@@ -603,6 +645,42 @@ public static class InputManager {
         },
         
         new InputAxis {
+            name = "Cross Up",
+            descriptiveName = "XBox-Controller Cross Key Up and Down",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0.19f,
+            sensitivity = 1f,
+            snap = true,
+            invert = false,
+            type = AxisType.JoystickAxis,
+            axis = 6,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "Cross Down",
+            descriptiveName = "XBox-Controller Cross Key Up and Down",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0.19f,
+            sensitivity = 1f,
+            snap = true,
+            invert = true,
+            type = AxisType.JoystickAxis,
+            axis = 6,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
             name = "Y Selecter",
             descriptiveName = "KeyBoard Up and Down Key ",
             descriptiveNegativeName = "",
@@ -610,9 +688,9 @@ public static class InputManager {
             positiveButton = "up",
             altNegativeButton = "s",
             altPositiveButton = "w",
-            gravity = 3f,
+            gravity = 1000f,
             dead = 0.001f,
-            sensitivity = 3f,
+            sensitivity = 1000f,
             snap = true,
             invert = false,
             type = AxisType.KeyOrMouseButton,
@@ -631,7 +709,7 @@ public static class InputManager {
             gravity = 0f,
             dead = 0.19f,
             sensitivity = 1f,
-            snap = false,
+            snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
             axis = 6,
@@ -647,10 +725,10 @@ public static class InputManager {
             altNegativeButton = "",
             altPositiveButton = "",
             gravity = 0f,
-            dead = 0.19f,
+            dead = 0.5f,
             sensitivity = 1f,
-            snap = false,
-            invert = false,
+            snap = true,
+            invert = true,
             type = AxisType.JoystickAxis,
             axis = 1,
             joyNum = 0,

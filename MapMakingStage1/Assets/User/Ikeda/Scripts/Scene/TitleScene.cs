@@ -29,6 +29,8 @@ public class TitleScene : SceneBase
 
     private bool bUpdate = false;
 
+    private bool bInput = false;
+
     // Use this for initialization
     public override void Start()
     {
@@ -45,6 +47,7 @@ public class TitleScene : SceneBase
         select[0].transform.GetChild(0).gameObject.SetActive(true);
 
         time = 0f;
+        bInput = false;
     }
 
     // Update is called once per frame
@@ -58,8 +61,24 @@ public class TitleScene : SceneBase
 
         int n = SelectNum;
 
-        if (Input.GetKeyDown(KeyCode.W)) SelectNum--;
-        if (Input.GetKeyDown(KeyCode.S)) SelectNum++;
+        float selecter = Input.GetAxis(InputManager.Y_Selecter);
+
+        if(selecter == 0)
+            bInput = true;
+        else if(bInput)
+        {
+            if (selecter >= 0.5f)
+            {
+                SelectNum--;
+                bInput = false;
+            }
+            else if (selecter <= -0.5f)
+            {
+                SelectNum++;
+                bInput = false;
+            }
+        }
+
         if (SelectNum <= -1) SelectNum = MaxNum - 1;
         if (n != SelectNum)
         {
@@ -73,7 +92,7 @@ public class TitleScene : SceneBase
             Selecter.localPosition = select[SelectNum].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown(InputManager.Submit))
         {
             switch (SelectNum)
             {

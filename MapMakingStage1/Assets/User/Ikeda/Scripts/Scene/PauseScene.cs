@@ -20,10 +20,13 @@ public class PauseScene : SceneBase
     private int SelectNum = 0;
     private int MaxNum = 5;
 
+    private bool bInput = false;
+
 	// Use this for initialization
 	public override void Start ()
     {
         tm_StateName.text = SceneManager.GetActiveScene().name;
+        bInput = false;
     }
 	
 	// Update is called once per frame
@@ -31,15 +34,30 @@ public class PauseScene : SceneBase
     {
         //Selectの変更
         int n = SelectNum;
-        if (Input.GetKeyDown(KeyCode.S)) SelectNum++;
-        if (Input.GetKeyDown(KeyCode.W)) SelectNum--;
+        float selecter = Input.GetAxis(InputManager.Y_Selecter);
+
+        if (selecter == 0) bInput = true;
+
+        if (bInput)
+        {
+            if (selecter >= 0.5f)
+            {
+                SelectNum--;
+                bInput = false;
+            }
+            if (selecter <= -0.5f)
+            {
+                SelectNum++;
+                bInput = false;
+            }
+        }
         if (SelectNum <= -1) SelectNum = MaxNum - 1;
         if(n != SelectNum) SelectNum = SelectNum % MaxNum;
 
         SelectingUI.position = ContentUI[SelectNum].position;
 
         //決定されたとき
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown(InputManager.Submit))
         {
             SceneManager.UnloadSceneAsync(MySceneManager.PauseScene);
             //遷移
