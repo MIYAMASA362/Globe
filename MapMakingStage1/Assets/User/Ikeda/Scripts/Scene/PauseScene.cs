@@ -40,13 +40,13 @@ public class PauseScene : SceneBase
 
         if (bInput)
         {
-            if (selecter >= 0.5f)
+            if (selecter >= 0.5f || Input.GetKeyDown(KeyCode.W))
             {
                 SelectNum--;
                 bInput = false;
             }
 
-            if (selecter <= -0.5f)
+            if (selecter <= -0.5f || Input.GetKeyDown(KeyCode.S))
             {
                 SelectNum++;
                 bInput = false;
@@ -58,7 +58,7 @@ public class PauseScene : SceneBase
         SelectingUI.position = ContentUI[SelectNum].position;
 
         //決定されたとき
-        if (Input.GetButtonDown(InputManager.Submit))
+        if (Input.GetButtonDown(InputManager.Submit) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.UnloadSceneAsync(MySceneManager.PauseScene);
             //遷移
