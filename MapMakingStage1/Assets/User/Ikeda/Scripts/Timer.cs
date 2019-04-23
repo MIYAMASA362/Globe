@@ -29,7 +29,23 @@ public class Timer : MonoBehaviour {
             time += Time.deltaTime;
         }
 
-        TimerText.text = "Time:"+(int)time;
+        if (time >= MaxTime) time = MaxTime;
+
+        int seconds = 0;
+        int minutes = 0;
+
+        if (time == 0)
+        {
+            seconds = 0;
+            minutes = 0;
+        }
+        else
+        {
+            seconds = (int)time % 60;
+            minutes = (int)time / 60;
+        }
+
+        TimerText.text = "Time:"+minutes.ToString("00")+":"+seconds.ToString("00");
 	}
 
     public void StartTimer()
