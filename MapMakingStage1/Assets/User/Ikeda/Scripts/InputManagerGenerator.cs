@@ -186,7 +186,7 @@ public static class InputManager {{
         var result = string.Format(TEMPLATE, axesProperty.arraySize, NameIndex,inputAxis);
 
         // ファイルに保存
-        var inputManagerResult = Application.dataPath + "/Scritps/InputManager.cs";
+        var inputManagerResult = Application.dataPath + "/Features/Scritps/InputManager.cs";
         var sr = new StreamWriter(inputManagerResult);
         sr.Write(result);
         sr.Close();
