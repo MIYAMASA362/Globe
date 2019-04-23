@@ -32,7 +32,7 @@ public class RotationManager : Singleton<RotationManager> {
     //Initialize
     private void Start ()
     {
-        //ArrowMaterial = ArrowObject.transform.GetChild(0).GetComponent<Renderer>().material;
+        ArrowMaterial = Resources.Load<Material>("Materials/ArrowMaterial");
         ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
         ArrowObject.SetActive(false);
     }
