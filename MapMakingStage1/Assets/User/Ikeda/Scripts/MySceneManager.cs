@@ -110,7 +110,6 @@ public class MySceneManager : Singleton<MySceneManager>
         bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
         bOption = SceneManager.GetSceneByPath(OpsitionScene).isLoaded;
         nMaxPlanetNum = galaxies[nSelecter_Galaxy].Asset_Planets.Length;
-        
     }
 
     private void LateUpdate()
@@ -133,7 +132,7 @@ public class MySceneManager : Singleton<MySceneManager>
         if (bFadeing) return;
 
         //入力があるか
-        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        if (!Input.GetButtonDown(InputManager.Menu)) return;
 
         //Pause状態とbEnableが逆であるのか
         if (bPausing != bEnable)
@@ -166,7 +165,7 @@ public class MySceneManager : Singleton<MySceneManager>
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
     }
 
-    //次の惑星へのPath なければ
+    //次の惑星へのPath なければPlanetSelectへ
     public static string Get_NextPlanet()
     {
         nSelecter_Planet++;

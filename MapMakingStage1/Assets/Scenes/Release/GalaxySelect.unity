@@ -209,19 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49468895d562f4f47b568fa29435541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOn: 0
-  followSpeed: 6
-  mouseSpeed: 3
-  target: {fileID: 0}
-  pivot: {fileID: 304885111}
-  camTrans: {fileID: 1121851023}
-  minAngle: -5
-  maxAngle: 50
-  lookAngle: 0
-  tiltAngle: 0
-  z: 0
-  body: {fileID: 0}
-  gravityDirection: {x: 0, y: 0, z: 0}
 --- !u!4 &189589329
 Transform:
   m_ObjectHideFlags: 0
@@ -566,7 +553,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568480668}
-  - component: {fileID: 568480667}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -574,22 +560,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &568480667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 568480666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3049271def7113449bbed7bcb04c06d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Stage:
-  - {fileID: 718735196}
-  - {fileID: 989518724}
-  - {fileID: 487125098}
-  CameraPivot: {fileID: 1278949711}
 --- !u!4 &568480668
 Transform:
   m_ObjectHideFlags: 0
@@ -972,7 +942,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1278949711}
-  - component: {fileID: 1278949710}
   m_Layer: 0
   m_Name: CamPivot
   m_TagString: Untagged
@@ -980,32 +949,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1278949710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1278949709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a375dd065e2cf8c4fbce30c0b8238bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonName: Fire1
-  turnSpeed: 2
-  turnSmoothing: 0.1
-  lerp1: 8.20012
-  lerp2: -1.7000213
-  smoothXvelocity: 0
-  smoothYvelocity: 0
-  pivot: {fileID: 0}
-  body: {fileID: 1278949711}
-  tiltAngle: -1.7000229
-  lookAngle: 8.200133
-  canMove: 0
-  sun: 0
-  cam: {fileID: 0}
-  smoothness: 3
 --- !u!4 &1278949711
 Transform:
   m_ObjectHideFlags: 0
@@ -1323,7 +1266,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7645e5bd2441eab4da7ab610f80f6bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPausing: 1
+  IsPausing: 0
+  Galaxys:
+  - {fileID: 718735196}
+  - {fileID: 989518724}
+  - {fileID: 487125098}
+  CameraPivot: {fileID: 1278949711}
+  bInput: 0
+  nGalaxyNum: 0
+  move: {x: 0, y: 0, z: 0}
+  SelectObj: {fileID: 0}
 --- !u!1 &1968303943
 GameObject:
   m_ObjectHideFlags: 3

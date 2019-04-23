@@ -566,7 +566,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568480668}
-  - component: {fileID: 568480667}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -574,22 +573,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &568480667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 568480666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3049271def7113449bbed7bcb04c06d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Stage:
-  - {fileID: 718735196}
-  - {fileID: 989518724}
-  - {fileID: 487125098}
-  CameraPivot: {fileID: 1278949711}
 --- !u!4 &568480668
 Transform:
   m_ObjectHideFlags: 0
@@ -1324,6 +1307,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPausing: 0
+  Planets:
+  - {fileID: 718735196}
+  - {fileID: 989518724}
+  - {fileID: 487125098}
+  CameraPivot: {fileID: 1278949711}
+  nPanetNum: 0
 --- !u!1 &1968303943
 GameObject:
   m_ObjectHideFlags: 3
