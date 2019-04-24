@@ -4,14 +4,25 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Timer))]
 public class PlanetScene :SceneBase {
 
-    private bool GameClear = false;
+    //--- Timer State ---------------------------
+    [SerializeField]
+    private Timer timer;
+
+    private bool bGameClear = false;
+
+    //--- MonoBehaviour -----------------------------------
 
 	// Use this for initialization
 	public override void Start ()
     {
-        GameClear = false;
+        timer = this.GetComponent<Timer>();
+        timer.StartTimer();
+        bGameClear = false;
+        //データをセーブします。
+        DataManager.Instance.SaveAll();
         base.Start();
 	}
 	
@@ -20,9 +31,52 @@ public class PlanetScene :SceneBase {
     {
         base.Update();
 
-        if (GameClear)
+        if (bGameClear)
         {
+            TimeBonus();
+            DataManager.Instance.SaveAll();
             MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet());
         }
 	}
+
+    //--- Method ------------------------------------------
+    
+    //--- Game ----------------------------------
+    public void GameClear()
+    {
+        bGameClear = true;
+        timer.StopTimer();
+
+        //例えばクリスタルを増やしてみる
+        Debug.LogWarning("クリスタルを増やしてる");
+        DataManager.Instance.nCrystalNum++;
+    }
+
+    //--- Time ----------------------------------
+
+    private void TimeBonus()
+    {
+        float time = timer.GetTime();
+
+        //一分未満
+        if (IsRange(time, 0, 60))
+        {
+            Debug.Log("一分未満だ！");
+            return;
+        }
+        //二分未満
+        else if (IsRange(time, 60, 120))
+        {
+            Debug.Log("二分未満だ！");
+            return;
+        }
+    }
+
+    //--- function ------------------------------
+
+    //min 以上 max　未満かの判定
+    private bool IsRange(float value,float min,float max)
+    {
+        return (min <= value && value < max);
+    }
 }

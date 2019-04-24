@@ -213,7 +213,7 @@ namespace SA
 
         void FlagSet()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetButtonDown(InputManager.Set_EarthAxis))
             {
                 FlagManager flagManager = FlagManager.Instance;
                 if (flagManager.flagActive)

@@ -49,8 +49,8 @@ namespace SA
         //------------------------------------------
         void GetInput()
         {
-            vertical = Input.GetAxis("Vertical");
-            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis(InputManager.Vertical);
+            horizontal = Input.GetAxis(InputManager.Horizontal);
         }
         //------------------------------------------
         void UpdateStates()
