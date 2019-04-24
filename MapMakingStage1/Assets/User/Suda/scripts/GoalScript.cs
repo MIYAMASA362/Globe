@@ -19,9 +19,6 @@ public class GoalScript : MonoBehaviour {
     {
         if(collider.gameObject.name== "Character")
         {
-            //ゴールSE
-            //AudioManager.Instance.PlaySE(AUDIO.SE_FANFARE_SAMPLE);
-
             //ゴール後処理(シーン遷移)
             Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
 
