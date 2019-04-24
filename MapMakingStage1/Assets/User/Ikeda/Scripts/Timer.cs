@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour {
             minutes = (int)time / 60;
         }
 
-        TimerText.text = "Time:"+minutes.ToString("00")+":"+seconds.ToString("00");
+        TimerText.text = minutes.ToString("00")+":"+seconds.ToString("00");
 	}
 
     //--- Method ------------------------------------------
