@@ -56,7 +56,7 @@ namespace FrameWork.Camera
         public void Tick(float d)
         {
             float h = Input.GetAxis(InputManager.Camera_Horizontal);
-            float v = -Input.GetAxis(InputManager.Camera_Vertical);
+            float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
 
             float targetSpeed = mouseSpeed;
 
