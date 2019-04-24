@@ -4,7 +4,7 @@ using System.Collections;
  
 public static class InputManager {
 
-    public static int Num = 46;
+    public static int Num = 48;
 
     //Input Name String
     
@@ -36,6 +36,7 @@ public static class InputManager {
     public const string Y_Selecter = "Y Selecter";
     public const string Camera_Horizontal = "Camera Horizontal";
     public const string Camera_Vertical = "Camera Vertical";
+    public const string Character_Camera_Vertical = "Character Camera Vertical";
     public const string View_Swith = "View Swith";
     public const string Set_EarthAxis = "Set EarthAxis";
     public const string Change_AscDes = "Change AscDes";
@@ -789,6 +790,24 @@ public static class InputManager {
         },
         
         new InputAxis {
+            name = "Character Camera Vertical",
+            descriptiveName = "XBox-Controller Right stick Vertical",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0.19f,
+            sensitivity = 1f,
+            snap = false,
+            invert = false,
+            type = AxisType.JoystickAxis,
+            axis = 4,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
             name = "Camera Vertical",
             descriptiveName = "Mouse Y",
             descriptiveNegativeName = "",
@@ -801,6 +820,24 @@ public static class InputManager {
             sensitivity = 0.1f,
             snap = false,
             invert = false,
+            type = AxisType.MouseMovement,
+            axis = 1,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "Character Camera Vertical",
+            descriptiveName = "Mouse Y",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 0f,
+            dead = 0f,
+            sensitivity = 0.1f,
+            snap = false,
+            invert = true,
             type = AxisType.MouseMovement,
             axis = 1,
             joyNum = 0,
