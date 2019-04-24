@@ -8,6 +8,8 @@ public class FlagManager : Singleton<FlagManager> {
     private GameObject flag = null;
     [Tag] public string findTag = "FloatGround";
     FloatGround[] floatObjects;
+    public LineEffectSwitcher lineEffectSwitcher = null;
+    private Vector3 linePosition = Vector3.zero;
 
     public bool flagActive
     {
@@ -82,11 +84,13 @@ public class FlagManager : Singleton<FlagManager> {
             Debug.Log("flag is active!!");
             return;
         }
+        linePosition = axisPos;
 
         Transform planetTransform = RotationManager.Instance.planetTransform;
 
         flag.transform.position = planetTransform.transform.position;
         flag.transform.up = axisPos - planetTransform.transform.position;
+        lineEffectSwitcher.SetEffect(linePosition, Color.green);
         flag.SetActive(true);
         RotationManager.instance.ArrowObject.transform.up = flag.transform.up;
     }
@@ -98,6 +102,7 @@ public class FlagManager : Singleton<FlagManager> {
             Debug.Log("flag is nothing!!");
             return;
         }
+        lineEffectSwitcher.SetEffect(linePosition, Color.red);
         flag.SetActive(false);
     }
 }
