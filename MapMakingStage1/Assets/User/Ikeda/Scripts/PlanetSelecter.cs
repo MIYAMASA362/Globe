@@ -76,14 +76,14 @@ public class PlanetSelecter : MonoBehaviour {
         int old = num;
 
         //Right 右
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetAxis(InputManager.X_Selecter) >= 0.5f)
         {
             num++;
             num = num % length;
         }
 
         //Left 左
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetAxis(InputManager.X_Selecter) <= -0.5f)
         {
             num--;
             if (num <= -1) num = length - 1;

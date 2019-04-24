@@ -32,7 +32,7 @@ public class RotationManager : Singleton<RotationManager> {
     //Initialize
     private void Start ()
     {
-        //ArrowMaterial = ArrowObject.transform.GetChild(0).GetComponent<Renderer>().material;
+        ArrowMaterial = Resources.Load<Material>("Materials/ArrowMaterial");
         ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
         ArrowObject.SetActive(false);
     }
@@ -60,13 +60,13 @@ public class RotationManager : Singleton<RotationManager> {
 
         if (flagManager.flagActive)
         {
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetAxis(InputManager.Left_AxisRotation) >= 0.05f)
             {
                 rotationSpeed += accelSpeed;
                 ArrowMaterial.SetTextureOffset("_MainTex",new Vector2(0f,0f));
                 isRotation = true;
             }
-            if (Input.GetKey(KeyCode.X))
+            if (Input.GetAxis(InputManager.Right_AxisRotation) <= -0.05f)
             {
                 rotationSpeed -= accelSpeed;
                 ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));

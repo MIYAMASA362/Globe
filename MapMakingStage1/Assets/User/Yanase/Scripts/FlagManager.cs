@@ -59,7 +59,7 @@ public class FlagManager : Singleton<FlagManager> {
 	void Update () {
         if(RotationManager.Instance.rotationSpeed == 0.0f)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown(InputManager.Change_AscDes))
             {
                 foreach(var floatobj in floatObjects)
                 {
