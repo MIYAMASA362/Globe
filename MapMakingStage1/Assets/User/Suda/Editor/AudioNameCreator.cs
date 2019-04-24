@@ -63,6 +63,27 @@ public static class AudioNameCreator
         {
             builder.Append("\t").AppendFormat(@"  public const string SE_{0} = ""{1}"";", se.name.ToUpper(), se.name).AppendLine();
         }
+        builder.AppendLine("\t");
+
+        builder.AppendLine("public enum BGM");
+        builder.AppendLine("{");
+        foreach (AudioClip bgm in bgmList)
+        {
+            builder.Append("\t").AppendFormat(@"BGM_{0},", bgm.name.ToUpper()).AppendLine();
+        }
+        builder.Append("\t").AppendFormat("BGM_MAX,").AppendLine();
+        builder.AppendLine("}");
+
+        builder.AppendLine("\t");
+
+        builder.AppendLine("public enum SE");
+        builder.AppendLine("{");
+        foreach (AudioClip se in seList)
+        {
+            builder.Append("\t").AppendFormat(@"SE_{0},", se.name.ToUpper()).AppendLine();
+        }
+        builder.Append("\t").AppendFormat("SE_MAX,").AppendLine();
+        builder.AppendLine("}");
 
         builder.AppendLine("}");
 
