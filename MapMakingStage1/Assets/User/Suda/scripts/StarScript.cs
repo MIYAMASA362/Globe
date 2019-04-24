@@ -7,7 +7,7 @@ public class StarScript : MonoBehaviour {
     private GameObject player;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //プレイヤーオブジェクトの取得
         player = GameObject.Find("Character");
         //プレイヤーをスタート位置に設置

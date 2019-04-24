@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FloatGround : MonoBehaviour
 {
+    public FloatType.Type type;
     public Transform wireObject;
     private WireFrameTrigger wireFrameTrigger;
     private Renderer wireRenderer;
@@ -12,7 +13,6 @@ public class FloatGround : MonoBehaviour
     public float floatSpeed = 5.0f;
     public bool isFloat = false;
     public bool onGround = false;
-    private bool onFloat = false;
     private float startHeight;
     private float startWireHeight;
 
@@ -33,20 +33,15 @@ public class FloatGround : MonoBehaviour
     {
         onGround = wireFrameTrigger.onTrigger;
 
-        if (onFloat != FlagManager.Instance.onFloat)
-        {
-            isFloat = !isFloat;
-            onFloat = FlagManager.Instance.onFloat;
-        }
-
         float subTargetHeight = 0.0f;
 
-        if (isFloat)
+        if (isFloat && FlagManager.Instance.flagActive &&
+            FlagManager.Instance.curFloatType == type)
         {
             transform.parent.parent = RotationManager.Instance.rotationTransform;
             subTargetHeight = startHeight + startWireHeight;
             wireRenderer.enabled = true;
-            MoveHeight(floatHeight);
+            MoveHeight(startHeight + floatHeight);
         }
         else
         {
