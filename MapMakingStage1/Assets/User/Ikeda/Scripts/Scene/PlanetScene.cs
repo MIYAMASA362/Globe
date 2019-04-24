@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 [RequireComponent(typeof(Timer))]
 public class PlanetScene :SceneBase {
@@ -22,6 +21,8 @@ public class PlanetScene :SceneBase {
         timer = this.GetComponent<Timer>();
         timer.StartTimer();
         bGameClear = false;
+        //データをセーブします。
+        DataManager.Instance.SaveAll();
         base.Start();
 	}
 	
@@ -33,6 +34,7 @@ public class PlanetScene :SceneBase {
         if (bGameClear)
         {
             TimeBonus();
+            DataManager.Instance.SaveAll();
             MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet());
         }
 	}
@@ -44,6 +46,10 @@ public class PlanetScene :SceneBase {
     {
         bGameClear = true;
         timer.StopTimer();
+
+        //例えばクリスタルを増やしてみる
+        Debug.LogWarning("クリスタルを増やしてる");
+        DataManager.Instance.nCrystalNum++;
     }
 
     //--- Time ----------------------------------
