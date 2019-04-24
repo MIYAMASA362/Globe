@@ -9,13 +9,10 @@ public class AudioManager : Singleton<AudioManager>
 {
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
-    private const string SE_PATH = "Audio/SE";
 
     //ボリューム保存用のkeyとデフォルト値
     private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
-    private const string SE_VOLUME_KEY = "SE_VOLUME_KEY";
     private const float BGM_VOLUME_DEFULT = 1.0f;
-    private const float SE_VOLUME_DEFULT = 1.0f;
 
     //BGMがフェードするのにかかる時間
     public const float BGM_FADE_SPEED_RATE_HIGH = 0.9f;
@@ -24,18 +21,16 @@ public class AudioManager : Singleton<AudioManager>
 
     //次流すBGM名、SE名
     private string _nextBGMName;
-    private string _nextSEName;
 
     //BGMをフェードアウト中か
     private bool _isFadeOut = false;
 
     //BGM用、SE用に分けてオーディオソースを持つ
     private AudioSource _bgmSource;
-    private List<AudioSource> _seSourceList;
-    private const int SE_SOURCE_NUM = 10;
+    private const int BGM_SOURCE_NUM = 1;
 
     //全AudioClipを保持
-    private Dictionary<string, AudioClip> _bgmDic, _seDic;
+    private Dictionary<string, AudioClip> _bgmDic;
 
     //=================================================================================
     //初期化
@@ -51,84 +46,39 @@ public class AudioManager : Singleton<AudioManager>
 
         DontDestroyOnLoad(this.gameObject);
 
-        //オーディオリスナーおよびオーディオソースをSE+1(BGMの分)作成
+        //オーディオリスナーおよびオーディオソースをSE+BGM分作成
         gameObject.AddComponent<AudioListener>();
-        for (int i = 0; i < SE_SOURCE_NUM + 1; i++)
+        for (int i = 0; i < BGM_SOURCE_NUM; i++)
         {
             gameObject.AddComponent<AudioSource>();
         }
 
         //作成したオーディオソースを取得して各変数に設定、ボリュームも設定
         AudioSource[] audioSourceArray = GetComponents<AudioSource>();
-        _seSourceList = new List<AudioSource>();
 
         for (int i = 0; i < audioSourceArray.Length; i++)
         {
             audioSourceArray[i].playOnAwake = false;
 
-            if (i == 0)
+            //BGMの設定を初期化
+            if (i < BGM_SOURCE_NUM)
             {
                 audioSourceArray[i].loop = true;
                 _bgmSource = audioSourceArray[i];
                 _bgmSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFULT);
             }
-            else
-            {
-                _seSourceList.Add(audioSourceArray[i]);
-                audioSourceArray[i].volume = PlayerPrefs.GetFloat(SE_VOLUME_KEY, SE_VOLUME_DEFULT);
-            }
-
         }
 
         //リソースフォルダから全SE&BGMのファイルを読み込みセット
         _bgmDic = new Dictionary<string, AudioClip>();
-        _seDic = new Dictionary<string, AudioClip>();
 
         object[] bgmList = Resources.LoadAll(BGM_PATH);
-        object[] seList = Resources.LoadAll(SE_PATH);
 
         foreach (AudioClip bgm in bgmList)
         {
             _bgmDic[bgm.name] = bgm;
         }
-        foreach (AudioClip se in seList)
-        {
-            _seDic[se.name] = se;
-        }
-
     }
-
-    //=================================================================================
-    //SE
-    //=================================================================================
-
-    /// <summary>
-    /// 指定したファイル名のSEを流す。第二引数のdelayに指定した時間だけ再生までの間隔を空ける
-    /// </summary>
-    public void PlaySE(string seName, float delay = 0.0f)
-    {
-        if (!_seDic.ContainsKey(seName))
-        {
-            Debug.Log(seName + "という名前のSEがありません");
-            return;
-        }
-
-        _nextSEName = seName;
-        Invoke("DelayPlaySE", delay);
-    }
-
-    private void DelayPlaySE()
-    {
-        foreach (AudioSource seSource in _seSourceList)
-        {
-            if (!seSource.isPlaying)
-            {
-                seSource.PlayOneShot(_seDic[_nextSEName] as AudioClip);
-                return;
-            }
-        }
-    }
-
     //=================================================================================
     //BGM
     //=================================================================================
@@ -211,13 +161,8 @@ public class AudioManager : Singleton<AudioManager>
     public void ChangeVolume(float BGMVolume, float SEVolume)
     {
         _bgmSource.volume = BGMVolume;
-        foreach (AudioSource seSource in _seSourceList)
-        {
-            seSource.volume = SEVolume;
-        }
 
         PlayerPrefs.SetFloat(BGM_VOLUME_KEY, BGMVolume);
-        PlayerPrefs.SetFloat(SE_VOLUME_KEY, SEVolume);
     }
 
 }
