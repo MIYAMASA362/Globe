@@ -819,7 +819,7 @@ public static class InputManager {
             dead = 0f,
             sensitivity = 0.1f,
             snap = false,
-            invert = false,
+            invert = true,
             type = AxisType.MouseMovement,
             axis = 1,
             joyNum = 0,
