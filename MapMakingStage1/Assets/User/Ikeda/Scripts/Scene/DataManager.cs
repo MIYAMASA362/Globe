@@ -14,10 +14,10 @@ public class DataManager : Singleton<DataManager>
 
     public int  IsSave = 0;              //セーブデータがあるか(0:false,1:true)
 
-    private string CrystalNumKey = "CrystalNum";
-    private string GalaxyNumKey = "GalaxySelect";
-    private string PlanetNumKey = "PlanetNum";
-    private string IsSaveKey = "IsSave";
+    private readonly string CrystalNumKey = "CrystalNum";
+    private readonly string GalaxyNumKey = "GalaxySelect";
+    private readonly string PlanetNumKey = "PlanetNum";
+    private readonly string IsSaveKey = "IsSave";
 
     //--- MonoBehaviour -----------------------------------
 
@@ -74,7 +74,11 @@ public class DataManager : Singleton<DataManager>
     [ContextMenu("DeleteAll")]
     public void DeleteAll()
     {
-        PlayerPrefs.DeleteAll();
+        if (PlayerPrefs.HasKey(CrystalNumKey)) PlayerPrefs.DeleteKey(CrystalNumKey);
+        if (PlayerPrefs.HasKey(GalaxyNumKey)) PlayerPrefs.DeleteKey(GalaxyNumKey);
+        if (PlayerPrefs.HasKey(PlanetNumKey)) PlayerPrefs.DeleteKey(PlanetNumKey);
+        if (PlayerPrefs.HasKey(IsSaveKey)) PlayerPrefs.DeleteKey(IsSaveKey);
+        PlayerPrefs.Save();
     }
 
     [ContextMenu("Debug_Save")]
