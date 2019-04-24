@@ -6,14 +6,27 @@ using UnityEditor;
 
 public class GalaxySelectScene : SceneBase {
 
+    [System.Serializable]
+    class Galaxy
+    {
+        [SerializeField,Tooltip("銀河")]
+        public GameObject galaxy;
+        [SerializeField, Tooltip("要求クリスタル数")]
+        public int CrystalNum;
+    }
+
     //--- State ---------------------------------
-    [SerializeField] private GameObject[] Galaxys;
+    [SerializeField] private Galaxy[] Galaxys;
     [SerializeField] private Transform CameraPivot = null;
+    [SerializeField,Tooltip("Lock表示")] private GameObject LockUI;     //Lock表示
+    [SerializeField, Tooltip("要求クリスタル表示")] private TMPro.TextMeshProUGUI CrystalMessage;
     [SerializeField] private int nGalaxyNum = 0;
 
     private bool bInput = false;
     private Vector3 move;
     GameObject SelectObj = null;
+
+    //--- MonoBehaviour -----------------------------------
 
 	// Use this for initialization
 	public override void Start ()
@@ -23,13 +36,16 @@ public class GalaxySelectScene : SceneBase {
         bInput = false;
 
         MySceneManager.nSelecter_Galaxy = nGalaxyNum;
+        MySceneManager.nSelecter_Planet = 0;
 
-        foreach (GameObject obj in Galaxys)
+        //Active切り替え
+        foreach (var obj in Galaxys)
         {
-            SetCanvas(obj,false);
+            SetCanvas(obj.galaxy,false);
         }
-        SelectObj = Galaxys[nGalaxyNum];
+        SelectObj = Galaxys[nGalaxyNum].galaxy;
         SetCanvas(SelectObj,true);
+        LockUI.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -37,11 +53,13 @@ public class GalaxySelectScene : SceneBase {
     {
         base.Update();
 
+        //入力取得
         float selecter = Input.GetAxis(InputManager.X_Selecter);
-        int old = nGalaxyNum;
+        int old = nGalaxyNum;   //更新前後の確認
 
         if (selecter == 0f) bInput = true;
 
+        //選択遷移
         if (bInput)
         {
             if(selecter >= 0.5f)
@@ -60,27 +78,56 @@ public class GalaxySelectScene : SceneBase {
 
         nGalaxyNum = nGalaxyNum % MySceneManager.nMaxGalaxyNum;
 
+        //更新されていれば
         if(old != nGalaxyNum)
         {
-            SelectObj = Galaxys[nGalaxyNum];
-            SetCanvas(Galaxys[old],false);
+            //表示を切り替える
+            SelectObj = Galaxys[nGalaxyNum].galaxy;
+            SetCanvas(Galaxys[old].galaxy,false);
             SetCanvas(SelectObj,true);
         }
 
+        //選択中の星まで移動
         if (SelectObj.transform.position != CameraPivot.transform.position)
             CameraPivot.transform.position = Vector3.Lerp(CameraPivot.transform.position,SelectObj.transform.position,Time.deltaTime);
 
-        if (Input.GetButtonDown(InputManager.Submit))LoadGalaxyScene();
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.TitleScene);
+        //セレクタの更新
         MySceneManager.nSelecter_Galaxy = nGalaxyNum;
+
+        //遷移できるのか
+        if (IsGalaxy_Submit())
+        {
+            LockUI.SetActive(false);
+
+            //セレクト決定
+            if (Input.GetButtonDown(InputManager.Submit)) LoadGalaxyScene();
+        }
+        else
+        {
+            CrystalMessage.text = "Need Crystal:"+Galaxys[nGalaxyNum].CrystalNum.ToString("00");
+            LockUI.SetActive(true);
+        }
+
+        //戻る
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.TitleScene);
     }
 
     private void OnDrawGizmos()
     {
         for (int i = 0; i < Galaxys.Length - 1; i++)
         {
-            Gizmos.DrawLine(Galaxys[i].transform.position, Galaxys[i + 1].transform.position);
+            Gizmos.DrawLine(Galaxys[i].galaxy.transform.position, Galaxys[i + 1].galaxy.transform.position);
         }
+    }
+
+    //--- Method ------------------------------------------
+
+    public bool IsGalaxy_Submit()
+    {
+        //所持しているクリスタル数が多ければ true
+        if (DataManager.Instance.nCrystalNum >= Galaxys[nGalaxyNum].CrystalNum) return true;
+
+        return false;
     }
 
     public void LoadGalaxyScene()
@@ -88,7 +135,7 @@ public class GalaxySelectScene : SceneBase {
         MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy());
     }
 
-    //PlanetのCanvasを変更させる
+    //GalaxyのCanvasを変更させる
     void SetCanvas(GameObject obj, bool enable)
     {
         obj.transform.Find("Canvas").gameObject.SetActive(enable);

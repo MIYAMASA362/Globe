@@ -37,6 +37,7 @@ public class MySceneManager : Singleton<MySceneManager>
     private SceneAsset Asset_ManagerScene;
     [SerializeField, Tooltip("Pause画面")]
     private SceneAsset Asset_PauseScene;
+    
 
     [Space(10), Header("Title")]
     [SerializeField, Tooltip("オープニング動画")]
@@ -48,7 +49,13 @@ public class MySceneManager : Singleton<MySceneManager>
     [SerializeField, Tooltip("オプション")]
     private SceneAsset Asset_OpsitionScene;
 
-    [Space(10)]
+    [Space(10),Header("StartGame")]
+    [SerializeField, Tooltip("データを更新するかのCheckScene")]
+    private SceneAsset Asset_DataCheckScene;
+    [SerializeField,Tooltip("ゲームの導入Scene")]
+    private SceneAsset Asset_GameStartScene;
+
+    [Space(10),Header("MainGame")]
     [SerializeField,Tooltip("銀河選択")]
     public SceneAsset Asset_GalexySelect;
 
@@ -60,11 +67,15 @@ public class MySceneManager : Singleton<MySceneManager>
     public static string PauseScene { get; private set; }
     public static string GalaxySelect { get; private set; }
     public static string OpsitionScene { get; private set; }
+    public static string DataCheckScene { get; private set; }
+    public static string GameStartScene { get; private set; }
 
     public static int nMaxGalaxyNum { get; private set; }
     public static int nMaxPlanetNum { get; private set; }
 
     //nSelecter State
+    public int Selecter_Galaxy;
+    public int Selecter_Planet;
     public static int nSelecter_Galaxy = 0;
     public static int nSelecter_Planet = 0;
 
@@ -73,7 +84,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool bFadeing { get; private set; } //Fade中:true
 
     public static string NextLoadScene;
-    public static bool bFade_Use;                     //FadeIn/Outを利用
+    private static bool bFade_Use = false;             //FadeIn/Outを利用
 
     //--- MonoBehavior ------------------------------------
 
@@ -95,13 +106,17 @@ public class MySceneManager : Singleton<MySceneManager>
         bFadeing = false;
         bFade_Use = false;
 
+        nSelecter_Galaxy = 0;
+        nSelecter_Planet = 0;
+
         OpeningScene = AssetDatabase.GetAssetPath(Asset_OpeningScene);
         TitleScene = AssetDatabase.GetAssetPath(Asset_TitleScene);
         PauseScene = AssetDatabase.GetAssetPath(Asset_PauseScene);
         GalaxySelect = AssetDatabase.GetAssetPath(Asset_GalexySelect);
         OpsitionScene = AssetDatabase.GetAssetPath(Asset_OpsitionScene);
+        DataCheckScene = AssetDatabase.GetAssetPath(Asset_DataCheckScene);
+        GameStartScene = AssetDatabase.GetAssetPath(Asset_GameStartScene);
 
-        
         SceneManager.LoadScene(OpeningScene);    //初期読み込み
     }
 
@@ -110,6 +125,9 @@ public class MySceneManager : Singleton<MySceneManager>
         bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
         bOption = SceneManager.GetSceneByPath(OpsitionScene).isLoaded;
         nMaxPlanetNum = galaxies[nSelecter_Galaxy].Asset_Planets.Length;
+
+        Selecter_Galaxy = nSelecter_Galaxy;
+        Selecter_Planet = nSelecter_Planet;
     }
 
     private void LateUpdate()
@@ -144,11 +162,13 @@ public class MySceneManager : Singleton<MySceneManager>
         }
     }
      
+    //現在の惑星
     public static string Get_NowPlanet()
     {
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
     }
 
+    //現在の銀河
     public static string Get_NowGalaxy()
     {
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
@@ -159,9 +179,11 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         nSelecter_Galaxy++;
 
-        if (nSelecter_Galaxy >= nMaxGalaxyNum)
+        if (nSelecter_Galaxy > nMaxGalaxyNum-1)
+        {
+            nSelecter_Galaxy = 0;
             return TitleScene;
-
+        }
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
     }
 
@@ -170,9 +192,11 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         nSelecter_Planet++;
 
-        if (nSelecter_Planet >= nMaxPlanetNum)
+        if (nSelecter_Planet > nMaxPlanetNum-1)
+        {
+            nSelecter_Planet = 0;
             return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
-
+        }
         return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
     }
 
@@ -183,28 +207,61 @@ public class MySceneManager : Singleton<MySceneManager>
         SceneManager.LoadScene(NextLoadScene);
     }
 
-    //Animatorを使ってFadeOut
+    //Animatorを使ってFadeIn
     public static void FadeInLoad(string NextScene)
     {
         NextLoadScene = NextScene;
+        bFade_Use = true;
         Instance.animator.SetBool("FadeFlag",true);
     }
 
-    //FadeOutが完了したらFadeIn
-    public void FadeComplete()
+    //FadeOutが完了したらFadeOut
+    public void CompleteFadeOut()
     {
         SceneManager.LoadScene(NextLoadScene);
         Instance.animator.SetBool("FadeFlag", false);
     }
 
+    public void CompleteFadeIn()
+    {
+        bFade_Use = false;
+    }
+
     //終了処理
     public static void Game_Exit()
     {
+        DataManager.Instance.SaveAll();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_STANDALONE
         UnityEngine.Application.Quit();
 #endif
+    }
+
+    //データがある:true データがない:false
+    public static bool Game_LoadContinue()
+    {
+        DataManager.Instance.LoadAll();
+
+        //データがある
+        if (DataManager.Instance.IsSave == 1)
+        {
+            nSelecter_Galaxy = DataManager.Instance.nGalaxy_IsFinalSelect;
+            nSelecter_Planet = DataManager.Instance.nPlanet_IsFinalSelect;
+            Debug.Log("Find");
+            return true;
+        }
+
+        Debug.Log("Not Find");
+        //データがない
+        return false;
+    }
+
+    //Fadeしている
+    public static bool Fading()
+    {
+        return bFade_Use;
     }
 
     #region コメント箱
@@ -297,6 +354,10 @@ public class MySceneManager : Singleton<MySceneManager>
             editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_OpsitionScene), true));
 
             editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_OpeningScene), true));
+
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_DataCheckScene), true));
+
+            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(mySceneManager.Asset_GameStartScene), true));
 
             foreach (var galaxy in mySceneManager.galaxies)
             {
