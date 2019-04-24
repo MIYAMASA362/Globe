@@ -158,7 +158,7 @@ public class AudioManager : Singleton<AudioManager>
     /// <summary>
     /// BGMとSEのボリュームを別々に変更&保存
     /// </summary>
-    public void ChangeVolume(float BGMVolume, float SEVolume)
+    public void ChangeVolume(float BGMVolume)
     {
         _bgmSource.volume = BGMVolume;
 

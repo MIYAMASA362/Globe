@@ -17,5 +17,6 @@ public class StarScript : MonoBehaviour {
 
         //BGMスタート
         AudioManager.Instance.PlayBGM(AUDIO.BGM_STAGE1_SAMPLE);
+        AudioManager.Instance.ChangeVolume(0.5f);
 	}
 }
