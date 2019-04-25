@@ -6,10 +6,14 @@ public class FlagManager : Singleton<FlagManager> {
 
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
-    [Tag] public string findTag = "FloatGround";
-    FloatGround[] floatObjects;
+    [Header("軸を刺すときのエフェクト")]
     public LineEffectSwitcher lineEffectSwitcher = null;
     private Vector3 linePosition = Vector3.zero;
+
+    [Header("浮遊グラウンド設定")]
+    [Tag] public string findTag = "FloatGround";
+    public FloatType.Type curFloatType;
+    private FloatGround[] floatObjects;
 
     public bool flagActive
     {
@@ -26,7 +30,6 @@ public class FlagManager : Singleton<FlagManager> {
             }
         }
     }
-    public bool onFloat = false;
 
     public Transform flagTransform
     {
@@ -47,31 +50,18 @@ public class FlagManager : Singleton<FlagManager> {
     void Start () {
         if (flag) flag.SetActive(false);
 
-        GameObject[] findObject = GameObject.FindGameObjectsWithTag(findTag);
+        FindFloatGround();
+    }
 
-        floatObjects = new FloatGround[findObject.Length];
-        for (int i = 0; i < findObject.Length; i++) 
+    void Update()
+    {
+        if (Input.GetButtonDown(InputManager.Change_AscDes))
         {
-            floatObjects[i] = findObject[i].GetComponent<FloatGround>();
+            if (CheckFloatOnGround()) ChangeFloatOnGround();
         }
     }
-	
-	void Update () {
-        if(RotationManager.Instance.rotationSpeed == 0.0f)
-        {
-            if (Input.GetButtonDown(InputManager.Change_AscDes))
-            {
-                foreach(var floatobj in floatObjects)
-                {
-                    if (floatobj.onGround) return;
-                }
 
-                onFloat = !onFloat;
-            } 
-        }
-	}
-
-    public void SetFlag(Vector3 axisPos)
+    public void SetFlag(Vector3 axisPos, FloatType.Type type)
     {
         if(!flag)
         {
@@ -92,17 +82,61 @@ public class FlagManager : Singleton<FlagManager> {
         flag.transform.up = axisPos - planetTransform.transform.position;
         lineEffectSwitcher.SetEffect(linePosition, Color.green);
         flag.SetActive(true);
-        RotationManager.instance.ArrowObject.transform.up = flag.transform.up;
+        curFloatType = type;
+
+        RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
-    public void DestoyFlag()
+    public bool DestoyFlag()
     {
         if (!flag)
         {
             Debug.Log("flag is nothing!!");
-            return;
+            return false;
         }
+
+        if (!CheckFloatOnGround()) return false;
+
         lineEffectSwitcher.SetEffect(linePosition, Color.red);
         flag.SetActive(false);
+
+        return true;
+    }
+
+    void FindFloatGround()
+    {
+        GameObject[] findObject = GameObject.FindGameObjectsWithTag(findTag);
+
+        floatObjects = new FloatGround[findObject.Length];
+        for (int i = 0; i < findObject.Length; i++)
+        {
+            floatObjects[i] = findObject[i].GetComponent<FloatGround>();
+        }
+    }
+
+    bool CheckFloatOnGround()
+    {
+        if (RotationManager.Instance.rotationSpeed != 0.0f) return false;
+
+        foreach (var floatObj in floatObjects)
+        {
+            if (curFloatType == floatObj.type)
+            {
+                if (floatObj.onGround) return false;
+            }
+        }
+
+        return true;
+    }
+
+    void ChangeFloatOnGround()
+    {
+        foreach (var floatObj in floatObjects)
+        {
+            if(curFloatType == floatObj.type)
+            {
+                floatObj.isFloat = !floatObj.isFloat;
+            }
+        }
     }
 }
