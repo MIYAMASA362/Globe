@@ -220,13 +220,12 @@ namespace SA
                 {
                     if (axisObject == axisTransform.parent.gameObject)
                     {
-                        flagManager.DestoyFlag();
-                        axisObject = null;
+                        if(flagManager.DestoyFlag()) axisObject = null;
                     }
                 }
                 else
                 {
-                    flagManager.SetFlag(axisTransform.position);
+                    flagManager.SetFlag(axisTransform.position, axisTransform.GetComponent<FloatType>().type);
                     axisObject = axisTransform.parent.gameObject;
                 }
             }
