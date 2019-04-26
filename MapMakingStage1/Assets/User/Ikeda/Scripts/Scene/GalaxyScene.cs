@@ -14,7 +14,7 @@ public class GalaxyScene : SceneBase
 	// Use this for initialization
 	public override void Start ()
     {
-        MySceneManager.nSelecter_Galaxy = GalaxyNum;
+        DataManager.Instance.playerData.SelectGalaxy = GalaxyNum;
         base.Start();
     }
 	
@@ -41,6 +41,6 @@ public class GalaxyScene : SceneBase
     public void LoadPlanetScene()
     { 
         SceneManager.LoadScene(AssetDatabase.GetAssetPath(MySceneManager.Instance.galaxies[GalaxyNum].Asset_Planets[nPlanetNum]));
-        MySceneManager.nSelecter_Planet = nPlanetNum;
+        DataManager.Instance.playerData.SelectPlanet = nPlanetNum;
     }
 }

@@ -35,8 +35,8 @@ public class GalaxySelectScene : SceneBase {
         nGalaxyNum = 0;
         bInput = false;
 
-        MySceneManager.nSelecter_Galaxy = nGalaxyNum;
-        MySceneManager.nSelecter_Planet = 0;
+        DataManager.Instance.playerData.SelectGalaxy = nGalaxyNum;
+        DataManager.Instance.playerData.SelectPlanet = 0;
 
         //Active切り替え
         foreach (var obj in Galaxys)
@@ -92,7 +92,7 @@ public class GalaxySelectScene : SceneBase {
             CameraPivot.transform.position = Vector3.Lerp(CameraPivot.transform.position,SelectObj.transform.position,Time.deltaTime);
 
         //セレクタの更新
-        MySceneManager.nSelecter_Galaxy = nGalaxyNum;
+        DataManager.Instance.playerData.SelectGalaxy = nGalaxyNum;
 
         //遷移できるのか
         if (IsGalaxy_Submit())
@@ -125,7 +125,7 @@ public class GalaxySelectScene : SceneBase {
     public bool IsGalaxy_Submit()
     {
         //所持しているクリスタル数が多ければ true
-        if (DataManager.Instance.nCrystalNum >= Galaxys[nGalaxyNum].CrystalNum) return true;
+        if (DataManager.Instance.playerData.CrystalNum >= Galaxys[nGalaxyNum].CrystalNum) return true;
 
         return false;
     }

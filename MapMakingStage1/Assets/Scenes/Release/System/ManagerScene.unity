@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.18256989, g: 0.22828107, b: 0.30719447, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -314,7 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tm_text: {fileID: 1077999385}
   animator: {fileID: 1214285331}
   Asset_ManagerScene: {fileID: 102900000, guid: d5b7a28f53140d64cb9fcc91ae28bbb7,
     type: 3}
@@ -339,13 +338,11 @@ MonoBehaviour:
   - Asset_PlanetSelect: {fileID: 102900000, guid: 0f476503e35e3974db604ecc02edea97,
       type: 3}
     Asset_Planets:
-    - {fileID: 102900000, guid: ed3a8067a41aba84783b578cb276c6aa, type: 3}
+    - {fileID: 102900000, guid: d419c73fb39fb4148ae4381fea4a698c, type: 3}
   - Asset_PlanetSelect: {fileID: 102900000, guid: 0f476503e35e3974db604ecc02edea97,
       type: 3}
     Asset_Planets:
-    - {fileID: 102900000, guid: ed3a8067a41aba84783b578cb276c6aa, type: 3}
-  Selecter_Galaxy: 0
-  Selecter_Planet: 0
+    - {fileID: 102900000, guid: d419c73fb39fb4148ae4381fea4a698c, type: 3}
 --- !u!95 &1214285331
 Animator:
   serializedVersion: 3
@@ -375,10 +372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83225fc40617be249ae72c3740866b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nCrystalNum: 0
-  nGalaxy_IsFinalSelect: 0
-  nPlanet_IsFinalSelect: 0
-  IsSave: 0
+  playerData:
+    CrystalNum: 0
+    SelectGalaxy: 0
+    SelectPlanet: 0
 --- !u!1 &1421981784
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +603,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
