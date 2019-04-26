@@ -14,10 +14,8 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        [Tooltip("惑星選択")]
-        public SceneAsset Asset_PlanetSelect;
-        [Tooltip("惑星")]
-        public SceneAsset[] Asset_Planets;
+        [Tooltip("惑星選択")] public SceneAsset Asset_PlanetSelect;
+        [Tooltip("惑星")] public SceneAsset[] Asset_Planets;
     }
 
     //--- Attribute ---------------------------------------
@@ -27,41 +25,30 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- private -------------------------------
 
     [Header("UI State")]
-    [SerializeField,Tooltip("Debug：現在の選択Scene名")]
-    private TextMeshProUGUI tm_text;
-    [SerializeField,Tooltip("Fadeのアニメータ")]
-    private Animator animator;
+    [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
     [Header("Scene State")]
-    [SerializeField,Tooltip("マネージャー管理Scene")]
-    private SceneAsset Asset_ManagerScene;
-    [SerializeField, Tooltip("Pause画面")]
-    private SceneAsset Asset_PauseScene;
-    
+    [SerializeField, Tooltip("マネージャー管理Scene")] private SceneAsset Asset_ManagerScene;
+    [SerializeField, Tooltip("Pause画面")] private SceneAsset Asset_PauseScene;
 
     [Space(10), Header("Title")]
-    [SerializeField, Tooltip("オープニング動画")]
-    private SceneAsset Asset_OpeningScene;
-    [SerializeField, Tooltip("タイトルスタート")]
-    private SceneAsset Asset_StartScene;
-    [SerializeField,Tooltip("タイトル")]
-    private SceneAsset Asset_TitleScene;
-    [SerializeField, Tooltip("オプション")]
-    private SceneAsset Asset_OpsitionScene;
+    [SerializeField, Tooltip("オープニング動画")] private SceneAsset Asset_OpeningScene;
+    [SerializeField, Tooltip("タイトルスタート")] private SceneAsset Asset_StartScene;
+    [SerializeField, Tooltip("タイトル")] private SceneAsset Asset_TitleScene;
+    [SerializeField, Tooltip("オプション")] private SceneAsset Asset_OpsitionScene;
 
     [Space(10),Header("StartGame")]
-    [SerializeField, Tooltip("データを更新するかのCheckScene")]
-    private SceneAsset Asset_DataCheckScene;
-    [SerializeField,Tooltip("ゲームの導入Scene")]
-    private SceneAsset Asset_GameStartScene;
+    [SerializeField, Tooltip("データを更新するかのCheckScene")] private SceneAsset Asset_DataCheckScene;
+    [SerializeField,Tooltip("ゲームの導入Scene")] private SceneAsset Asset_GameStartScene;
 
     [Space(10),Header("MainGame")]
-    [SerializeField,Tooltip("銀河選択")]
-    public SceneAsset Asset_GalexySelect;
+    [SerializeField,Tooltip("銀河選択")] public SceneAsset Asset_GalexySelect;
+    [SerializeField, Tooltip("銀河")] public Galaxy[] galaxies;
 
-    [SerializeField, Tooltip("銀河")]
-    public Galaxy[] galaxies;
+    public static string NextLoadScene;
+    private static bool bFade_Use = false;             //FadeIn/Outを利用
 
+    //--- operation ----------------------------------
     public static string OpeningScene { get; private set; }
     public static string TitleScene { get; private set; }
     public static string PauseScene { get; private set; }
@@ -73,18 +60,11 @@ public class MySceneManager : Singleton<MySceneManager>
     public static int nMaxGalaxyNum { get; private set; }
     public static int nMaxPlanetNum { get; private set; }
 
-    //nSelecter State
-    public int Selecter_Galaxy;
-    public int Selecter_Planet;
-    public static int nSelecter_Galaxy = 0;
-    public static int nSelecter_Planet = 0;
-
     public static bool bPausing { get; private set; } //Pause中:true
     public static bool bOption  { get; private set; } //Option中:true
     public static bool bFadeing { get; private set; } //Fade中:true
 
-    public static string NextLoadScene;
-    private static bool bFade_Use = false;             //FadeIn/Outを利用
+
 
     //--- MonoBehavior ------------------------------------
 
@@ -94,40 +74,24 @@ public class MySceneManager : Singleton<MySceneManager>
         //現象：Sceneが二重にロードされる
 
         nMaxGalaxyNum = galaxies.Length;
-        nMaxPlanetNum = galaxies[nSelecter_Galaxy].Asset_Planets.Length;
+        nMaxPlanetNum = galaxies[0].Asset_Planets.Length;
 
         DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        bPausing = false;
-        bOption = false;
-        bFadeing = false;
-        bFade_Use = false;
+        //数値の初期化
+        Init_Attribute();
 
-        nSelecter_Galaxy = 0;
-        nSelecter_Planet = 0;
-
-        OpeningScene = AssetDatabase.GetAssetPath(Asset_OpeningScene);
-        TitleScene = AssetDatabase.GetAssetPath(Asset_TitleScene);
-        PauseScene = AssetDatabase.GetAssetPath(Asset_PauseScene);
-        GalaxySelect = AssetDatabase.GetAssetPath(Asset_GalexySelect);
-        OpsitionScene = AssetDatabase.GetAssetPath(Asset_OpsitionScene);
-        DataCheckScene = AssetDatabase.GetAssetPath(Asset_DataCheckScene);
-        GameStartScene = AssetDatabase.GetAssetPath(Asset_GameStartScene);
-
-        SceneManager.LoadScene(OpeningScene);    //初期読み込み
+        //初期画面
+        SceneManager.LoadScene(OpeningScene);   
     }
 
     private void Update()
     {
-        bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
-        bOption = SceneManager.GetSceneByPath(OpsitionScene).isLoaded;
-        nMaxPlanetNum = galaxies[nSelecter_Galaxy].Asset_Planets.Length;
-
-        Selecter_Galaxy = nSelecter_Galaxy;
-        Selecter_Planet = nSelecter_Planet;
+        //数値の更新
+        Update_Attribute();
     }
 
     private void LateUpdate()
@@ -136,14 +100,42 @@ public class MySceneManager : Singleton<MySceneManager>
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+    }
 
-        tm_text.text = "GalaxyNum:" + nSelecter_Galaxy
-                      +"\nPlanetNum:" + nSelecter_Planet;
-    }   
+    /*--- Method ------------------------------------------*/
 
-    //--- Method ------------------------------------------
+    //
+    //  Attributeの初期化
+    //
+    private void Init_Attribute()
+    {
+        bPausing = false;
+        bOption = false;
+        bFadeing = false;
+        bFade_Use = false;
 
-    //Pause画面の表示　bEnable[表示:true/非表示:false]
+        OpeningScene = AssetDatabase.GetAssetPath(Asset_OpeningScene);
+        TitleScene = AssetDatabase.GetAssetPath(Asset_TitleScene);
+        PauseScene = AssetDatabase.GetAssetPath(Asset_PauseScene);
+        GalaxySelect = AssetDatabase.GetAssetPath(Asset_GalexySelect);
+        OpsitionScene = AssetDatabase.GetAssetPath(Asset_OpsitionScene);
+        DataCheckScene = AssetDatabase.GetAssetPath(Asset_DataCheckScene);
+        GameStartScene = AssetDatabase.GetAssetPath(Asset_GameStartScene);
+    }
+
+    //
+    //  Attributeの更新処理
+    //
+    private void Update_Attribute()
+    {
+        bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
+        bOption  = SceneManager.GetSceneByPath(OpsitionScene).isLoaded;
+        nMaxPlanetNum = galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_Planets.Length;
+    }
+
+    //
+    //  Pause画面の表示　bEnable[表示:true/非表示:false]
+    //
     public static void Pause(bool bEnable)
     {
         //Fade中
@@ -162,52 +154,64 @@ public class MySceneManager : Singleton<MySceneManager>
         }
     }
      
-    //現在の惑星
+    //
+    //  現在の惑星
+    //
     public static string Get_NowPlanet()
     {
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_Planets[DataManager.Instance.playerData.SelectPlanet]);
     }
 
-    //現在の銀河
+    //
+    //  現在の銀河
+    //
     public static string Get_NowGalaxy()
     {
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_PlanetSelect);
     }
 
-    //次の銀河のPath 次がなければTitleへ
+    //
+    //  次の銀河のPath 次がなければTitleへ
+    //
     public static string Get_NextGalaxy()
     {
-        nSelecter_Galaxy++;
+        DataManager.Instance.playerData.SelectGalaxy++;
 
-        if (nSelecter_Galaxy > nMaxGalaxyNum-1)
+        if (DataManager.Instance.playerData.SelectGalaxy > nMaxGalaxyNum-1)
         {
-            nSelecter_Galaxy = 0;
+            DataManager.Instance.playerData.SelectGalaxy = 0;
             return TitleScene;
         }
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_PlanetSelect);
     }
 
-    //次の惑星へのPath なければPlanetSelectへ
+    //
+    //  次の惑星へのPath なければPlanetSelectへ
+    //
     public static string Get_NextPlanet()
     {
-        nSelecter_Planet++;
+        DataManager.Instance.playerData.SelectPlanet++;
 
-        if (nSelecter_Planet > nMaxPlanetNum-1)
+        if (DataManager.Instance.playerData.SelectPlanet > nMaxPlanetNum-1)
         {
-            nSelecter_Planet = 0;
-            return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_PlanetSelect);
+            DataManager.Instance.playerData.SelectPlanet = 0;
+            return AssetDatabase.GetAssetPath(Instance.galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_PlanetSelect);
         }
-        return AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
+        return AssetDatabase.GetAssetPath(Instance.galaxies[DataManager.Instance.playerData.SelectGalaxy].Asset_Planets[DataManager.Instance.playerData.SelectPlanet]);
     }
 
-    //SceneLoad
+    //
+    //  SceneLoad
+    //
     public static void Load(string NextScene)
     {
         NextLoadScene = NextScene;
         SceneManager.LoadScene(NextLoadScene);
     }
 
-    //Animatorを使ってFadeIn
+    //
+    //  Animatorを使ってFadeIn
+    //
     public static void FadeInLoad(string NextScene)
     {
         NextLoadScene = NextScene;
@@ -215,50 +219,40 @@ public class MySceneManager : Singleton<MySceneManager>
         Instance.animator.SetBool("FadeFlag",true);
     }
 
-    //FadeOutが完了したらFadeOut
+    //
+    //  FadeOutが完了したらFadeOut
+    //
     public void CompleteFadeOut()
     {
         SceneManager.LoadScene(NextLoadScene);
         Instance.animator.SetBool("FadeFlag", false);
     }
 
+    //
+    //  FadeInが完了した
+    //
     public void CompleteFadeIn()
     {
         bFade_Use = false;
     }
 
-    //終了処理
+    //
+    //  終了処理
+    //
     public static void Game_Exit()
     {
-        DataManager.Instance.SaveAll();
-
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#elif UNITY_STANDALONE
+        #elif UNITY_STANDALONE
         UnityEngine.Application.Quit();
-#endif
+        #endif
     }
 
-    //データがある:true データがない:false
-    public static bool Game_LoadContinue()
-    {
-        DataManager.Instance.LoadAll();
+    //--- DataManager ---------------------------
 
-        //データがある
-        if (DataManager.Instance.IsSave == 1)
-        {
-            nSelecter_Galaxy = DataManager.Instance.nGalaxy_IsFinalSelect;
-            nSelecter_Planet = DataManager.Instance.nPlanet_IsFinalSelect;
-            Debug.Log("Find");
-            return true;
-        }
-
-        Debug.Log("Not Find");
-        //データがない
-        return false;
-    }
-
-    //Fadeしている
+    //
+    //  Fadeしている
+    //
     public static bool Fading()
     {
         return bFade_Use;
@@ -380,5 +374,4 @@ public class MySceneManager : Singleton<MySceneManager>
             Debug.Log("Success!");
         }
     }
-
 }
