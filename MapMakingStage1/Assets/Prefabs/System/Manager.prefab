@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1779912964707904}
+  m_RootGameObject: {fileID: 1888039447762810}
   m_IsPrefabAsset: 1
---- !u!1 &1779912964707904
+--- !u!1 &1888039447762810
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4594184891647964}
-  - component: {fileID: 114775250828254970}
-  - component: {fileID: 114210576697032186}
-  - component: {fileID: 114731626757360966}
-  - component: {fileID: 114126330535504758}
+  - component: {fileID: 4126303987517360}
+  - component: {fileID: 114070194208349834}
+  - component: {fileID: 114672231315425832}
+  - component: {fileID: 114332024215144920}
+  - component: {fileID: 114969878277778392}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -30,12 +30,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4594184891647964
+--- !u!4 &4126303987517360
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1779912964707904}
+  m_GameObject: {fileID: 1888039447762810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -43,41 +43,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114126330535504758
+--- !u!114 &114070194208349834
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1779912964707904}
+  m_GameObject: {fileID: 1888039447762810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
+  m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isChange: 0
-  keycode: 113
-  planetCamera: {fileID: 0}
-  characterCamera: {fileID: 0}
---- !u!114 &114210576697032186
+  corePlanet: {fileID: 0}
+  rotationTarget: {fileID: 0}
+  accelSpeed: 1
+  maxSpeed: 45
+  ArrowObject: {fileID: 0}
+  ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
+  rotationSpeed: 60
+  isRotation: 0
+  rotationAngle: 18
+  curRotation: 0
+--- !u!114 &114332024215144920
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1779912964707904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: {fileID: 0}
-  findTag: FloatGround
-  onFloat: 0
---- !u!114 &114731626757360966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1779912964707904}
+  m_GameObject: {fileID: 1888039447762810}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f2b0fb43bc680043b49c5afe69fcad7, type: 3}
@@ -88,21 +80,35 @@ MonoBehaviour:
   skyFloat: 0
   clouds: {fileID: 0}
   cloudsScaleSmooth: 5
---- !u!114 &114775250828254970
+  supportCircle: {fileID: 0}
+  onSupport: 0
+  useSupport: 1
+--- !u!114 &114672231315425832
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1779912964707904}
+  m_GameObject: {fileID: 1888039447762810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
+  m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corePlanet: {fileID: 0}
-  rotationTarget: {fileID: 0}
-  accelSpeed: 5
-  maxSpeed: 35
-  ArrowObject: {fileID: 0}
-  ArrowMaterial: {fileID: 2100000, guid: 47704bd0696b1e44489291254d60782a, type: 2}
-  rotationSpeed: 10
+  flag: {fileID: 0}
+  lineEffectSwitcher: {fileID: 0}
+  findTag: FloatGround
+  curFloatType: 0
+--- !u!114 &114969878277778392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888039447762810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChange: 0
+  planetCamera: {fileID: 0}
+  characterCamera: {fileID: 0}

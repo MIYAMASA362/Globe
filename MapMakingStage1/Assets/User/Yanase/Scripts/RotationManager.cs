@@ -15,9 +15,13 @@ public class RotationManager : Singleton<RotationManager> {
     public Material ArrowMaterial;
 
     [Space(4)]
-    public float rotationSpeed = 0.0f;
+    public float rotationSpeed = 5.0f;
 
-    private bool isRotation = false;
+    public bool isRotation = false;
+
+    [SerializeField] private float rotationAngle = 30.0f;
+    [SerializeField] private float curRotation = 0.0f;
+
 
     public Transform planetTransform
     {
@@ -40,16 +44,16 @@ public class RotationManager : Singleton<RotationManager> {
     //Update
 	private void Update ()
     {
-        PlanetRotation();
+        PlanetRotation(rotationAngle);
     }
 
     //FixedUpdate
     private void FixedUpdate()
     {
-        if (!isRotation)
-        {
-            rotationSpeed = 0.0f;
-        }
+        //if (!isRotation)
+        //{
+        //    rotationSpeed = 0.0f;
+        //}
     }
 
     private void PlanetRotation()
@@ -62,12 +66,16 @@ public class RotationManager : Singleton<RotationManager> {
         {
             if (Input.GetAxis(InputManager.Left_AxisRotation) >= 0.05f)
             {
+                if (rotationSpeed < 0) rotationSpeed = 0.0f;
+
                 rotationSpeed += accelSpeed;
                 ArrowMaterial.SetTextureOffset("_MainTex",new Vector2(0f,0f));
                 isRotation = true;
             }
             if (Input.GetAxis(InputManager.Right_AxisRotation) <= -0.05f)
             {
+                if (rotationSpeed > 0) rotationSpeed = 0.0f;
+
                 rotationSpeed -= accelSpeed;
                 ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
                 isRotation = true;
@@ -92,6 +100,65 @@ public class RotationManager : Singleton<RotationManager> {
             ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
         }
 
+    }
+
+    private void PlanetRotation(float angle)
+    {
+        // フラグマネージャー取得
+        FlagManager flagManager = FlagManager.Instance;
+
+        if (flagManager.flagActive)
+        {
+            if (isRotation)
+                ArrowObject.SetActive(true);
+            else
+                ArrowObject.SetActive(false);
+
+            if (isRotation)
+            {
+                Quaternion quaternion;
+                Transform axisTransform = flagManager.flagTransform;
+                float roll = ((curRotation >= 0) ? rotationSpeed : -rotationSpeed) * Time.deltaTime;
+                float deff = (curRotation >= 0) ? (curRotation - roll) : -(curRotation - roll);
+
+                if (deff <= 0)
+                {
+                    roll = curRotation;
+                    isRotation = false;
+                    curRotation = 0.0f;
+                    InputRotation();
+                }
+                else curRotation -= roll;
+
+                quaternion = Quaternion.AngleAxis(roll, axisTransform.up);
+                // 回転値を合成
+                axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
+                rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
+
+                ArrowObject.transform.position = flagManager.flagTransform.position;
+                ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
+            }
+            else
+            {
+                InputRotation();
+            }
+        }
+    }
+
+    private void InputRotation()
+    {
+        if (Input.GetButton(InputManager.Left_AxisRotation))
+        {
+            curRotation = -rotationAngle;
+            ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
+            isRotation = true;
+        }
+        if (Input.GetButton(InputManager.Right_AxisRotation))
+        {
+            curRotation = rotationAngle;
+            ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
+            isRotation = true;
+        }
     }
 
     public Vector3 GetMoveDir(Vector3 position)
