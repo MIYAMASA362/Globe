@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FloatGround : MonoBehaviour
 {
+    public FloatType.Type type;
     public Transform wireObject;
     private WireFrameTrigger wireFrameTrigger;
     private Renderer wireRenderer;
@@ -12,7 +13,6 @@ public class FloatGround : MonoBehaviour
     public float floatSpeed = 5.0f;
     public bool isFloat = false;
     public bool onGround = false;
-    private bool onFloat = false;
     private float startHeight;
     private float startWireHeight;
 
@@ -21,7 +21,7 @@ public class FloatGround : MonoBehaviour
     void Start()
     {
         startHeight = transform.localPosition.y;
-        startWireHeight = wireObject.transform.localPosition.y - startHeight;
+        startWireHeight = wireObject.transform.position.magnitude;
         wireObject.gameObject.SetActive(true);
         wireObject.transform.rotation = transform.rotation;
         wireRenderer = wireObject.GetComponent<Renderer>();
@@ -31,31 +31,23 @@ public class FloatGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        onGround = wireFrameTrigger.onTrigger;
-
-        if (onFloat != FlagManager.Instance.onFloat)
+        if (isFloat && FlagManager.Instance.flagActive &&
+            FlagManager.Instance.curFloatType == type)
         {
-            isFloat = !isFloat;
-            onFloat = FlagManager.Instance.onFloat;
-        }
-
-        float subTargetHeight = 0.0f;
-
-        if (isFloat)
-        {
+            onGround = wireFrameTrigger.onTrigger;
             transform.parent.parent = RotationManager.Instance.rotationTransform;
-            subTargetHeight = startHeight + startWireHeight;
             wireRenderer.enabled = true;
-            MoveHeight(floatHeight);
+            MoveHeight(startHeight + floatHeight);
         }
         else
         {
+            onGround = false;
             transform.parent.parent = RotationManager.Instance.planetTransform;
             wireRenderer.enabled = false;
             MoveHeight(startHeight);
         }
 
-        wireObject.transform.localPosition = new Vector3(0.0f, subTargetHeight, 0.0f);
+        wireObject.transform.position = wireObject.transform.forward * startWireHeight;
     }
 
     void MoveHeight(float target)

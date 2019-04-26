@@ -7,7 +7,7 @@ public class StarScript : MonoBehaviour {
     private GameObject player;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //プレイヤーオブジェクトの取得
         player = GameObject.Find("Character");
         //プレイヤーをスタート位置に設置
@@ -17,5 +17,6 @@ public class StarScript : MonoBehaviour {
 
         //BGMスタート
         AudioManager.Instance.PlayBGM(AUDIO.BGM_STAGE1_SAMPLE);
+        AudioManager.Instance.ChangeVolume(0.5f);
 	}
 }
