@@ -84,6 +84,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.SetActive(true);
         curFloatType = type;
 
+        AtmosphereManager.Instance.supportCircle.transform.up = flag.transform.up;
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
@@ -116,7 +117,7 @@ public class FlagManager : Singleton<FlagManager> {
 
     bool CheckFloatOnGround()
     {
-        if (RotationManager.Instance.rotationSpeed != 0.0f) return false;
+        if (RotationManager.Instance.isRotation) return false;
 
         foreach (var floatObj in floatObjects)
         {
