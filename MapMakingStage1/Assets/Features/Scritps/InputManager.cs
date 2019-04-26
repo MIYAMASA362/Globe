@@ -467,12 +467,12 @@ public static class InputManager {
         
         new InputAxis {
             name = "View",
-            descriptiveName = "XBox-Controller View Button",
+            descriptiveName = "XBox-Controller View Button And (F)Key",
             descriptiveNegativeName = "",
             negativeButton = "",
             positiveButton = "joystick button 6",
             altNegativeButton = "",
-            altPositiveButton = "",
+            altPositiveButton = "f",
             gravity = 1000f,
             dead = 0.001f,
             sensitivity = 1000f,

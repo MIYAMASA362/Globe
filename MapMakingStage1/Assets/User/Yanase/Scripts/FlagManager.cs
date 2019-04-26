@@ -84,6 +84,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.SetActive(true);
         curFloatType = type;
 
+        AtmosphereManager.Instance.supportCircle.transform.up = flag.transform.up;
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
