@@ -88,7 +88,7 @@ public class FlagManager : Singleton<FlagManager> {
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
-    public bool DestoyFlag()
+    public bool DestoyFlag(Vector3 axisPos)
     {
         if (!flag)
         {
@@ -98,7 +98,7 @@ public class FlagManager : Singleton<FlagManager> {
 
         if (!CheckFloatOnGround()) return false;
 
-        lineEffectSwitcher.SetEffect(linePosition, Color.red);
+        lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flag.SetActive(false);
 
         return true;
