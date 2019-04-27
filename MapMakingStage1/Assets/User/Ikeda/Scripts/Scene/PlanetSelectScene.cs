@@ -32,7 +32,7 @@ public class PlanetSelectScene : SceneBase
         nPanetNum = 0;
         bInput = false;
 
-        MySceneManager.nSelecter_Planet = nPanetNum;
+        DataManager.Instance.playerData.SelectPlanet = nPanetNum;
 
         foreach(var obj in Planets)
         {
@@ -93,7 +93,7 @@ public class PlanetSelectScene : SceneBase
         }
 
         if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
-        MySceneManager.nSelecter_Planet = nPanetNum;
+        DataManager.Instance.playerData.SelectPlanet = nPanetNum;
     }
 
     private void OnDrawGizmos()
@@ -108,7 +108,7 @@ public class PlanetSelectScene : SceneBase
 
     public bool IsPlanet_Submit()
     {
-        if (DataManager.Instance.nCrystalNum >= Planets[nPanetNum].CrystalNum) return true;
+        if (DataManager.Instance.playerData.CrystalNum >= Planets[nPanetNum].CrystalNum) return true;
 
         return false;
     }
