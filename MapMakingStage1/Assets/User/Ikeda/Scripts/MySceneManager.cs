@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
@@ -16,7 +18,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public class Galaxy
     {
         public string Path_PlanetSelect;
-        public string[] Path_Planets;
+        public List<string> Path_Planets;
     }
 
     //--- Attribute ---------------------------------------
@@ -28,55 +30,26 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
-    [SerializeField] public string Path_Manager;
-    [SerializeField] public string Path_Pause;
-    [SerializeField] public string Path_Opening;
-    [SerializeField] public string Path_Start;
-    [SerializeField] public string Path_Title;
-    [SerializeField] public string Path_Option;
-    [SerializeField] public string Path_DataCheck;
-    [SerializeField] public string Path_GameStart;
-    [SerializeField] public string Path_GalaxySelect;
-    [SerializeField] public Galaxy[] Galaxies;
-
-    [Header("Scene State")]
-    [SerializeField, Tooltip("マネージャー管理Scene")] public SceneAsset Asset_ManagerScene;
-    
-    [SerializeField, Tooltip("Pause画面")] public SceneAsset Asset_PauseScene;
-
-    [Space(10), Header("Title")]
-    [SerializeField, Tooltip("オープニング動画")] public SceneAsset Asset_OpeningScene;
-    [SerializeField, Tooltip("タイトル")] public SceneAsset Asset_TitleScene;
-    [SerializeField, Tooltip("オプション")] public SceneAsset Asset_OpsitionScene;
-
-    [Space(10),Header("StartGame")]
-    [SerializeField, Tooltip("データを更新するかのCheckScene")] public SceneAsset Asset_DataCheckScene;
-    [SerializeField,Tooltip("ゲームの導入Scene")] public SceneAsset Asset_GameStartScene;
-
-    [Space(10),Header("MainGame")]
-    [SerializeField,Tooltip("銀河選択")] public SceneAsset Asset_GalexySelect;
-    //[SerializeField, Tooltip("銀河")] public Galaxy[] galaxies;
+    [HideInInspector] public string Path_Manager;
+    [HideInInspector] public string Path_Pause;
+    [HideInInspector] public string Path_Opening;
+    [HideInInspector] public string Path_Title;
+    [HideInInspector] public string Path_Option;
+    [HideInInspector] public string Path_DataCheck;
+    [HideInInspector] public string Path_GameStart;
+    [HideInInspector] public string Path_GalaxySelect;
+    [HideInInspector] public List<Galaxy> Galaxies;
 
     public static string NextLoadScene;
     private static bool bFade_Use = false;             //FadeIn/Outを利用
 
     //--- operation ----------------------------------
-    public static string OpeningScene { get; private set; }
-    public static string TitleScene { get; private set; }
-    public static string PauseScene { get; private set; }
-    public static string GalaxySelect { get; private set; }
-    public static string OpsitionScene { get; private set; }
-    public static string DataCheckScene { get; private set; }
-    public static string GameStartScene { get; private set; }
-
     public static int nMaxGalaxyNum { get; private set; }
     public static int nMaxPlanetNum { get; private set; }
 
     public static bool bPausing { get; private set; } //Pause中:true
     public static bool bOption  { get; private set; } //Option中:true
     public static bool bFadeing { get; private set; } //Fade中:true
-
-
 
     //--- MonoBehavior ------------------------------------
 
@@ -85,8 +58,8 @@ public class MySceneManager : Singleton<MySceneManager>
         //Awake に SceneManagerの関数などを使うとバグにつながる。
         //現象：Sceneが二重にロードされる
 
-        nMaxGalaxyNum = Galaxies.Length;
-        nMaxPlanetNum = Galaxies[0].Path_Planets.Length;
+        nMaxGalaxyNum = Galaxies.Count;
+        nMaxPlanetNum = Galaxies[0].Path_Planets.Count;
 
         DontDestroyOnLoad(this);
     }
@@ -97,7 +70,7 @@ public class MySceneManager : Singleton<MySceneManager>
         Init_Attribute();
 
         //初期画面
-        SceneManager.LoadScene(OpeningScene);   
+        SceneManager.LoadScene(Path_Opening);   
     }
 
     private void Update()
@@ -125,14 +98,6 @@ public class MySceneManager : Singleton<MySceneManager>
         bOption = false;
         bFadeing = false;
         bFade_Use = false;
-
-        OpeningScene = AssetDatabase.GetAssetPath(Asset_OpeningScene);
-        TitleScene = AssetDatabase.GetAssetPath(Asset_TitleScene);
-        PauseScene = AssetDatabase.GetAssetPath(Asset_PauseScene);
-        GalaxySelect = AssetDatabase.GetAssetPath(Asset_GalexySelect);
-        OpsitionScene = AssetDatabase.GetAssetPath(Asset_OpsitionScene);
-        DataCheckScene = AssetDatabase.GetAssetPath(Asset_DataCheckScene);
-        GameStartScene = AssetDatabase.GetAssetPath(Asset_GameStartScene);
     }
 
     //
@@ -140,9 +105,9 @@ public class MySceneManager : Singleton<MySceneManager>
     //
     private void Update_Attribute()
     {
-        bPausing = SceneManager.GetSceneByPath(PauseScene).isLoaded;
-        bOption  = SceneManager.GetSceneByPath(OpsitionScene).isLoaded;
-        nMaxPlanetNum = Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets.Length;
+        bPausing = SceneManager.GetSceneByPath(Path_Pause).isLoaded;
+        bOption  = SceneManager.GetSceneByPath(Path_Option).isLoaded;
+        nMaxPlanetNum = Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets.Count;
     }
 
     //
@@ -160,9 +125,9 @@ public class MySceneManager : Singleton<MySceneManager>
         if (bPausing != bEnable)
         {
             if (bEnable)
-                SceneManager.LoadScene(PauseScene,LoadSceneMode.Additive);
+                SceneManager.LoadScene(Instance.Path_Pause,LoadSceneMode.Additive);
             else
-                SceneManager.UnloadSceneAsync(PauseScene);
+                SceneManager.UnloadSceneAsync(Instance.Path_Pause);
         }
     }
      
@@ -192,7 +157,7 @@ public class MySceneManager : Singleton<MySceneManager>
         if (DataManager.Instance.playerData.SelectGalaxy > nMaxGalaxyNum-1)
         {
             DataManager.Instance.playerData.SelectGalaxy = 0;
-            return TitleScene;
+            return Instance.Path_Title;
         }
         return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
     }

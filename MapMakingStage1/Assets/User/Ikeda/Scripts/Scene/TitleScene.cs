@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -102,9 +101,9 @@ public class TitleScene : SceneBase
                 //Start
                 case 0:
                     if (DataManager.Instance.Continue())
-                        MySceneManager.FadeInLoad(MySceneManager.DataCheckScene);
+                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_DataCheck);
                     else
-                        MySceneManager.FadeInLoad(MySceneManager.GameStartScene);
+                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart);
                     break;
 
                 //Continue
@@ -124,7 +123,7 @@ public class TitleScene : SceneBase
 
                 //Option
                 case 2:
-                    SceneManager.LoadScene(MySceneManager.OpsitionScene, LoadSceneMode.Additive);
+                    SceneManager.LoadScene(MySceneManager.Instance.Path_Option, LoadSceneMode.Additive);
                     break;
 
                 //Exit
@@ -133,7 +132,7 @@ public class TitleScene : SceneBase
                     break;
 
                 default:
-                    MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
                     break;
             }
         }
@@ -145,7 +144,7 @@ public class TitleScene : SceneBase
         }
         else if(time >= WaitTime)
         {
-            MySceneManager.FadeInLoad(MySceneManager.OpeningScene);
+            MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening);
         }
     }
 

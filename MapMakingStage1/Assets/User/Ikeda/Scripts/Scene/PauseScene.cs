@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using TMPro;
 
 public class PauseScene : SceneBase
@@ -60,7 +59,7 @@ public class PauseScene : SceneBase
         //決定されたとき
         if (Input.GetButtonDown(InputManager.Submit) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.UnloadSceneAsync(MySceneManager.PauseScene);
+            SceneManager.UnloadSceneAsync(MySceneManager.Instance.Path_Pause);
             //遷移
             switch (SelectNum)
             {
@@ -75,24 +74,17 @@ public class PauseScene : SceneBase
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy());
                     break;
                 case 3:
-                    MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
                     break;
                 case 4:
-                    MySceneManager.FadeInLoad(MySceneManager.TitleScene);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
                     break;
                 default:
-                    MySceneManager.FadeInLoad(MySceneManager.TitleScene);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
                     break;
             }
         }
 
         
     }
-
-    private void LateUpdate()
-    {
-        
-    }
-
-
 }
