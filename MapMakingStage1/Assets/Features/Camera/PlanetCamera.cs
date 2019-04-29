@@ -5,30 +5,66 @@ namespace FrameWork.Camera
 {
     public class PlanetCamera : MonoBehaviour
     {
+        public Transform rotationPivot;
+        public Transform cameraTransform;
 
-        public float turnSpeed = 1.5f;
-        public float smoothness = 3;
+        public float upSpeed = 3.0f;
+        public float mouseSpeed = 1.5f;
 
-        private float lerp1;
-        private float lerp2;
-        public float tiltAngle;
+        public float minAngle = -80f;
+        public float maxAngle = 80f;
+        public float distance = 13f;
+
         public float lookAngle;
+        public float tiltAngle;
 
+        float turnSmoothing = .1f;
+        float smoothX;
+        float smoothY;
+        float smoothXvelocity;
+        float smoothYvelocity;
 
-        void Update()
+        private void Start()
         {
+            rotationPivot.transform.localPosition = Vector3.zero;
+            cameraTransform.localPosition = new Vector3(0.0f, 0.0f, distance);
+        }
 
-            float smoothX = Input.GetAxis(InputManager.Camera_Horizontal);
-            float smoothY = Input.GetAxis(InputManager.Camera_Vertical);
 
-            lookAngle += smoothX * turnSpeed;
-            tiltAngle += smoothY * turnSpeed;
-            
+        private void Update()
+        {
+            Tick(Time.deltaTime);
+        }
 
-            lerp1 = Mathf.Lerp(lerp1, lookAngle, Time.deltaTime * smoothness);
-            lerp2 = Mathf.Lerp(lerp2, tiltAngle, Time.deltaTime * smoothness);
+        //------------------------------------------
+        void LateUpdate()
+        {
+            Quaternion q = Quaternion.FromToRotation(transform.up, FlagManager.Instance.flagTransform.up);
+            q = q * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * upSpeed);
+        }
 
-            transform.rotation = Quaternion.Euler(lerp2, lerp1, 0f);
+        public void Tick(float d)
+        {
+            float h = Input.GetAxis(InputManager.Camera_Horizontal);
+            float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
+
+            float targetSpeed = mouseSpeed;
+
+            HandleRotations(d, v, h, targetSpeed);
+        }
+        
+        //------------------------------------------
+        void HandleRotations(float d, float v, float h, float targetSpeed)
+        {
+            smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
+            smoothY = Mathf.SmoothDamp(smoothY, v, ref smoothYvelocity, turnSmoothing);
+
+            lookAngle += smoothX * targetSpeed;
+            tiltAngle += smoothY * targetSpeed;
+            tiltAngle = Mathf.Clamp(tiltAngle, minAngle, maxAngle);
+
+            rotationPivot.localRotation = Quaternion.Euler(tiltAngle, lookAngle, 0);
         }
     }
 }
