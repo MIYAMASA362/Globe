@@ -101,7 +101,7 @@ public class TitleScene : SceneBase
             {
                 //Start
                 case 0:
-                    if (MySceneManager.Game_LoadContinue())
+                    if (DataManager.Instance.Continue())
                         MySceneManager.FadeInLoad(MySceneManager.DataCheckScene);
                     else
                         MySceneManager.FadeInLoad(MySceneManager.GameStartScene);
@@ -111,7 +111,7 @@ public class TitleScene : SceneBase
                 case 1:
                     Debug.Log("チェック");
 
-                    if (MySceneManager.Game_LoadContinue())
+                    if (DataManager.Instance.Continue())
                         MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet());
                     else
                     {
@@ -155,6 +155,8 @@ public class TitleScene : SceneBase
     {
         bUpdate = true;
     }
+
+    //--- IEnumerator -------------------------------------
 
     IEnumerator Continue_WaitInput()
     {

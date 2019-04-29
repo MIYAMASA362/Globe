@@ -8,7 +8,7 @@
 	 _Thickness("Thickness", Range(0, 1)) = 0.01
 	}
 
-	SubShader
+		SubShader
 	{
 		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
 		LOD 100
@@ -28,41 +28,41 @@
 		 #include "UnityCG.cginc"
 
 		 struct appdata {
-		  float4 vertex : POSITION;
-		  float3 normal : NORMAL;
+			float4 vertex : POSITION;
+			float3 normal : NORMAL;
 		 };
 
 		 struct v2g {
-		  float4 vertex : SV_POSITION;
-		  float3 normal : TEXCOORD0;
+			float4 vertex : SV_POSITION;
+			float3 normal : TEXCOORD0;
 		 };
 
 		 struct g2f {
-		  float4 vertex : SV_POSITION;
-		  float3 normal : TEXCOORD0;
-		  UNITY_FOG_COORDS(1)
+			float4 vertex : SV_POSITION;
+			float3 normal : TEXCOORD0;
+			UNITY_FOG_COORDS(1)
 		 };
 
 		 v2g vert(appdata v)
 		 {
-		  v2g o;
-		  o.vertex = v.vertex;
-		  o.normal = v.normal;
-		  return o;
+			v2g o;
+			o.vertex = v.vertex;
+			o.normal = v.normal;
+			return o;
 		 }
 
 		 struct vData {
-		  float3 pos;
-		  float3 normal;
+			float3 pos;
+			float3 normal;
 		 };
 
 		 g2f SetVertex(vData data)
 		 {
-		  g2f o;
-		  o.vertex = UnityObjectToClipPos(float4(data.pos, 1));
-		  o.normal = data.normal;
-		  UNITY_TRANSFER_FOG(o, o.vertex);
-		  return o;
+			g2f o;
+			o.vertex = UnityObjectToClipPos(float4(data.pos, 1));
+			o.normal = data.normal;
+			UNITY_TRANSFER_FOG(o, o.vertex);
+			return o;
 		 }
 
 		 fixed4 _Color;
@@ -128,9 +128,9 @@
 
 		fixed4 frag(g2f i) : SV_Target
 		{
-		 fixed4 col = _Color + _EmissionColor;
-		 UNITY_APPLY_FOG(i.fogCoord, col);
-		 return col;
+			fixed4 col = _Color + _EmissionColor;
+			UNITY_APPLY_FOG(i.fogCoord, col);
+			return col;
 		}
 
 		ENDCG
