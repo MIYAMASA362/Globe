@@ -84,11 +84,11 @@ public class FlagManager : Singleton<FlagManager> {
         flag.SetActive(true);
         curFloatType = type;
 
-        AtmosphereManager.Instance.supportCircle.transform.up = flag.transform.up;
+//        AtmosphereManager.Instance.supportCircle.transform.up = flag.transform.up;
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
-    public bool DestoyFlag()
+    public bool DestoyFlag(Vector3 axisPos)
     {
         if (!flag)
         {
@@ -98,7 +98,7 @@ public class FlagManager : Singleton<FlagManager> {
 
         if (!CheckFloatOnGround()) return false;
 
-        lineEffectSwitcher.SetEffect(linePosition, Color.red);
+        lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flag.SetActive(false);
 
         return true;

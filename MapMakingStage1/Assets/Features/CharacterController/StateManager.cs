@@ -220,7 +220,7 @@ namespace SA
                 {
                     if (axisObject == axisTransform.parent.gameObject)
                     {
-                        if(flagManager.DestoyFlag()) axisObject = null;
+                        if(flagManager.DestoyFlag(axisTransform.position)) axisObject = null;
                     }
                 }
                 else
