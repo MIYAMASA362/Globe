@@ -315,34 +315,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1214285331}
-  Asset_ManagerScene: {fileID: 102900000, guid: d5b7a28f53140d64cb9fcc91ae28bbb7,
-    type: 3}
-  Asset_PauseScene: {fileID: 102900000, guid: a17452bf41d9627468e1f40e43e71885, type: 3}
-  Asset_OpeningScene: {fileID: 102900000, guid: 86adb22c7fb308d419725a270f21dbab,
-    type: 3}
-  Asset_StartScene: {fileID: 102900000, guid: bd5e5600ea89a7e4086dd9a50d3fbe03, type: 3}
-  Asset_TitleScene: {fileID: 102900000, guid: 7546a7b249b84924997c4066ebc4c72d, type: 3}
-  Asset_OpsitionScene: {fileID: 102900000, guid: 8fcbe12e3c2a0014daa3285de7b04292,
-    type: 3}
-  Asset_DataCheckScene: {fileID: 102900000, guid: 73724e04c9ea08d4cb702ab11fff4bd4,
-    type: 3}
-  Asset_GameStartScene: {fileID: 102900000, guid: 97443c5a6609ca44fa5bef83b785fcbb,
-    type: 3}
-  Asset_GalexySelect: {fileID: 102900000, guid: 989644e617d430e46a7d9af149383c6c,
-    type: 3}
-  galaxies:
-  - Asset_PlanetSelect: {fileID: 102900000, guid: 0f476503e35e3974db604ecc02edea97,
-      type: 3}
-    Asset_Planets:
-    - {fileID: 102900000, guid: d419c73fb39fb4148ae4381fea4a698c, type: 3}
-  - Asset_PlanetSelect: {fileID: 102900000, guid: 0f476503e35e3974db604ecc02edea97,
-      type: 3}
-    Asset_Planets:
-    - {fileID: 102900000, guid: d419c73fb39fb4148ae4381fea4a698c, type: 3}
-  - Asset_PlanetSelect: {fileID: 102900000, guid: 0f476503e35e3974db604ecc02edea97,
-      type: 3}
-    Asset_Planets:
-    - {fileID: 102900000, guid: d419c73fb39fb4148ae4381fea4a698c, type: 3}
+  Path_Manager: Assets/Scenes/Release/System/ManagerScene.unity
+  Path_Pause: Assets/Scenes/Release/System/Pause.unity
+  Path_Opening: Assets/Scenes/Release/OpeningScene.unity
+  Path_Title: Assets/Scenes/Release/Title.unity
+  Path_Option: Assets/Scenes/Release/System/OptionScene.unity
+  Path_DataCheck: Assets/Scenes/Release/System/DataCheck.unity
+  Path_GameStart: Assets/Scenes/Release/GameStart.unity
+  Path_GalaxySelect: Assets/Scenes/Release/GalaxySelect.unity
+  Galaxies:
+  - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
+    Path_Planets:
+    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
+    Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
 --- !u!95 &1214285331
 Animator:
   serializedVersion: 3
@@ -492,6 +481,7 @@ GameObject:
   - component: {fileID: 1515266818}
   - component: {fileID: 1515266820}
   - component: {fileID: 1515266819}
+  - component: {fileID: 1515266821}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -554,6 +544,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1515266821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1515266817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!1 &1954106607
 GameObject:
   m_ObjectHideFlags: 0

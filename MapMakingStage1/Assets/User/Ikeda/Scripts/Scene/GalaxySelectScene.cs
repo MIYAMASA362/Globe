@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class GalaxySelectScene : SceneBase {
 
@@ -109,7 +108,7 @@ public class GalaxySelectScene : SceneBase {
         }
 
         //戻る
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.TitleScene);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
     }
 
     private void OnDrawGizmos()
