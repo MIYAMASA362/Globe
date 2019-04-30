@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.18256989, g: 0.22828107, b: 0.30719447, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -326,12 +326,12 @@ MonoBehaviour:
   Galaxies:
   - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
     Path_Planets:
-    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
     - Assets/Scenes/Stage/TemplateStage.unity
   - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
     Path_Planets:
     - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
 --- !u!95 &1214285331
 Animator:
   serializedVersion: 3
@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 1515266818}
   - component: {fileID: 1515266820}
   - component: {fileID: 1515266819}
+  - component: {fileID: 1515266821}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -543,6 +544,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1515266821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1515266817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!1 &1954106607
 GameObject:
   m_ObjectHideFlags: 0
