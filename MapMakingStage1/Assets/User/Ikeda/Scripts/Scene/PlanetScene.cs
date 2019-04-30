@@ -383,26 +383,4 @@ public class PlanetScene :SceneBase
     {
         return (min <= value && value <= max);
     }
-
-    //--- Editor --------------------------------
-    [CanEditMultipleObjects]
-    [CustomEditor(typeof(PlanetScene))]
-    class ThisEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            GUILayout.Space(4);
-            if (GUILayout.Button("Apply To Loacl Data")) Apply();
-        }
-
-        public void Apply()
-        {
-            
-            var myPlanetScene = target as PlanetScene;
-
-            myPlanetScene.ResetData();
-        }
-    }
 }
