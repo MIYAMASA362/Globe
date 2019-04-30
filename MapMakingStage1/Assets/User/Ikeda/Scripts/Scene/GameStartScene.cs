@@ -7,6 +7,7 @@ public class GameStartScene : SceneBase {
     public override void Start()
     {
         base.Start();
+        DataManager.Instance.ReSet();
         Invoke("Next",2f);
     }
 

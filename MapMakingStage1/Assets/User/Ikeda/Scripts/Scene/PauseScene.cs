@@ -11,13 +11,16 @@ public class PauseScene : SceneBase
 
     [SerializeField]
     private RectTransform[] ContentUI;
+    private RectTransform[] KeepContentUI;
 
     [SerializeField]
     private RectTransform SelectingUI;
 
     [SerializeField]
     private int SelectNum = 0;
+
     private int MaxNum = 5;
+    private float PopX = 30f;
 
     private bool bInput = false;
 
@@ -25,7 +28,20 @@ public class PauseScene : SceneBase
 	public override void Start ()
     {
         tm_StateName.text = SceneManager.GetActiveScene().name;
+        SelectingUI.gameObject.SetActive(true);
         bInput = false;
+
+        //初期値保存
+        KeepContentUI = new RectTransform[ContentUI.Length];
+        for (int i = 0; i < ContentUI.Length; i++)
+        {
+            KeepContentUI[i] = ContentUI[i];
+        }
+
+        SelectNum = 0;
+        ContentUI[SelectNum].position += KeepContentUI[SelectNum].transform.right * PopX;
+        SelectingUI.position = ContentUI[SelectNum].position;
+
     }
 	
 	// Update is called once per frame
@@ -52,9 +68,15 @@ public class PauseScene : SceneBase
             }
         }
         if (SelectNum <= -1) SelectNum = MaxNum - 1;
-        if(n != SelectNum) SelectNum = SelectNum % MaxNum;
+        if (n != SelectNum)
+        {
+            SelectNum = SelectNum % MaxNum;
 
-        SelectingUI.position = ContentUI[SelectNum].position;
+            ContentUI[n].position -= KeepContentUI[n].transform.right * PopX;
+            ContentUI[SelectNum].position += KeepContentUI[SelectNum].transform.right * PopX;
+
+            SelectingUI.position = ContentUI[SelectNum].position;
+        }
 
         //決定されたとき
         if (Input.GetButtonDown(InputManager.Submit) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))

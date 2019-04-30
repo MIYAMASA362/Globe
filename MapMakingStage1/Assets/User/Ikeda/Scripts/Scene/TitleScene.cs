@@ -100,9 +100,6 @@ public class TitleScene : SceneBase
             {
                 //Start
                 case 0:
-                    if (DataManager.Instance.Continue())
-                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_DataCheck);
-                    else
                         MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart);
                     break;
 

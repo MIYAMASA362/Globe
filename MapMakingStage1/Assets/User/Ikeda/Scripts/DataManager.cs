@@ -111,6 +111,7 @@ public class DataManager : Singleton<DataManager>
     public bool FileFind(string FileName)
     {
         FileInfo info = new FileInfo(DataPath(FileName));
+        if (info == null) return false;
         return info.Exists || info.Length != 0;
     }
 
