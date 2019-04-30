@@ -9,16 +9,11 @@ public class PlanetSceneEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
-        GUILayout.Space(4);
-        if (GUILayout.Button("Apply To Local Data")) Apply();
-    }
-
-    public void Apply()
-    {
         var myPlanetScene = target as PlanetScene;
 
-        myPlanetScene.ResetData();
+        base.OnInspectorGUI();
+
+        GUILayout.Space(10);
+        if (GUILayout.Button("Apply To Local Data")) myPlanetScene.ResetData();
     }
 }
