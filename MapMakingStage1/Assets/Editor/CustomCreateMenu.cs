@@ -21,6 +21,7 @@ public class CustomCreateMenu
     {
         GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/StageObjects/Crystal.prefab", typeof(GameObject));
         GameObject gameObject = (GameObject)GameObject.Instantiate(prefab);
+        gameObject.transform.parent = GameObject.Find(stage.name + "/PlanetHolder/Crystals").transform;
         PrefabUtility.ConnectGameObjectToPrefab(gameObject,prefab);
     }
 
