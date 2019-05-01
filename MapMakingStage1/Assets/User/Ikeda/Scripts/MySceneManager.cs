@@ -27,6 +27,10 @@ public class MySceneManager : Singleton<MySceneManager>
 
     //--- private -------------------------------
 
+    [Header("State")]
+    [SerializeField,Tooltip("初期化時に最初のシーンを読み込む")]
+    private bool bInitLoad = true;
+
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
@@ -70,7 +74,7 @@ public class MySceneManager : Singleton<MySceneManager>
         Init_Attribute();
 
         //初期画面
-        SceneManager.LoadScene(Path_Opening);   
+        if(bInitLoad) SceneManager.LoadScene(Path_Opening);   
     }
 
     private void Update()

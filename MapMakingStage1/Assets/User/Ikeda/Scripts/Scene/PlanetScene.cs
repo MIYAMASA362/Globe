@@ -56,12 +56,12 @@ public class PlanetScene :SceneBase
 
     #endregion
 
-    //--- Hide State -------------------------
-    //[SerializeField,Tooltip("保存されているデータ")]
+    //--- DataManager -------------------------
+    [Space(15),Header("DataManager SaveData")]
+    [SerializeField,Tooltip("保存されているデータ")]
     private DataManager.PlanetData planetData;
 
     private bool bGameClear;
-    private bool[] RankEnable = { false, false,false };
 
     //--- MonoBehaviour -----------------------------------------------------------------
 
@@ -70,18 +70,57 @@ public class PlanetScene :SceneBase
         timer = this.GetComponent<Timer>();
         timer.StartTimer();
 
+        base.Start();
+
+        //--- Init status ------------------------------------------------
+
         bGameClear = false;
 
         planetData = new DataManager.PlanetData();
-        planetData = Load_PlayData(Get_FineName());   //星のデータ取得
-        for (int i = 0; i < RankEnable.Length; i++)
+        planetData.rank = new bool[] { false, false, false };
+
+        //Crystalを入手しているか
+        planetData.bGet = new bool[Crystals.Length];
+        for (int i = 0; i < Crystals.Length; i++)
+            planetData.bGet[i] = Crystals[i].bGet;
+
+        //PlayerDataのセーブ
+        DataManager.Instance.Save(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
+
+        //PlanetDataのロードorセーブ
+        if (DataManager.Instance.FileFind(Get_FineName()))
+            DataManager.Instance.Load(ref planetData, Get_FineName());
+        else
+            DataManager.Instance.Save(ref planetData,Get_FineName());
+
+        //----------------------------------------------------------------
+
+        //CrystalのUIなどを設定
+        for(int i=0; i<Crystals.Length; i++)
         {
-            RankEnable[i] = planetData.rank[i];     //タイムランクの取得
+            Crystal crystal = Crystals[i];
+            if (crystal.gameObject == null) continue;
+
+            //UIを作成
+            crystal.ui = Instantiate(CrystalUI_Image,CrystalUI.transform,false);
+            crystal.ui.transform.position += crystal.ui.transform.right * (i * distance);
+
+            crystal.ui.SetActive(true);
+
+            //既に取得済み
+            if (!planetData.bGet[i]) continue;
+
+            crystal.bGet = planetData.bGet[i];
+
+            //薄くする
+            Color color = crystal.gameObject.GetComponent<Renderer>().material.color;
+            crystal.gameObject.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, alpha);
+
+            Color UIColor = crystal.ui.GetComponent<Image>().color;
+            crystal.ui.GetComponent<Image>().color = EnableColor;
         }
 
-        Init_Crystals(ref planetData);          //クリスタルの初期化
-
-        base.Start();
+        //----------------------------------------------------------------
 	}
 
     public override void Update ()
@@ -91,52 +130,34 @@ public class PlanetScene :SceneBase
         Update_RankUI();
 
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             GameClear();
-        }
 	}
 
     //--- Method ------------------------------------------------------------------------
 
     //
-    //  クリスタルを設定する
+    //  HitしたCrystalを加算
     //
-    private void Init_Crystals(ref DataManager.PlanetData planetData)
+    public void HitCrystal(GameObject hitCrystal)
     {
-        //カウンタ
-        int nCount = 0;
-
-        //Crystalの表示の設計
-        foreach (Crystal crystal in Crystals)
+        foreach (var crystal in Crystals)
         {
-            if (crystal.gameObject == null) continue;
+            //hitしたCrystal
+            if (crystal.gameObject != hitCrystal) continue;
 
-            //UIを設計
-            crystal.ui = Instantiate(CrystalUI_Image, CrystalUI.transform, false);
-            //UIをずらし
-            crystal.ui.transform.position += crystal.ui.transform.right * (nCount * distance);
+            //Active変更
+            crystal.gameObject.SetActive(false);
 
-            //保存したデータから取得
-            if (Crystals.Length == planetData.bGet.Length)
-            {
-                crystal.bGet = planetData.bGet[nCount];
-            }
+            //取得している
+            if (crystal.bGet) continue;
 
-            //既に取得している
-            if (crystal.bGet)
-            {
-                //薄くする
-                Color color = crystal.gameObject.GetComponent<Renderer>().material.color;
-                crystal.gameObject.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, alpha);
+            //加算する
+            Debug.LogWarning("クリスタル加算している");
+            DataManager.Instance.playerData.CrystalNum++;
+            planetData.crystalNum++;    //クリスタルの取得済みを更新
 
-                Color UIColor = crystal.ui.GetComponent<Image>().color;
-                crystal.ui.GetComponent<Image>().color = EnableColor;
-            }
-
-            //Active化
-            crystal.ui.SetActive(true);
-
-            nCount++;
+            crystal.bGet = true;            //取得した事を伝える
+            crystal.ui.GetComponent<Image>().color = EnableColor;   //UIカラー変更
         }
     }
 
@@ -151,16 +172,27 @@ public class PlanetScene :SceneBase
     {
         bGameClear = true;
 
-        //--- timer ---------
+    //--- timer ---------
         timer.StopTimer();
-        TimeBonus();
+        TimeBonus(timer.GetTime());
+    //-------------------
 
         //例えばクリスタルを増やしてみる
         Debug.LogWarning("クリスタルを増やしてる");
         DataManager.Instance.playerData.CrystalNum++;
 
-        //データ保存
-        Save_PlayData();
+        //初クリア
+        if (!planetData.clear) planetData.clear = true;
+
+        //クリスタルのデータを保存
+        for(int i = 0; i < Crystals.Length; i++)
+            planetData.bGet[i] = Crystals[i].bGet;
+
+        //星データの保存
+        DataManager.Instance.Save(ref planetData, Get_FineName());
+
+        //Playerデータの保存
+        DataManager.Instance.Save(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
 
         //Scene遷移
         MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet());
@@ -179,85 +211,49 @@ public class PlanetScene :SceneBase
             StarUI_2.fillAmount = 1 - (time - GoaldTime) / SilverTime;
         else if (StarUI_3.fillAmount > 0)
             StarUI_3.fillAmount = 1 - (time - GoaldTime - SilverTime) / BronzeTime;
-
     }
 
-    //
-    //  HitしたCrystalを加算
-    //
-    public void HitCrystal(GameObject hitCrystal)
-    {
-        foreach(var obj in Crystals)
-        {
-            //hitしたCrystal
-            if(obj.gameObject == hitCrystal)
-            {
-                //初めて取得する
-                if (!obj.bGet)
-                {
-                    //加算する
-                    Debug.LogWarning("クリスタル加算している");
-                    DataManager.Instance.playerData.CrystalNum++;
-                    planetData.crystalNum++;    //クリスタルの取得済みを更新
-
-                    obj.bGet = true;            //取得した事を伝える
-                    obj.ui.GetComponent<Image>().color = EnableColor;   //UIカラー変更
-                }
-
-                obj.gameObject.SetActive(false);    //Active変更
-            }
-        }
-    }
 
     //--- Time ----------------------------------
 
     //
     //タイムのボーナス
     //
-    private void TimeBonus()
+    private void TimeBonus(float time)
     {
-        float time = timer.GetTime();
+        //以外
+        if(time > BronzeTime)
+        {
+            Debug.Log("時間かかりすぎた。");
+            return;
+        }
 
         //ゴールド
         if (IsRange(time, 0, GoaldTime))
         {
             //初めてゴールドレコード
-            if (!planetData.bGet[0])
-            {
-                planetData.bGet[0] = true;
-            }
-
+            if (!planetData.rank[0])
+                planetData.rank[0] = true;
+            
             Debug.Log("ゴールドレコードだ！");
-            return;
         }
         //シルバー
         if (IsRange(time, 0, SilverTime))
         {
             //初めてシルバーレコード
-            if (!planetData.bGet[1])
-            {
-                planetData.bGet[1] = true;
-            }
+            if (!planetData.rank[1])
+                planetData.rank[1] = true;
 
             Debug.Log("シルバーレコードだ！");
-            return;
         }
         //ブロンズ
         if (IsRange(time, 0, BronzeTime))
         {
             //初めてブロンズレコード
-            if (!planetData.bGet[2])
-            {
-                planetData.bGet[2] = true;
-            }
+            if (!planetData.rank[2])
+                planetData.rank[2] = true;
 
             Debug.Log("ブロンズレコードだ！");
-        }
-        //以外
-        if(time >= BronzeTime)
-        {
-            Debug.Log("時間かかりすぎた。");
-            return;
         }
     }
 
@@ -272,103 +268,25 @@ public class PlanetScene :SceneBase
     }
 
     //
-    //  プレイヤーや星のデータを更新
-    //
-    private DataManager.PlanetData Load_PlayData(string FileName)
-    {
-        //データをセーブします
-        DataManager.Instance.Save(ref DataManager.Instance.playerData, DataManager.PLAYER_FILE);
-
-        //データをロードします
-        DataManager.PlanetData Data = new DataManager.PlanetData();
-        if (DataManager.Instance.FileFind(FileName))
-        {
-            DataManager.Instance.Load(ref Data, FileName);
-        }
-
-        return Data;
-    }
-
-    //
-    //  プレイヤーや星のデータを更新
-    //
-    private void Save_PlayData()
-    {
-        //初クリア
-        if (!planetData.clear) planetData.clear = true;
-
-        //クリスタルの取得判定を保存
-        int nCount = 0;
-        planetData.bGet = new bool[Crystals.Length];
-        foreach (Crystal crystal in Crystals)
-        {
-            planetData.bGet[nCount] = crystal.bGet;
-            nCount++;
-        }
-
-        //タイムランクの保存
-        for(int i =0; i < RankEnable.Length; i++)
-        {
-            planetData.rank[i] = RankEnable[i];
-        }
-
-        //星のデータ保存
-        DataManager.Instance.Save(ref planetData, Get_FineName());
-        //プレイヤーのデータ保存
-        DataManager.Instance.Save(ref DataManager.Instance.playerData, DataManager.PLAYER_FILE);
-    }
-
-    //
-    //  データ書き込み
-    //
-    [ContextMenu("SaveData")]
-    private void SaveData()
-    {
-        planetData = new DataManager.PlanetData();
-        planetData.bGet = new bool[Crystals.Length];
-
-        int nCount = 0;
-        foreach (Crystal crystal in Crystals)
-        {
-            planetData.bGet[nCount] = crystal.bGet;
-            nCount++;
-        }
-
-        DataManager.Instance.Save(ref planetData, Get_FineName());
-    }
-
-    //
     //  データ読み込み
     //
-    [ContextMenu("LoadData")]
-    private void LoadData()
+    public void LoadData()
     {
+        planetData = new DataManager.PlanetData();
         DataManager.Instance.Load(ref planetData,Get_FineName());
     }
 
     //
-    //  データリセット
+    //  データ保存
     //
-    [ContextMenu("ResetData")]
-    public void ResetData()
+    public void SaveData()
     {
         planetData = new DataManager.PlanetData();
 
-        int nCount = 0;
-        for(int i = 0; i<Crystals.Length; i++)
+        planetData.bGet = new bool[Crystals.Length];
+        for(int i= 0; i< Crystals.Length; i++)
         {
-            if (Crystals[i].gameObject != null) nCount++;
-        }
-        planetData.bGet = new bool[nCount];
-
-        nCount = 0;
-        foreach(Crystal crystal in Crystals)
-        {
-            if(crystal.gameObject != null)
-            {
-                planetData.bGet[nCount] = crystal.bGet;
-                nCount++;
-            }
+            planetData.bGet[i] = Crystals[i].bGet;
         }
 
         DataManager.Instance.Save(ref planetData, Get_FineName());
