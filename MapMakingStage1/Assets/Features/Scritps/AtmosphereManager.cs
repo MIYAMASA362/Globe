@@ -22,7 +22,7 @@ public class AtmosphereManager : Singleton<AtmosphereManager> {
 
     // Use this for initialization
     void Start () {
-        circleScale = supportCircle.localScale;
+       // circleScale = supportCircle.localScale;
     }
 	
 	// Update is called once per frame
@@ -66,15 +66,15 @@ public class AtmosphereManager : Singleton<AtmosphereManager> {
             onSupport = (FlagManager.Instance.flagActive) ? true : false; 
         }
 
-        if(useSupport)
-        {
-            supportCircle.localScale = (onSupport) ? Vector3.Lerp(supportCircle.localScale, circleScale, Time.deltaTime * cloudsScaleSmooth) :
-                                                    Vector3.Lerp(supportCircle.localScale, Vector3.zero, Time.deltaTime * cloudsScaleSmooth * 0.5f);
-        }
-        else
-        {
-            supportCircle.localScale = Vector3.Lerp(supportCircle.localScale, Vector3.zero, Time.deltaTime * cloudsScaleSmooth * 0.5f);
-        }
+        //if(useSupport)
+        //{
+        //    supportCircle.localScale = (onSupport) ? Vector3.Lerp(supportCircle.localScale, circleScale, Time.deltaTime * cloudsScaleSmooth) :
+        //                                            Vector3.Lerp(supportCircle.localScale, Vector3.zero, Time.deltaTime * cloudsScaleSmooth * 0.5f);
+        //}
+        //else
+        //{
+        //    supportCircle.localScale = Vector3.Lerp(supportCircle.localScale, Vector3.zero, Time.deltaTime * cloudsScaleSmooth * 0.5f);
+        //}
         
     }
 }

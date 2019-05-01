@@ -92,7 +92,7 @@ public class PlanetSelectScene : SceneBase
             LockUI.SetActive(true);
         }
 
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
         DataManager.Instance.playerData.SelectPlanet = nPanetNum;
     }
 
