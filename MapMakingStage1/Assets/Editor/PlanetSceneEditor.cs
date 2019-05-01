@@ -7,6 +7,13 @@ using UnityEditor;
 [CustomEditor(typeof(PlanetScene))]
 public class PlanetSceneEditor : Editor
 {
+    private void OnEnable()
+    {
+        var myPlanetScene = target as PlanetScene;
+
+        myPlanetScene.LoadData();
+    }
+
     public override void OnInspectorGUI()
     {
         var myPlanetScene = target as PlanetScene;
@@ -14,6 +21,6 @@ public class PlanetSceneEditor : Editor
         base.OnInspectorGUI();
 
         GUILayout.Space(10);
-        if (GUILayout.Button("Apply To Local Data")) myPlanetScene.ResetData();
+        if (GUILayout.Button("Apply To Local Data")) myPlanetScene.SaveData();
     }
 }

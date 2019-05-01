@@ -92,7 +92,7 @@ public class PlanetSelectScene : SceneBase
             LockUI.SetActive(true);
         }
 
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, false);
         DataManager.Instance.playerData.SelectPlanet = nPanetNum;
     }
 
@@ -115,7 +115,7 @@ public class PlanetSelectScene : SceneBase
 
     public void LoadPlanetScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet());
+        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), false);
     }
 
     //PlanetのCanvasを変更させる

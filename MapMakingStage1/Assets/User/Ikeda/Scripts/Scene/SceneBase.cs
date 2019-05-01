@@ -31,7 +31,7 @@ public class SceneBase : MonoBehaviour
     //Pause画面
     public void OnPause()
     {
-        if (IsPausing) MySceneManager.Pause(!MySceneManager.bPausing);
+        if (IsPausing) MySceneManager.Pause(!MySceneManager.IsPausing);
     }
 
     ////Scene選択切り替え
