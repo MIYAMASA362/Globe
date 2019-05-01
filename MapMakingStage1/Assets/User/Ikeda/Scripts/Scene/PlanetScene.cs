@@ -142,6 +142,7 @@ public class PlanetScene :SceneBase
     {
         foreach (var crystal in Crystals)
         {
+            
             //hitしたCrystal
             if (crystal.gameObject != hitCrystal) continue;
 
