@@ -9,8 +9,6 @@ using System.IO;
 using TMPro;
 using UnityEngine.UI;
 
-//ここにManagerを永遠にDontDestroyOnLoadへ退避させるステップ作った奴は殺す。末代まで殺す。
-//んで、読み込んだSceneをちゃんと精査しろ！って骨に彫ってやる。
 public class MySceneManager : Singleton<MySceneManager>
 {
 
@@ -27,6 +25,10 @@ public class MySceneManager : Singleton<MySceneManager>
 
     //--- private -------------------------------
 
+    [Header("State")]
+    [SerializeField,Tooltip("初期化時に最初のシーンを読み込む")]
+    private bool bInitLoad = true;
+
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
@@ -41,15 +43,16 @@ public class MySceneManager : Singleton<MySceneManager>
     [HideInInspector] public List<Galaxy> Galaxies;
 
     public static string NextLoadScene;
-    private static bool bFade_Use = false;             //FadeIn/Outを利用
+    private static bool IsFade_Use = false;             //FadeIn/Outを利用
+    private static bool IsLoad_Use = false;             //Loadを利用
 
     //--- operation ----------------------------------
     public static int nMaxGalaxyNum { get; private set; }
     public static int nMaxPlanetNum { get; private set; }
 
-    public static bool bPausing { get; private set; } //Pause中:true
-    public static bool bOption  { get; private set; } //Option中:true
-    public static bool bFadeing { get; private set; } //Fade中:true
+    public static bool IsPausing { get; private set; } //Pause中:true
+    public static bool IsOption  { get; private set; } //Option中:true
+    public static bool IsFadeing { get; private set; } //Fade中:true
 
     //--- MonoBehavior ------------------------------------
 
@@ -70,7 +73,7 @@ public class MySceneManager : Singleton<MySceneManager>
         Init_Attribute();
 
         //初期画面
-        SceneManager.LoadScene(Path_Opening);   
+        if(bInitLoad) SceneManager.LoadScene(Path_Opening);   
     }
 
     private void Update()
@@ -81,23 +84,23 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void LateUpdate()
     {
-        if (bPausing)
+        if (IsPausing)
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
     }
 
-    /*--- Method ------------------------------------------*/
+    //--- Method ------------------------------------------
 
     //
     //  Attributeの初期化
     //
     private void Init_Attribute()
     {
-        bPausing = false;
-        bOption = false;
-        bFadeing = false;
-        bFade_Use = false;
+        IsPausing = false;
+        IsOption = false;
+        IsFadeing = false;
+        IsFade_Use = false;
     }
 
     //
@@ -105,8 +108,8 @@ public class MySceneManager : Singleton<MySceneManager>
     //
     private void Update_Attribute()
     {
-        bPausing = SceneManager.GetSceneByPath(Path_Pause).isLoaded;
-        bOption  = SceneManager.GetSceneByPath(Path_Option).isLoaded;
+        IsPausing = SceneManager.GetSceneByPath(Path_Pause).isLoaded;
+        IsOption  = SceneManager.GetSceneByPath(Path_Option).isLoaded;
         nMaxPlanetNum = Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets.Count;
     }
 
@@ -116,13 +119,13 @@ public class MySceneManager : Singleton<MySceneManager>
     public static void Pause(bool bEnable)
     {
         //Fade中
-        if (bFadeing) return;
+        if (IsFadeing) return;
 
         //入力があるか
         if (!Input.GetButtonDown(InputManager.Menu)) return;
 
         //Pause状態とbEnableが逆であるのか
-        if (bPausing != bEnable)
+        if (IsPausing != bEnable)
         {
             if (bEnable)
                 SceneManager.LoadScene(Instance.Path_Pause,LoadSceneMode.Additive);
@@ -178,6 +181,20 @@ public class MySceneManager : Singleton<MySceneManager>
     }
 
     //
+    //  終了処理
+    //
+    public static void Game_Exit()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #elif UNITY_STANDALONE
+        UnityEngine.Application.Quit();
+    #endif
+    }
+
+    //--- SceneLoad FadeInOut -------------------
+
+    //
     //  SceneLoad
     //
     public static void Load(string NextScene)
@@ -187,14 +204,17 @@ public class MySceneManager : Singleton<MySceneManager>
     }
 
     //
-    //  Animatorを使ってFadeIn
+    //  Animatorを使ってFadeIn IsLoad:ロード画面を使うか
     //
-    public static void FadeInLoad(string NextScene)
+    public static void FadeInLoad(string NextScene,bool IsLoad)
     {
         NextLoadScene = NextScene;
-        bFade_Use = true;
+        IsFade_Use = true;
+        IsLoad_Use = IsLoad;
         Instance.animator.SetBool("FadeFlag",true);
     }
+
+    //--- Animator ------------------------------
 
     //
     //  FadeOutが完了したらFadeOut
@@ -203,6 +223,8 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         SceneManager.LoadScene(NextLoadScene);
         Instance.animator.SetBool("FadeFlag", false);
+        if (!IsLoad_Use)
+            Instance.animator.SetTrigger("LoadTrigger");
     }
 
     //
@@ -210,19 +232,16 @@ public class MySceneManager : Singleton<MySceneManager>
     //
     public void CompleteFadeIn()
     {
-        bFade_Use = false;
+        IsFade_Use = false;
     }
 
     //
-    //  終了処理
+    //  Load画面を終了
     //
-    public static void Game_Exit()
+    public void CompleteLoaded()
     {
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #elif UNITY_STANDALONE
-        UnityEngine.Application.Quit();
-        #endif
+        if(IsLoad_Use)
+            Instance.animator.SetTrigger("LoadTrigger");
     }
 
     //--- DataManager ---------------------------
@@ -232,63 +251,7 @@ public class MySceneManager : Singleton<MySceneManager>
     //
     public static bool Fading()
     {
-        return bFade_Use;
+        return IsFade_Use;
     }
 
-    #region コメント箱
-    //nSelecter Stateに沿った動き
-    //public static void Load_Planet()
-    //{
-    //    string LoadScene = AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Planets[nSelecter_Planet]);
-
-    //    if (bFade_Use)
-    //        FadeInLoad(LoadScene);
-    //    else
-    //        SceneManager.LoadScene(LoadScene);
-    //}
-
-    //nSelecter Stateに沿った動き
-    //public static void Load_Galaxy()
-    //{
-    //    string LoadScene = AssetDatabase.GetAssetPath(Instance.galaxies[nSelecter_Galaxy].Asset_Galaxy);
-
-    //    if (bFade_Use)
-    //        FadeInLoad(LoadScene);
-    //    else
-    //        SceneManager.LoadScene(LoadScene);
-    //}
-
-    //次の星へ
-    //public static void Next_LoadPlanet()
-    //{
-    //    nSelecter_Planet++;
-
-    //    //それ以上ない
-    //    if (nSelecter_Planet >= nMaxPlanetNum)
-    //    {
-    //        Load_Galaxy();
-    //        return;
-    //    }
-
-    //    Load_Planet();
-    //}
-
-
-
-    //次の銀河へ
-    //public static void Next_LoadGalaxy()
-    //{
-    //    nSelecter_Galaxy++;
-
-    //    //それ以上ない
-    //    if(nSelecter_Galaxy >= nMaxGalaxyNum)
-    //    {
-    //        SceneManager.LoadScene(TitleScene);
-    //        return;
-    //    }
-
-    //    Load_Galaxy();
-    //}
-
-    #endregion
 }

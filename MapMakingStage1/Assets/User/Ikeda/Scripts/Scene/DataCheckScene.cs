@@ -35,7 +35,7 @@ public class DataCheckScene : SceneBase
     {
         base.Update();
 
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,false);
 
         if (!bInput) return;
 
@@ -58,7 +58,7 @@ public class DataCheckScene : SceneBase
             else
             {
                 DataManager.Instance.Load(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
-                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
             }
         }
     }

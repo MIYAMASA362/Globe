@@ -18,6 +18,6 @@ public class GameStartScene : SceneBase {
 
     private void Next()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
+        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
     }
 }
