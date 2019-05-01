@@ -58,7 +58,7 @@ public class TitleScene : SceneBase
 
         time += Time.deltaTime;
 
-        if (MySceneManager.bOption || bWait) return;
+        if (MySceneManager.IsOption || bWait) return;
 
         int n = SelectNum;
 
@@ -100,7 +100,7 @@ public class TitleScene : SceneBase
             {
                 //Start
                 case 0:
-                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart);
+                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart, false);
                     break;
 
                 //Continue
@@ -108,7 +108,7 @@ public class TitleScene : SceneBase
                     Debug.Log("チェック");
 
                     if (DataManager.Instance.Continue())
-                        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet());
+                        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), false);
                     else
                     {
                         NotContinueMessage.SetActive(true);
@@ -129,7 +129,7 @@ public class TitleScene : SceneBase
                     break;
 
                 default:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, false);
                     break;
             }
         }
@@ -141,7 +141,7 @@ public class TitleScene : SceneBase
         }
         else if(time >= WaitTime)
         {
-            MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening);
+            MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
         }
     }
 

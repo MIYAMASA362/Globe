@@ -195,7 +195,7 @@ public class PlanetScene :SceneBase
         DataManager.Instance.Save(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
 
         //Scene遷移
-        MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet());
+        MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet(), false);
     }
     
     //

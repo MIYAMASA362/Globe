@@ -14,11 +14,11 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: LoadFlag
-    m_Type: 4
+  - m_Name: LoadTrigger
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
@@ -39,10 +39,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: LoadFlag
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102356113331811474}
   m_Solo: 0
@@ -88,11 +85,11 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: FadeFlag
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: LoadFlag
+  - m_ConditionMode: 1
+    m_ConditionEvent: LoadTrigger
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102402857447704782}
@@ -196,13 +193,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102402857447704782}
-    m_Position: {x: 240, y: 60, z: 0}
+    m_Position: {x: 276, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102173404836207840}
     m_Position: {x: 396, y: 264, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102356113331811474}
-    m_Position: {x: 216, y: 408, z: 0}
+    m_Position: {x: 180, y: 396, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
