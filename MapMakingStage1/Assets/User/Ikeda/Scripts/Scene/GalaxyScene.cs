@@ -40,7 +40,7 @@ public class GalaxyScene : SceneBase
     //PlanetSceneへのアクセス
     public void LoadPlanetScene()
     { 
-        SceneManager.LoadScene(AssetDatabase.GetAssetPath(MySceneManager.Instance.galaxies[GalaxyNum].Asset_Planets[nPlanetNum]));
+        SceneManager.LoadScene(MySceneManager.Instance.Galaxies[GalaxyNum].Path_Planets[nPlanetNum]);
         DataManager.Instance.playerData.SelectPlanet = nPlanetNum;
     }
 }
