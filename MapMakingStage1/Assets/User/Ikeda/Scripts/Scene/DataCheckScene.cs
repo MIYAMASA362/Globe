@@ -35,7 +35,7 @@ public class DataCheckScene : SceneBase
     {
         base.Update();
 
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.TitleScene);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
 
         if (!bInput) return;
 
@@ -53,12 +53,12 @@ public class DataCheckScene : SceneBase
             if (IsNewData)
             {
                 DataManager.Instance.ReSet();
-                SceneManager.LoadScene(MySceneManager.GameStartScene);
+                SceneManager.LoadScene(MySceneManager.Instance.Path_GameStart);
             }
             else
             {
                 DataManager.Instance.Load(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
-                MySceneManager.FadeInLoad(MySceneManager.GalaxySelect);
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect);
             }
         }
     }

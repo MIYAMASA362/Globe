@@ -63,7 +63,7 @@ public class DataManager : Singleton<DataManager>
 
     //--- const ---------------------------------
     //データファイル
-    static public readonly string DATA_FILE = "/local";
+    static public readonly string DATA_FILE = "/Resources/local";
 
     static public readonly string PLAYER_FILE = "player.player";
     static public readonly string PLANET_FILE = "planet.text";
@@ -111,6 +111,7 @@ public class DataManager : Singleton<DataManager>
     public bool FileFind(string FileName)
     {
         FileInfo info = new FileInfo(DataPath(FileName));
+        if (info == null) return false;
         return info.Exists || info.Length != 0;
     }
 
