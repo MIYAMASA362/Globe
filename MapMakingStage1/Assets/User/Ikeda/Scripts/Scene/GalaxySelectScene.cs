@@ -108,7 +108,7 @@ public class GalaxySelectScene : SceneBase {
         }
 
         //戻る
-        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title);
+        if (Input.GetButtonDown(InputManager.Cancel)) MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,false);
     }
 
     private void OnDrawGizmos()
@@ -131,7 +131,7 @@ public class GalaxySelectScene : SceneBase {
 
     public void LoadGalaxyScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy());
+        MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy(),false);
     }
 
     //GalaxyのCanvasを変更させる
