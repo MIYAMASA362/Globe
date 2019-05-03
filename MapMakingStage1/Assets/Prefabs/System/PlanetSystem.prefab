@@ -74,6 +74,8 @@ GameObject:
   - component: {fileID: 114521479024092094}
   - component: {fileID: 114378796199562954}
   - component: {fileID: 114596326774564446}
+  - component: {fileID: 114102507353703116}
+  - component: {fileID: 114323529424794026}
   - component: {fileID: 114772399103263814}
   m_Layer: 0
   m_Name: PlanetSystem
@@ -246,6 +248,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114102507353703116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1301506503812574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d14738e8e933164dbd11eda91932d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoaldTime: 60
+  SilverTime: 120
+  BronzeTime: 180
+  StarUI_1: {fileID: 114951384004634188}
+  StarUI_2: {fileID: 114719073090512768}
+  StarUI_3: {fileID: 114286482742602062}
+  IsGoaldRank: 0
+  IsSilverRank: 0
+  IsBronzeRank: 0
 --- !u!114 &114102681748641316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -327,6 +349,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114323529424794026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1301506503812574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10e399b55b97854ab0ef5ceff53ba53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 0
+  distance: 65
+  IsGetColor: {r: 0, g: 0, b: 0, a: 1}
+  CrystalUI: {fileID: 1897114517714624}
+  CrystalUI_Image: {fileID: 1269484009970534}
+  Crystals: []
 --- !u!114 &114378796199562954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,18 +555,8 @@ MonoBehaviour:
   IsPausing: 1
   animator: {fileID: 0}
   timer: {fileID: 0}
-  GoaldTime: 60
-  SilverTime: 120
-  BronzeTime: 180
-  StarUI_1: {fileID: 114951384004634188}
-  StarUI_2: {fileID: 114719073090512768}
-  StarUI_3: {fileID: 114286482742602062}
-  alpha: 0
-  Crystals: []
-  distance: 65
-  EnableColor: {r: 0, g: 0, b: 0, a: 1}
-  CrystalUI: {fileID: 1897114517714624}
-  CrystalUI_Image: {fileID: 1269484009970534}
+  timeRank: {fileID: 0}
+  crystalHandle: {fileID: 0}
   planetData:
     clear: 0
     crystalNum: 0
