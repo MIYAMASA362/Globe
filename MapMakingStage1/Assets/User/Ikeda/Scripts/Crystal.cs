@@ -5,7 +5,10 @@ using UnityEngine;
 public class Crystal : MonoBehaviour
 {
     public float RotSpeed = 5f;
-    public PlanetScene planetScene;
+    //データを参照し、既に取得されてるかを保持
+    public bool IsGet = false;
+
+    [HideInInspector]public CrystalHandle handle = null;
 
 	// Use this for initialization
 	void Start ()
@@ -22,8 +25,11 @@ public class Crystal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-        {  
-            planetScene.HitCrystal(other.gameObject);
+        {
+            this.gameObject.SetActive(false);
+            //未取得であれば
+            if(!IsGet) IsGet = true;
+            if (handle == null) handle.HitCrystal(this.gameObject);
         }
     }
 
