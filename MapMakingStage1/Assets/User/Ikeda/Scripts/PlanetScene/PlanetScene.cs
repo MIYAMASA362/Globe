@@ -18,7 +18,17 @@ public class PlanetScene :SceneBase
         public GameObject ui = null;
     }
 
+    public enum STATE
+    {
+        LOAD,
+        OPENING,
+        MAINGAME,
+        ENDING
+    }
+
     //--- Attribute ---------------------------------------------------------------------
+
+    [SerializeField] private Animator animator;
 
     //--- Timer State ---------------------------
     #region Timer
@@ -62,11 +72,15 @@ public class PlanetScene :SceneBase
     private DataManager.PlanetData planetData;
 
     private bool bGameClear;
+    public STATE state;
 
     //--- MonoBehaviour -----------------------------------------------------------------
 
     public override void Start ()
     {
+        state = STATE.LOAD;
+        Invoke("Loaded",4f);
+
         timer = this.GetComponent<Timer>();
         timer.StartTimer();
 
@@ -134,6 +148,16 @@ public class PlanetScene :SceneBase
 	}
 
     //--- Method ------------------------------------------------------------------------
+
+    //
+    //  
+    //
+    public void Loaded()
+    {
+        MySceneManager.Instance.CompleteLoaded();
+        animator.SetTrigger("AroundTrigger");
+        state = STATE.OPENING;
+    }
 
     //
     //  HitしたCrystalを加算
