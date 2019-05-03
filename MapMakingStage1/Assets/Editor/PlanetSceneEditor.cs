@@ -21,6 +21,6 @@ public class PlanetSceneEditor : Editor
         base.OnInspectorGUI();
 
         GUILayout.Space(10);
-        if (GUILayout.Button("Apply To Local Data")) myPlanetScene.SaveData();
+        if (GUILayout.Button("Apply To Local Data")) ;// myPlanetScene.SaveData();
     }
 }
