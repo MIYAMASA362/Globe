@@ -115,7 +115,7 @@ public class PlanetSelectScene : SceneBase
 
     public void LoadPlanetScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), false);
+        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), true);
     }
 
     //PlanetのCanvasを変更させる

@@ -45,6 +45,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public static string NextLoadScene;
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
+    public static bool IsPlayGame = false;                  //ゲームをプレイできるか
 
     //--- operation ----------------------------------
     public static int nMaxGalaxyNum { get; private set; }
@@ -101,6 +102,8 @@ public class MySceneManager : Singleton<MySceneManager>
         IsOption = false;
         IsFadeing = false;
         IsFade_Use = false;
+        IsLoad_Use = false;
+        IsPlayGame = false;
     }
 
     //
@@ -240,8 +243,8 @@ public class MySceneManager : Singleton<MySceneManager>
     //
     public void CompleteLoaded()
     {
-        if(IsLoad_Use)
             Instance.animator.SetTrigger("LoadTrigger");
+            IsLoad_Use = false;
     }
 
     //--- DataManager ---------------------------
@@ -253,5 +256,14 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         return IsFade_Use;
     }
+
+    //
+    //  Loadしている
+    //
+    public static bool IsLoading()
+    {
+        return IsLoad_Use;
+    }
+
 
 }
