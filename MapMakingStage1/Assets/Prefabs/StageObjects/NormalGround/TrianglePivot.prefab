@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4990555001920626}
   - component: {fileID: 33866755580213582}
   - component: {fileID: 23416043452940180}
-  - component: {fileID: 95271062964091686}
-  m_Layer: 0
+  - component: {fileID: 64872168626475738}
+  m_Layer: 10
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,21 +113,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400859596173584}
   m_Mesh: {fileID: 4300002, guid: ea8ad3b169f75944fa73bd0577d55e37, type: 3}
---- !u!95 &95271062964091686
-Animator:
-  serializedVersion: 3
+--- !u!64 &64872168626475738
+MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400859596173584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ea8ad3b169f75944fa73bd0577d55e37, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: ea8ad3b169f75944fa73bd0577d55e37, type: 3}
