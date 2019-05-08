@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crystal : MonoBehaviour
+public class Crystal : CrystalBase
 {
-    public float RotSpeed = 5f;
-    //データを参照し、既に取得されてるかを保持
-    public bool IsGet = false;
-
     [HideInInspector]public CrystalHandle handle = null;
 
 	// Use this for initialization
@@ -15,12 +11,6 @@ public class Crystal : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        this.transform.rotation *= Quaternion.AngleAxis(RotSpeed,Vector3.up);
-	}
 
     private void OnTriggerEnter(Collider other)
     {
