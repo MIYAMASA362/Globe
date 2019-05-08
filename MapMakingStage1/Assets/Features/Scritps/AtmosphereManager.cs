@@ -35,7 +35,7 @@ public class AtmosphereManager : Singleton<AtmosphereManager> {
 
         skyMaterial.SetFloat("_sky", skyFloat);
         
-        if (CameraManager.Instance.characterCamera.activeInHierarchy)
+        if (CameraManager.Instance.characterCamera.gameObject.activeInHierarchy)
         {
             skyMaterial.SetVector("_StarsTiling", starsTileing1);
             clouds.transform.localScale = Vector3.Lerp(clouds.transform.localScale, new Vector3(5f, 5f, 5f), Time.deltaTime * cloudsScaleSmooth);

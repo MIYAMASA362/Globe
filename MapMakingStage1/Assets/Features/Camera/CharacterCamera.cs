@@ -55,12 +55,14 @@ namespace FrameWork.Camera
         }
         public void Tick(float d)
         {
+            FollowTarget(d);
+            if (!this.gameObject.activeInHierarchy) return;
+
             float h = Input.GetAxis(InputManager.Camera_Horizontal);
             float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
 
             float targetSpeed = mouseSpeed;
 
-            FollowTarget(d);
             HandleRotations(d, v, h, targetSpeed);
         }
         //------------------------------------------
