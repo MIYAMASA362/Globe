@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.20910466, g: 0.2537308, b: 0.3490566, a: 1}
+  m_AmbientSkyColor: {r: 0.5176471, g: 0.5882353, b: 0.7372549, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0
@@ -564,6 +564,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114601134761974688, guid: bb56c91cef02c6347a69863519cc02de,
+        type: 2}
+      propertyPath: distance
+      value: 19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb56c91cef02c6347a69863519cc02de, type: 2}
   m_IsPrefabAsset: 0
@@ -733,6 +738,11 @@ MonoBehaviour:
   EnableColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   CrystalUI: {fileID: 1901106845}
   CrystalUI_Image: {fileID: 231525438}
+  planetData:
+    clear: 0
+    crystalNum: 0
+    bGet: 00
+    rank: 000000
 --- !u!114 &1900677369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,6 +806,11 @@ Prefab:
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 2125911780}
+    - target: {fileID: 114768851792538842, guid: cfce10bc2112d4144adfc0e7f6386f02,
+        type: 2}
+      propertyPath: distance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfce10bc2112d4144adfc0e7f6386f02, type: 2}
   m_IsPrefabAsset: 0

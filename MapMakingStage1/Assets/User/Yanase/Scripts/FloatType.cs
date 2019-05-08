@@ -7,7 +7,8 @@ public class FloatType : MonoBehaviour {
     public enum Type
     {
         Hex,
-        Cube
+        Cube,
+        Triangle
     }
 
     public Type type;

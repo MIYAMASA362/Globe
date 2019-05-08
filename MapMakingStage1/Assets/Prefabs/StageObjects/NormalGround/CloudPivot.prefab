@@ -9,45 +9,74 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1339571755706682}
+  m_RootGameObject: {fileID: 1954071496239410}
   m_IsPrefabAsset: 1
---- !u!1 &1339571755706682
+--- !u!1 &1816270990974808
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4589646199866954}
-  - component: {fileID: 33277815738950262}
-  - component: {fileID: 23482691597498102}
-  - component: {fileID: 64129750617852210}
+  - component: {fileID: 4454964524412566}
+  - component: {fileID: 33263625756387916}
+  - component: {fileID: 23245388050319970}
+  - component: {fileID: 65351173443697228}
   m_Layer: 10
-  m_Name: Cubesmall
+  m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4589646199866954
+--- !u!1 &1954071496239410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4873510343483912}
+  m_Layer: 0
+  m_Name: CloudPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4454964524412566
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339571755706682}
+  m_GameObject: {fileID: 1816270990974808}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 6.258, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4873510343483912}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4873510343483912
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954071496239410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.854253, y: 2.854253, z: 2.854253}
-  m_Children: []
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4454964524412566}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23482691597498102
+--- !u!23 &23245388050319970
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339571755706682}
+  m_GameObject: {fileID: 1816270990974808}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +86,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 686d6c5d37b4c1549856677c08b3248c, type: 2}
+  - {fileID: 2100000, guid: 4910cafdf1087944799b3b49270a6f61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,24 +106,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33277815738950262
+--- !u!33 &33263625756387916
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339571755706682}
-  m_Mesh: {fileID: 4300000, guid: 97cd0ab044483204cabaeab6d20cae6f, type: 3}
---- !u!64 &64129750617852210
-MeshCollider:
+  m_GameObject: {fileID: 1816270990974808}
+  m_Mesh: {fileID: 4300000, guid: d6b855d66ed2ae84dbb04589896f3664, type: 3}
+--- !u!65 &65351173443697228
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339571755706682}
+  m_GameObject: {fileID: 1816270990974808}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 97cd0ab044483204cabaeab6d20cae6f, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.172874, y: 1.2765396, z: 0.08794874}
+  m_Center: {x: -0.0153849125, y: 0.0068784356, z: 0.06121606}
