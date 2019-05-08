@@ -19,14 +19,15 @@ public class PlanetScene :SceneBase
 
     //--- Attribute ---------------------------------------------------------------------
 
+    //Component
+    private Timer timer;
+    private TimeRank timeRank;
+    private CrystalHandle crystalHandle;
+
+    //--- Animator ------------------------------
     [SerializeField] private Animator animator;
 
-    //--- Timer State ---------------------------
-    [SerializeField] private Timer timer;
-    [SerializeField] private TimeRank timeRank;
-    [SerializeField] private CrystalHandle crystalHandle;
-
-    //--- DataManager -------------------------
+    //--- DataManager ---------------------------
     [Space(15),Header("DataManager SaveData")]
     [SerializeField,Tooltip("保存されているデータ")]
     private DataManager.PlanetData planetData;
@@ -56,40 +57,14 @@ public class PlanetScene :SceneBase
         //PlayerDataのセーブ
         DataManager.Instance.Save(ref DataManager.Instance.playerData, DataManager.PLAYER_FILE);
 
-        planetData = new DataManager.PlanetData();
-
-        //--- DataManager -----------------------
-
-        //Planetのデータがあるか
-        if (DataManager.Instance.FileFind(Get_FineName()))
-            //データをロード
-            DataManager.Instance.Load(ref planetData, Get_FineName());
-
-        //--- TimeRank --------------------------
-        timeRank.ReSetData(ref planetData);
-
-        //--- Crystal ---------------------------
-        
-        //Crysta 現在のデータと違うなら
-        if (!crystalHandle.DataCheck(ref planetData))
-            //現在のデータを適応させる
-            crystalHandle.ReSetData(ref planetData);
-
-        //---------------------------------------
-
-        //セーブする
-        DataManager.Instance.Save(ref planetData, Get_FineName());
-
-        //データを適応
-        crystalHandle.Set(ref planetData);
-
-        //----------------------------------------------------------------
+        Load_PlanetData(ref planetData);
     }
 
     public override void Update ()
     {
         base.Update();
 
+        timer.UpdateTimer();
         timeRank.Update_RankUI();
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -98,8 +73,40 @@ public class PlanetScene :SceneBase
 
     //--- Method ------------------------------------------------------------------------
 
+
+    private void Load_PlanetData(ref DataManager.PlanetData data)
+    {
+        data = new DataManager.PlanetData();
+
+        //--- DataManager -----------------------
+
+        //Planetのデータがあるか
+        if (DataManager.Instance.FileFind(Get_FineName()))
+            //データをロード
+            DataManager.Instance.Load(ref data, Get_FineName());
+
+        //--- TimeRank --------------------------
+        timeRank.ReSetData(ref data);
+
+        //--- Crystal ---------------------------
+
+        //Crysta 現在のデータと違うなら
+        if (!crystalHandle.DataCheck(ref data))
+            //現在のデータを適用させる
+            crystalHandle.ReSetData(ref data);
+
+        //---------------------------------------
+
+        //セーブする
+        DataManager.Instance.Save(ref data, Get_FineName());
+
+        //データを適用
+        crystalHandle.Set(ref data);
+    }
+
+
     //
-    //  
+    //  ロードを完了させる
     //
     public void Loaded()
     {
