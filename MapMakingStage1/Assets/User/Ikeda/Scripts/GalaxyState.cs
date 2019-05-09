@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GalaxyState : MonoBehaviour
 {
     //--- Attribute -----------------------------------------------------------
-
+    [Header("Galaxy Name")]
+    [SerializeField]
+    public string GalaxyName = "NONE";
+    
+    [Space(8)]
     [Header("StarCrystal State")]
     [SerializeField, Tooltip("星の宝石の総取得可能数")]
     public int nMaxStarCrystalNum = 0;
@@ -27,11 +32,10 @@ public class GalaxyState : MonoBehaviour
     [SerializeField, Tooltip("ステージ親")]
     public GameObject PlanetParent = null;
     [SerializeField,Tooltip("ステージ惑星")]
-    private PlanetState[] Planets = new PlanetState[5];
+    public PlanetState[] Planets = new PlanetState[5];
 
     //--- Internal State ------------------------
-    [Space(8)]
-    [SerializeField]
+    [HideInInspector]
     public StageSelectScene selectScene;
 
     //--- MonoBehaviour -------------------------------------------------------
@@ -59,7 +63,7 @@ public class GalaxyState : MonoBehaviour
     {
 		
 	}
-    
+
     //--- Method --------------------------------------------------------------
 
     public void InitState()
@@ -88,6 +92,24 @@ public class GalaxyState : MonoBehaviour
     //Lockできるか
     public bool CheckLock(int nCrystalNum)
     {
-        return nUnLockCrystalNum >= nCrystalNum ? true : false;
+        return nUnLockCrystalNum > nCrystalNum;
+    }
+
+    //隠し宝石差分個数
+    public int Crtstal_Diffrence(int nCystalNum)
+    {
+        return nUnLockCrystalNum - nCystalNum;
+    }
+
+    //残りの星の宝石数
+    public int StarCrystal_ReaminingNum()
+    {
+        return nMaxStarCrystalNum - nGetStarCrystalNum;
+    }
+
+    //残りの隠し宝石数
+    public int Crystal_RemainingNum()
+    {
+        return nMaxCrystalNum - nGetCrystalNum;
     }
 }
