@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlanetState : MonoBehaviour
 {
+    [Header("Planet Name")]
+    [SerializeField]
+    public string PlanetName = "NONE";
+
     [Header("StarCrystal State")]
     [SerializeField, Tooltip("星の宝石の総取得可能数")]
     public int nMaxStarCrystalNum;
@@ -28,4 +32,16 @@ public class PlanetState : MonoBehaviour
     {
 		
 	}
+
+    //残りの星の宝石数
+    public int StarCrystal_ReaminingNum()
+    {
+        return nMaxStarCrystalNum - nGetStarCrystalNum;
+    }
+
+    //残りの隠し宝石数
+    public int Crystal_RemainingNum()
+    {
+        return nMaxCrystalNum - nGetCrystalNum;
+    }
 }
