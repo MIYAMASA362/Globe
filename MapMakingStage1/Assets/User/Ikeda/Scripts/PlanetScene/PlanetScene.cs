@@ -43,7 +43,6 @@ public class PlanetScene :SceneBase
         Invoke("Loaded",4f);
 
         timer = this.GetComponent<Timer>();
-        timer.StartTimer();
 
         timeRank = this.GetComponent<TimeRank>();
         crystalHandle = this.GetComponent<CrystalHandle>();
@@ -62,8 +61,8 @@ public class PlanetScene :SceneBase
 
     public override void Update ()
     {
+        if (state != STATE.MAINGAME) return;
         base.Update();
-
         timer.UpdateTimer();
         timeRank.Update_RankUI();
 
@@ -104,15 +103,19 @@ public class PlanetScene :SceneBase
         crystalHandle.Set(ref data);
     }
 
-
-    //
-    //  ロードを完了させる
-    //
+    //--- ロードを完了させる --------------------
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
         animator.SetTrigger("AroundTrigger");
         state = STATE.OPENING;
+    }
+
+    //--- オープニング終了 ----------------------
+    public void EndOpening()
+    {
+        timer.StartTimer();
+        state = STATE.MAINGAME;
     }
 
     //--- Game ----------------------------------
@@ -148,7 +151,7 @@ public class PlanetScene :SceneBase
         DataManager.Instance.Save(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
 
         //Scene遷移
-        MySceneManager.FadeInLoad(MySceneManager.Get_NextPlanet(), false);
+        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), false);
     }
 
     //--- DataManager ---------------------------
