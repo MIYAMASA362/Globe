@@ -13,7 +13,7 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        public List<string> Path_Planets;
+        public List<string> Path_Planets = new List<string>();
     }
 
     //--- Attribute -----------------------------------------------------------

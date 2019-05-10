@@ -10,7 +10,7 @@ public class MySceneManagerEditor : Editor
     [System.Serializable]
     public class Galaxy
     {
-        public List<SceneAsset> Planets = new List<SceneAsset> { null, null, null, null, null };
+        public List<SceneAsset> Planets = new List<SceneAsset>();
     }
 
     //SceneAsset
@@ -22,82 +22,87 @@ public class MySceneManagerEditor : Editor
     private SceneAsset DataCheck;
     private SceneAsset GameStart;
     private SceneAsset GalaxySelect;
-    private List<Galaxy> Galaxies = new List<Galaxy> { new Galaxy(), new Galaxy(), new Galaxy(), new Galaxy() };
+    private List<Galaxy> Galaxies = new List<Galaxy>();
     
     bool folding_Galaxy = false;
-    bool[] folding_Galaxys;
+    bool[] folding_Galaxys = new bool[4];
 
     //Editor GUI
     GUIStyle guiStyle = new GUIStyle();
 
     bool initialize = false;
+
     public void Init()
     {
+        guiStyle.fontSize = 20;
+
+        Load_State();
         folding_Galaxy = false;
         folding_Galaxys = new bool[Galaxies.Count];
-        guiStyle.fontSize = 20;
 
         initialize = true;
     }
 
     public override void OnInspectorGUI()
     {
-        if (true) //MySceneManagerのInspecter表示
+
+        //ターゲットを設定
+        MySceneManager mySceneManager = MySceneManager.Instance;
+
+        //MySceneManagerの内容を表示するか
+        if (true)
         {
             base.OnInspectorGUI();
             GUILayout.Space(8);
         }
 
-        if (!initialize) Init();
-
-        EditorGUILayout.LabelField("MySceneManager Editor",guiStyle);
-        GUILayout.Space(15);
-        //if (GUILayout.Button("Load")) RegisterEditor();
-
-        MySceneManager mySceneManager = target as MySceneManager;
-
-        //基本シーン
-        Manager =  EditorGUILayout.ObjectField("Manager Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Manager), typeof(SceneAsset), false) as SceneAsset;
-        Pause   =  EditorGUILayout.ObjectField("Pause Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Pause), typeof(SceneAsset), false) as SceneAsset;
-
-        GUILayout.Space(4);
-        Opening = EditorGUILayout.ObjectField("Opening Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Opening), typeof(SceneAsset), false) as SceneAsset;
-        Title   = EditorGUILayout.ObjectField("Title Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Title), typeof(SceneAsset), false) as SceneAsset;
-        Option  = EditorGUILayout.ObjectField("Option Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Option), typeof(SceneAsset), false) as SceneAsset;
         
+        //初期化
+        if (!initialize) Init();
+        Debug.Log(folding_Galaxys.Length);
+
+        //Haeder
+        EditorGUILayout.LabelField("MySceneManager Editor", guiStyle);
+        GUILayout.Space(15);
+
+        //State
+
         GUILayout.Space(4);
-        GameStart = EditorGUILayout.ObjectField("GameStart Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GameStart), typeof(SceneAsset), false) as SceneAsset;
-        DataCheck = EditorGUILayout.ObjectField("DataCheck Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_DataCheck), typeof(SceneAsset), false) as SceneAsset;
+        Manager = EditorGUILayout.ObjectField("Manager",Manager,typeof(SceneAsset),true) as SceneAsset;
+        Pause = EditorGUILayout.ObjectField("Pause",Pause,typeof(SceneAsset),true) as SceneAsset;
+
+        GUILayout.Space(4);
+        Opening = EditorGUILayout.ObjectField("Opening", Opening, typeof(SceneAsset), true) as SceneAsset;
+        Title = EditorGUILayout.ObjectField("Title", Title, typeof(SceneAsset), true) as SceneAsset;
+        Option = EditorGUILayout.ObjectField("Option", Option, typeof(SceneAsset), true) as SceneAsset;
+
+        GUILayout.Space(4);
+        DataCheck = EditorGUILayout.ObjectField("DataCheck", DataCheck, typeof(SceneAsset), true) as SceneAsset;
+        GameStart = EditorGUILayout.ObjectField("GameStart", GameStart, typeof(SceneAsset), true) as SceneAsset;
 
         GUILayout.Space(4);
 
-        //Galaxysの隠ぺい表示
         if (folding_Galaxy = EditorGUILayout.Foldout(folding_Galaxy, "Galaxys"))
         {
             EditorGUI.indentLevel++;    //インデント
 
             //Galaxyの選択画面
-            GalaxySelect = EditorGUILayout.ObjectField("GalaxySelect Scene", AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GalaxySelect), typeof(SceneAsset), false) as SceneAsset;
+            GalaxySelect = EditorGUILayout.ObjectField("StageSelect", GalaxySelect, typeof(SceneAsset), true) as SceneAsset;
 
-            //銀河の内容を表示
-            for (int i = 0; i < Galaxies.Count; i++)
+            EditorGUI.indentLevel++;    //インデント
+            for (int nGalaxy = 0; nGalaxy < Galaxies.Count; nGalaxy++)
             {
-                EditorGUI.indentLevel++;        //インデント
-
-                //各銀河の内容
-                if (folding_Galaxys[i] = EditorGUILayout.Foldout(folding_Galaxys[i], "Galaxy:"+(i+1)))
+                if (folding_Galaxys[nGalaxy] = EditorGUILayout.Foldout(folding_Galaxys[nGalaxy], "Galaxy:" + (nGalaxy + 1)))
                 {
-                    EditorGUI.indentLevel++;
-                    //惑星の表示
-                    for (int j = 0; j < Galaxies[i].Planets.Count; j++)
+                    EditorGUI.indentLevel++;    //インデント
+                    for (int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
                     {
-                        Galaxies[i].Planets[j] = EditorGUILayout.ObjectField("Planet:" + (j + 1), AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Galaxies[i].Path_Planets[j]), typeof(SceneAsset), false) as SceneAsset;
+                        Galaxies[nGalaxy].Planets[nPlanet] = EditorGUILayout.ObjectField("Planet:" + (nPlanet+1), Galaxies[nGalaxy].Planets[nPlanet], typeof(SceneAsset), true) as SceneAsset;
                     }
-                    EditorGUI.indentLevel--;
+                    EditorGUI.indentLevel--;    //インデント
                 }
-
-                EditorGUI.indentLevel--;    //インデント
             }
+            EditorGUI.indentLevel--;    //インデント
 
             GUILayout.Space(10);
 
@@ -110,29 +115,69 @@ public class MySceneManagerEditor : Editor
         if (GUILayout.Button("Apply To Build Settings"))
         {
             BuildSetting();
+            Save_State();
         }
     }
 
-    //失ったEditorの情報を復元
-    public void RegisterEditor()
+    //MySceneManagerからデータを取得
+    public void Load_State()
     {
-        var mySceneManager = target as MySceneManager;
+        //ターゲットを設定
+        MySceneManager mySceneManager = MySceneManager.Instance;
+
+        //Scene情報の取得
 
         Manager = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Manager);
-        Title = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Title);
         Pause = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Pause);
+
         Opening = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Opening);
-        GalaxySelect = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GalaxySelect);
+        Title = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Title);
         Option = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Option);
+
         DataCheck = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_DataCheck);
         GameStart = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GameStart);
 
-        for(int nGalaxy = 0; nGalaxy < mySceneManager.Galaxies.Count; nGalaxy++)
-        { 
-            for(int nPlanet = 0; nPlanet < mySceneManager.Galaxies[nGalaxy].Path_Planets.Count; nPlanet++)
+        GalaxySelect = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GalaxySelect);
+
+        foreach(var Galaxy in mySceneManager.Galaxies)
+        {
+            Galaxy galaxy = new Galaxy();
+            foreach(var Planet in Galaxy.Path_Planets)
             {
-                Galaxies[nGalaxy].Planets[nPlanet] = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Galaxies[nGalaxy].Path_Planets[nPlanet]);
+                galaxy.Planets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(Planet));
             }
+            Galaxies.Add(galaxy);
+        }
+    }
+
+    //MySceneManagerへデータを保存
+    public void Save_State()
+    {
+        //ターゲットを設定
+        MySceneManager mySceneManager = MySceneManager.Instance;
+
+        mySceneManager.Path_Manager = AssetDatabase.GetAssetPath(Manager);
+        mySceneManager.Path_Pause = AssetDatabase.GetAssetPath(Pause);
+        mySceneManager.Path_Opening = AssetDatabase.GetAssetPath(Opening);
+        mySceneManager.Path_Title = AssetDatabase.GetAssetPath(Title);
+        mySceneManager.Path_Option = AssetDatabase.GetAssetPath(Option);
+        mySceneManager.Path_DataCheck = AssetDatabase.GetAssetPath(DataCheck);
+        mySceneManager.Path_GameStart = AssetDatabase.GetAssetPath(GameStart);
+        mySceneManager.Path_GalaxySelect = AssetDatabase.GetAssetPath(GalaxySelect);
+
+        mySceneManager.Galaxies = new List<MySceneManager.Galaxy>();
+        //銀河参照
+        for(int nGalaxy = 0; nGalaxy < Galaxies.Count; nGalaxy++)
+        {
+            MySceneManager.Galaxy galaxy = new MySceneManager.Galaxy();
+            //銀河の惑星参照
+            for(int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
+            {
+                string path = AssetDatabase.GetAssetPath(Galaxies[nGalaxy].Planets[nPlanet]);
+                Debug.Log(path);
+                galaxy.Path_Planets.Add(path);
+            }
+            mySceneManager.Galaxies.Add(galaxy);
         }
     }
 
