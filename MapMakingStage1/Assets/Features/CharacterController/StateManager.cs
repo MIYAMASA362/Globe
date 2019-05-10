@@ -21,6 +21,8 @@ namespace SA
         public float turnSpeed = 2;
         [SerializeField] float rayStartPosition = 0.4f;
         [SerializeField] float rayEndPosition = -0.5f;
+        [SerializeField] float rayRadius = 0.5f;
+        public float characterHeight = 0.4f;
 
         public float angle;
         public Vector3 cross;
@@ -29,11 +31,11 @@ namespace SA
         [Header("States")]
         public bool onGround = false;
         public bool OnAxis = false;
-        public GameObject activeModel;
-        [HideInInspector]
-        public Animator anim;
 
+        public GameObject activeModel;
+        public Animator anim;
         public Rigidbody rigid;
+
         [HideInInspector]
         public float delta;
 
@@ -87,41 +89,13 @@ namespace SA
         //------------------------------------------
         public void FixedTick(float d)
         {
-            delta = d;
-            onGround = OnGround();
             Transform gravityCenter = RotationManager.Instance.planetTransform;
-
             gravityDirection = (transform.position - gravityCenter.position).normalized;
+            delta = d;
 
-            if (onGround)
-            {
+            onGround = OnGround();
 
-                transform.up -= (transform.up - gravityDirection);
-
-            }
-            else
-            {
-                transform.up -= (transform.up - gravityDirection);
-                rigid.AddForce(gravityDirection * -gravity);
-
-            }
-
-            Vector3 targetDir = moveDir;
-            targetDir.y = 0;
-            if (targetDir == Vector3.zero)
-                targetDir = transform.forward;
-
-            //	 angle = Vector3.Angle(targetDir, transform.forward);
-            // cross = Vector3.Cross(targetDir, transform.forward);
-            // Vector3 anglePivotVec = new Vector3(0,(-cross.y * crossMult) * moveAmount,0);
-            // anglePivot.localEulerAngles = anglePivotVec;
-
-            Vector3 eulerAnglesRotation = Quaternion.LookRotation(groundNormal).eulerAngles;
-
-            Quaternion tr = Quaternion.LookRotation(targetDir);
-            targetRotation = Quaternion.Slerp(transform.rotation, tr, delta * (moveAmount * moveAmountMult) * turnSpeed);
-
-            transform.rotation = targetRotation;
+            if (!onGround) rigid.AddForce(gravityDirection * -gravity);
 
             HandleMovementAnimations();
 
@@ -139,29 +113,20 @@ namespace SA
             Vector3 dir = -raycastTransform.up * rayLength;
             RaycastHit hit;
 
-            if (Physics.Raycast(origin, dir, out hit, rayLength, ignoreLayers))
+            if (Physics.SphereCast(origin, rayRadius, dir, out hit, rayLength, ignoreLayers))
             {
-                if(hit.collider.isTrigger)
-                {
-                    isHit = false;
-                }
-                else
+                if (!hit.collider.isTrigger)
                 {
                     isHit = true;
-                    Vector3 targetPosition = hit.point + (transform.up * 0.2f);
-                    transform.position = targetPosition;//Vector3.Lerp
+                    Vector3 targetPosition = transform.position + (characterHeight - hit.distance) * gravityDirection;
+                    transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
 
                     // 設置軸の上にいるかどうか
                     OnAxis = JudgeAxis(hit.collider.gameObject);
 
-                    if (hit.collider.gameObject.tag == "FloatGround")
-                        transform.parent = hit.collider.transform;
-                    else
-                        transform.parent = null;
+                    SetParent(hit.collider.gameObject);
                 }
             }
-
-            if(!isHit) transform.parent = null;
 
             return isHit;
         }
@@ -177,26 +142,23 @@ namespace SA
 
         private void SetParent(GameObject hitObject)
         {
-            Transform parent = hitObject.transform.parent;
-
-            if (parent)
+            if (hitObject.tag == "FloatGround")
             {
-                Rigidbody castRigid = parent.GetComponent<Rigidbody>();
-                if (castRigid)
+                if (transform.parent != hitObject.transform)
                 {
-                    transform.parent = parent;
-                    return;
+                    transform.parent = hitObject.transform;
+                    GetComponent<PlanetWalker>().oldPosition = transform.localPosition;
                 }
+                else
+                {
+                    transform.parent = hitObject.transform;
+                }
+                return;
             }
 
-            if (transform.parent && hitObject.layer.ToString() == "Water")
+            if (transform.parent)
             {
-                PlanetWalker planetWalker = GetComponent<PlanetWalker>();
-                transform.localPosition = planetWalker.oldPosition;
-                planetWalker.oldPosition = transform.position;
-            }
-            else
-            {
+                GetComponent<PlanetWalker>().oldPosition = transform.position;
                 transform.parent = null;
             }
         }
