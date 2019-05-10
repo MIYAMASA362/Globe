@@ -6,6 +6,7 @@ public class GoalScript : MonoBehaviour {
 
     [SerializeField] private PlanetScene planetScene = null;
 
+    //ファンファーレのAudio
     private AudioSource audioSource;
 
 	// Use this for initialization
@@ -27,6 +28,7 @@ public class GoalScript : MonoBehaviour {
             audioSource.Play();
             //ゴール後処理(シーン遷移)
             Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
+            AudioManager.Instance.StopBGM();
 
             planetScene.GameClear();
         }
