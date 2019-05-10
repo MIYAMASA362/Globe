@@ -27,7 +27,8 @@ public class StageSelectScene : SceneBase
     }
 
     //--- Attribute -----------------------------------------------------------
-
+    
+    //--- Inspecter State -----------------------
     [Header("UI State")]
     [SerializeField,Tooltip("銀河の名前")]
     private TextMeshProUGUI GalaxyNameText;
@@ -101,6 +102,7 @@ public class StageSelectScene : SceneBase
     private int nPlanetSelectNum;
 
     //--- Internal State ------------------------
+    private static bool IsLoad_Start_PlanetSelect = false;
     [SerializeField] private STATE state = STATE.GALAXYSELECT;  //状態遷移
     [SerializeField] private bool IsInput = false;              //入力可能か
     [SerializeField] private float IsInput_PauseTime = 0f;      //IsInputをfalse状態にする時間
@@ -168,11 +170,12 @@ public class StageSelectScene : SceneBase
             galaxyCamera.SetActive(true);
             GalaxySelectUI.SetActive(true);
         }
-        
+
         //--- 初期状態設定 ----------------------------
 
-        //保存データ更新
-        SelectDataUpdate();
+        //データでの選択状態を読み込み
+        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
+        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
 
         //回転させる対象を設定
         TargetRotObj = GalaxysHolder;
@@ -180,8 +183,14 @@ public class StageSelectScene : SceneBase
         //テキストの設定
         GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
 
+        //Cameraの切り替え
+        Set_GalaxyCamera();
+
         //Lockの切り替え
         Change_Lock_UnLock(true);
+
+        if (IsLoad_Start_PlanetSelect)
+            LoadInit_PlanetSelect();
     }
 	
 	// Update is called once per frame
@@ -203,16 +212,10 @@ public class StageSelectScene : SceneBase
             case STATE.GALAXYSELECT:
                 //更新処理
                 GalaxySelect_Update();
-                //カメラのアクティブ確認
-                if(galaxyCamera.activeSelf)
-                    galaxyCamera.SetActive(true);
                 break;
             case STATE.PLANETSELECT:
                 //更新処理
                 PlanetSelect_Update();
-                //カメラのアクティブ確認
-                if (Galaxies[nGalaxySelectNum].planetCamera.activeSelf)
-                    Galaxies[nGalaxySelectNum].planetCamera.SetActive(true);
                 break;
             default:
                 break;
@@ -221,11 +224,6 @@ public class StageSelectScene : SceneBase
         Quaternion q1 = TargetRotObj.transform.rotation;
         Quaternion q2 = Quaternion.Euler(0f, TargetAngle, 0f);
         TargetRotObj.transform.rotation = Quaternion.Lerp(q1, q2, Time.deltaTime * ROTATION_SPEED);
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     private void OnDrawGizmos()
@@ -287,7 +285,7 @@ public class StageSelectScene : SceneBase
             nPlanetSelectNum = 0;
 
             //カメラ切り替え
-            Galaxies[nGalaxySelectNum].planetCamera.SetActive(true);
+            Set_PlanetCamera();
             //最大数を更新
             nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Path_Planets.Count;
             //遷移を更新
@@ -350,13 +348,14 @@ public class StageSelectScene : SceneBase
         //決定キーを確認
         if (Planet_Submit())
         {
-            
+            LoadPlanetScene();
         }
 
+        //戻る
         if (Input.GetButtonDown(InputManager.Cancel))
         {
             state = STATE.GALAXYSELECT;
-            Galaxies[nGalaxySelectNum].planetCamera.SetActive(false);
+            Set_GalaxyCamera();
             //UI変更
             Change_SelectUI(state);
             Change_Lock_UnLock(true);
@@ -456,6 +455,18 @@ public class StageSelectScene : SceneBase
         }
     }
 
+    void Set_GalaxyCamera()
+    {
+        galaxyCamera.SetActive(true);
+        Galaxies[nGalaxySelectNum].planetCamera.SetActive(false);
+    }
+
+    void Set_PlanetCamera()
+    {
+        galaxyCamera.SetActive(false);
+        Galaxies[nGalaxySelectNum].planetCamera.SetActive(true);
+    }
+
     //--- 入力系 ------------------------------------------
 
     //--- 決定 ----------------------------------
@@ -481,6 +492,28 @@ public class StageSelectScene : SceneBase
         return true;
     }
 
+    //--- Planetのセレクト画面から開始する ------
+    public static void Load_Star_PlanetSelect()
+    {
+        //次にStageSelectSceneに来たらLoadInit_Planetを開始させる
+        IsLoad_Start_PlanetSelect = true;
+    }
+
+    private void LoadInit_PlanetSelect()
+    {
+        //セレクトを更新
+        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
+        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
+
+        state = STATE.PLANETSELECT;
+        Set_RotTargetState(Galaxies[nGalaxySelectNum].galaxyState.PlanetParent,PLANET_ROTATION_ANGLE * nPlanetSelectNum);
+        Change_Lock_UnLock(true);
+        Change_ItemUI(true);
+        Change_SelectUI(state);
+        Set_PlanetCamera();
+        IsLoad_Start_PlanetSelect = false;
+    }
+
     //--- DataManager -------------------------------------
 
     //--- データ更新 ----------------------------
@@ -490,9 +523,14 @@ public class StageSelectScene : SceneBase
         DataManager.Instance.playerData.SelectPlanet = nPlanetSelectNum;
     }
 
-    public void LoadGalaxyScene()
+    //--- SceneManager ------------------------------------
+
+    public void LoadPlanetScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy(),false);
+        //データを保存
+        SelectDataUpdate();
+        //シーン遷移
+        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
     }
 
     //GalaxyのCanvasを変更させる
