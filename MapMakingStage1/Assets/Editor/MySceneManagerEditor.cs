@@ -10,8 +10,7 @@ public class MySceneManagerEditor : Editor
     [System.Serializable]
     public class Galaxy
     {
-        public SceneAsset PlanetSelect = null;
-        public List<SceneAsset> Planets = new List<SceneAsset>();
+        public SceneAsset[] Planets = new SceneAsset[5];
     }
 
     //SceneAsset
@@ -23,7 +22,7 @@ public class MySceneManagerEditor : Editor
     private SceneAsset DataCheck;
     private SceneAsset GameStart;
     private SceneAsset GalaxySelect;
-    private List<Galaxy> Galaxies = new List<Galaxy>();
+    private Galaxy[] Galaxies = new Galaxy[4];
     
     bool folding_Galaxy = false;
     bool[] folding_Galaxys;
@@ -35,23 +34,11 @@ public class MySceneManagerEditor : Editor
     public void Init()
     {
         folding_Galaxy = false;
-        folding_Galaxys = new bool[Galaxies.Count];
+        folding_Galaxys = new bool[Galaxies.Length];
         guiStyle.fontSize = 20;
 
         RegisterEditor();
         initialize = true;
-    }
-
-    public void Change_FoldingGalaxys_Length()
-    {
-        bool[] old = folding_Galaxys;   //古い
-        folding_Galaxys = new bool[Galaxies.Count]; //新しい
-
-        //ループ回数
-        int Count = folding_Galaxys.Length >= old.Length ? old.Length : folding_Galaxys.Length;
-
-        for(int i = 0; i < Count; i++)
-            folding_Galaxys[i] = old[i];
     }
 
     public override void OnInspectorGUI()
@@ -62,7 +49,6 @@ public class MySceneManagerEditor : Editor
             GUILayout.Space(8);
         }
 
-        
         if (!initialize) Init();
 
         EditorGUILayout.LabelField("MySceneManager Editor",guiStyle);
@@ -91,69 +77,20 @@ public class MySceneManagerEditor : Editor
             //Galaxyの選択画面
             GalaxySelect = (SceneAsset)EditorGUILayout.ObjectField("GalaxySelect Scene", GalaxySelect, typeof(SceneAsset), false);
 
-            EditorGUILayout.BeginHorizontal();  //縦軸レイアウト
-
-            GUILayout.FlexibleSpace();          //終端までスペース
-
-            //銀河を追加
-            if (GUILayout.Button("Add Galaxy", GUILayout.Width(100)))
-            {
-                Galaxies.Add(new Galaxy());
-                Change_FoldingGalaxys_Length();
-            }
-
-            GUILayout.Space(10);
-
-            //銀河の削除
-            if (GUILayout.Button("Delete Galaxy", GUILayout.Width(100)))
-            {
-                if (Galaxies.Count != 0)
-                {
-                    Galaxies.RemoveAt(Galaxies.Count - 1);
-                    Change_FoldingGalaxys_Length();
-                }
-            }
-
-            GUILayout.Space(20);
-            EditorGUILayout.EndHorizontal();    //縦軸レイアウト終了
-
-
             //銀河の内容を表示
-            for (int i = 0; i < Galaxies.Count; i++)
+            for (int i = 0; i < Galaxies.Length; i++)
             {
                 EditorGUI.indentLevel++;        //インデント
 
                 //各銀河の内容
-                if (folding_Galaxys[i] = EditorGUILayout.Foldout(folding_Galaxys[i], "Galaxy:"+i))
+                if (folding_Galaxys[i] = EditorGUILayout.Foldout(folding_Galaxys[i], "Galaxy:"+(i+1)))
                 {
-                    //惑星の選択画面
-                    Galaxies[i].PlanetSelect = (SceneAsset)EditorGUILayout.ObjectField("Planet Select", Galaxies[i].PlanetSelect, typeof(SceneAsset), false);
-                    EditorGUI.indentLevel++;    //インデント
-
-                    EditorGUILayout.BeginHorizontal();  //縦軸レイアウト
-                    GUILayout.FlexibleSpace();  //終端までスペース
-
-                    //惑星を追加
-                    if (GUILayout.Button("Add Planet", GUILayout.Width(100)))
-                        Galaxies[i].Planets.Add(null);
-
-                    GUILayout.Space(10);
-
-                    //惑星を削除
-                    if (GUILayout.Button("delete Planet", GUILayout.Width(100)))
-                    {
-                        if (Galaxies[i].Planets.Count != 0)
-                            Galaxies[i].Planets.RemoveAt(Galaxies[i].Planets.Count - 1);
-                    }
-
-                    GUILayout.Space(20);
-                    EditorGUILayout.EndHorizontal();    //縦軸レイアウト終了
-
+                    EditorGUI.indentLevel++;
                     //惑星の表示
-                    for (int j = 0; j < Galaxies[i].Planets.Count; j++)
-                        Galaxies[i].Planets[j] = (SceneAsset)EditorGUILayout.ObjectField("Planet:" + j, Galaxies[i].Planets[j], typeof(SceneAsset), false);
+                    for (int j = 0; j < Galaxies[i].Planets.Length; j++)
+                        Galaxies[i].Planets[j] = (SceneAsset)EditorGUILayout.ObjectField("Planet:" + (j+1), Galaxies[i].Planets[j], typeof(SceneAsset), false);
 
-                    EditorGUI.indentLevel--;    //インデント
+                    EditorGUI.indentLevel--;
                 }
 
                 EditorGUI.indentLevel--;    //インデント
@@ -188,22 +125,23 @@ public class MySceneManagerEditor : Editor
         DataCheck = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_DataCheck);
         GameStart = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GameStart);
 
-        Galaxies = new List<Galaxy>();
+        //MySceneManagerから配列内容を確保
 
-        foreach(var galaxy in mySceneManager.Galaxies)
+        int nGalaxy = 0;
+        foreach (var galaxy in mySceneManager.Galaxies)
         {
             Galaxy AddGalaxy = new Galaxy();
-            AddGalaxy.PlanetSelect = AssetDatabase.LoadAssetAtPath<SceneAsset>(galaxy.Path_PlanetSelect);
 
-            foreach(var planet in galaxy.Path_Planets)
+            int nPlanet = 0;
+            foreach (var planet in galaxy.Path_Planets)
             {
-                AddGalaxy.Planets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(planet));
+                if (planet == null) continue;
+                AddGalaxy.Planets[nPlanet] = AssetDatabase.LoadAssetAtPath<SceneAsset>(planet);
+                nPlanet++;
             }
-
-            Galaxies.Add(AddGalaxy);
+            Galaxies[nGalaxy] = AddGalaxy;
+            nGalaxy++;
         }
-
-        Change_FoldingGalaxys_Length();
     }
 
     //ManagerScene.csに登録
@@ -238,14 +176,10 @@ public class MySceneManagerEditor : Editor
         //Galaxys
         List<MySceneManager.Galaxy> AddGalaxies = new List<MySceneManager.Galaxy>();
 
+        //プラネットの登録
         foreach (var galaxy in Galaxies)
         {
             MySceneManager.Galaxy add = new MySceneManager.Galaxy();
-
-            string Path_PlanetSelect = AssetDatabase.GetAssetPath(galaxy.PlanetSelect);
-
-            if (string.IsNullOrEmpty(Path_PlanetSelect)) continue;
-            add.Path_PlanetSelect = Path_PlanetSelect;
 
             add.Path_Planets = new List<string>();
             
@@ -295,11 +229,6 @@ public class MySceneManagerEditor : Editor
         //Galaxys
         foreach (var galaxy in Galaxies)
         {
-            string galaxyPath = AssetDatabase.GetAssetPath(galaxy.PlanetSelect);
-
-            if (string.IsNullOrEmpty(galaxyPath)) continue;
-            editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(galaxyPath, true));
-
             foreach (var planet in galaxy.Planets)
             {
                 string planetPath = AssetDatabase.GetAssetPath(planet);

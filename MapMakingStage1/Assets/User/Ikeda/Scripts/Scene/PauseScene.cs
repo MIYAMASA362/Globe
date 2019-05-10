@@ -85,15 +85,15 @@ public class PauseScene : SceneBase
             //遷移
             switch (SelectNum)
             {
-                
                 case 0:
                     
                     break;
                 case 1:
-                    MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),false);
+                    MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:
-                    MySceneManager.FadeInLoad(MySceneManager.Get_NowGalaxy(),false);
+                    StageSelectScene.Load_Star_PlanetSelect();
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
                     break;
                 case 3:
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);

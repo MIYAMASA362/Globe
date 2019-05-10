@@ -29,6 +29,7 @@ public class TitleScene : SceneBase
     private bool bUpdate = false;
     private bool bInput = false;
     private bool bWait = false;
+    private bool IsContinue = false;
 
     //--- MonoBehaviour -----------------------------------
 
@@ -49,6 +50,7 @@ public class TitleScene : SceneBase
 
         time = 0f;
         bInput = false;
+        IsContinue = DataManager.Instance.Continue();
     }
 
     // Update is called once per frame
@@ -60,7 +62,7 @@ public class TitleScene : SceneBase
 
         if (MySceneManager.IsOption || bWait) return;
 
-        int n = SelectNum;
+        int old = SelectNum;
 
         float selecter = Input.GetAxis(InputManager.Y_Selecter);
 
@@ -81,9 +83,18 @@ public class TitleScene : SceneBase
             }
         }
 
-        if (SelectNum <= -1) SelectNum = MaxNum - 1;
-        if (n != SelectNum)
+        if (old != SelectNum)
         {
+            //コンティニュー出来ない
+            if (!IsContinue && SelectNum == 1)
+            {
+                if (old < SelectNum)
+                    SelectNum++;
+                else
+                    SelectNum--;
+            }
+
+            if (SelectNum <= -1) SelectNum = MaxNum - 1;
             SelectNum = SelectNum % MaxNum;
 
             for (int i = 0; i < MaxNum; i++)
@@ -105,22 +116,13 @@ public class TitleScene : SceneBase
 
                 //Continue
                 case 1:
-                    Debug.Log("チェック");
-
-                    if (DataManager.Instance.Continue())
-                        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), false);
-                    else
-                    {
-                        NotContinueMessage.SetActive(true);
-                        bWait = true;
-                        StartCoroutine("Continue_WaitInput");
-                    }
-                    
+                    if (IsContinue)
+                        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), true);
                     break;
 
                 //Option
                 case 2:
-                    SceneManager.LoadScene(MySceneManager.Instance.Path_Option, LoadSceneMode.Additive);
+                    //SceneManager.LoadScene(MySceneManager.Instance.Path_Option, LoadSceneMode.Additive);
                     break;
 
                 //Exit
@@ -129,7 +131,7 @@ public class TitleScene : SceneBase
                     break;
 
                 default:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, false);
+                    //MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, false);
                     break;
             }
         }
