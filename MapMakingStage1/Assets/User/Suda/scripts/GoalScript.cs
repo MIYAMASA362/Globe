@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class GoalScript : MonoBehaviour {
 
     [SerializeField] private PlanetScene planetScene = null;
