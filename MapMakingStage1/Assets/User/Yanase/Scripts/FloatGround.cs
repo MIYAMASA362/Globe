@@ -23,7 +23,7 @@ public class FloatGround : MonoBehaviour
         startHeight = transform.localPosition.y;
         startWireHeight = wireObject.transform.position.magnitude;
         wireObject.gameObject.SetActive(true);
-        wireObject.transform.rotation = transform.rotation;
+//        wireObject.transform.rotation = transform.rotation;
         wireRenderer = wireObject.GetComponent<Renderer>();
         wireFrameTrigger = wireObject.GetComponent<WireFrameTrigger>();
     }
