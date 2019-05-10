@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GoalScript : MonoBehaviour {
 
-    private PlanetScene planetScene = null;
+    [SerializeField] private PlanetScene planetScene = null;
 
     private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start ()
     {
-        planetScene = GameObject.Find("EventSystem").GetComponent<PlanetScene>();
+        if(planetScene == null)planetScene = GameObject.Find("EventSystem").GetComponent<PlanetScene>();
 
         if (planetScene == null) Debug.LogError("PlanetScene.csが見つかりませんでした。PlanetScene.cs is not find");
 
