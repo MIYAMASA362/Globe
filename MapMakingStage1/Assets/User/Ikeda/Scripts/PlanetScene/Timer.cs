@@ -21,10 +21,23 @@ public class Timer : MonoBehaviour {
     {
         time = 0f;
         bCount = false;
+
+        if (time >= MaxTime) time = MaxTime;
+
+        int seconds = 0;
+        int minutes = 0;
+        TimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
     }
-	
+
 	// Update is called once per frame
 	void Update ()
+    {
+        
+	}
+
+    //--- Method ------------------------------------------
+
+    public void UpdateTimer()
     {
         if (bCount)
         {
@@ -47,10 +60,8 @@ public class Timer : MonoBehaviour {
             minutes = (int)time / 60;
         }
 
-        TimerText.text = minutes.ToString("00")+":"+seconds.ToString("00");
-	}
-
-    //--- Method ------------------------------------------
+        TimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
 
     public void StartTimer()
     {

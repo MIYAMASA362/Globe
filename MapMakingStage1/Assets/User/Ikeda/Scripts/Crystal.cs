@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crystal : MonoBehaviour
+public class Crystal : CrystalBase
 {
-    public float RotSpeed = 5f;
-    public PlanetScene planetScene;
+    [HideInInspector]public CrystalHandle handle = null;
 
 	// Use this for initialization
 	void Start ()
@@ -13,17 +12,14 @@ public class Crystal : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-        this.transform.rotation *= Quaternion.AngleAxis(RotSpeed,Vector3.up);
-	}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-        {  
-            planetScene.HitCrystal(other.gameObject);
+        {
+            this.gameObject.SetActive(false);
+            //未取得であれば
+            if(!IsGet) IsGet = true;
+            if (handle == null) handle.HitCrystal(this.gameObject);
         }
     }
 

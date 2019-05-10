@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
 
 public class MySceneManager : Singleton<MySceneManager>
 {
+    //--- Class ---------------------------------------------------------------
 
     [System.Serializable]
     public class Galaxy
     {
-        public string Path_PlanetSelect;
-        public List<string> Path_Planets;
+        public List<string> Path_Planets = new List<string>();
     }
 
-    //--- Attribute ---------------------------------------
+    //--- Attribute -----------------------------------------------------------
 
     //--- public --------------------------------
 
@@ -32,38 +29,35 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
-    [HideInInspector] public string Path_Manager;
-    [HideInInspector] public string Path_Pause;
-    [HideInInspector] public string Path_Opening;
-    [HideInInspector] public string Path_Title;
-    [HideInInspector] public string Path_Option;
-    [HideInInspector] public string Path_DataCheck;
-    [HideInInspector] public string Path_GameStart;
-    [HideInInspector] public string Path_GalaxySelect;
-    [HideInInspector] public List<Galaxy> Galaxies;
+    [HideInInspector]public string Path_Manager;
+    [HideInInspector]public string Path_Pause ;
+    [HideInInspector]public string Path_Opening;
+    [HideInInspector]public string Path_Title;
+    [HideInInspector]public string Path_Option;
+    [HideInInspector]public string Path_DataCheck;
+    [HideInInspector]public string Path_GameStart;
+    [HideInInspector]public string Path_GalaxySelect;
+    [HideInInspector]public List<Galaxy> Galaxies;
 
     public static string NextLoadScene;
+    public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
+    private static bool IsLoad_Pause = false;            //Pauseを読み込む
 
-    //--- operation ----------------------------------
-    public static int nMaxGalaxyNum { get; private set; }
-    public static int nMaxPlanetNum { get; private set; }
+    //--- operation -----------------------------
 
-    public static bool IsPausing { get; private set; } //Pause中:true
-    public static bool IsOption  { get; private set; } //Option中:true
-    public static bool IsFadeing { get; private set; } //Fade中:true
+    public static bool IsPausing { get; private set; }  //Pause中:true
+    public static bool IsOption  { get; private set; }  //Option中:true
+    public static bool IsFadeing { get; private set; }  //Fade中:true
 
-    //--- MonoBehavior ------------------------------------
+
+    //--- MonoBehavior --------------------------------------------------------
 
     private void Awake()
     {
         //Awake に SceneManagerの関数などを使うとバグにつながる。
         //現象：Sceneが二重にロードされる
-
-        nMaxGalaxyNum = Galaxies.Count;
-        nMaxPlanetNum = Galaxies[0].Path_Planets.Count;
-
         DontDestroyOnLoad(this);
     }
 
@@ -90,32 +84,46 @@ public class MySceneManager : Singleton<MySceneManager>
             Time.timeScale = 1;
     }
 
-    //--- Method ------------------------------------------
+    //--- Coroutine -----------------------------------------------------------
 
-    //
-    //  Attributeの初期化
-    //
+    //--- Pause画面を登録 -----------------------
+    IEnumerator IE_LoadPause()
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(Instance.Path_Pause, LoadSceneMode.Additive);
+        async.allowSceneActivation = false;
+        IsLoad_Pause = false;
+
+        while (!IsLoad_Pause)
+            yield return null;
+
+        async.allowSceneActivation = true;
+        IsLoad_Pause = false;
+
+        yield return null;
+    }
+
+
+    //--- Method --------------------------------------------------------------
+
+    //--- Attributeの初期化 ---------------------
     private void Init_Attribute()
     {
         IsPausing = false;
         IsOption = false;
         IsFadeing = false;
         IsFade_Use = false;
+        IsLoad_Use = false;
+        IsPlayGame = false;
     }
 
-    //
-    //  Attributeの更新処理
-    //
+    //--- Attributeの更新処理 -------------------
     private void Update_Attribute()
     {
         IsPausing = SceneManager.GetSceneByPath(Path_Pause).isLoaded;
         IsOption  = SceneManager.GetSceneByPath(Path_Option).isLoaded;
-        nMaxPlanetNum = Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets.Count;
     }
 
-    //
-    //  Pause画面の表示　bEnable[表示:true/非表示:false]
-    //
+    //--- Pause画面の表示　bEnable[表示:true/非表示:false] ---
     public static void Pause(bool bEnable)
     {
         //Fade中
@@ -125,64 +133,38 @@ public class MySceneManager : Singleton<MySceneManager>
         if (!Input.GetButtonDown(InputManager.Menu)) return;
 
         //Pause状態とbEnableが逆であるのか
-        if (IsPausing != bEnable)
+        if (IsPausing == bEnable) return;
+
+        if (bEnable)
+            Instance.LoadPause();
+        else
         {
-            if (bEnable)
-                SceneManager.LoadScene(Instance.Path_Pause,LoadSceneMode.Additive);
-            else
-                SceneManager.UnloadSceneAsync(Instance.Path_Pause);
+            SceneManager.UnloadSceneAsync(Instance.Path_Pause);
+            Instance.LoadBack_Pause();
         }
     }
-     
-    //
-    //  現在の惑星
-    //
+
+    //--- 現在の惑星 ----------------------------
     public static string Get_NowPlanet()
     {
         return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets[DataManager.Instance.playerData.SelectPlanet];
     }
 
-    //
-    //  現在の銀河
-    //
+    //--- 現在の銀河 ----------------------------
     public static string Get_NowGalaxy()
     {
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
+        return Instance.Path_GalaxySelect;
     }
 
-    //
-    //  次の銀河のPath 次がなければTitleへ
-    //
-    public static string Get_NextGalaxy()
+    //--- Planetの選択に戻る
+    public static string Load_PlanetSelect()
     {
-        DataManager.Instance.playerData.SelectGalaxy++;
-
-        if (DataManager.Instance.playerData.SelectGalaxy > nMaxGalaxyNum-1)
-        {
-            DataManager.Instance.playerData.SelectGalaxy = 0;
-            return Instance.Path_Title;
-        }
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
+        StageSelectScene.Load_Star_PlanetSelect();
+        return Instance.Path_GalaxySelect;
     }
+    
 
-    //
-    //  次の惑星へのPath なければPlanetSelectへ
-    //
-    public static string Get_NextPlanet()
-    {
-        DataManager.Instance.playerData.SelectPlanet++;
-
-        if (DataManager.Instance.playerData.SelectPlanet > nMaxPlanetNum-1)
-        {
-            DataManager.Instance.playerData.SelectPlanet = 0;
-            return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
-        }
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets[DataManager.Instance.playerData.SelectGalaxy];
-    }
-
-    //
-    //  終了処理
-    //
+    //--- 終了処理 ------------------------------
     public static void Game_Exit()
     {
     #if UNITY_EDITOR
@@ -192,20 +174,30 @@ public class MySceneManager : Singleton<MySceneManager>
     #endif
     }
 
-    //--- SceneLoad FadeInOut -------------------
+    //--- Pause ---------------------------------
 
-    //
-    //  SceneLoad
-    //
+    //--- バックで読み込みします ------
+    public void LoadBack_Pause()
+    {
+        StartCoroutine("IE_LoadPause");
+    }
+
+    //--- バックで読み込んでいたのを有効化します ---
+    public void LoadPause()
+    {
+        IsLoad_Pause = true;
+    }
+
+    //--- SceneLoad FadeInOut -------------------------------------------------
+
+    //--- SceneLoad -----------------------------
     public static void Load(string NextScene)
     {
         NextLoadScene = NextScene;
         SceneManager.LoadScene(NextLoadScene);
     }
 
-    //
-    //  Animatorを使ってFadeIn IsLoad:ロード画面を使うか
-    //
+    //--- Animatorを使ってFadeIn IsLoad:ロード画面を使うか ---
     public static void FadeInLoad(string NextScene,bool IsLoad)
     {
         NextLoadScene = NextScene;
@@ -214,44 +206,42 @@ public class MySceneManager : Singleton<MySceneManager>
         Instance.animator.SetBool("FadeFlag",true);
     }
 
-    //--- Animator ------------------------------
+    //--- Animator ------------------------------------------------------------
 
-    //
-    //  FadeOutが完了したらFadeOut
-    //
+    //--- FadeOutが完了したらFadeOut ------------
     public void CompleteFadeOut()
     {
         SceneManager.LoadScene(NextLoadScene);
         Instance.animator.SetBool("FadeFlag", false);
-        if (!IsLoad_Use)
-            Instance.animator.SetTrigger("LoadTrigger");
+        if (IsLoad_Use) return;
+        Instance.animator.SetTrigger("LoadTrigger");
     }
 
-    //
-    //  FadeInが完了した
-    //
+    //--- FadeInが完了した ----------------------
     public void CompleteFadeIn()
     {
         IsFade_Use = false;
     }
 
-    //
-    //  Load画面を終了
-    //
+    //--- Load画面を終了 ------------------------
     public void CompleteLoaded()
     {
-        if(IsLoad_Use)
             Instance.animator.SetTrigger("LoadTrigger");
+            IsLoad_Use = false;
     }
 
-    //--- DataManager ---------------------------
+    //--- DataManager ---------------------------------------------------------
 
-    //
-    //  Fadeしている
-    //
+    //--- Fadeしている --------------------------
     public static bool Fading()
     {
         return IsFade_Use;
+    }
+
+    //--- Loadしている --------------------------
+    public static bool IsLoading()
+    {
+        return IsLoad_Use;
     }
 
 }
