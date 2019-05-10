@@ -757,9 +757,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1214285329}
-  - component: {fileID: 1214285330}
   - component: {fileID: 1214285332}
   - component: {fileID: 1214285331}
+  - component: {fileID: 1214285330}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bInitLoad: 0
+  bInitLoad: 1
   animator: {fileID: 1214285331}
   Path_Manager: Assets/Scenes/Release/System/ManagerScene.unity
   Path_Pause: Assets/Scenes/Release/System/Pause.unity
@@ -802,23 +802,31 @@ MonoBehaviour:
   Path_Option: Assets/Scenes/Release/System/OptionScene.unity
   Path_DataCheck: Assets/Scenes/Release/System/DataCheck.unity
   Path_GameStart: Assets/Scenes/Release/GameStart.unity
-  Path_GalaxySelect: Assets/Scenes/Release/GalaxySelect.unity
+  Path_GalaxySelect: Assets/Scenes/Release/StageSelect.unity
   Galaxies:
-  - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
-    Path_Planets:
+  - Path_Planets:
     - Assets/Scenes/Stage/TemplateStage.unity
     - Assets/Scenes/Stage/TemplateStage.unity
     - Assets/Scenes/Stage/TemplateStage.unity
     - Assets/Scenes/Stage/TemplateStage.unity
     - Assets/Scenes/Stage/TemplateStage.unity
-  - Path_PlanetSelect: Assets/Scenes/Release/GalaxySelect.unity
-    Path_Planets:
+  - Path_Planets:
     - Assets/Scenes/Stage/TemplateStage.unity
-  - Path_PlanetSelect: Assets/Scenes/Release/GalaxySelect.unity
-    Path_Planets:
     - Assets/Scenes/Stage/TemplateStage.unity
-  - Path_PlanetSelect: Assets/Scenes/Release/GalaxySelect.unity
-    Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
     - Assets/Scenes/Stage/TemplateStage.unity
 --- !u!95 &1214285331
 Animator:
