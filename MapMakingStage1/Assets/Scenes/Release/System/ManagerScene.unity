@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18256989, g: 0.22828107, b: 0.30719447, a: 1}
+  m_IndirectSpecularColor: {r: 0.029086007, g: 0.022212662, b: 0.0136535475, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -757,9 +757,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1214285329}
-  - component: {fileID: 1214285330}
   - component: {fileID: 1214285332}
   - component: {fileID: 1214285331}
+  - component: {fileID: 1214285330}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bInitLoad: 0
+  bInitLoad: 1
   animator: {fileID: 1214285331}
   Path_Manager: Assets/Scenes/Release/System/ManagerScene.unity
   Path_Pause: Assets/Scenes/Release/System/Pause.unity
@@ -802,11 +802,32 @@ MonoBehaviour:
   Path_Option: Assets/Scenes/Release/System/OptionScene.unity
   Path_DataCheck: Assets/Scenes/Release/System/DataCheck.unity
   Path_GameStart: Assets/Scenes/Release/GameStart.unity
-  Path_GalaxySelect: Assets/Scenes/Release/GalaxySelect.unity
+  Path_GalaxySelect: Assets/Scenes/Release/StageSelect.unity
   Galaxies:
-  - Path_PlanetSelect: Assets/Scenes/Release/Galaxy1/PlanetSelect.unity
-    Path_Planets:
-    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+  - Path_Planets:
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
+    - Assets/Scenes/Stage/TemplateStage.unity
 --- !u!95 &1214285331
 Animator:
   serializedVersion: 3
@@ -1297,7 +1318,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1959740772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.9791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1515266818}
@@ -1305,7 +1326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0005, y: -0.0085}
   m_SizeDelta: {x: 1200, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1959740774
