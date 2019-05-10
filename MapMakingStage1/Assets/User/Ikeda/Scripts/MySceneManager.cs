@@ -13,7 +13,6 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        public string Path_PlanetSelect;
         public List<string> Path_Planets;
     }
 
@@ -46,12 +45,11 @@ public class MySceneManager : Singleton<MySceneManager>
     private static bool IsLoad_Use = false;             //Loadを利用
 
     //--- operation -----------------------------
-    public static int nMaxGalaxyNum { get; private set; }
-    public static int nMaxPlanetNum { get; private set; }
 
     public static bool IsPausing { get; private set; }  //Pause中:true
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
+
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -59,10 +57,6 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         //Awake に SceneManagerの関数などを使うとバグにつながる。
         //現象：Sceneが二重にロードされる
-
-        nMaxGalaxyNum = Galaxies.Count;
-        nMaxPlanetNum = Galaxies[0].Path_Planets.Count;
-
         DontDestroyOnLoad(this);
     }
 
@@ -107,7 +101,6 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         IsPausing = SceneManager.GetSceneByPath(Path_Pause).isLoaded;
         IsOption  = SceneManager.GetSceneByPath(Path_Option).isLoaded;
-        nMaxPlanetNum = Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets.Count;
     }
 
     //--- Pause画面の表示　bEnable[表示:true/非表示:false] ---
@@ -123,7 +116,7 @@ public class MySceneManager : Singleton<MySceneManager>
         if (IsPausing == bEnable) return;
 
         if (bEnable)
-            SceneManager.LoadScene(Instance.Path_Pause,LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(Instance.Path_Pause,LoadSceneMode.Additive);
         else
             SceneManager.UnloadSceneAsync(Instance.Path_Pause);
     }
@@ -137,34 +130,16 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- 現在の銀河 ----------------------------
     public static string Get_NowGalaxy()
     {
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
+        return Instance.Path_GalaxySelect;
     }
 
-    //--- 次の銀河のPath 次がなければTitleへ ---
-    public static string Get_NextGalaxy()
+    //--- Planetの選択に戻る
+    public static string Load_PlanetSelect()
     {
-        DataManager.Instance.playerData.SelectGalaxy++;
-
-        if (DataManager.Instance.playerData.SelectGalaxy > nMaxGalaxyNum-1)
-        {
-            DataManager.Instance.playerData.SelectGalaxy = 0;
-            return Instance.Path_Title;
-        }
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
+        StageSelectScene.Load_Star_PlanetSelect();
+        return Instance.Path_GalaxySelect;
     }
-
-    //--- 次の惑星へのPath なければPlanetSelectへ ---
-    public static string Get_NextPlanet()
-    {
-        DataManager.Instance.playerData.SelectPlanet++;
-
-        if (DataManager.Instance.playerData.SelectPlanet > nMaxPlanetNum-1)
-        {
-            DataManager.Instance.playerData.SelectPlanet = 0;
-            return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_PlanetSelect;
-        }
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets[DataManager.Instance.playerData.SelectGalaxy];
-    }
+    
 
     //--- 終了処理 ------------------------------
     public static void Game_Exit()
