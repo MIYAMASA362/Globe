@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SA;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlanetWalker : MonoBehaviour {
@@ -37,11 +38,16 @@ public class PlanetWalker : MonoBehaviour {
 
     //Move
     Vector3 MoveVec;
+    float moveAmount;
+    public float turnSpeed;
     [SerializeField] public Vector3 oldPosition;
     [SerializeField] public Vector3 defaultScale;
 
     private Vector3 origin;
     private Vector3 end;
+
+    public Animator anim;
+    public Transform meshTransform;
 
     //--- MonoBehavior --------------------------
 
@@ -51,7 +57,7 @@ public class PlanetWalker : MonoBehaviour {
         rigidbody = this.GetComponent<Rigidbody>();
         oldPosition = this.transform.position;
         defaultScale = this.transform.lossyScale;
-
+        anim = GetComponent<StateManager>().anim;
     }
 	
 	// Update is called once per frame
@@ -148,15 +154,32 @@ public class PlanetWalker : MonoBehaviour {
     {
         Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
         Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-        return (forward * vertical + right * horizontal);
+        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+        return (forward * vertical + right * horizontal).normalized;
     }
 
     //Charactor Move
     void Move(Vector3 MoveDir)
     {
-        rigidbody.AddForce(VelocityChanger(MoveDir * speed), ForceMode.VelocityChange);
+        Vector3 velocityChanger = VelocityChanger(MoveDir * speed * moveAmount * Time.deltaTime);
+        Transform gravityCenter = RotationManager.Instance.planetTransform;
+        Vector3 gravityDirection = (transform.position - gravityCenter.position).normalized;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, gravityDirection) * transform.rotation, Time.deltaTime * 5.0f);
 
-        if(transform.parent)
+        rigidbody.AddForce(velocityChanger, ForceMode.VelocityChange);
+
+        if (meshTransform)
+        {
+            //meshTransform.rotation = Quaternion.Slerp(meshTransform.rotation, transform.rotation, Time.deltaTime * 8.0f);
+            Quaternion q = Quaternion.FromToRotation(transform.forward, MoveDir) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * moveAmount * turnSpeed);
+        }
+        if (onGround)
+            if(anim) anim.SetFloat("move", moveAmount);
+        else
+            anim.SetFloat("move", 0f);
+
+        if (transform.parent)
         {
             if (!onGround)
                 this.transform.localPosition = oldPosition;
