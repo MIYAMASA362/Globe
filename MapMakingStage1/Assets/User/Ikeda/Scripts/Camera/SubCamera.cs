@@ -13,7 +13,8 @@ public class SubCamera : MonoBehaviour {
 	void Start ()
     {
         camera = this.GetComponent<Camera>();
-	}
+        camera.transform.SetParent(MainCamera.transform);
+    }
 	
 	// Update is called once per frame
 	void Update ()
