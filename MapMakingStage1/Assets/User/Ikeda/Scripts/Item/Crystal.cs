@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crystal : CrystalBase
 {
-    [HideInInspector]public CrystalHandle handle = null;
+    [SerializeField] public CrystalHandle handle = null;
 
 	// Use this for initialization
 	void Start ()

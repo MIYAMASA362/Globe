@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class SubCamera : MonoBehaviour {
 
-    Camera camera;
+    [SerializeField]Camera MainCamera;
+
+    Camera camera = null;
 
 	// Use this for initialization
 	void Start ()
@@ -14,7 +16,8 @@ public class SubCamera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        camera.fieldOfView = MainCamera.fieldOfView;
 	}
 }
