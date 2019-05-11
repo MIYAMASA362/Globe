@@ -18,8 +18,8 @@ public class SceneBase : MonoBehaviour
 
     public virtual void Start ()
     {
-        
-	}
+        if(IsPausing) MySceneManager.Instance.LoadBack_Pause();
+    }
 
     public virtual void Update()
     {
@@ -33,20 +33,5 @@ public class SceneBase : MonoBehaviour
     {
         if (IsPausing) MySceneManager.Pause(!MySceneManager.IsPausing);
     }
-
-    ////Scene選択切り替え
-    //public void SelectChange()
-    //{
-    //    //Next_Sceneへの設定がある時
-    //    if (nLength != 0)
-    //    {
-    //        if (Input.GetKeyDown(SelectUp))   Selecter++; //CountUp
-    //        if (Input.GetKeyDown(SelectDown)) Selecter--; //CountDown
-    //        if (Selecter <= -1) Selecter = nLength - 1;   //マイナス値除外
-
-    //        Selecter    = Selecter % nLength;             //Selecterのループ
-    //        Next_Scene  = Next_SceneIndex[Selecter];      //Next_SceneIndexの要素を取得
-    //    }
-    //}
 
 }

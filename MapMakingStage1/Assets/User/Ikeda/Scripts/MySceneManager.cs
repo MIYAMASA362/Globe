@@ -13,7 +13,7 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        public List<string> Path_Planets;
+        public List<string> Path_Planets = new List<string>();
     }
 
     //--- Attribute -----------------------------------------------------------
@@ -29,20 +29,21 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
-    [HideInInspector] public string Path_Manager;
-    [HideInInspector] public string Path_Pause;
-    [HideInInspector] public string Path_Opening;
-    [HideInInspector] public string Path_Title;
-    [HideInInspector] public string Path_Option;
-    [HideInInspector] public string Path_DataCheck;
-    [HideInInspector] public string Path_GameStart;
-    [HideInInspector] public string Path_GalaxySelect;
-    [HideInInspector] public List<Galaxy> Galaxies;
+    [HideInInspector]public string Path_Manager;
+    [HideInInspector]public string Path_Pause ;
+    [HideInInspector]public string Path_Opening;
+    [HideInInspector]public string Path_Title;
+    [HideInInspector]public string Path_Option;
+    [HideInInspector]public string Path_DataCheck;
+    [HideInInspector]public string Path_GameStart;
+    [HideInInspector]public string Path_GalaxySelect;
+    [HideInInspector]public List<Galaxy> Galaxies;
 
     public static string NextLoadScene;
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
+    private static bool IsLoad_Pause = false;            //Pauseを読み込む
 
     //--- operation -----------------------------
 
@@ -83,6 +84,25 @@ public class MySceneManager : Singleton<MySceneManager>
             Time.timeScale = 1;
     }
 
+    //--- Coroutine -----------------------------------------------------------
+
+    //--- Pause画面を登録 -----------------------
+    IEnumerator IE_LoadPause()
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(Instance.Path_Pause, LoadSceneMode.Additive);
+        async.allowSceneActivation = false;
+        IsLoad_Pause = false;
+
+        while (!IsLoad_Pause)
+            yield return null;
+
+        async.allowSceneActivation = true;
+        IsLoad_Pause = false;
+
+        yield return null;
+    }
+
+
     //--- Method --------------------------------------------------------------
 
     //--- Attributeの初期化 ---------------------
@@ -116,9 +136,12 @@ public class MySceneManager : Singleton<MySceneManager>
         if (IsPausing == bEnable) return;
 
         if (bEnable)
-            SceneManager.LoadSceneAsync(Instance.Path_Pause,LoadSceneMode.Additive);
+            Instance.LoadPause();
         else
+        {
             SceneManager.UnloadSceneAsync(Instance.Path_Pause);
+            Instance.LoadBack_Pause();
+        }
     }
 
     //--- 現在の惑星 ----------------------------
@@ -149,6 +172,20 @@ public class MySceneManager : Singleton<MySceneManager>
     #elif UNITY_STANDALONE
         UnityEngine.Application.Quit();
     #endif
+    }
+
+    //--- Pause ---------------------------------
+
+    //--- バックで読み込みします ------
+    public void LoadBack_Pause()
+    {
+        StartCoroutine("IE_LoadPause");
+    }
+
+    //--- バックで読み込んでいたのを有効化します ---
+    public void LoadPause()
+    {
+        IsLoad_Pause = true;
     }
 
     //--- SceneLoad FadeInOut -------------------------------------------------

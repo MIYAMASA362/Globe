@@ -122,80 +122,15 @@ public class StageSelectScene : SceneBase
 	// Use this for initialization
 	public override void Start ()
     {
-        base.Start();
-
-        //---　初期化(初期状態に必要なパラメータなどにアクセスして調整する) ---
-
-        //星の宝石の設定
-        nMaxStarCrystalNum = 0;
-
-        //隠し宝石の設定
-        nMaxCrystalNum = 0;
-
-        //GalaxyStateを設定し、情報取得
-        foreach (Galaxy galaxy in Galaxies)
-        {
-            if (galaxy == null) continue;
-            //PlanetCameraを無効化
-            galaxy.planetCamera.SetActive(false);
-
-            //エリアの集計を設定
-            galaxy.galaxyState.selectScene = this.GetComponent<StageSelectScene>();
-            galaxy.galaxyState.InitState();
-
-            //隠し宝石
-            nMaxCrystalNum += galaxy.galaxyState.nMaxCrystalNum;
-            nGetCrystalNum += galaxy.galaxyState.nGetCrystalNum;
-
-            //星の宝石
-            nMaxStarCrystalNum += galaxy.galaxyState.nMaxStarCrystalNum;
-            nGetStarCrystalNum += galaxy.galaxyState.nGetStarCrystalNum;
-        }
-
-        //選択中の内容
-        nGalaxySelectNum = 0;
-        nPlanetSelectNum = 0;
-
-        //最大数の設定
-        nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
-        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Path_Planets.Count;
-
-        //UIを初期化
-        GalaxySelectUI.SetActive(false);
-        PlanetSelectUI.SetActive(false);
-
-        //GalaxyCameraを設定
-        if (state == STATE.GALAXYSELECT)
-        {
-            galaxyCamera.SetActive(true);
-            GalaxySelectUI.SetActive(true);
-        }
-
-        //--- 初期状態設定 ----------------------------
-
-        //データでの選択状態を読み込み
-        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
-        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
-
-        //回転させる対象を設定
-        TargetRotObj = GalaxysHolder;
-
-        //テキストの設定
-        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
-
-        //Cameraの切り替え
-        Set_GalaxyCamera();
-
-        //Lockの切り替え
-        Change_Lock_UnLock(true);
-
-        if (IsLoad_Start_PlanetSelect)
-            LoadInit_PlanetSelect();
+        StartCoroutine("Init_Coroutine");
     }
 	
 	// Update is called once per frame
 	public override void Update ()
     {
+        //Load中
+        if (MySceneManager.IsLoading()) return;
+
         base.Update();
 
         IsInputLeft = Input.GetButtonDown(InputManager.Left_AxisRotation);
@@ -232,6 +167,92 @@ public class StageSelectScene : SceneBase
         {
             Gizmos.DrawLine(Galaxies[i].galaxyState.gameObject.transform.position, Galaxies[i + 1].galaxyState.gameObject.transform.position);
         }
+    }
+
+    //--- Coroutine -----------------------------------------------------------
+
+    //--- Startでの読み込み ---------------------
+    IEnumerator Init_Coroutine()
+    {
+        base.Start();
+
+        //---　初期化(初期状態に必要なパラメータなどにアクセスして調整する) ---
+
+        //星の宝石の設定
+        nMaxStarCrystalNum = 0;
+
+        //隠し宝石の設定
+        nMaxCrystalNum = 0;
+
+        yield return new WaitForSeconds(1f);
+
+        //GalaxyStateを設定し、情報取得
+        foreach (Galaxy galaxy in Galaxies)
+        {
+            if (galaxy == null) continue;
+            //PlanetCameraを無効化
+            galaxy.planetCamera.SetActive(false);
+
+            //エリアの集計を設定
+            galaxy.galaxyState.selectScene = this.GetComponent<StageSelectScene>();
+            galaxy.galaxyState.InitState();
+
+            //隠し宝石
+            nMaxCrystalNum += galaxy.galaxyState.nMaxCrystalNum;
+            nGetCrystalNum += galaxy.galaxyState.nGetCrystalNum;
+
+            //星の宝石
+            nMaxStarCrystalNum += galaxy.galaxyState.nMaxStarCrystalNum;
+            nGetStarCrystalNum += galaxy.galaxyState.nGetStarCrystalNum;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        //選択中の内容
+        nGalaxySelectNum = 0;
+        nPlanetSelectNum = 0;
+
+        //最大数の設定
+        nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
+        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Path_Planets.Count;
+
+        //UIを初期化
+        GalaxySelectUI.SetActive(false);
+        PlanetSelectUI.SetActive(false);
+
+        //GalaxyCameraを設定
+        if (state == STATE.GALAXYSELECT)
+        {
+            galaxyCamera.SetActive(true);
+            GalaxySelectUI.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        //--- 初期状態設定 ----------------------------
+
+        //データでの選択状態を読み込み
+        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
+        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
+
+        //回転させる対象を設定
+        TargetRotObj = GalaxysHolder;
+
+        //テキストの設定
+        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
+
+        //Cameraの切り替え
+        Set_GalaxyCamera();
+
+        //Lockの切り替え
+        Change_Lock_UnLock(true);
+
+        if (IsLoad_Start_PlanetSelect)
+            LoadInit_PlanetSelect();
+
+        MySceneManager.Instance.CompleteLoaded();
+
+        yield return null;
     }
 
     //--- Method --------------------------------------------------------------

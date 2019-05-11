@@ -5,14 +5,15 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: LowPolyWater
   m_Shader: {fileID: 4800000, guid: 62c4b9a8441c640a892d4019d8ae3e42, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -34,21 +35,17 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Diffuse:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Foam:
-        m_Texture: {fileID: 2800000, guid: a34a33a1f9ea0154db9d1f4de30ae782, type: 3}
-        m_Scale: {x: 3, y: 12}
+        m_Texture: {fileID: 2800000, guid: 783b1cc18a6bc4345a1dd80b44043e54, type: 3}
+        m_Scale: {x: 20, y: 20}
         m_Offset: {x: 0, y: 0}
     - _FoamDistortion:
-        m_Texture: {fileID: 2800000, guid: cd460ee4ac5c1e746b7a734cc7cc64dd, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Texture: {fileID: 2800000, guid: b993da1516aab90488ce6d0b995bcf6d, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
@@ -60,7 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalOnlyNoPolyMode:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 3, y: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -71,23 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WaveGuide:
-        m_Texture: {fileID: 2800000, guid: 44680e884f8253348bb26dc35c9c8ddd, type: 3}
-        m_Scale: {x: 22, y: 22}
-        m_Offset: {x: 0, y: 0}
-    - _WaveTex1:
-        m_Texture: {fileID: 2800000, guid: dba83d26608cf8044ac49d4a99180ae5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WaveTex1H:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WaveTex2:
-        m_Texture: {fileID: 2800000, guid: 70420ed49da92914f9ebf3dde0525ab1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WaveTex2H:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 31890676c5b178840848afa665cb5a2f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -99,12 +80,9 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeLength: 10
-    - _FoamDist: 0.003
-    - _FreshnelPower: 0
-    - _FreshnelScale: 0
+    - _FoamDist: 0
     - _GlossMapScale: 1
-    - _GlossScale: 1.15
+    - _GlossScale: 0.71
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LowPoly: 0
@@ -114,27 +92,16 @@ Material:
     - _Opacity: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
-    - _SpecScale: 0.04
+    - _SpecScale: 0.03
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Tesselation: 4
     - _UVSec: 0
     - _WaveHeight: 0
-    - _WaveSpeed: 0.3
+    - _WaveSpeed: 0.24
     - _ZWrite: 1
     - __dirty: 0
-    - _depthFadeScale: 0.01
-    - _depthScale: 0.05
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.66753936, g: 0.4613361, b: 0.41939643, a: 1}
-    - _DepthColor: {r: 0.05517956, g: 0.28292638, b: 0.37735817, a: 1}
-    - _Displace: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlowSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _FoamColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 0}
-    - _FreshnelColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Refraction: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.764151, g: 0.5809035, b: 0, a: 0}
-    - _WaterColor: {r: 0.2876466, g: 0.6037736, b: 0.5657212, a: 1}
-    - _WaveTiling: {r: 5, g: 5, b: 0, a: 0}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
+    - _WaterColor: {r: 0.2326895, g: 0.52818394, b: 0.5943396, a: 1}
