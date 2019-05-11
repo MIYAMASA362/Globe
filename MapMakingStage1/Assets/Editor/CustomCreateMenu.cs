@@ -13,16 +13,25 @@ public class CustomCreateMenu
     public static void Set_EditPlanet()
     {
         stage = Selection.activeGameObject;
-        Debug.Log("Target Stage:"+stage);
+        Debug.Log("Target Stage:"+stage.name);
     }
 
     [MenuItem("GameObject/MyObject/Crystal",priority = 19)]
     public static void Create_Crystal()
     {
-        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/StageObjects/Crystal.prefab", typeof(GameObject));
+        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/User/Ikeda/Prefabs/Item/Crystal.prefab", typeof(GameObject));
         GameObject gameObject = (GameObject)GameObject.Instantiate(prefab);
         gameObject.transform.parent = GameObject.Find(stage.name + "/PlanetHolder/Crystals").transform;
         PrefabUtility.ConnectGameObjectToPrefab(gameObject,prefab);
+    }
+
+    [MenuItem("GameObject/MyObject/StarPiece")]
+    public static void Create_StarPiece()
+    {
+        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/User/Ikeda/Prefabs/Item/StarPiece.prefab", typeof(GameObject));
+        GameObject gameObject = (GameObject)GameObject.Instantiate(prefab);
+        gameObject.transform.parent = GameObject.Find(stage.name + "/PlanetHolder/Crystals").transform;
+        PrefabUtility.ConnectGameObjectToPrefab(gameObject, prefab);
     }
 
     [MenuItem("GameObject/MyObject/Arch")]
