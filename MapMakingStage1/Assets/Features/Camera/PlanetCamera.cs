@@ -9,10 +9,8 @@ namespace FrameWork.Camera
         public Transform cameraTransform;
 
         public float upSpeed = 3.0f;
-        public float mouseSpeed = 1.5f;
+        public float mouseSpeed = 2.0f;
 
-        public float minAngle = -80f;
-        public float maxAngle = 80f;
         public float distance = 13f;
 
         public float lookAngle;
@@ -33,6 +31,8 @@ namespace FrameWork.Camera
 
         private void Update()
         {
+            if (!this.gameObject.activeInHierarchy) return;
+
             Tick(Time.deltaTime);
         }
 
@@ -62,7 +62,6 @@ namespace FrameWork.Camera
 
             lookAngle += smoothX * targetSpeed;
             tiltAngle += smoothY * targetSpeed;
-            tiltAngle = Mathf.Clamp(tiltAngle, minAngle, maxAngle);
 
             rotationPivot.localRotation = Quaternion.Euler(tiltAngle, lookAngle, 0);
         }

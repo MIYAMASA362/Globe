@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &794825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1054220389388076, guid: cfce10bc2112d4144adfc0e7f6386f02,
-    type: 2}
-  m_PrefabInternal: {fileID: 1970520674}
 --- !u!114 &794826 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114768851792538842, guid: cfce10bc2112d4144adfc0e7f6386f02,
@@ -209,12 +204,12 @@ Prefab:
         type: 2}
       propertyPath: planetCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1467019667}
     - target: {fileID: 114969878277778392, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: characterCamera
       value: 
-      objectReference: {fileID: 794825}
+      objectReference: {fileID: 794826}
     - target: {fileID: 114332024215144920, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: clouds
@@ -521,6 +516,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 63827652}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1467019667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114845605648799108, guid: 3262dd56869ff2d4e9270f519634337e,
+    type: 2}
+  m_PrefabInternal: {fileID: 2073410356}
+  m_Script: {fileID: 11500000, guid: 2742c26908270904889b50c11a67d147, type: 3}
 --- !u!4 &1645459712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4946816160418756, guid: 3262dd56869ff2d4e9270f519634337e,
@@ -968,6 +969,16 @@ Prefab:
     - target: {fileID: 4813778390309956, guid: 3262dd56869ff2d4e9270f519634337e, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114845605648799108, guid: 3262dd56869ff2d4e9270f519634337e,
+        type: 2}
+      propertyPath: mouseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114845605648799108, guid: 3262dd56869ff2d4e9270f519634337e,
+        type: 2}
+      propertyPath: distance
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3262dd56869ff2d4e9270f519634337e, type: 2}
