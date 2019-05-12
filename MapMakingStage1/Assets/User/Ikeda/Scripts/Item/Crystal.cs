@@ -17,9 +17,8 @@ public class Crystal : CrystalBase
         if (other.gameObject.CompareTag("Player"))
         {
             this.gameObject.SetActive(false);
-            //未取得であれば
-            if(!IsGet) IsGet = true;
-            if (handle == null) handle.HitCrystal(this.gameObject);
+            if (!IsGet) IsGet = true;
+            if (handle != null) handle.HitCrystal(this.gameObject);
         }
     }
 

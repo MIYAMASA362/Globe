@@ -89,18 +89,11 @@ public class PlanetScene :SceneBase
 
         //--- Crystal ---------------------------
 
-        //Crysta 現在のデータと違うなら
-        if (!crystalHandle.DataCheck(ref data))
-            //現在のデータを適用させる
-            crystalHandle.ReSetData(ref data);
-
         //---------------------------------------
 
         //セーブする
         DataManager.Instance.Save(ref data, Get_FineName());
 
-        //データを適用
-        crystalHandle.Set(ref data);
     }
 
     //--- ロードを完了させる --------------------
@@ -140,9 +133,6 @@ public class PlanetScene :SceneBase
 
         //初クリア
         if (!planetData.clear) planetData.clear = true;
-
-        //クリスタルのデータを保存
-        crystalHandle.ReSetData(ref planetData);
 
         //星データの保存
         DataManager.Instance.Save(ref planetData, Get_FineName());

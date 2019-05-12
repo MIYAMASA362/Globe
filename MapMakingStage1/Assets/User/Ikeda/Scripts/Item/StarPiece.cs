@@ -15,7 +15,7 @@ public class StarPiece : CrystalBase
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        handle.HitStarPiece(other.gameObject);
+        handle.HitStarPiece(this.gameObject);
         this.gameObject.SetActive(false);
     }
 

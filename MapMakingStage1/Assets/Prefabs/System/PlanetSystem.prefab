@@ -314,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321235586049246}
   - component: {fileID: 95517223595487170}
+  - component: {fileID: 114455993335429270}
   m_Layer: 0
   m_Name: AroundCamera
   m_TagString: Untagged
@@ -1260,10 +1261,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  UI: {fileID: 1714095682596464}
-  UIIndex: []
-  EnableColor: {r: 1, g: 1, b: 1, a: 1}
-  DisableColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
+  UIPieces:
+  - {fileID: 1100713201270410}
+  - {fileID: 1657152092513306}
+  - {fileID: 1960528261559222}
+  - {fileID: 1978911496785568}
+  - {fileID: 1077002630288332}
+  Enable_material: {fileID: 2100000, guid: 46ff5fbe61929ba4696f7760498edc39, type: 2}
+  Disable_material: {fileID: 2100000, guid: 75a8e27964b1a974fa4685a745eec4ff, type: 2}
 --- !u!114 &114218336908549872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1436,6 +1441,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114455993335429270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612207628412974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4551c753eb35b4642812074541badf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetScene: {fileID: 114772399103263814}
 --- !u!114 &114466142079668506
 MonoBehaviour:
   m_ObjectHideFlags: 1
