@@ -5,76 +5,31 @@ using UnityEngine.UI;
 
 public class CrystalHandle : MonoBehaviour
 {
-    [System.Serializable]
-    public class Element
+    [SerializeField] private Crystal crystal;
+    [SerializeField] private GameObject UICrystal;
+
+    [Space(8)]
+    [SerializeField] private Material Enable_material;
+    [SerializeField] private Material Disable_material;
+
+    void Start()
     {
-        [SerializeField] public Crystal crystal;
-        [HideInInspector] public GameObject StateUI;
-    }
+        crystal.handle = this.GetComponent<CrystalHandle>();
 
-    [SerializeField, Range(0f, 1f)] private float alpha;
-    [SerializeField] private float distance = 65f;
-    [SerializeField] private Color IsGetColor = Color.black;
-
-    [SerializeField] private GameObject CrystalUI;
-    [SerializeField] private GameObject CrystalUI_Image;
-
-    [SerializeField] private Element[] Crystals;
-   
-
-    //保存されたデータと現在のデータとが正しいか
-    public bool DataCheck(ref DataManager.PlanetData data)
-    {
-        return data.bGet.Length == Crystals.Length;
-    }
-
-    //現在のデータ分を保存する
-    public void ReSetData(ref DataManager.PlanetData data)
-    {
-        data.bGet = new bool[Crystals.Length];
-        for (int i = 0; i < Crystals.Length; i++)
-            data.bGet[i] = Crystals[i].crystal.IsGet;
-    }
-
-    //データを適応してクリスタルを設定する
-    public void Set(ref DataManager.PlanetData data)
-    {
-        //クリスタルのステータス設定
-        for (int i = 0; i < Crystals.Length; i++)
-        {
-            Crystals[i].crystal.IsGet = data.bGet[i];
-            Crystals[i].crystal.handle = this.GetComponent<CrystalHandle>();
-        }
-
-        for (int i = 0; i < Crystals.Length; i++)
-        {
-            Crystals[i].StateUI = Instantiate<GameObject>(CrystalUI_Image, CrystalUI.transform, false);
-            Crystals[i].StateUI.transform.position += Crystals[i].StateUI.transform.right * (i * distance);
-            Crystals[i].StateUI.SetActive(true);
-
-            //既に取得済み
-            if (!Crystals[i].crystal.IsGet) continue;
-
-            Color color = Crystals[i].crystal.gameObject.GetComponent<Renderer>().material.color;
-            Crystals[i].crystal.gameObject.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, alpha);
-
-            Color UIColor = Crystals[i].StateUI.GetComponent<Image>().color;
-            Crystals[i].StateUI.GetComponent<Image>().color = IsGetColor;
-        }
+        UICrystal.GetComponent<Renderer>().material = Disable_material;
     }
 
     //クリスタルと当たり判定をした
-    public void HitCrystal(GameObject hit)
+    public bool HitCrystal(GameObject hit)
     {
-        foreach(Element element in Crystals)
-        {
-            if (element.crystal.gameObject != hit) continue;
+        if (!CrystalJudgment(hit)) return false;
+        UICrystal.GetComponent<Renderer>().material = Enable_material;
 
-            Color color = element.crystal.gameObject.GetComponent<Renderer>().material.color;
-            element.crystal.gameObject.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, alpha);
+        return true;
+    }
 
-            Color UIColor = element.StateUI.GetComponent<Image>().color;
-            element.StateUI.GetComponent<Image>().color = IsGetColor;
-        }
+    bool CrystalJudgment(GameObject HitObject)
+    {
+        return HitObject == crystal.gameObject;
     }
 }

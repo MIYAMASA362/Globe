@@ -13,7 +13,7 @@ public class StarScript : MonoBehaviour {
         //プレイヤーをスタート位置に設置
         player.transform.position = transform.position;
         //プレイヤーのrotationを修正
-        player.transform.rotation = transform.rotation;
+        player.transform.up = (player.transform.position - RotationManager.Instance.planetTransform.position).normalized;
 
         FlagManager.Instance.flagTransform.up = transform.forward;
 

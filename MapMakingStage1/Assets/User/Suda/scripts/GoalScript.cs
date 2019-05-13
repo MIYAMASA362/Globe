@@ -26,7 +26,7 @@ public class GoalScript : MonoBehaviour {
         if(collider.gameObject.name== "Character")
         {
             //ゴールファンファーレ
-            audioSource.Play();
+//            audioSource.Play();
             //ゴール後処理(シーン遷移)
             Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
             AudioManager.Instance.StopBGM();
