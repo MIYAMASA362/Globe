@@ -29,15 +29,16 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
-    [HideInInspector]public string Path_Manager;
-    [HideInInspector]public string Path_Pause ;
-    [HideInInspector]public string Path_Opening;
-    [HideInInspector]public string Path_Title;
-    [HideInInspector]public string Path_Option;
-    [HideInInspector]public string Path_DataCheck;
-    [HideInInspector]public string Path_GameStart;
-    [HideInInspector]public string Path_GalaxySelect;
-    [HideInInspector]public List<Galaxy> Galaxies;
+    [HideInInspector] public string Path_Manager;
+    [HideInInspector] public string Path_Pause ;
+    [HideInInspector] public string Path_Opening;
+    [HideInInspector] public string Path_Title;
+    [HideInInspector] public string Path_Option;
+    [HideInInspector] public string Path_DataCheck;
+    [HideInInspector] public string Path_GameStart;
+    [HideInInspector] public string Path_GalaxySelect;
+    [HideInInspector] public List<Galaxy> Galaxies;
+    [HideInInspector] public string Path_End;
 
     public static string NextLoadScene;
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
