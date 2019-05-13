@@ -23,6 +23,7 @@ public class MySceneManagerEditor : Editor
     private SceneAsset GameStart;
     private SceneAsset GalaxySelect;
     private List<Galaxy> Galaxies = new List<Galaxy>();
+    private SceneAsset End;
     
     bool folding_Galaxy = false;
     bool[] folding_Galaxys = new bool[4];
@@ -109,6 +110,9 @@ public class MySceneManagerEditor : Editor
             EditorGUI.indentLevel--;
         }
 
+        GUILayout.Space(4);
+        End = EditorGUILayout.ObjectField("EndGame",End,typeof(SceneAsset),true)as SceneAsset;
+
         GUILayout.Space(8);
 
         //BuildSettingへ登録
@@ -148,6 +152,8 @@ public class MySceneManagerEditor : Editor
             }
             Galaxies.Add(galaxy);
         }
+
+        End = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_End);
     }
 
     //MySceneManagerへデータを保存
@@ -179,6 +185,8 @@ public class MySceneManagerEditor : Editor
             }
             mySceneManager.Galaxies.Add(galaxy);
         }
+
+        mySceneManager.Path_End = AssetDatabase.GetAssetPath(End);
     }
 
     //EditorのBuildSettingに設定
@@ -221,6 +229,8 @@ public class MySceneManagerEditor : Editor
                 editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(planetPath, true));
             }
         }
+
+        editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(End),true));
 
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
 
