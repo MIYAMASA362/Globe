@@ -122,6 +122,7 @@ public class StageSelectScene : SceneBase
 	// Use this for initialization
 	public override void Start ()
     {
+        TargetRotObj = GalaxysHolder;
         StartCoroutine("Init_Coroutine");
     }
 	

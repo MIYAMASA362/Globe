@@ -11,15 +11,13 @@ public class StarPieceHandle : MonoBehaviour
     [Space(8), Header("PieceObject")]
     [SerializeField] private  StarPiece[] Pieces = new StarPiece[5];
 
-    [Space(8)]
-    [SerializeField] private GameObject UI;
-
-    [SerializeField] private GameObject[] UIIndex;
+    [SerializeField] private GameObject[] UIPieces = new GameObject[5];
     [Space(4)]
-    [SerializeField] private Color EnableColor = Color.white;
-    [SerializeField] private Color DisableColor = Color.black;
+    [SerializeField] private Material Enable_material;
+    [SerializeField] private Material Disable_material;
 
-    private int nGetPiece;
+    [Space(8)]
+    [SerializeField]private int nGetPiece;
 
     // Use this for initialization
     void Start ()
@@ -28,15 +26,13 @@ public class StarPieceHandle : MonoBehaviour
         foreach (StarPiece starPiece in Pieces)
         {
             if (starPiece == null) continue;
-            starPiece.GetComponent<StarPiece>().handle = this.GetComponent<StarPieceHandle>();
+            starPiece.handle = this.GetComponent<StarPieceHandle>();
         }
 
-        //UIの変更
-        UIIndex = new GameObject[UI.transform.childCount];
-        for (int i = 0; i < UIIndex.Length; i++)
+        //UIを設定
+        foreach(GameObject starPiece in UIPieces)
         {
-            UIIndex[i] = UI.transform.GetChild(i).gameObject;
-            UIIndex[i].GetComponent<Image>().color = DisableColor;
+            starPiece.GetComponent<Renderer>().material = Disable_material;
         }
 
         nGetPiece = 0;
@@ -52,20 +48,17 @@ public class StarPieceHandle : MonoBehaviour
     public bool HitStarPiece(GameObject HitObject)
     {
         if (!PiecesJudgment(HitObject)) return false;
-        if (nGetPiece > UIIndex.Length) return false;
-
-        UIIndex[nGetPiece].GetComponent<Image>().color = EnableColor;
+        UIPieces[nGetPiece].GetComponent<Renderer>().material = Enable_material;
+        nGetPiece++;
         return true;
     }
 
     //登録されたオブジェクト群との判定
-    bool PiecesJudgment(GameObject @object)
+    bool PiecesJudgment(GameObject HitObject)
     {
-        foreach (StarPiece starPiece in Pieces)
+        for(int i= 0; i < Pieces.Length; i++)
         {
-            GameObject Piece = starPiece.gameObject;
-            if (Piece != @object) continue;
-            nGetPiece++;
+            if (HitObject != Pieces[i].gameObject) continue;
             return true;
         }
         return false;
