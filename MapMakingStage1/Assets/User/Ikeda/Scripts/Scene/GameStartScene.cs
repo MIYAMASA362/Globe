@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameStartScene : SceneBase {
 
+    [SerializeField] private Animator animator;
+
     public override void Start()
     {
         base.Start();
