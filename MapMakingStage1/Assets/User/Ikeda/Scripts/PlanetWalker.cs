@@ -47,7 +47,6 @@ public class PlanetWalker : MonoBehaviour {
     private Vector3 end;
 
     public Animator anim;
-    public Transform meshTransform;
 
     //--- MonoBehavior --------------------------
 
@@ -166,18 +165,13 @@ public class PlanetWalker : MonoBehaviour {
         Vector3 gravityDirection = (transform.position - gravityCenter.position).normalized;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, gravityDirection) * transform.rotation, Time.deltaTime * 5.0f);
 
+        Quaternion q = Quaternion.FromToRotation(transform.forward, MoveDir) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * moveAmount * turnSpeed);
+
         rigidbody.AddForce(velocityChanger, ForceMode.VelocityChange);
 
-        if (meshTransform)
-        {
-            //meshTransform.rotation = Quaternion.Slerp(meshTransform.rotation, transform.rotation, Time.deltaTime * 8.0f);
-            Quaternion q = Quaternion.FromToRotation(transform.forward, MoveDir) * transform.rotation;
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * moveAmount * turnSpeed);
-        }
         if (onGround)
-            if(anim) anim.SetFloat("move", moveAmount);
-        else
-            anim.SetFloat("move", 0f);
+            if (anim) anim.SetFloat("move", moveAmount);
 
         if (transform.parent)
         {

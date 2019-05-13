@@ -1221,6 +1221,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4926966955910996}
+  - {fileID: 4063031831095352}
   m_Father: {fileID: 4965916067848680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1231,7 +1232,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818059736857648}
   m_LocalRotation: {x: 0.000000119209275, y: -0.07359632, z: -0.00000008940696, w: 0.9972881}
-  m_LocalPosition: {x: 0, y: -1.065, z: -0.33}
+  m_LocalPosition: {x: 0.03, y: -1.06, z: -0.33}
   m_LocalScale: {x: 0.40472355, y: 0.75638723, z: 0.20363645}
   m_Children:
   - {fileID: 4815066546812908}
@@ -1315,12 +1316,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1550635335272300}
-  m_LocalRotation: {x: -0.000000085375916, y: 0.039758522, z: -0.00000010342418, w: 0.9992094}
-  m_LocalPosition: {x: -0.017, y: 0.241, z: -0.078}
-  m_LocalScale: {x: 0.097378865, y: 0.17908955, z: 0.049728133}
+  m_LocalRotation: {x: -0.005606541, y: 0.043084, z: 0.015560792, w: 0.9989346}
+  m_LocalPosition: {x: 0.0016358758, y: 0.020474376, z: -0.075130604}
+  m_LocalScale: {x: 0.09737889, y: 0.17908956, z: 0.04972815}
   m_Children: []
-  m_Father: {fileID: 4835861134085396}
-  m_RootOrder: 2
+  m_Father: {fileID: 4033634334594312}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 4.557, z: 0}
 --- !u!4 &4078815484490622
 Transform:
@@ -2114,7 +2115,6 @@ Transform:
   m_Children:
   - {fileID: 4483223269346188}
   - {fileID: 4785878837704906}
-  - {fileID: 4063031831095352}
   m_Father: {fileID: 4093706159346362}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2463,14 +2463,13 @@ MonoBehaviour:
   castDistance: 0.1
   rayStartPosition: 0.3
   rayEndPosition: -0.8
-  rayRadius: 0.013
+  rayRadius: 0.01
   onGround: 0
   normalvsAngle: 0
   turnSpeed: 10
   oldPosition: {x: 0, y: 0, z: 0}
   defaultScale: {x: 0, y: 0, z: 0}
   anim: {fileID: 95490772721029238}
-  meshTransform: {fileID: 4093706159346362}
 --- !u!114 &114667497107320910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2491,7 +2490,7 @@ MonoBehaviour:
   moveAmountMult: 0.3
   turnSpeed: 46.15
   rayStartPosition: 0.4
-  rayEndPosition: -0.4
+  rayEndPosition: -0.7
   rayRadius: 0.1
   characterHeight: 0.8
   angle: 0
@@ -2522,12 +2521,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04f5e50cd25d4df6ad5fe43d1f88cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolator: 1
+  _interpolator: 2
   _target: {fileID: 4063031831095352}
   _positionSpeed: 20
   _rotationSpeed: 33
   _jumpDistance: 1
-  _jumpAngle: 60
+  _jumpAngle: 360
 --- !u!114 &114952480935734070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2544,7 +2543,7 @@ MonoBehaviour:
   horizontal: 0
   moveDir: {x: 0, y: 0, z: 0}
   delta: 0
-  pi: {fileID: 1599087911765272}
+  pi: {fileID: 0}
   CameraPivot: {fileID: 4371040558927122}
 --- !u!135 &135199973800689206
 SphereCollider:
