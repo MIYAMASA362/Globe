@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrystalBase : MonoBehaviour
 {
-    public static float RotSpeed = 5f;
+    public float RotSpeed = 3f;
 
     //データを参照し、既に取得されてるかを保持
     public bool IsGet = false;

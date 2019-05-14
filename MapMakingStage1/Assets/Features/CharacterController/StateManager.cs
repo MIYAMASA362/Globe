@@ -26,7 +26,6 @@ namespace SA
 
         public float angle;
         public Vector3 cross;
-        public Transform anglePivot;
         public float crossMult = 6;
         [Header("States")]
         public bool onGround = false;
@@ -142,7 +141,7 @@ namespace SA
 
         private void SetParent(GameObject hitObject)
         {
-            if (hitObject.tag == "FloatGround")
+            if (hitObject.tag == "FloatMesh")
             {
                 if (transform.parent != hitObject.transform)
                 {

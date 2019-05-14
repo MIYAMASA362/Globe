@@ -26,7 +26,7 @@ public class StarPieceHandle : MonoBehaviour
         foreach (StarPiece starPiece in Pieces)
         {
             if (starPiece == null) continue;
-            starPiece.handle = this.GetComponent<StarPieceHandle>();
+            starPiece.SetHandler(this);
         }
 
         //UIを設定

@@ -14,7 +14,7 @@ public class CrystalHandle : MonoBehaviour
 
     void Start()
     {
-        crystal.handle = this.GetComponent<CrystalHandle>();
+        crystal.SetHandler(this);
 
         UICrystal.GetComponent<Renderer>().material = Disable_material;
     }

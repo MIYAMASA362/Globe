@@ -12,7 +12,6 @@ public class PlanetWalker : MonoBehaviour {
 
     //--- private ---------------------
     [Header("Stats")]
-    [SerializeField] Transform cameraTransform;
     [SerializeField] LayerMask Hitlayer;
     [Space(10)]
     [SerializeField] float speed = 2f;
@@ -151,6 +150,7 @@ public class PlanetWalker : MonoBehaviour {
     //MoveDirection
     Vector3 MoveDirection()
     {
+        Transform cameraTransform = CameraManager.Instance.mainCamera.transform;
         Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
         Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
@@ -170,8 +170,7 @@ public class PlanetWalker : MonoBehaviour {
 
         rigidbody.AddForce(velocityChanger, ForceMode.VelocityChange);
 
-        if (onGround)
-            if (anim) anim.SetFloat("move", moveAmount);
+        if (anim) anim.SetFloat("move", moveAmount);
 
         if (transform.parent)
         {
