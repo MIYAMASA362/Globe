@@ -5,9 +5,11 @@ using UnityEngine;
 public class FloatGround : MonoBehaviour
 {
     public FloatType.Type type;
-    public Transform wireObject;
-    private WireFrameTrigger wireFrameTrigger;
-    private Renderer wireRenderer;
+    public WireFrameTrigger wireFrameTrigger;
+    public GameObject effectObject;
+    public Animator animator;
+
+    private Renderer effectRender;
 
     public float floatHeight = 8.0f;
     public float floatSpeed = 5.0f;
@@ -15,39 +17,69 @@ public class FloatGround : MonoBehaviour
     public bool onGround = false;
     private float startHeight;
     private float startWireHeight;
+    private Quaternion meshInitRotation;
 
 
-    // Use this for initialization
     void Start()
     {
         startHeight = transform.localPosition.y;
-        startWireHeight = wireObject.transform.position.magnitude;
-        wireObject.gameObject.SetActive(true);
-//        wireObject.transform.rotation = transform.rotation;
-        wireRenderer = wireObject.GetComponent<Renderer>();
-        wireFrameTrigger = wireObject.GetComponent<WireFrameTrigger>();
+        startWireHeight = wireFrameTrigger.transform.position.magnitude;
+        wireFrameTrigger.gameObject.SetActive(false);
+        effectRender = effectObject.GetComponent<Renderer>();
+
+        effectObject.SetActive(false);
+        meshInitRotation = animator.transform.localRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isFloat && FlagManager.Instance.flagActive &&
+        if (FlagManager.Instance.flagActive &&
             FlagManager.Instance.curFloatType == type)
         {
-            onGround = wireFrameTrigger.onTrigger;
-            transform.parent.parent = RotationManager.Instance.rotationTransform;
-            wireRenderer.enabled = true;
-            MoveHeight(startHeight + floatHeight);
+            effectObject.SetActive(true);
+
+            if (isFloat)
+            {
+                onGround = wireFrameTrigger.onTrigger;
+
+                SetUpdate(RotationManager.Instance.rotationTransform, startHeight + floatHeight, true);
+                animator.enabled = true;
+
+                if (wireFrameTrigger.onTrigger)
+                {
+                    effectRender.material.SetColor("_ShieldPatternColor", Color.red);
+                }
+                else
+                {
+                    effectRender.material.SetColor("_ShieldPatternColor", Color.green);
+                }
+            }
+            else
+            {
+                onGround = false;
+                effectRender.material.SetColor("_ShieldPatternColor", Color.cyan);
+
+                SetUpdate(RotationManager.Instance.planetTransform, startHeight, false);
+                AnimationReset();
+            }
         }
         else
         {
             onGround = false;
-            transform.parent.parent = RotationManager.Instance.planetTransform;
-            wireRenderer.enabled = false;
-            MoveHeight(startHeight);
+            effectObject.SetActive(false);
+
+            SetUpdate(RotationManager.Instance.planetTransform, startHeight, false);
+            AnimationReset();
         }
 
-        wireObject.transform.position = wireObject.transform.forward * startWireHeight;
+        wireFrameTrigger.transform.position = wireFrameTrigger.transform.forward * startWireHeight;
+    }
+
+    void SetUpdate(Transform parent, float height, bool wireActive)
+    {
+        transform.parent.parent = parent;
+        MoveHeight(height);
+        wireFrameTrigger.gameObject.SetActive(wireActive);
     }
 
     void MoveHeight(float target)
@@ -57,5 +89,12 @@ public class FloatGround : MonoBehaviour
             float height = Mathf.Lerp(transform.localPosition.y, target, floatSpeed * Time.deltaTime);
             transform.localPosition = new Vector3(0.0f, height, 0.0f);
         }
+    }
+
+    void AnimationReset()
+    {
+        animator.enabled = false;
+        animator.transform.localRotation = meshInitRotation;
+        animator.transform.localPosition = Vector3.zero;
     }
 }

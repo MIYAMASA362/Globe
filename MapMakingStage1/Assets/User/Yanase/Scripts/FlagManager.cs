@@ -15,21 +15,7 @@ public class FlagManager : Singleton<FlagManager> {
     public FloatType.Type curFloatType;
     private FloatGround[] floatObjects;
 
-    public bool flagActive
-    {
-        get
-        {
-            if (flag)
-            {
-                return flag.activeInHierarchy;
-            }
-            else
-            {
-                Debug.Log("Flag is nothing");
-                return false;
-            }
-        }
-    }
+    public bool flagActive = false;
 
     public Transform flagTransform
     {
@@ -47,18 +33,34 @@ public class FlagManager : Singleton<FlagManager> {
         }
     }
 
+    private Vector3 InitScale = Vector3.zero;
+    public float flagScaleSpeed = 3.0f;
+
     void Start () {
-        if (flag) flag.SetActive(false);
 
         FindFloatGround();
+
+        InitScale = flag.transform.localScale;
+        flag.transform.localScale = Vector3.zero;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown(InputManager.Change_AscDes))
+        if (flagActive)
         {
-            if (CheckFloatOnGround()) ChangeFloatOnGround();
+            flag.transform.localScale = Vector3.Lerp(flag.transform.localScale, InitScale, Time.deltaTime * flagScaleSpeed);
+
+            if (Input.GetButtonDown(InputManager.Change_AscDes))
+            {
+                if (CheckFloatOnGround()) ChangeFloatOnGround();
+            }
         }
+        else
+        {
+            flag.transform.localScale = Vector3.Lerp(flag.transform.localScale,Vector3.zero, Time.deltaTime * flagScaleSpeed);
+        }
+
+
     }
 
     public void SetFlag(Vector3 axisPos, FloatType.Type type)
@@ -81,10 +83,9 @@ public class FlagManager : Singleton<FlagManager> {
         flag.transform.position = planetTransform.transform.position;
         flag.transform.up = axisPos - planetTransform.transform.position;
         lineEffectSwitcher.SetEffect(linePosition, Color.green);
-        flag.SetActive(true);
         curFloatType = type;
+        flagActive = true;
 
-//        AtmosphereManager.Instance.supportCircle.transform.up = flag.transform.up;
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
     }
 
@@ -99,7 +100,7 @@ public class FlagManager : Singleton<FlagManager> {
         if (!CheckFloatOnGround()) return false;
 
         lineEffectSwitcher.SetEffect(axisPos, Color.red);
-        flag.SetActive(false);
+        flagActive = false;
 
         return true;
     }
