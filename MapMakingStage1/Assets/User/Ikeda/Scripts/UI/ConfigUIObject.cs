@@ -1,18 +1,12 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConfigUIObject : MonoBehaviour {
-
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
+public class ConfigUIObject : MonoBehaviour
+{
 	// Update is called once per frame
 	void Update ()
     {
-		
+        this.transform.rotation = Camera.main.transform.rotation;
 	}
 }
