@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crystal : CrystalBase
 {
-    [SerializeField] public CrystalHandle handle = null;
+    private CrystalHandle handle = null;
 
 	// Use this for initialization
 	void Start ()
@@ -14,6 +14,12 @@ public class Crystal : CrystalBase
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!handle)
+        {
+            Debug.Log("Not CrystalHandle!!");
+            return;
+        }
+
         if (other.gameObject.CompareTag("Player"))
         {
             this.gameObject.SetActive(false);
@@ -22,4 +28,8 @@ public class Crystal : CrystalBase
         }
     }
 
+    public void SetHandler(CrystalHandle handle)
+    {
+        this.handle = handle;
+    }
 }

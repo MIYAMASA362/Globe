@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StarPiece : CrystalBase
 {
-    [SerializeField] public StarPieceHandle handle;
+    private StarPieceHandle handle;
 
     // Use this for initialization
     void Start ()
@@ -14,9 +14,19 @@ public class StarPiece : CrystalBase
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!handle)
+        {
+            Debug.Log("Not StarPieceHandle!!");
+            return;
+        }
+
         if (!other.CompareTag("Player")) return;
         handle.HitStarPiece(this.gameObject);
         this.gameObject.SetActive(false);
     }
 
+    public void SetHandler(StarPieceHandle handle)
+    {
+        this.handle = handle;
+    }
 }

@@ -255,6 +255,11 @@ Prefab:
       propertyPath: rotationSpeed
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 114969878277778392, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1974055065}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
   m_IsPrefabAsset: 0
@@ -374,28 +379,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 63827652}
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
---- !u!114 &79199107 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114154623457960186, guid: 7e582f1f2819eaa4abf0ace72409ab6e,
-    type: 2}
-  m_PrefabInternal: {fileID: 63827652}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!1 &231525438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1124387731915042, guid: 7e582f1f2819eaa4abf0ace72409ab6e,
-    type: 2}
-  m_PrefabInternal: {fileID: 63827652}
 --- !u!1 &393105352 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1722029015039588, guid: 6220cdcf7b2f4c14a8142d8a993f8a1e,
     type: 2}
   m_PrefabInternal: {fileID: 37382027}
---- !u!114 &451898634 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114029611544481562, guid: 7e582f1f2819eaa4abf0ace72409ab6e,
-    type: 2}
-  m_PrefabInternal: {fileID: 63827652}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &561804326
 Prefab:
   m_ObjectHideFlags: 0
@@ -547,12 +535,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6589918fd6d8187429ac5f05c6a5f5e5, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &1268927876 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114906198665421514, guid: 7e582f1f2819eaa4abf0ace72409ab6e,
-    type: 2}
-  m_PrefabInternal: {fileID: 63827652}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1278949710 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114750902926393630, guid: 6589918fd6d8187429ac5f05c6a5f5e5,
@@ -695,25 +677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec1191c1e07ef44f8de2ddfeb2930b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPausing: 1
-  timer: {fileID: 0}
-  GoaldTime: 60
-  SilverTime: 120
-  BronzeTime: 180
-  StarUI_1: {fileID: 1268927876}
-  StarUI_2: {fileID: 451898634}
-  StarUI_3: {fileID: 79199107}
-  alpha: 0.6
-  Crystals: []
-  distance: 65
-  EnableColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
-  CrystalUI: {fileID: 1901106845}
-  CrystalUI_Image: {fileID: 231525438}
-  planetData:
-    clear: 0
-    crystalNum: 0
-    bGet: 00
-    rank: 000000
 --- !u!114 &1900677369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,11 +691,6 @@ MonoBehaviour:
   TimerText: {fileID: 63827653}
   MaxTime: 600
   bCount: 0
---- !u!1 &1901106845 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1038608231249808, guid: 7e582f1f2819eaa4abf0ace72409ab6e,
-    type: 2}
-  m_PrefabInternal: {fileID: 63827652}
 --- !u!1001 &1970520674
 Prefab:
   m_ObjectHideFlags: 0

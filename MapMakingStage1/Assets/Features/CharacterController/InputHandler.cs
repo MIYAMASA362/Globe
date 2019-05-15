@@ -1,18 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
-using FrameWork.Camera;
 
 namespace SA
 {
     public class InputHandler : MonoBehaviour {
 
-        public CharacterCamera characterCamera;
+        private CharacterCamera characterCamera;
         public float vertical;
         public float horizontal;
         public Vector3 moveDir;
 
     	public float delta;
-        public GameObject pi;
 
         public Transform CameraPivot;
         private StateManager states;
@@ -23,7 +21,10 @@ namespace SA
         {
             states = GetComponent<StateManager>();
             states.Init();
-           
+
+            characterCamera = CameraManager.Instance.characterCamera.GetComponent<CharacterCamera>();
+            characterCamera.Init(CameraPivot.transform);
+
         }//Start end 
          //------------------------------------------
         void FixedUpdate()
@@ -37,12 +38,6 @@ namespace SA
          //------------------------------------------
         void Update()
         {
-            if (!characterCamera)
-            {
-                characterCamera = CameraManager.Instance.characterCamera.GetComponent<CharacterCamera>();
-                characterCamera.Init(CameraPivot.transform);
-            }
-
             delta = Time.deltaTime;
             states.Tick(delta);
         }
@@ -58,12 +53,11 @@ namespace SA
             states.vertical = vertical;
             states.horizontal = horizontal;
 
-            Vector3 v = states.vertical * pi.transform.forward;
-            Vector3 h = horizontal * pi.transform.right;
+            Vector3 v = states.vertical * transform.forward;
+            Vector3 h = horizontal * transform.right;
             states.moveDir = (v + h).normalized;
             float m = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
             states.moveAmount = Mathf.Clamp01(m);
-
 
             states.FixedTick(Time.deltaTime);
         }

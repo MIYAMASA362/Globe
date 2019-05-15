@@ -28,6 +28,10 @@ public class LineEffectSwitcher : MonoBehaviour {
                 GetComponent<Renderer>().enabled = false;
             }
         }
+
+        Vector3 mainCameraPos = CameraManager.Instance.mainCamera.transform.position;
+
+        transform.localPosition = (mainCameraPos - transform.localPosition).normalized * 0.001f;
 	}
 
     public void SetEffect(Vector3 centerPosition, Color lineColor)
