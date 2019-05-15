@@ -6,20 +6,20 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StarsBackground
-  m_Shader: {fileID: 4800000, guid: f7125c0037730104f8dd874813676933, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 0
+  m_Name: Snow
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _NORMALMAP _SPECGLOSSMAP
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 24e31ecbf813d9e49bf7a1e0d4034916, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -34,12 +34,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DistortionNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNormal2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _LavaDiffuse:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 4112a019314dad94f9ffc2f8481f31bc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -54,16 +66,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Stars:
-        m_Texture: {fileID: 2800000, guid: 6e9b9f5978796b24ea4e8302d13c59be, type: 3}
-        m_Scale: {x: 4, y: 4}
-        m_Offset: {x: 0, y: 0}
-    - _TextureSample0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ss:
-        m_Texture: {fileID: 2800000, guid: a34a33a1f9ea0154db9d1f4de30ae782, type: 3}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 2800000, guid: 84d76c914224da14a8210ba4ba8a2992, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -71,17 +75,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ASEOutlineWidth: 0.007
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DistortionPower: 0
     - _DstBlend: 0
-    - _FreshnelPower: 0.57
-    - _FreshnelScale: 9.16
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
-    - _GradientPower: 3.11
-    - _HorizontPower: 3.55
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -89,22 +91,16 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Texture: 0
-    - _TimeScale: 0
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 0
-    - _gradientInvert: 0
-    - _sky: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ASEOutlineColor: {r: 1, g: 0.47684085, b: 0, a: 0}
+    - _Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+    - _Color0: {r: 0, g: 0, b: 0, a: 0}
+    - _DistortionDirection: {r: 2, g: 2, b: 0, a: 0}
+    - _DistortionDirection2: {r: 2, g: 2, b: 0, a: 0}
+    - _DistortionTiling: {r: 2, g: 2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Sky1: {r: 0.4669811, g: 0.67198837, b: 1, a: 0}
-    - _Sky2: {r: 1, g: 1, b: 1, a: 0}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _StarsColor: {r: 1, g: 1, b: 1, a: 0}
-    - _StarsTiling: {r: 3, g: 3, b: 0, a: 0}
-    - _color1: {r: 0.41960788, g: 0.24313727, b: 0.25882348, a: 1}
-    - _color2: {r: 0.13725486, g: 0.14901957, b: 0.26274508, a: 1}
-    - _sss: {r: 0, g: 0, b: 0, a: 0}
-    - _sttt: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Tiling: {r: 2, g: 2, b: 0, a: 0}
