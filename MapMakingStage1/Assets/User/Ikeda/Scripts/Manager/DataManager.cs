@@ -14,14 +14,6 @@ public class DataManager : Singleton<DataManager>
 
         public int SelectGalaxy = 0;
         public int SelectPlanet = 0;
-
-        //デバッグ表示
-        public void DebugLog()
-        {
-            Debug.Log("CrystalNum:" + CrystalNum);
-            Debug.Log("SelectGalaxy:" + SelectGalaxy);
-            Debug.Log("SelectPlanet:" + SelectPlanet);
-        }
     }
 
     //Planetのデータ
@@ -34,14 +26,6 @@ public class DataManager : Singleton<DataManager>
         public bool[] bGet = {false};    //未取得のクリスタル判定
 
         public bool[] rank = {false,false,false};   //取得ランク
-
-        public void DebugLog()
-        {
-            Debug.Log("Clear:" + clear);
-            Debug.Log("CrystalNum:" + crystalNum);
-            Debug.Log("bGet:" + bGet);
-            Debug.Log("Rank:" + rank);
-        }
     }
 
     //Galaxyのデータ
@@ -50,13 +34,6 @@ public class DataManager : Singleton<DataManager>
     {
         public int planetNum = 0;   //星数
         public int clearPlanet = 0; //クリア星数
-    }
-
-    //Configデータ
-    [System.Serializable]
-    public class ConfigData
-    {
-
     }
 
     //--- Attribute ---------------------------------------
