@@ -40,9 +40,20 @@ public class PlanetState : MonoBehaviour
         planetData = new PlanetData(DataFile);
 
         if (DataHandle.FileFind(planetData.FileName()))
+        {
             DataHandle.Load(ref planetData, planetData.FileName());
+            
+        }
         else
+        {
             DataHandle.Save(ref planetData, planetData.FileName());
+        }
+
+        if (planetData.StageName != this.PlanetName)
+        {
+            planetData.StageName = this.PlanetName;
+            DataHandle.Save(ref planetData, planetData.FileName());
+        }
     }
 
     public int CrystalNum()

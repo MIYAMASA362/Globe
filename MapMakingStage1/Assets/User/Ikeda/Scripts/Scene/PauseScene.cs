@@ -47,6 +47,9 @@ public class PauseScene : SceneBase
 	// Update is called once per frame
 	public override void Update ()
     {
+        if (tm_StateName.text != MySceneManager.PlanetName)
+            tm_StateName.text = MySceneManager.PlanetName;
+
         //Selectの変更
         int n = SelectNum;
         float selecter = Input.GetAxis(InputManager.Y_Selecter);
