@@ -260,7 +260,7 @@ Prefab:
         type: 2}
       propertyPath: flag
       value: 
-      objectReference: {fileID: 393105352}
+      objectReference: {fileID: 0}
     - target: {fileID: 114672231315425832, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: lineEffectSwitcher
@@ -280,7 +280,7 @@ Prefab:
         type: 2}
       propertyPath: ArrowObject
       value: 
-      objectReference: {fileID: 1839502369}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
   m_IsPrefabAsset: 0
@@ -834,7 +834,7 @@ Transform:
   - {fileID: 2026697429}
   - {fileID: 1645459712}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &135564171
 GameObject:
@@ -2250,11 +2250,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 390889821}
   m_Mesh: {fileID: 4300002, guid: 95c2758f358a5de488a7c32ad1f864ea, type: 3}
---- !u!1 &393105352 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1722029015039588, guid: 6220cdcf7b2f4c14a8142d8a993f8a1e,
-    type: 2}
-  m_PrefabInternal: {fileID: 37382027}
 --- !u!1 &422277734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,7 +3439,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601897180
 GameObject:
@@ -4957,7 +4952,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 1114546681}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0
@@ -5546,7 +5543,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 1853070078}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 1
@@ -8812,7 +8811,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1692212870
 GameObject:
@@ -9095,7 +9094,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 1385203555}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0
@@ -9498,11 +9499,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1833809727}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1839502369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1961389763092628, guid: 6220cdcf7b2f4c14a8142d8a993f8a1e,
-    type: 2}
-  m_PrefabInternal: {fileID: 37382027}
 --- !u!1 &1848699478
 GameObject:
   m_ObjectHideFlags: 0
@@ -9981,7 +9977,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1900677368
 MonoBehaviour:
@@ -10644,7 +10640,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1974055060
 MonoBehaviour:
@@ -11862,7 +11858,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 390889822}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 1
