@@ -1392,10 +1392,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &37935993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6475,10 +6476,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &174956540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6688,10 +6690,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: "\u30E9\u30FC\u30E1\u30F3\u661F"
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 'Stage1 '
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &180527223
 GameObject:
   m_ObjectHideFlags: 0
@@ -9461,10 +9464,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &262695373
 GameObject:
   m_ObjectHideFlags: 0
@@ -12654,10 +12658,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &346183921
 GameObject:
   m_ObjectHideFlags: 0
@@ -22343,10 +22348,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &578266843
 GameObject:
   m_ObjectHideFlags: 0
@@ -27516,8 +27522,8 @@ MonoBehaviour:
   nUnLockCrystalNum: 0
   PlanetParent: {fileID: 1535822132}
   Planets:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 180140897}
+  - {fileID: 1534149234}
   - {fileID: 1395731366}
   - {fileID: 1289727181}
   - {fileID: 924577934}
@@ -30750,7 +30756,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 758155258}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 0
@@ -33579,7 +33587,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 1321480990}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 0
@@ -34256,10 +34266,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: "\u51B7\u3084\u3084\u3063\u3053\u661F"
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: Stage5
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &924874323
 GameObject:
   m_ObjectHideFlags: 0
@@ -34754,6 +34765,31 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 0.011855743
       objectReference: {fileID: 0}
+    - target: {fileID: 114768499822180614, guid: f9a843d1d3f162543be9205f4a97779b,
+        type: 2}
+      propertyPath: m_fontStyle
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 114228709795001980, guid: f9a843d1d3f162543be9205f4a97779b,
+        type: 2}
+      propertyPath: nGetStarCrystalNum
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114228709795001980, guid: f9a843d1d3f162543be9205f4a97779b,
+        type: 2}
+      propertyPath: nGetCrystalNum
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114228709795001980, guid: f9a843d1d3f162543be9205f4a97779b,
+        type: 2}
+      propertyPath: StarCrystal_CountText
+      value: 
+      objectReference: {fileID: 1725382719}
+    - target: {fileID: 114228709795001980, guid: f9a843d1d3f162543be9205f4a97779b,
+        type: 2}
+      propertyPath: Crystal_CountText
+      value: 
+      objectReference: {fileID: 1237214963}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9a843d1d3f162543be9205f4a97779b, type: 2}
   m_IsPrefabAsset: 0
@@ -37553,10 +37589,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1061900063
 GameObject:
   m_ObjectHideFlags: 0
@@ -39783,7 +39820,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 1806263423}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 0
@@ -42224,10 +42263,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1167251939
 GameObject:
   m_ObjectHideFlags: 0
@@ -45410,6 +45450,12 @@ Transform:
   m_Father: {fileID: 404326236}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -9.846001, y: -49.652004, z: -171.94402}
+--- !u!114 &1237214963 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114641862485388962, guid: f9a843d1d3f162543be9205f4a97779b,
+    type: 2}
+  m_PrefabInternal: {fileID: 938601276}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!1 &1239561407
 GameObject:
   m_ObjectHideFlags: 0
@@ -45583,7 +45629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 375565052}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0
@@ -47001,10 +47049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: "\u725B\u4E3C\u661F"
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: Stage4
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1291967170
 GameObject:
   m_ObjectHideFlags: 0
@@ -50882,10 +50931,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: "\u5BFF\u53F8\u661F"
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: Stage3
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1399776476
 GameObject:
   m_ObjectHideFlags: 0
@@ -52604,10 +52654,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1450193021
 GameObject:
   m_ObjectHideFlags: 0
@@ -54759,10 +54810,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1502601713
 GameObject:
   m_ObjectHideFlags: 0
@@ -55469,10 +55521,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1526765173
 GameObject:
   m_ObjectHideFlags: 0
@@ -55613,10 +55666,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: "\u713C\u304D\u8089\u661F"
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 'Yanase_Stage2-1 '
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1534550859
 GameObject:
   m_ObjectHideFlags: 0
@@ -57784,10 +57838,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1609729382
 GameObject:
   m_ObjectHideFlags: 0
@@ -58051,7 +58106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 1082620574}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 0
@@ -58966,10 +59023,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1644592653
 GameObject:
   m_ObjectHideFlags: 0
@@ -59091,10 +59149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1647312116
 GameObject:
   m_ObjectHideFlags: 0
@@ -61641,7 +61700,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 518347029}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 1
@@ -62469,6 +62530,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1724951355}
   m_Mesh: {fileID: 4300000, guid: 0b2129bd03485e74e97f9b62a3f9a7b8, type: 3}
+--- !u!114 &1725382719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114230152747303104, guid: f9a843d1d3f162543be9205f4a97779b,
+    type: 2}
+  m_PrefabInternal: {fileID: 938601276}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!1 &1727238517
 GameObject:
   m_ObjectHideFlags: 0
@@ -63459,7 +63526,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 2081174385}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 1
@@ -65895,10 +65964,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1820656469
 GameObject:
   m_ObjectHideFlags: 0
@@ -68800,10 +68870,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: NONE
-  nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 0
-  nMaxCrystalNum: 0
-  nGetCrystalNum: 0
+  DataFile: 
+  planetData:
+    IsGet_StarCrystal: 0
+    IsGet_Crystal: 0
+    IsClear: 0
 --- !u!1 &1918406334
 GameObject:
   m_ObjectHideFlags: 0
@@ -70791,7 +70862,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 1965829846}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0
@@ -74126,7 +74199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  wireObject: {fileID: 1727238518}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 2.6
   floatSpeed: 5
   isFloat: 1
@@ -74616,7 +74691,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 96885794}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0
@@ -75952,7 +76029,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  wireObject: {fileID: 766160922}
+  wireFrameTrigger: {fileID: 0}
+  effectObject: {fileID: 0}
+  animator: {fileID: 0}
   floatHeight: 3
   floatSpeed: 5
   isFloat: 0

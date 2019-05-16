@@ -758,8 +758,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1214285329}
   - component: {fileID: 1214285331}
-  - component: {fileID: 1214285332}
   - component: {fileID: 1214285330}
+  - component: {fileID: 1214285332}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -802,7 +802,7 @@ MonoBehaviour:
   Path_Option: Assets/Scenes/Release/System/OptionScene.unity
   Path_DataCheck: Assets/Scenes/Release/System/DataCheck.unity
   Path_GameStart: Assets/Scenes/Release/GameStart.unity
-  Path_GalaxySelect: Assets/Scenes/Release/StageSelect.unity
+  Path_GalaxySelect: Assets/User/Ikeda/Scenes/Release/I_StageSelect.unity
   Galaxies:
   - Path_Planets:
     - Assets/Scenes/Stage/TemplateStage.unity
@@ -859,9 +859,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:
-    CrystalNum: 0
+    IsContinue: 0
     SelectGalaxy: 0
     SelectPlanet: 0
+    nStarCrystal: 0
+    nCrystal: 0
 --- !u!1 &1421981784
 GameObject:
   m_ObjectHideFlags: 0
