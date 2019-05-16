@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Diamond
-  m_Shader: {fileID: 4800000, guid: 0987e5b4f68110342af32efedf677f3a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 26a9dbe1913e7ac4fab88460d856bcd1, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -34,7 +34,23 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Diffuse:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNormal2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LavaDiffuse:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,12 +74,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ASEOutlineWidth: 0
+    - _BranchPhase: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DistortionPower: 0
     - _DstBlend: 0
+    - _EdgeFlutter: 1
     - _Float0: 0
     - _FreshnelPower: 0
     - _FreshnelScale: 0
@@ -76,10 +99,13 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PrimaryFactor: 0
+    - _SecondaryFactor: 0
     - _SmoothnessTextureChannel: 0
     - _Specular: 1.74
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TessValue: 15
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 0
@@ -87,7 +113,15 @@ Material:
     m_Colors:
     - _ASEOutlineColor: {r: 0.0022694964, g: 0.38535944, b: 0.4811321, a: 0}
     - _Color: {r: 0.4245283, g: 0.3004212, b: 0, a: 1}
+    - _Color0: {r: 0, g: 0, b: 0, a: 0}
     - _ColorTri: {r: 0, g: 0.8780489, b: 1, a: 1}
+    - _DistortionDirection: {r: 2, g: 2, b: 0, a: 0}
+    - _DistortionDirection2: {r: 2, g: 2, b: 0, a: 0}
+    - _DistortionTiling: {r: 2, g: 2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emmisive: {r: 1, g: 0.9764151, b: 0.9764151, a: 0}
     - _FreshnelColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0}
+    - _Tiling: {r: 2, g: 2, b: 0, a: 0}
+    - _TreeInstanceColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TreeInstanceScale: {r: 0, g: 0, b: 0, a: 0}
+    - _TreeOffset: {r: 0, g: 5, b: 0, a: 0}

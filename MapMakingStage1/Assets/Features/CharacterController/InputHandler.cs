@@ -8,6 +8,7 @@ namespace SA
         private CharacterCamera characterCamera;
         public float vertical;
         public float horizontal;
+        public float inputSumooth = 0.2f;
         public Vector3 moveDir;
 
     	public float delta;
@@ -40,13 +41,23 @@ namespace SA
         {
             delta = Time.deltaTime;
             states.Tick(delta);
+
+            if (Input.GetButtonDown(InputManager.FollowTarget))
+            {
+                PlanetCamera camera = CameraManager.Instance.planetCamera;
+                camera.SetTarget(states.transform.position, Time.deltaTime * 15f);
+            }
         }
         //------------------------------------------
         void GetInput()
         {
-            vertical = Input.GetAxis(InputManager.Vertical);
-            horizontal = Input.GetAxis(InputManager.Horizontal);
+            float h = Input.GetAxis(InputManager.Horizontal);
+            float v = Input.GetAxis(InputManager.Vertical);
+
+            horizontal = Mathf.Lerp(horizontal, h, inputSumooth);
+            vertical = Mathf.Lerp(vertical, v, inputSumooth);
         }
+
         //------------------------------------------
         void UpdateStates()
         {

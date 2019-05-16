@@ -96,8 +96,6 @@ namespace SA
 
             if (!onGround) rigid.AddForce(gravityDirection * -gravity);
 
-            HandleMovementAnimations();
-
         }//Tick end
          //------------------------------------------
 
@@ -191,13 +189,6 @@ namespace SA
                 }
             }
         }
-
-        void HandleMovementAnimations()
-        {
-            //	anim.SetFloat("vertical",moveAmount,0.1f,delta);
-        }
-        //------------------------------------------
-
     }
 
 }//end
