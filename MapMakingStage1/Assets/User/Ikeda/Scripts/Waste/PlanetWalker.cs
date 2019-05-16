@@ -9,35 +9,33 @@ public class PlanetWalker : MonoBehaviour {
     //--- Attribute -----------------------------
 
     //--- public ----------------------
+    public InputHandler inputHandler;
 
     //--- private ---------------------
     [Header("Stats")]
     [SerializeField] LayerMask Hitlayer;
     [Space(10)]
     [SerializeField] float speed = 2f;
-    [SerializeField] float runSpeed = 7f;
     [SerializeField] float maxVelocityChange = 0.5f;
     [SerializeField] float castDistance = 0.15f;
     [SerializeField] float rayStartPosition = 0.3f;
     [SerializeField] float rayEndPosition = -0.5f;
     [SerializeField] float rayRadius = 0.013f;
+    [SerializeField] float stopMaxAngle = 70.0f;
+    
 
     [Header("Status")]
     [SerializeField] bool onGround = false;
-    [SerializeField] float normalvsAngle = 0f;
 
     //--- private ---------------------
     new Rigidbody rigidbody = null;
     RaycastHit casthit;
 
     //Input
-    bool jump;
-    float horizontal;
-    float vertical;
 
     //Move
     Vector3 MoveVec;
-    float moveAmount;
+    public float moveAmount;
     public float turnSpeed;
     [SerializeField] public Vector3 oldPosition;
     [SerializeField] public Vector3 defaultScale;
@@ -61,8 +59,6 @@ public class PlanetWalker : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Get_Input();
-
         Vector3 lossScale = transform.lossyScale;
         Vector3 localScale = transform.localScale;
         transform.localScale = new Vector3(
@@ -84,21 +80,10 @@ public class PlanetWalker : MonoBehaviour {
         
     }
 
-    //--- Method --------------------------------
-
-    //Input
-    void Get_Input()
-    {
-        jump        = Input.GetButton(InputManager.Jump);
-        horizontal  = Input.GetAxis(InputManager.Horizontal);
-        vertical    = Input.GetAxis(InputManager.Vertical);
-    }
-
     //RayCast
     void Get_RayCast()
     {
         onGround = false;
-        float maxAngle = 40.0f;
 
         Vector3 velocity = transform.InverseTransformDirection(rigidbody.velocity);
         velocity.y = 0.0f;
@@ -114,15 +99,14 @@ public class PlanetWalker : MonoBehaviour {
 
         if (Physics.SphereCast(origin, rayRadius, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
         {
-            end = casthit.point;
             float sphereNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
-            if (sphereNormalAngle > maxAngle)
+            if (sphereNormalAngle > stopMaxAngle)
             {
                 if (Physics.Raycast(rayPos, -this.transform.up * rayLength, out casthit, rayLength, Hitlayer))
                 {
                     float rayNormalAngle = Mathf.Acos(Vector3.Dot(transform.up, casthit.normal)) * Mathf.Rad2Deg;
                     // 当たった法線が一定以上なら進めない
-                    if (rayNormalAngle > maxAngle)
+                    if (rayNormalAngle > stopMaxAngle)
                     {
                         Vector3 right = transform.position + Vector3.Cross(transform.up, velocity.normalized) * 0.2f + (this.transform.up * rayStartPosition);
                         Vector3 left = transform.position - Vector3.Cross(transform.up, velocity.normalized) * 0.2f + (this.transform.up * rayStartPosition);
@@ -150,11 +134,14 @@ public class PlanetWalker : MonoBehaviour {
     //MoveDirection
     Vector3 MoveDirection()
     {
-        Transform cameraTransform = CameraManager.Instance.mainCamera.transform;
+        Transform cameraTransform = Camera.main.transform;
         Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
         Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-        return (forward * vertical + right * horizontal).normalized;
+        float h = inputHandler.horizontal;
+        float v = inputHandler.vertical;
+
+        moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
+        return (forward * v + right * h).normalized;
     }
 
     //Charactor Move
