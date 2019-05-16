@@ -9,7 +9,7 @@ public class GameStartScene : SceneBase {
     public override void Start()
     {
         base.Start();
-        DataManager.Instance.ReSet();
+        DataManager.Instance.Reset_DataState();
     }
 
     public override void Update()

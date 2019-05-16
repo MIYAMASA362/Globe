@@ -54,8 +54,13 @@ public class StageSelectScene : SceneBase
     private GameObject ItemUI_Obj_GalaxyText;
     [SerializeField, Tooltip("惑星選択時の説明テキスト")]
     private GameObject ItemUI_Obj_PlanetText;
-
     [Space(4)]
+    [SerializeField, Tooltip("星の宝石のカウント")]
+    private TextMeshProUGUI StarCrystal_CountText;
+    [SerializeField, Tooltip("隠し宝石のカウント")]
+    private TextMeshProUGUI Crystal_CountText;
+
+    [Space(8)]
     [Header("LockUI")]
     [SerializeField, Tooltip("未解除エリアのUI表示")]
     private GameObject LockUI;
@@ -242,6 +247,9 @@ public class StageSelectScene : SceneBase
         //テキストの設定
         GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
 
+        StarCrystal_CountText.text = nGetStarCrystalNum.ToString("00");
+        Crystal_CountText.text = nGetCrystalNum.ToString("00");
+
         //Cameraの切り替え
         Set_GalaxyCamera();
 
@@ -285,7 +293,8 @@ public class StageSelectScene : SceneBase
         {
             //マイナス値ならば
             if (nGalaxySelectNum <= -1) nGalaxySelectNum = nMaxGalaxyNum - 1;
-            nGalaxySelectNum = nGalaxySelectNum % nMaxGalaxyNum;
+            if(nMaxGalaxyNum != 0)
+                nGalaxySelectNum = nGalaxySelectNum % nMaxGalaxyNum;
 
             //保存データ更新
             SelectDataUpdate();
@@ -469,7 +478,7 @@ public class StageSelectScene : SceneBase
                 PlanetState planetState = galaxyState.Planets[nPlanetSelectNum];
                 ItemUI.SetActive(true);
                 ItemUI_Obj_PlanetText.SetActive(true);
-                ItemUI_Text_Crystal.text = "あと" + planetState.StarCrystal_ReaminingNum() + "こ";
+                ItemUI_Text_Crystal.text = "あと" + planetState.Crystal_ReaminingNum() + "こ";
                 ItemUI_Text_StarCrystal.text = "あと" + planetState.StarCrystal_ReaminingNum() + "こ";
                 break;
             default:

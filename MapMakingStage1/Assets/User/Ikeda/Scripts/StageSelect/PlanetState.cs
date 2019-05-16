@@ -1,30 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DataType;
+using UnityEngine.SceneManagement;
 
 public class PlanetState : MonoBehaviour
 {
+
     [Header("Planet Name")]
     [SerializeField]
     public string PlanetName = "NONE";
 
-    [Header("StarCrystal State")]
-    [SerializeField, Tooltip("星の宝石の総取得可能数")]
-    public int nMaxStarCrystalNum;
-    [SerializeField, Tooltip("星の宝石の取得数")]
-    public int nGetStarCrystalNum;
-
     [Space(8)]
-    [Header("Crystal State")]
-    [SerializeField, Tooltip("隠し宝石の総取得可能数")]
-    public int nMaxCrystalNum;
-    [SerializeField, Tooltip("隠し宝石の取得数")]
-    public int nGetCrystalNum;
+    [Header("Data")]
+    [SerializeField] public string DataFile = "";
+    [SerializeField] private PlanetData planetData;
+
+    private void Awake()
+    {
+        LoadData();
+    }
 
     // Use this for initialization
     void Start ()
     {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -33,15 +33,35 @@ public class PlanetState : MonoBehaviour
 		
 	}
 
-    //残りの星の宝石数
-    public int StarCrystal_ReaminingNum()
+    //--- Method --------------------------------------------------------------
+
+    public void LoadData()
     {
-        return nMaxStarCrystalNum - nGetStarCrystalNum;
+        planetData = new PlanetData(DataFile);
+
+        if (DataHandle.FileFind(planetData.FileName()))
+            DataHandle.Load(ref planetData, planetData.FileName());
+        else
+            DataHandle.Save(ref planetData, planetData.FileName());
     }
 
-    //残りの隠し宝石数
-    public int Crystal_RemainingNum()
+    public int CrystalNum()
     {
-        return nMaxCrystalNum - nGetCrystalNum;
+        return planetData.IsGet_Crystal ? 1:0;
+    }
+
+    public int StarCrystalNum()
+    {
+        return planetData.IsGet_StarCrystal ? 1 : 0;
+    }
+
+    public int Crystal_ReaminingNum()
+    {
+        return 1 - CrystalNum();
+    }
+
+    public int StarCrystal_ReaminingNum()
+    {
+        return 1 - StarCrystalNum();
     }
 }

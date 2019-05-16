@@ -52,12 +52,12 @@ public class DataCheckScene : SceneBase
             //新規で作るならデータを初期化
             if (IsNewData)
             {
-                DataManager.Instance.ReSet();
+                DataManager.Instance.Reset_DataState();
                 SceneManager.LoadScene(MySceneManager.Instance.Path_GameStart);
             }
             else
             {
-                DataManager.Instance.Load(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
+                DataManager.Instance.Load_PlayerData();
                 MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
             }
         }

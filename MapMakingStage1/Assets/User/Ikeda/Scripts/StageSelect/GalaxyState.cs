@@ -81,11 +81,11 @@ public class GalaxyState : MonoBehaviour
         {
             if (planetState == null) continue;
 
-            nMaxStarCrystalNum += planetState.nMaxStarCrystalNum;
-            nGetStarCrystalNum += planetState.nGetStarCrystalNum;
+            nMaxStarCrystalNum += 1;
+            nGetStarCrystalNum += planetState.StarCrystalNum();
 
-            nMaxCrystalNum += planetState.nMaxCrystalNum;
-            nGetCrystalNum += planetState.nGetCrystalNum;
+            nMaxCrystalNum += 1;
+            nGetCrystalNum += planetState.CrystalNum();
         }
     }
 

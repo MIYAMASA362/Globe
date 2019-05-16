@@ -45,14 +45,16 @@ public class TimeRank : MonoBehaviour
             StarUI_3.fillAmount = 1 - (time - GoaldTime - SilverTime) / BronzeTime;
     }
 
-    public void ReSetData(ref DataManager.PlanetData planetData)
+    public void ReSetData(ref DataType.PlanetData planetData)
     {
+        /*
         planetData.rank = 
             new bool[] {
                 IsGoaldRank,
                 IsSilverRank,
                 IsBronzeRank
             };
+        */
     }
 
     public void Bonus(float time)

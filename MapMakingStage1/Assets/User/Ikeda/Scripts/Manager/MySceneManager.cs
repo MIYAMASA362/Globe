@@ -41,6 +41,8 @@ public class MySceneManager : Singleton<MySceneManager>
     [HideInInspector] public string Path_End;
 
     public static string NextLoadScene;
+    public static string PlanetName = "NONE";
+
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
@@ -51,7 +53,6 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsPausing { get; private set; }  //Pause中:true
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
-
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -66,9 +67,8 @@ public class MySceneManager : Singleton<MySceneManager>
     {
         //数値の初期化
         Init_Attribute();
-
         //初期画面
-        if(bInitLoad) SceneManager.LoadScene(Path_Opening);   
+        if (bInitLoad) SceneManager.LoadScene(Path_Opening);   
     }
 
     private void Update()
