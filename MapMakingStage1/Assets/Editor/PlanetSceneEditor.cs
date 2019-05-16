@@ -7,20 +7,43 @@ using UnityEditor;
 [CustomEditor(typeof(PlanetScene))]
 public class PlanetSceneEditor : Editor
 {
-    private void OnEnable()
+    private SceneAsset sceneAsset;
+
+    public void OnEnable()
     {
         var myPlanetScene = target as PlanetScene;
-
-        myPlanetScene.LoadData();
+        sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(myPlanetScene.gameObject.scene.path);
     }
 
     public override void OnInspectorGUI()
     {
-        var myPlanetScene = target as PlanetScene;
-
         base.OnInspectorGUI();
 
+        var myPlanetScene = target as PlanetScene;
+
         GUILayout.Space(10);
-        if (GUILayout.Button("Apply To Local Data")) ;// myPlanetScene.SaveData();
+
+        sceneAsset = EditorGUILayout.ObjectField("Apply Scene", sceneAsset, typeof(SceneAsset), true) as SceneAsset;
+
+        if (GUILayout.Button("Apply To DataFile"))
+        {
+            string FileName;
+            FileName = sceneAsset.ToString();
+
+
+            for (int i = 0; i < FileName.Length; i++)
+            {
+                if (FileName[i] == '(')
+                {
+                    myPlanetScene.DataFile = FileName.Remove(i, FileName.Length - i);
+                    break;
+                }
+            }
+
+            myPlanetScene.LoadData();
+
+            Debug.Log("DataFile:" + myPlanetScene.DataFile);
+        }
     }
+    
 }
