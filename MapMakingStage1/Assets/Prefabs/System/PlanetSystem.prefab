@@ -637,6 +637,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1967565765954500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4148624449615900}
+  - component: {fileID: 114437903825472190}
+  - component: {fileID: 114935579247156626}
+  - component: {fileID: 114285684767652742}
+  - component: {fileID: 114301616853950942}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1978911496785568
 GameObject:
   m_ObjectHideFlags: 1
@@ -654,6 +673,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4148624449615900
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967565765954500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4869844117822174}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4155380728976164
 Transform:
   m_ObjectHideFlags: 1
@@ -842,6 +874,7 @@ Transform:
   - {fileID: 224605838927494438}
   - {fileID: 4321235586049246}
   - {fileID: 4344157199709168}
+  - {fileID: 4148624449615900}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 3.6190002, y: 5.9210005, z: -4.5740004}
@@ -1544,6 +1577,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114285684767652742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967565765954500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f2b0fb43bc680043b49c5afe69fcad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clouds: {fileID: 0}
+  cloudsScaleSmooth: 2
+  cloudsTargetScale: 5
 --- !u!114 &114286482742602062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1571,6 +1618,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114301616853950942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967565765954500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChange: 0
+  mainCamera: {fileID: 20436743830514760}
+  planetCamera: {fileID: 0}
+  characterCamera: {fileID: 0}
 --- !u!114 &114303661820691248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1703,6 +1765,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114437903825472190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967565765954500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corePlanet: {fileID: 0}
+  rotationTarget: {fileID: 0}
+  accelSpeed: 1
+  maxSpeed: 45
+  ArrowObject: {fileID: 0}
+  ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
+  rotationSpeed: 60
+  isRotation: 0
+  rotationAngle: 18
+  curRotation: 0
 --- !u!114 &114438668783286622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2189,6 +2272,23 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114935579247156626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967565765954500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  lineEffectSwitcher: {fileID: 0}
+  findTag: FloatGround
+  curFloatType: 0
+  flagActive: 0
+  flagScaleSpeed: 3
 --- !u!114 &114941733001901646
 MonoBehaviour:
   m_ObjectHideFlags: 1
