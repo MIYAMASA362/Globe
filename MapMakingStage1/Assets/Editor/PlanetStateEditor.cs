@@ -35,7 +35,7 @@ public class PlanetStateEditor : Editor
             {
                 if(FileName[i] == '(')
                 {
-                    myPlanetState.DataFile = FileName.Remove(i,FileName.Length -i);
+                    myPlanetState.DataFile = FileName.Remove(i-1,(FileName.Length+1)-i);
                     break;
                 }
             }

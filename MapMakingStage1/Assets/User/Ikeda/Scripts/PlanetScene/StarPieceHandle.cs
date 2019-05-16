@@ -50,10 +50,9 @@ public class StarPieceHandle : MonoBehaviour
     {
         if (!PiecesJudgment(HitObject)) return false;
         UIPieces[nGetPiece].GetComponent<Renderer>().material = Enable_material;
+        nGetPiece++;
         if (nGetPiece >= UIPieces.Length)
             IsComplete = true;
-        nGetPiece++;
-        
         return true;
     }
 

@@ -26,7 +26,7 @@ public class CrystalHandle : MonoBehaviour
     {
         if (!CrystalJudgment(hit)) return false;
         UICrystal.GetComponent<Renderer>().material = Enable_material;
-
+        IsGet = true;
         return true;
     }
 

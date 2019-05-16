@@ -26,20 +26,21 @@ namespace DataType
     public class PlanetData
     {
         public static readonly string Extension = ".planet";
-        private string PlanetName = "NONE"; //データ上の名前。UIでの名前ではない
+        private string Name = "NONE";
+        public string StageName = "NONE";
 
         public bool IsGet_StarCrystal = false;
         public bool IsGet_Crystal = false;
         public bool IsClear = false;
 
-        public PlanetData(string PlanetName)
+        public PlanetData(string Name)
         {
-            this.PlanetName = PlanetName;
+            this.Name = Name;
         }
 
         public string FileName()
         {
-            return PlanetName + Extension;
+            return Name + Extension;
         }
     }
 

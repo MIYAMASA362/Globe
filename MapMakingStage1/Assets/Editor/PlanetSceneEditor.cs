@@ -11,8 +11,7 @@ public class PlanetSceneEditor : Editor
 
     public void OnEnable()
     {
-        var myPlanetScene = target as PlanetScene;
-        sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(myPlanetScene.gameObject.scene.path);
+
     }
 
     public override void OnInspectorGUI()
