@@ -537,6 +537,9 @@ public class StageSelectScene : SceneBase
         nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
 
         state = STATE.PLANETSELECT;
+
+        GalaxysHolder.transform.rotation = Quaternion.AngleAxis(GALAXY_ROTARION_ANGLE * nGalaxySelectNum,Vector3.up);
+
         Set_RotTargetState(Galaxies[nGalaxySelectNum].galaxyState.PlanetParent,PLANET_ROTATION_ANGLE * nPlanetSelectNum);
         Change_Lock_UnLock(true);
         Change_ItemUI(true);
