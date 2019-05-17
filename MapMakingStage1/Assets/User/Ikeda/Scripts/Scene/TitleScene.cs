@@ -51,10 +51,16 @@ public class TitleScene : SceneBase
         time = 0f;
         bInput = false;
 
-        if (DataManager.Instance.Load_PlayerData())
+        if (DataHandle.FileFind(DataManager.Instance.playerData.FileName()))
+        {
+            DataManager.Instance.Load_PlayerData();
             IsContinue = DataManager.Instance.playerData.IsContinue;
+        }
         else
+        {
+            DataManager.Instance.Create_PlayerData();
             IsContinue = false;
+        }
     }
 
     // Update is called once per frame
@@ -115,7 +121,8 @@ public class TitleScene : SceneBase
             {
                 //Start
                 case 0:
-                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart, false);
+                    DataManager.Instance.Reset_DataState();
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, true);
                     break;
 
                 //Continue
