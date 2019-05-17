@@ -11,6 +11,11 @@ public class CameraManager : Singleton<CameraManager>
 
     private bool onCharacterCamera = false;
 
+    private void Start()
+    {
+        isChange = true;
+    }
+
     void Update()
     {
         if (Input.GetButtonDown(InputManager.View_Swith))

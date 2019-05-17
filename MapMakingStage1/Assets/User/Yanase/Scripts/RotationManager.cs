@@ -135,21 +135,6 @@ public class RotationManager : Singleton<RotationManager> {
         }
     }
 
-    public Vector3 GetMoveDir(Vector3 position)
-    {
-        // フラグマネージャー取得
-        FlagManager flagManager = FlagManager.Instance;
-
-        if (!flagManager.flagActive || 
-            (rotationSpeed < 0.1f && rotationSpeed > -0.1f))
-            return Vector3.zero;
-
-        Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * ((rotationSpeed * 1.5f) * Time.deltaTime);
-
-        return moveDir;
-    }
-
     public float GetSpeed()
     {
         return rotationSpeed;
