@@ -4,7 +4,7 @@ using System.Collections;
  
 public static class InputManager {
 
-    public static int Num = 48;
+    public static int Num = 49;
 
     //Input Name String
     
@@ -40,6 +40,7 @@ public static class InputManager {
     public const string View_Swith = "View Swith";
     public const string Set_EarthAxis = "Set EarthAxis";
     public const string Change_AscDes = "Change AscDes";
+    public const string FollowTarget = "FollowTarget";
     public const string X_Button = "X Button";
     public const string Y_Button = "Y Button";
 
@@ -765,7 +766,7 @@ public static class InputManager {
             dead = 0f,
             sensitivity = 0.1f,
             snap = false,
-            invert = true,
+            invert = false,
             type = AxisType.MouseMovement,
             axis = 0,
             joyNum = 0,
@@ -819,7 +820,7 @@ public static class InputManager {
             dead = 0f,
             sensitivity = 0.1f,
             snap = false,
-            invert = true,
+            invert = false,
             type = AxisType.MouseMovement,
             axis = 1,
             joyNum = 0,
@@ -848,7 +849,7 @@ public static class InputManager {
             descriptiveName = "XBox-Controller push Right stick",
             descriptiveNegativeName = "",
             negativeButton = "",
-            positiveButton = "joystick button 9",
+            positiveButton = "joystick button 2",
             altNegativeButton = "",
             altPositiveButton = "q",
             gravity = 1000f,
@@ -889,6 +890,24 @@ public static class InputManager {
             altPositiveButton = "e",
             gravity = 1000f,
             dead = 0.01f,
+            sensitivity = 1000f,
+            snap = false,
+            invert = false,
+            type = AxisType.KeyOrMouseButton,
+            axis = 0,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "FollowTarget",
+            descriptiveName = "",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "joystick button 9",
+            altNegativeButton = "",
+            altPositiveButton = "r",
+            gravity = 1000f,
+            dead = 0.001f,
             sensitivity = 1000f,
             snap = false,
             invert = false,

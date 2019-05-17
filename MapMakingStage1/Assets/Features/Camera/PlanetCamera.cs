@@ -3,64 +3,103 @@ using UnityEngine;
 
 public class PlanetCamera : MonoBehaviour
 {
-    public Transform rotationPivot;
-    public Transform cameraTransform;
-
     public float upSpeed = 3.0f;
-    public float mouseSpeed = 2.0f;
+    public float moveSpeed = 2.0f;
 
     public float distance = 13f;
 
-    public float lookAngle;
-    public float tiltAngle;
+    Vector3 targetDir = Vector3.zero;
+    Vector3 corePosition;
 
-    float turnSmoothing = .1f;
-    float smoothX;
-    float smoothY;
-    float smoothXvelocity;
-    float smoothYvelocity;
+    bool isMoveTarget;
+    Vector3 moveTargetPosition;
+    private float followSpeed = 0.0f;
+
+    public float holizontal = 0.0f;
+    public float vertical = 0.0f;
+    public float sumooth = 0.5f;
 
     private void Start()
     {
-        rotationPivot.transform.localPosition = Vector3.zero;
-        cameraTransform.localPosition = new Vector3(0.0f, 0.0f, distance);
+        corePosition = RotationManager.Instance.planetTransform.position;
     }
 
 
     private void Update()
     {
-        if (!this.gameObject.activeInHierarchy) return;
-
-        Tick(Time.deltaTime);
     }
 
     //------------------------------------------
     void LateUpdate()
     {
-        Quaternion q = Quaternion.FromToRotation(transform.up, FlagManager.Instance.flagTransform.up);
-        q = q * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * upSpeed);
+        if (!this.gameObject.activeInHierarchy) return;
+
+        targetDir = (corePosition - transform.position).normalized;
+
+        if(isMoveTarget)
+        {
+            MoveTarget(moveTargetPosition, followSpeed);
+        }
+        else
+        {
+            InputMove();
+        }
+        
+        Tick();
     }
 
-    public void Tick(float d)
+    private void InputMove()
     {
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
 
-        float targetSpeed = mouseSpeed;
+        holizontal = Mathf.Lerp(holizontal, h, sumooth);
+        vertical = Mathf.Lerp(vertical, v, sumooth);
 
-        HandleRotations(d, v, h, targetSpeed);
+        transform.position -= holizontal * transform.right * Time.deltaTime * moveSpeed;
+        transform.position -= vertical * transform.up * Time.deltaTime * moveSpeed;
     }
 
-    //------------------------------------------
-    void HandleRotations(float d, float v, float h, float targetSpeed)
+
+    private void Tick()
     {
-        smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
-        smoothY = Mathf.SmoothDamp(smoothY, v, ref smoothYvelocity, turnSmoothing);
+        targetDir = (corePosition - transform.position).normalized;
+        float curDist = (corePosition - transform.position).magnitude;
+        float targetDist = curDist - distance;
+        transform.position += targetDir * targetDist;
 
-        lookAngle += smoothX * targetSpeed;
-        tiltAngle += smoothY * targetSpeed;
+        targetDir = (corePosition - transform.position).normalized;
+        Quaternion q1 = Quaternion.FromToRotation(transform.forward, targetDir) * transform.rotation;
+        transform.rotation = q1;
+    }
 
-        rotationPivot.localRotation = Quaternion.Euler(tiltAngle, lookAngle, 0);
+    private void MoveTarget(Vector3 position, float speed)
+    {
+        Vector3 movePos = position - transform.up * 8f;
+        Vector3 dir = (movePos - corePosition);
+        Vector3 targetPos = movePos - (dir - (dir.normalized * distance));
+
+        transform.position += Vector3.Lerp(transform.position, targetPos, speed);
+
+        targetDir = (corePosition - transform.position).normalized;
+        float curDist = (corePosition - transform.position).magnitude;
+        float targetDist = curDist - distance;
+        transform.position += targetDir * targetDist;
+
+        float dist = (transform.position - targetPos).magnitude;
+        if (dist < 1f)
+        {
+            isMoveTarget = false;
+        }
+    }
+
+    public void SetTarget(Vector3 position, float speed)
+    {
+        Vector3 dir = (position - corePosition);
+        Vector3 targetPos = position + ((dir.normalized * distance) - dir);
+
+        moveTargetPosition = targetPos;
+        isMoveTarget = true;
+        followSpeed = speed;
     }
 }
