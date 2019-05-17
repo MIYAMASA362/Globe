@@ -129,13 +129,15 @@ public class StageSelectScene : SceneBase
     {
         TargetRotObj = GalaxysHolder;
         StartCoroutine("Init_Coroutine");
+        if (MySceneManager.Instance != null)
+            if (!MySceneManager.Instance.bInitLoad) MySceneManager.Instance.Start_Load();
     }
 	
 	// Update is called once per frame
 	public override void Update ()
     {
         //Load中
-        if (MySceneManager.IsLoading()) return;
+        if (MySceneManager.IsLoading() || MySceneManager.IsFadeing) return;
 
         base.Update();
 
@@ -258,6 +260,8 @@ public class StageSelectScene : SceneBase
 
         if (IsLoad_Start_PlanetSelect)
             LoadInit_PlanetSelect();
+
+        IsInput_PauseTime = 1f;
 
         MySceneManager.Instance.CompleteLoaded();
 
