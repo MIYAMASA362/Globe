@@ -54,8 +54,13 @@ public class StageSelectScene : SceneBase
     private GameObject ItemUI_Obj_GalaxyText;
     [SerializeField, Tooltip("惑星選択時の説明テキスト")]
     private GameObject ItemUI_Obj_PlanetText;
-
     [Space(4)]
+    [SerializeField, Tooltip("星の宝石のカウント")]
+    private TextMeshProUGUI StarCrystal_CountText;
+    [SerializeField, Tooltip("隠し宝石のカウント")]
+    private TextMeshProUGUI Crystal_CountText;
+
+    [Space(8)]
     [Header("LockUI")]
     [SerializeField, Tooltip("未解除エリアのUI表示")]
     private GameObject LockUI;
@@ -215,7 +220,7 @@ public class StageSelectScene : SceneBase
 
         //最大数の設定
         nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
-        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Path_Planets.Count;
+        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Planets.Count;
 
         //UIを初期化
         GalaxySelectUI.SetActive(false);
@@ -240,7 +245,10 @@ public class StageSelectScene : SceneBase
         TargetRotObj = GalaxysHolder;
 
         //テキストの設定
-        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
+        GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
+
+        StarCrystal_CountText.text = nGetStarCrystalNum.ToString("00");
+        Crystal_CountText.text = nGetCrystalNum.ToString("00");
 
         //Cameraの切り替え
         Set_GalaxyCamera();
@@ -285,7 +293,8 @@ public class StageSelectScene : SceneBase
         {
             //マイナス値ならば
             if (nGalaxySelectNum <= -1) nGalaxySelectNum = nMaxGalaxyNum - 1;
-            nGalaxySelectNum = nGalaxySelectNum % nMaxGalaxyNum;
+            if(nMaxGalaxyNum != 0)
+                nGalaxySelectNum = nGalaxySelectNum % nMaxGalaxyNum;
 
             //保存データ更新
             SelectDataUpdate();
@@ -309,7 +318,7 @@ public class StageSelectScene : SceneBase
             //カメラ切り替え
             Set_PlanetCamera();
             //最大数を更新
-            nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Path_Planets.Count;
+            nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets.Count;
             //遷移を更新
             state = STATE.PLANETSELECT;
 
@@ -411,9 +420,9 @@ public class StageSelectScene : SceneBase
         }
 
         //銀河名更新
-        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
+        GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
         //惑星名更新
-        PlanetNameText.text = Galaxies[nGalaxySelectNum].galaxyState.Planets[nPlanetSelectNum].PlanetName;
+        PlanetNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets[nPlanetSelectNum].name;
 
         //銀河LEVEL名変更
         GalaxyLevelText.text = "エリア " + (nGalaxySelectNum + 1);
@@ -469,7 +478,7 @@ public class StageSelectScene : SceneBase
                 PlanetState planetState = galaxyState.Planets[nPlanetSelectNum];
                 ItemUI.SetActive(true);
                 ItemUI_Obj_PlanetText.SetActive(true);
-                ItemUI_Text_Crystal.text = "あと" + planetState.StarCrystal_ReaminingNum() + "こ";
+                ItemUI_Text_Crystal.text = "あと" + planetState.Crystal_ReaminingNum() + "こ";
                 ItemUI_Text_StarCrystal.text = "あと" + planetState.StarCrystal_ReaminingNum() + "こ";
                 break;
             default:

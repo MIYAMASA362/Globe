@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StarPieceHandle : MonoBehaviour
 {
     //完成した
-    [SerializeField] public bool IsComplete;
+    [SerializeField] private bool IsComplete;
 
     [Space(8), Header("PieceObject")]
     [SerializeField] private  StarPiece[] Pieces = new StarPiece[5];
@@ -36,6 +36,7 @@ public class StarPieceHandle : MonoBehaviour
         }
 
         nGetPiece = 0;
+        IsComplete = false;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +51,8 @@ public class StarPieceHandle : MonoBehaviour
         if (!PiecesJudgment(HitObject)) return false;
         UIPieces[nGetPiece].GetComponent<Renderer>().material = Enable_material;
         nGetPiece++;
+        if (nGetPiece >= UIPieces.Length)
+            IsComplete = true;
         return true;
     }
 
@@ -62,6 +65,11 @@ public class StarPieceHandle : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public bool IsCompleted()
+    {
+        return IsComplete;
     }
 
 }

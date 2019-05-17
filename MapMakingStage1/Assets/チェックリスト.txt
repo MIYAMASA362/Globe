@@ -1,0 +1,40 @@
+
+[>]	Hierarchy参照 
+[->]	Component参照 
+[:]	Componentの値参照
+[.]	Componentの値の子を参照
+[[]]	Scene参照
+
+＊StageSelectでの確認事項
+
+	>GalaxySelectSystem->StageSelectScene
+	:Galaxies.Sizeが4(>Galaxysの子の数と同じか)
+	:Galaxies.Element.PlanetCameraに>Galaxys>Galaxy[i]>PlanetCameraに>Galaxys>Galaxy[i]>PlanetCameraを設定してあるか
+	:Galaxies.Element.PlanetCameraに>Galaxys>Galaxy[i]>GalaxyStateに>Galaxys>Galaxy[i]を設定してあるか
+
+	>Galaxys->GalaxyState
+	:各GalaxyにGalaxyNameがある
+	:Planet Parentに>Galaxys>Galaxy>Planetsがある
+	:Planets内にそのPlanetsのPlanetがある
+
+	>Galaxys>Planets>Stage->PlanetState
+	:PlanetNameにステージの名前がある
+	:DataFile名がある
+	:DataFile名が[遷移先StageScene]>PlanetSystem->PlanetScene:DataFile名と同じである
+
+＊StageSceneでの確認事項
+
+	>PlanetSystem->StarPieceHandle
+	:PiecesにStarPieceCrystalが設定してある
+	
+	>PlanetSystem->CrystalHandle
+	:CrystalにCrystalが設定してある
+
+	>PlanetSystem->PlanetScene
+	:DataFile名が[StageSelect]>Galaxys>Galaxy[i]>Planets>Stage[j]->DataFile名と同じか
+
+	>PlanetSystem>Manager
+	・MainCameraがちゃんと設定してあるか
+
+	>Character
+	:TagがPlayerタグになっているか

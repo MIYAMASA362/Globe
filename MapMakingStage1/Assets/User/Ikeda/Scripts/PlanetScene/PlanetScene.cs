@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using DataType;
 
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(TimeRank))]
 [RequireComponent(typeof(CrystalHandle))]
+[RequireComponent(typeof(StarPieceHandle))]
 public class PlanetScene :SceneBase
 {
     public enum STATE
@@ -23,17 +25,18 @@ public class PlanetScene :SceneBase
     private Timer timer;
     private TimeRank timeRank;
     private CrystalHandle crystalHandle;
+    private StarPieceHandle starPieceHandle;
 
     //--- Animator ------------------------------
     [SerializeField] private Animator animator;
 
-    //--- DataManager ---------------------------
-    [Space(15),Header("DataManager SaveData")]
-    [SerializeField,Tooltip("保存されているデータ")]
-    private DataManager.PlanetData planetData;
-
-    private bool bGameClear;
+    private bool IsGameClear;
     public STATE state;
+
+    //--- Data ----
+    [Space(8)]
+    [SerializeField] public string DataFile = "";
+    [SerializeField] private PlanetData planetData;
 
     //--- MonoBehaviour -----------------------------------------------------------------
 
@@ -42,59 +45,33 @@ public class PlanetScene :SceneBase
         state = STATE.LOAD;
         Invoke("Loaded",4f);
 
+        //--- Component ---
         timer = this.GetComponent<Timer>();
-
         timeRank = this.GetComponent<TimeRank>();
         crystalHandle = this.GetComponent<CrystalHandle>();
+        starPieceHandle = this.GetComponent<StarPieceHandle>();
 
+        //-- データ初期化 ---
+        InitData();
+
+        //--- Init status ---
         base.Start();
+        IsGameClear = false;
 
-        //--- Init status ------------------------------------------------
-
-        bGameClear = false;
-
-        //PlayerDataのセーブ
-        DataManager.Instance.Save(ref DataManager.Instance.playerData, DataManager.PLAYER_FILE);
-
-        Load_PlanetData(ref planetData);
     }
 
+    
     public override void Update ()
     {
         if (state != STATE.MAINGAME) return;
         base.Update();
+
+        //--- Timer ---
         timer.UpdateTimer();
         timeRank.Update_RankUI();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameClear();
 	}
 
     //--- Method ------------------------------------------------------------------------
-
-
-    private void Load_PlanetData(ref DataManager.PlanetData data)
-    {
-        data = new DataManager.PlanetData();
-
-        //--- DataManager -----------------------
-
-        //Planetのデータがあるか
-        if (DataManager.Instance.FileFind(Get_FineName()))
-            //データをロード
-            DataManager.Instance.Load(ref data, Get_FineName());
-
-        //--- TimeRank --------------------------
-        timeRank.ReSetData(ref data);
-
-        //--- Crystal ---------------------------
-
-        //---------------------------------------
-
-        //セーブする
-        DataManager.Instance.Save(ref data, Get_FineName());
-
-    }
 
     //--- ロードを完了させる --------------------
     public void Loaded()
@@ -120,46 +97,53 @@ public class PlanetScene :SceneBase
     [ContextMenu("GameClear")]
     public void GameClear()
     {
-        bGameClear = true;
-
-    //--- timer ---------
+        IsGameClear = true;
         timer.StopTimer();
-        timeRank.Bonus(timer.GetTime());
-    //-------------------
 
-        //例えばクリスタルを増やしてみる
-        Debug.LogWarning("クリスタルを増やしてる");
-        DataManager.Instance.playerData.CrystalNum++;
-
-        //初クリア
-        if (!planetData.clear) planetData.clear = true;
-
-        //星データの保存
-        DataManager.Instance.Save(ref planetData, Get_FineName());
-
-        //Playerデータの保存
-        DataManager.Instance.Save(ref DataManager.Instance.playerData,DataManager.PLAYER_FILE);
-
-        //Scene遷移
-        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);
+        UnInitData();   //データセーブ
+        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
     //--- DataManager ---------------------------
 
-    //
-    //  ファイルの名前を取得
-    //
-    private string Get_FineName()
+    private void InitData()
     {
-        return this.gameObject.scene.name + ".planet";
+        DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
+        LoadData();
     }
 
-    //
-    //  データ読み込み
-    //
     public void LoadData()
     {
-        planetData = new DataManager.PlanetData();
-        DataManager.Instance.Load(ref planetData,Get_FineName());
+        DataFile = this.gameObject.scene.name;
+        planetData = new PlanetData(DataFile);
+
+        if (DataHandle.FileFind(planetData.FileName()))
+            DataHandle.Load(ref planetData, planetData.FileName()); //データがあれば読み込み
+        else
+            DataHandle.Save(ref planetData, planetData.FileName()); //データがなければ書き込み
     }
+
+    public void SaveData()
+    {
+        planetData = new PlanetData(DataFile);
+        DataHandle.Save(ref planetData,planetData.FileName());
+    }
+
+    private void UnInitData()
+    {
+        DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
+
+        PlanetData oldData = planetData;
+
+        planetData = new PlanetData(DataFile);
+        if(!oldData.IsClear)
+            planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
+        if(!oldData.IsGet_StarCrystal)
+            planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
+        if(!oldData.IsGet_Crystal)
+            planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
+
+        DataHandle.Save(ref planetData, planetData.FileName());     //PlanetDataの設定
+    }
+
 }
