@@ -220,7 +220,7 @@ public class StageSelectScene : SceneBase
 
         //最大数の設定
         nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
-        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Path_Planets.Count;
+        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Planets.Count;
 
         //UIを初期化
         GalaxySelectUI.SetActive(false);
@@ -245,7 +245,7 @@ public class StageSelectScene : SceneBase
         TargetRotObj = GalaxysHolder;
 
         //テキストの設定
-        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
+        GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
 
         StarCrystal_CountText.text = nGetStarCrystalNum.ToString("00");
         Crystal_CountText.text = nGetCrystalNum.ToString("00");
@@ -318,7 +318,7 @@ public class StageSelectScene : SceneBase
             //カメラ切り替え
             Set_PlanetCamera();
             //最大数を更新
-            nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Path_Planets.Count;
+            nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets.Count;
             //遷移を更新
             state = STATE.PLANETSELECT;
 
@@ -420,9 +420,9 @@ public class StageSelectScene : SceneBase
         }
 
         //銀河名更新
-        GalaxyNameText.text = Galaxies[nGalaxySelectNum].galaxyState.GalaxyName;
+        GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
         //惑星名更新
-        PlanetNameText.text = Galaxies[nGalaxySelectNum].galaxyState.Planets[nPlanetSelectNum].PlanetName;
+        PlanetNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets[nPlanetSelectNum].name;
 
         //銀河LEVEL名変更
         GalaxyLevelText.text = "エリア " + (nGalaxySelectNum + 1);

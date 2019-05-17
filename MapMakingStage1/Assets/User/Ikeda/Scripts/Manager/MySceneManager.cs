@@ -11,9 +11,17 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- Class ---------------------------------------------------------------
 
     [System.Serializable]
+    public class Planet
+    {
+        [HideInInspector]public string name = "";
+        public string Path = "";
+    }
+
+    [System.Serializable]
     public class Galaxy
     {
-        public List<string> Path_Planets = new List<string>();
+        [HideInInspector]public string name = "";
+        public List<Planet> Planets = new List<Planet>();
     }
 
     //--- Attribute -----------------------------------------------------------
@@ -29,19 +37,19 @@ public class MySceneManager : Singleton<MySceneManager>
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
 
-    [HideInInspector] public string Path_Manager;
-    [HideInInspector] public string Path_Pause ;
-    [HideInInspector] public string Path_Opening;
-    [HideInInspector] public string Path_Title;
-    [HideInInspector] public string Path_Option;
-    [HideInInspector] public string Path_DataCheck;
-    [HideInInspector] public string Path_GameStart;
-    [HideInInspector] public string Path_GalaxySelect;
-    [HideInInspector] public List<Galaxy> Galaxies;
-    [HideInInspector] public string Path_End;
+    [SerializeField] public string Path_Manager;
+    [SerializeField] public string Path_Pause ;
+    [SerializeField] public string Path_Opening;
+    [SerializeField] public string Path_Title;
+    [SerializeField] public string Path_Option;
+    [SerializeField] public string Path_DataCheck;
+    [SerializeField] public string Path_GameStart;
+    [SerializeField] public string Path_GalaxySelect;
+    [SerializeField] public List<Galaxy> Galaxies;
+    [SerializeField] public string Path_End;
 
     public static string NextLoadScene;
-    public static string PlanetName = "NONE";
+    public static string SelectPlanetName = "NONE";
 
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
@@ -148,7 +156,9 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- 現在の惑星 ----------------------------
     public static string Get_NowPlanet()
     {
-        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Path_Planets[DataManager.Instance.playerData.SelectPlanet];
+        Planet planet = Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet];
+        SelectPlanetName = planet.name;
+        return planet.Path;
     }
 
     //--- 現在の銀河 ----------------------------

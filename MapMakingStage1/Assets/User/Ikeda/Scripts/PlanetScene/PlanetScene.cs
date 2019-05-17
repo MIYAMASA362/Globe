@@ -45,26 +45,19 @@ public class PlanetScene :SceneBase
         state = STATE.LOAD;
         Invoke("Loaded",4f);
 
+        //--- Component ---
         timer = this.GetComponent<Timer>();
-
         timeRank = this.GetComponent<TimeRank>();
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
 
-        //DataFile = this.gameObject.scene.name;
-
-        planetData = new PlanetData(DataFile);
-
-        //データ初期化
+        //-- データ初期化 ---
         InitData();
 
+        //--- Init status ---
         base.Start();
-
-        //--- Init status ------------------------------------------------
-
         IsGameClear = false;
 
-        MySceneManager.PlanetName = this.planetData.StageName;
     }
 
     
@@ -72,11 +65,10 @@ public class PlanetScene :SceneBase
     {
         if (state != STATE.MAINGAME) return;
         base.Update();
+
+        //--- Timer ---
         timer.UpdateTimer();
         timeRank.Update_RankUI();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameClear();
 	}
 
     //--- Method ------------------------------------------------------------------------
@@ -117,16 +109,24 @@ public class PlanetScene :SceneBase
     private void InitData()
     {
         DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
-
         LoadData();
     }
 
     public void LoadData()
     {
+        DataFile = this.gameObject.scene.name;
+        planetData = new PlanetData(DataFile);
+
         if (DataHandle.FileFind(planetData.FileName()))
             DataHandle.Load(ref planetData, planetData.FileName()); //データがあれば読み込み
         else
             DataHandle.Save(ref planetData, planetData.FileName()); //データがなければ書き込み
+    }
+
+    public void SaveData()
+    {
+        planetData = new PlanetData(DataFile);
+        DataHandle.Save(ref planetData,planetData.FileName());
     }
 
     private void UnInitData()
@@ -134,6 +134,7 @@ public class PlanetScene :SceneBase
         DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
 
         PlanetData oldData = planetData;
+
         planetData = new PlanetData(DataFile);
         if(!oldData.IsClear)
             planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
@@ -141,8 +142,6 @@ public class PlanetScene :SceneBase
             planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
         if(!oldData.IsGet_Crystal)
             planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
-
-        Debug.Log("FileName:"+planetData.FileName());
 
         DataHandle.Save(ref planetData, planetData.FileName());     //PlanetDataの設定
     }

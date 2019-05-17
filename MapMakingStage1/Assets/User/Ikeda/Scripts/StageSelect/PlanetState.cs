@@ -6,32 +6,39 @@ using UnityEngine.SceneManagement;
 
 public class PlanetState : MonoBehaviour
 {
+    public enum eGalaxyNum
+    {
+        Galaxy1 = 0,
+        Galaxy2 = 1,
+        Galaxy3 = 2,
+        Galaxy4 = 3
+    }
 
-    [Header("Planet Name")]
-    [SerializeField]
-    public string PlanetName = "NONE";
+    public enum ePlanetNum
+    {
+        Planet1 = 0,
+        Planet2 = 1,
+        Planet3 = 2,
+        Planet4 = 3,
+        Planet5 = 4
+    }
 
-    [Space(8)]
+    [Header("PlanetState")]
+    [SerializeField] public eGalaxyNum GalaxyNum = eGalaxyNum.Galaxy1;
+    [SerializeField] public ePlanetNum PlanetNum = ePlanetNum.Planet1;
+
+    [Space(4)]
     [Header("Data")]
-    [SerializeField] public string DataFile = "";
+    [SerializeField] public string DataFile = "NONE";
     [SerializeField] private PlanetData planetData;
+
+    [HideInInspector] public string PlanetName;
+    
 
     private void Awake()
     {
         LoadData();
     }
-
-    // Use this for initialization
-    void Start ()
-    {
-        
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
     //--- Method --------------------------------------------------------------
 
@@ -40,20 +47,7 @@ public class PlanetState : MonoBehaviour
         planetData = new PlanetData(DataFile);
 
         if (DataHandle.FileFind(planetData.FileName()))
-        {
             DataHandle.Load(ref planetData, planetData.FileName());
-            
-        }
-        else
-        {
-            DataHandle.Save(ref planetData, planetData.FileName());
-        }
-
-        if (planetData.StageName != this.PlanetName)
-        {
-            planetData.StageName = this.PlanetName;
-            DataHandle.Save(ref planetData, planetData.FileName());
-        }
     }
 
     public int CrystalNum()
