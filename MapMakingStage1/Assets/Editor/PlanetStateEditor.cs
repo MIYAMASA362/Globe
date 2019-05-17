@@ -25,24 +25,21 @@ public class PlanetStateEditor : Editor
 
         sceneAsset = EditorGUILayout.ObjectField("Apply Scene",sceneAsset,typeof(SceneAsset),true) as SceneAsset;
 
-        if (GUILayout.Button("Apply To DataFile"))
+        if (GUILayout.Button("Load DataFile"))
         {
-            string FileName;
-            FileName = sceneAsset.ToString();
+            sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(MySceneManager.Instance.Galaxies[(int)myPlanetState.GalaxyNum].Planets[(int)myPlanetState.PlanetNum].Path);
 
-            
-            for(int i = 0; i<FileName.Length; i++)
+            string FileName = sceneAsset.ToString();
+            for (int i = 0; i < FileName.Length; i++)
             {
-                if(FileName[i] == '(')
+                if (FileName[i] == '(')
                 {
-                    myPlanetState.DataFile = FileName.Remove(i-1,(FileName.Length+1)-i);
+                    myPlanetState.DataFile = FileName.Remove(i - 1, (FileName.Length + 1) - i);
                     break;
                 }
             }
 
             myPlanetState.LoadData();
-
-            Debug.Log("DataFile:"+myPlanetState.DataFile);
         }
     }
 }

@@ -8,9 +8,17 @@ using UnityEditor;
 public class MySceneManagerEditor : Editor
 {
     [System.Serializable]
+    public class Planet
+    {
+        public string Name = "NONE";
+        public SceneAsset sceneAsset = null;
+    }
+
+    [System.Serializable]
     public class Galaxy
     {
-        public List<SceneAsset> Planets = new List<SceneAsset>();
+        public string Name = "NONE";
+        public List<Planet> Planets = new List<Planet>();
     }
 
     //SceneAsset
@@ -96,9 +104,15 @@ public class MySceneManagerEditor : Editor
                 if (folding_Galaxys[nGalaxy] = EditorGUILayout.Foldout(folding_Galaxys[nGalaxy], "Galaxy:" + (nGalaxy + 1)))
                 {
                     EditorGUI.indentLevel++;    //インデント
+                    Galaxies[nGalaxy].Name = EditorGUILayout.TextField("Name",Galaxies[nGalaxy].Name);
+
                     for (int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
                     {
-                        Galaxies[nGalaxy].Planets[nPlanet] = EditorGUILayout.ObjectField("Planet:" + (nPlanet+1), Galaxies[nGalaxy].Planets[nPlanet], typeof(SceneAsset), true) as SceneAsset;
+                        EditorGUILayout.LabelField("Planet:"+(nPlanet+1));
+                        EditorGUI.indentLevel++;
+                        Galaxies[nGalaxy].Planets[nPlanet].Name = EditorGUILayout.TextField("Name", Galaxies[nGalaxy].Planets[nPlanet].Name);
+                        Galaxies[nGalaxy].Planets[nPlanet].sceneAsset = EditorGUILayout.ObjectField("SceneAsset", Galaxies[nGalaxy].Planets[nPlanet].sceneAsset, typeof(SceneAsset), true) as SceneAsset;
+                        EditorGUI.indentLevel--;
                     }
                     EditorGUI.indentLevel--;    //インデント
                 }
@@ -120,6 +134,13 @@ public class MySceneManagerEditor : Editor
         {
             BuildSetting();
             Save_State();
+            AssetDatabase.SaveAssets();
+            Create_DataFile();
+        }
+
+        if(GUILayout.Button("Create DataFile"))
+        {
+            Create_DataFile();
         }
     }
 
@@ -146,9 +167,13 @@ public class MySceneManagerEditor : Editor
         foreach(var Galaxy in mySceneManager.Galaxies)
         {
             Galaxy galaxy = new Galaxy();
-            foreach(var Planet in Galaxy.Path_Planets)
+            galaxy.Name = Galaxy.name;
+            foreach(var Planet in Galaxy.Planets)
             {
-                galaxy.Planets.Add(AssetDatabase.LoadAssetAtPath<SceneAsset>(Planet));
+                MySceneManagerEditor.Planet add = new MySceneManagerEditor.Planet();
+                add.Name = (Planet.name == ""? add.Name:Planet.name);
+                add.sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(Planet.Path);
+                galaxy.Planets.Add(add);
             }
             Galaxies.Add(galaxy);
         }
@@ -176,12 +201,16 @@ public class MySceneManagerEditor : Editor
         for(int nGalaxy = 0; nGalaxy < Galaxies.Count; nGalaxy++)
         {
             MySceneManager.Galaxy galaxy = new MySceneManager.Galaxy();
+            galaxy.name = Galaxies[nGalaxy].Name;
             //銀河の惑星参照
             for(int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
             {
-                string path = AssetDatabase.GetAssetPath(Galaxies[nGalaxy].Planets[nPlanet]);
+                MySceneManager.Planet add = new MySceneManager.Planet();
+                string path = AssetDatabase.GetAssetPath(Galaxies[nGalaxy].Planets[nPlanet].sceneAsset);
                 Debug.Log(path);
-                galaxy.Path_Planets.Add(path);
+                add.Path = path;
+                add.name = Galaxies[nGalaxy].Planets[nPlanet].Name;
+                galaxy.Planets.Add(add);
             }
             mySceneManager.Galaxies.Add(galaxy);
         }
@@ -223,7 +252,7 @@ public class MySceneManagerEditor : Editor
         {
             foreach (var planet in galaxy.Planets)
             {
-                string planetPath = AssetDatabase.GetAssetPath(planet);
+                string planetPath = AssetDatabase.GetAssetPath(planet.sceneAsset);
 
                 if (string.IsNullOrEmpty(planetPath)) continue;
                 editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(planetPath, true));
@@ -235,5 +264,30 @@ public class MySceneManagerEditor : Editor
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
 
         Debug.Log("Success!");
+    }
+
+    public void Create_DataFile()
+    {
+        DataHandle.Delete_LocalDirectoryData(true);
+
+        DataType.PlayerData playerData = new DataType.PlayerData();
+        DataHandle.Save(ref playerData,playerData.FileName());
+
+        foreach(Galaxy galaxy in Galaxies)
+        {
+            foreach(Planet planet in galaxy.Planets)
+            {
+                string AssetName = planet.sceneAsset.ToString();
+                for(int i = 0; i<AssetName.Length; i++)
+                {
+                    if (AssetName[i] != '(') continue;
+
+                    string FileName = AssetName.Remove(i-1,(AssetName.Length+1) -i);
+                    DataType.PlanetData planetData = new DataType.PlanetData(FileName);
+                    DataHandle.Save(ref planetData,planetData.FileName());
+                    break;
+                }
+            }
+        }
     }
 }
