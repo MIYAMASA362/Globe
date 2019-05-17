@@ -27,7 +27,6 @@ namespace DataType
     {
         public static readonly string Extension = ".planet";
         private string Name = "NONE";
-        public string StageName = "NONE";
 
         public bool IsGet_StarCrystal = false;
         public bool IsGet_Crystal = false;
@@ -42,6 +41,12 @@ namespace DataType
         {
             return Name + Extension;
         }
+
+        public string Get_Name() 
+        {
+            return Name;
+        }
+
     }
 
     [System.Serializable]

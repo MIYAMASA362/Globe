@@ -8,6 +8,7 @@ using DataType;
 public static class DataHandle
 {
     private const string DATA_FOLDER = "/Resources/local";
+    private const string META = ".meta";
 
     private static string DataPath(string FileName)
     {
@@ -54,7 +55,7 @@ public static class DataHandle
         if (!directoryInfo.Exists) directoryInfo.Create();
     }
 
-    public static void Delete_LocalDirectoryData()
+    public static void Delete_LocalDirectoryData(bool CleanUp)
     {
         string path = Application.dataPath + DATA_FOLDER;
 
@@ -63,10 +64,26 @@ public static class DataHandle
 
         foreach (FileInfo file in directory.GetFiles())
         {
-            if (file.Extension != PlayerData.Extension || file.Extension != PlayerData.Extension + ".meta")
+            if (CleanUp) { file.Delete(); continue;}
+
+            if (file.Extension == PlayerData.Extension || file.Extension == PlayerData.Extension + META)
             {
-                file.Attributes = FileAttributes.Normal;
-                file.Delete();
+                PlayerData playerData = new PlayerData();
+                Save(ref playerData,playerData.FileName());
+                continue;
+            }
+
+            if(file.Extension == PlanetData.Extension || file.Extension == PlanetData.Extension + META)
+            {
+                var render = new StreamReader(file.OpenRead());
+                var json = render.ReadToEnd();
+                if (json == "") continue;
+
+                PlanetData OldData = JsonUtility.FromJson<PlanetData>(json);
+                PlanetData NewData = new PlanetData(OldData.Get_Name());
+                Save(ref NewData,NewData.FileName());
+
+                continue;
             }
         }
     }

@@ -26,7 +26,6 @@ public class DataManager : Singleton<DataManager>
 
         playerData = new PlayerData();
         Load_PlayerData();
-        //Save_PlayerData();
     }
 
     private void Start()
@@ -62,7 +61,7 @@ public class DataManager : Singleton<DataManager>
 
     public void Reset_DataState()
     {
-        DataHandle.Delete_LocalDirectoryData();
+        DataHandle.Delete_LocalDirectoryData(false);
 
         playerData = new PlayerData();
         playerData.IsContinue = true;
