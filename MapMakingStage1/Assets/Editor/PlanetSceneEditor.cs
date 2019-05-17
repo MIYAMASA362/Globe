@@ -24,8 +24,14 @@ public class PlanetSceneEditor : Editor
 
         GUILayout.Space(10);
 
-        sceneAsset = EditorGUILayout.ObjectField("Scene", sceneAsset, typeof(SceneAsset), true) as SceneAsset;
+        //sceneAsset = EditorGUILayout.ObjectField("Scene", sceneAsset, typeof(SceneAsset), true) as SceneAsset;
 
+        if(GUILayout.Button("Load DataFile"))
+        {
+            myPlanetScene.LoadData();
+        }
+
+        /*
         if (GUILayout.Button("Apply To DataFile"))
         {
             string FileName;
@@ -49,7 +55,7 @@ public class PlanetSceneEditor : Editor
         {
             myPlanetScene.SaveData();
             Debug.Log("DataFile:" + myPlanetScene.DataFile);
-        }
+        }*/
     }
     
 }
