@@ -6,6 +6,14 @@ public class FlagManager : Singleton<FlagManager> {
 
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
+
+    [Header("SE")]
+    private AudioSource flagAudio;
+    public AudioClip SE_FlagPlugIn;
+    public float SE_FlagPlugInVolume = 100f;
+    public AudioClip SE_FlagUnPlug;
+    public float SE_FlagUnPlugVolume = 100f;
+
     [Header("軸を刺すときのエフェクト")]
     public LineEffectSwitcher lineEffectSwitcher = null;
     private Vector3 linePosition = Vector3.zero;
@@ -42,6 +50,8 @@ public class FlagManager : Singleton<FlagManager> {
 
         InitScale = flag.transform.localScale;
         flag.transform.localScale = Vector3.zero;
+
+        flagAudio = flag.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -87,6 +97,11 @@ public class FlagManager : Singleton<FlagManager> {
         flagActive = true;
 
         RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
+
+        if(flagAudio)
+        {
+            flagAudio.PlayOneShot(SE_FlagPlugIn, SE_FlagPlugInVolume);
+        }
     }
 
     public bool DestoyFlag(Vector3 axisPos)
@@ -101,6 +116,11 @@ public class FlagManager : Singleton<FlagManager> {
 
         lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flagActive = false;
+
+        if (flagAudio)
+        {
+            flagAudio.PlayOneShot(SE_FlagUnPlug, SE_FlagUnPlugVolume);
+        }
 
         return true;
     }
