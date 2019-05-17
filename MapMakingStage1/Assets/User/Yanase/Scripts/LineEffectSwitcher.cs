@@ -29,7 +29,7 @@ public class LineEffectSwitcher : MonoBehaviour {
             }
         }
 
-        Vector3 mainCameraPos = CameraManager.Instance.mainCamera.transform.position;
+        Vector3 mainCameraPos = Camera.main.transform.position;
 
         transform.localPosition = (mainCameraPos - transform.localPosition).normalized * 0.001f;
 	}

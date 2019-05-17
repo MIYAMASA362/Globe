@@ -6,8 +6,6 @@ public class RotationManager : Singleton<RotationManager> {
 
     [SerializeField] private Transform corePlanet = null;
     [SerializeField] private Transform rotationTarget = null;
-    [SerializeField] private float accelSpeed = 1.0f;
-    [SerializeField] private float maxSpeed = 1.0f;
 
     [Header("回転表示オブジェクト群"), SerializeField]
     public GameObject ArrowObject = null;
@@ -15,7 +13,9 @@ public class RotationManager : Singleton<RotationManager> {
     public Material ArrowMaterial;
 
     [Space(4)]
-    public float rotationSpeed = 5.0f;
+    [SerializeField] private float rotationSpeed = 0.0f;
+    [SerializeField] private float accelSpeed = 1.0f;
+    [SerializeField] private float maxSpeed = 8.0f;
 
     public bool isRotation = false;
 
@@ -56,52 +56,6 @@ public class RotationManager : Singleton<RotationManager> {
         //}
     }
 
-    private void PlanetRotation()
-    {
-        // フラグマネージャー取得
-        FlagManager flagManager = FlagManager.Instance;
-        isRotation = false;
-
-        if (flagManager.flagActive)
-        {
-            if (Input.GetAxis(InputManager.Left_AxisRotation) >= 0.05f)
-            {
-                if (rotationSpeed < 0) rotationSpeed = 0.0f;
-
-                rotationSpeed += accelSpeed;
-                ArrowMaterial.SetTextureOffset("_MainTex",new Vector2(0f,0f));
-                isRotation = true;
-            }
-            if (Input.GetAxis(InputManager.Right_AxisRotation) <= -0.05f)
-            {
-                if (rotationSpeed > 0) rotationSpeed = 0.0f;
-
-                rotationSpeed -= accelSpeed;
-                ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
-                isRotation = true;
-            }
-
-            if (rotationSpeed != 0)
-                ArrowObject.SetActive(true);
-            else
-                ArrowObject.SetActive(false);
-
-            rotationSpeed = Mathf.Clamp(rotationSpeed, -maxSpeed, maxSpeed);
-
-            Quaternion quaternion;
-            Transform axisTransform = flagManager.flagTransform;
-
-            quaternion = Quaternion.AngleAxis(-rotationSpeed * Time.deltaTime, axisTransform.up);
-            // 回転値を合成
-            axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
-            rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
-
-            ArrowObject.transform.position = flagManager.flagTransform.position;
-            ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
-        }
-
-    }
-
     private void PlanetRotation(float angle)
     {
         // フラグマネージャー取得
@@ -116,8 +70,9 @@ public class RotationManager : Singleton<RotationManager> {
 
             if (isRotation)
             {
-                Quaternion quaternion;
-                Transform axisTransform = flagManager.flagTransform;
+                rotationSpeed += accelSpeed;
+                rotationSpeed = Mathf.Clamp(rotationSpeed, 0f, maxSpeed);
+
                 float roll = ((curRotation >= 0) ? rotationSpeed : -rotationSpeed) * Time.deltaTime;
                 float deff = (curRotation >= 0) ? (curRotation - roll) : -(curRotation - roll);
 
@@ -127,8 +82,15 @@ public class RotationManager : Singleton<RotationManager> {
                     isRotation = false;
                     curRotation = 0.0f;
                     InputRotation();
+
+                  
+                        
+                    
                 }
                 else curRotation -= roll;
+
+                Quaternion quaternion;
+                Transform axisTransform = flagManager.flagTransform;
 
                 quaternion = Quaternion.AngleAxis(roll, axisTransform.up);
                 // 回転値を合成
@@ -137,10 +99,15 @@ public class RotationManager : Singleton<RotationManager> {
 
                 ArrowObject.transform.position = flagManager.flagTransform.position;
                 ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
+
+                corePlanet.GetComponent<Animator>().SetBool("vibration", true);
             }
             else
             {
                 InputRotation();
+                rotationSpeed = 0.0f;
+
+                corePlanet.GetComponent<Animator>().SetBool("vibration", false);
             }
         }
     }
