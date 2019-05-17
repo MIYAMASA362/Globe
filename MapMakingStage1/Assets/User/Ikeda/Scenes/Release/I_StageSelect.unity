@@ -536,13 +536,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 10906172}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.000000029802315, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2059243580}
-  m_Father: {fileID: 576509979}
-  m_RootOrder: 0
+  m_Father: {fileID: 1262582095}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &12771356
 GameObject:
@@ -1391,12 +1391,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 3
+  PlanetNum: 4
+  DataFile: Stage1-5
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &37935993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,7 +2714,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1278322252}
-  m_Father: {fileID: 1906149250}
+  m_Father: {fileID: 141220494}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &71743753
@@ -4489,7 +4491,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1820656470}
-  m_Father: {fileID: 1164212049}
+  m_Father: {fileID: 292203356}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &125307159
@@ -5201,6 +5203,37 @@ Transform:
   m_Father: {fileID: 1255777344}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &134046350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134046351}
+  m_Layer: 0
+  m_Name: PlanetObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134046351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134046350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1025138726}
+  - {fileID: 246982023}
+  - {fileID: 1090557820}
+  m_Father: {fileID: 180140895}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &134946885
 GameObject:
   m_ObjectHideFlags: 0
@@ -5493,6 +5526,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 138865217}
   m_Mesh: {fileID: 4300000, guid: 35b185ce8cde468428ea9b9dcfd32dff, type: 3}
+--- !u!1 &141220493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141220494}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141220494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 141220493}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 70496219}
+  - {fileID: 2075382244}
+  m_Father: {fileID: 1906149250}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &145090882
 GameObject:
   m_ObjectHideFlags: 0
@@ -6459,8 +6522,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 0.5041705, y: 0.50417, z: 0.5041705}
   m_Children:
-  - {fileID: 1067526269}
-  - {fileID: 498567913}
+  - {fileID: 279852280}
   m_Father: {fileID: 1241249910}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6475,12 +6537,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 1
+  PlanetNum: 0
+  DataFile: Stage1-1
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &174956540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6509,7 +6573,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 789141346}
-  m_Father: {fileID: 924577933}
+  m_Father: {fileID: 217230935}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &175397807
@@ -6655,9 +6719,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 0.50417, y: 0.50417, z: 0.50417}
   m_Children:
-  - {fileID: 1025138726}
-  - {fileID: 246982023}
-  - {fileID: 1090557820}
+  - {fileID: 134046351}
   m_Father: {fileID: 1535822133}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6689,12 +6751,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: "\u30E9\u30FC\u30E1\u30F3\u661F"
-  DataFile: TemplateStage
+  GalaxyNum: 0
+  PlanetNum: 0
+  DataFile: Stage1-1
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: "FallOut\u661F"
 --- !u!1 &180527223
 GameObject:
   m_ObjectHideFlags: 0
@@ -7742,6 +7806,36 @@ Transform:
   m_Father: {fileID: 1308101525}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -5.2320004, y: -0.09, z: 1.396}
+--- !u!1 &217230934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217230935}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &217230935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217230934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 174956541}
+  - {fileID: 813249535}
+  m_Father: {fileID: 924577933}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217861171
 GameObject:
   m_ObjectHideFlags: 0
@@ -8551,9 +8645,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 246982022}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765663, y: 6.476562, z: 6.4765763}
   m_Children:
   - {fileID: 983277084}
   - {fileID: 197067129}
@@ -8565,7 +8659,7 @@ Transform:
   - {fileID: 1108946845}
   - {fileID: 1460970181}
   - {fileID: 870993489}
-  m_Father: {fileID: 180140895}
+  m_Father: {fileID: 134046351}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &247573495
@@ -9463,12 +9557,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 2
+  PlanetNum: 2
+  DataFile: Stage1-3
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &262695373
 GameObject:
   m_ObjectHideFlags: 0
@@ -10145,6 +10241,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 270830024}
   m_Mesh: {fileID: 4300000, guid: 35b185ce8cde468428ea9b9dcfd32dff, type: 3}
+--- !u!1 &279852279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 279852280}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &279852280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279852279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1067526269}
+  - {fileID: 498567913}
+  m_Father: {fileID: 170745591}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &280400955
 GameObject:
   m_ObjectHideFlags: 0
@@ -10415,6 +10541,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 287829398}
   m_Mesh: {fileID: 4300002, guid: 4aaa06521b9ed3e4ebe57d1d8d98f314, type: 3}
+--- !u!1 &292203355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292203356}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &292203356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 292203355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 125188139}
+  - {fileID: 1346395759}
+  m_Father: {fileID: 1164212049}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &292889616
 GameObject:
   m_ObjectHideFlags: 0
@@ -11901,9 +12057,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 326801262}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.476569, y: 6.476562, z: 6.4765797}
   m_Children:
   - {fileID: 1695230161}
   - {fileID: 758620032}
@@ -11914,7 +12070,7 @@ Transform:
   - {fileID: 1845187127}
   - {fileID: 481935120}
   - {fileID: 1167251940}
-  m_Father: {fileID: 1395731365}
+  m_Father: {fileID: 1365727473}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &328449598
@@ -12657,12 +12813,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 2
+  PlanetNum: 0
+  DataFile: Stage1-1
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &346183921
 GameObject:
   m_ObjectHideFlags: 0
@@ -16223,7 +16381,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 69998309}
-  m_Father: {fileID: 1395731365}
+  m_Father: {fileID: 1365727473}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439305374
@@ -18957,9 +19115,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 498567912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765697, y: 6.476562, z: 6.4765797}
   m_Children:
   - {fileID: 1467398352}
   - {fileID: 1138181830}
@@ -18970,7 +19128,7 @@ Transform:
   - {fileID: 538490820}
   - {fileID: 1293712604}
   - {fileID: 1208322721}
-  m_Father: {fileID: 170745591}
+  m_Father: {fileID: 279852280}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &498679042
@@ -22331,8 +22489,7 @@ Transform:
   m_LocalPosition: {x: -5.877852, y: 0, z: -8.090172}
   m_LocalScale: {x: 0.5041716, y: 0.50417, z: 0.5041716}
   m_Children:
-  - {fileID: 10906173}
-  - {fileID: 1255777344}
+  - {fileID: 1262582095}
   m_Father: {fileID: 1241249910}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22347,12 +22504,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 1
+  PlanetNum: 2
+  DataFile: Stage1-3
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &578266843
 GameObject:
   m_ObjectHideFlags: 0
@@ -26305,9 +26464,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670004662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 6.4765677, y: 6.476562, z: 6.476578}
   m_Children:
   - {fileID: 1686087590}
   - {fileID: 27865913}
@@ -26318,8 +26477,8 @@ Transform:
   - {fileID: 876403195}
   - {fileID: 974368509}
   - {fileID: 484554158}
-  m_Father: {fileID: 1605374552}
-  m_RootOrder: 1
+  m_Father: {fileID: 1221524576}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &670204849
 GameObject:
@@ -26613,7 +26772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e9062e8d36021478122a665008b24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GalaxyName: NONE
   nMaxStarCrystalNum: 0
   nGetStarCrystalNum: 0
   nMaxCrystalNum: 0
@@ -26627,6 +26785,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   selectScene: {fileID: 0}
+  MyGalaxyNum: 0
 --- !u!1 &687558992
 GameObject:
   m_ObjectHideFlags: 0
@@ -27514,7 +27673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e9062e8d36021478122a665008b24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GalaxyName: "\u304A\u8179\u304C\u6E1B\u3063\u305F\u9280\u6CB3"
   nMaxStarCrystalNum: 0
   nGetStarCrystalNum: 0
   nMaxCrystalNum: 0
@@ -27528,6 +27686,7 @@ MonoBehaviour:
   - {fileID: 1289727181}
   - {fileID: 924577934}
   selectScene: {fileID: 0}
+  MyGalaxyNum: 0
 --- !u!1 &718891306
 GameObject:
   m_ObjectHideFlags: 0
@@ -30983,9 +31142,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813249534}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765663, y: 6.476562, z: 6.476577}
   m_Children:
   - {fileID: 1102968641}
   - {fileID: 1886113487}
@@ -30996,7 +31155,7 @@ Transform:
   - {fileID: 1316550490}
   - {fileID: 369339216}
   - {fileID: 419810787}
-  m_Father: {fileID: 924577933}
+  m_Father: {fileID: 217230935}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &813765697
@@ -34249,8 +34408,7 @@ Transform:
   m_LocalPosition: {x: 9.510566, y: 0, z: 3.0901718}
   m_LocalScale: {x: 0.5041702, y: 0.50417, z: 0.5041702}
   m_Children:
-  - {fileID: 174956541}
-  - {fileID: 813249535}
+  - {fileID: 217230935}
   m_Father: {fileID: 1535822133}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34265,12 +34423,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: "\u51B7\u3084\u3084\u3063\u3053\u661F"
-  DataFile: Stage5
+  GalaxyNum: 0
+  PlanetNum: 4
+  DataFile: Stage1-5
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: "\u51B7\u3084\u3084\u3063\u3053\u661F"
 --- !u!1 &924874323
 GameObject:
   m_ObjectHideFlags: 0
@@ -37334,11 +37494,11 @@ Transform:
   m_GameObject: {fileID: 1025138725}
   m_LocalRotation: {x: -0.17437537, y: 0.2139553, z: 0.8853802, w: 0.37405655}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.4765673, y: 6.4765654, z: 6.4765763}
+  m_LocalScale: {x: 6.476569, y: 6.4765687, z: 6.476577}
   m_Children:
   - {fileID: 1474135355}
   - {fileID: 1540982971}
-  m_Father: {fileID: 180140895}
+  m_Father: {fileID: 134046351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1028718870
@@ -37600,12 +37760,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 2
+  PlanetNum: 3
+  DataFile: Stage1-4
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1061900063
 GameObject:
   m_ObjectHideFlags: 0
@@ -37912,7 +38074,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 319156605}
-  m_Father: {fileID: 170745591}
+  m_Father: {fileID: 279852280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1071263863
@@ -38960,7 +39122,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 180140895}
+  m_Father: {fileID: 134046351}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1090960414
@@ -40414,13 +40576,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1115652355}
-  m_LocalRotation: {x: -0.17437537, y: 0.2139553, z: 0.8853802, w: 0.37405655}
+  m_LocalRotation: {x: -0.17437537, y: 0.2139553, z: 0.8853802, w: 0.37405658}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.4765673, y: 6.476565, z: 6.4765763}
+  m_LocalScale: {x: 6.476568, y: 6.476567, z: 6.4765773}
   m_Children:
   - {fileID: 1804088107}
   - {fileID: 1316313993}
-  m_Father: {fileID: 1534149232}
+  m_Father: {fileID: 1630034806}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1116139764
@@ -40936,9 +41098,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1135028412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765663, y: 6.476562, z: 6.476577}
   m_Children:
   - {fileID: 1526765174}
   - {fileID: 753343053}
@@ -40953,7 +41115,7 @@ Transform:
   - {fileID: 2067921804}
   - {fileID: 1903821932}
   - {fileID: 1635519349}
-  m_Father: {fileID: 1534149232}
+  m_Father: {fileID: 1630034806}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1138181829
@@ -42258,8 +42420,7 @@ Transform:
   m_LocalPosition: {x: -9.510569, y: 0, z: 3.0901732}
   m_LocalScale: {x: 0.50417095, y: 0.50417, z: 0.50417095}
   m_Children:
-  - {fileID: 125188139}
-  - {fileID: 1346395759}
+  - {fileID: 292203356}
   m_Father: {fileID: 1241249910}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42274,12 +42435,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 1
+  PlanetNum: 1
+  DataFile: Stage1-2
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1167251939
 GameObject:
   m_ObjectHideFlags: 0
@@ -44801,6 +44964,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1220810824}
   m_Mesh: {fileID: 4300000, guid: 35b185ce8cde468428ea9b9dcfd32dff, type: 3}
+--- !u!1 &1221524575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1221524576}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1221524576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221524575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 670004663}
+  - {fileID: 1784477628}
+  m_Father: {fileID: 1605374552}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228408642
 GameObject:
   m_ObjectHideFlags: 0
@@ -46280,9 +46473,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255777343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalRotation: {x: -0, y: -0.000000029802315, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 6.476576, y: 6.476562, z: 6.4765854}
   m_Children:
   - {fileID: 983414734}
   - {fileID: 196488756}
@@ -46293,8 +46486,8 @@ Transform:
   - {fileID: 916689528}
   - {fileID: 463542331}
   - {fileID: 304746283}
-  m_Father: {fileID: 576509979}
-  m_RootOrder: 1
+  m_Father: {fileID: 1262582095}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259449913
 GameObject:
@@ -46418,6 +46611,36 @@ Transform:
   - {fileID: 1159014838}
   - {fileID: 1735781918}
   m_Father: {fileID: 758281494}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1262582094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1262582095}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1262582095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1262582094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1255777344}
+  - {fileID: 10906173}
+  m_Father: {fileID: 576509979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263489650
@@ -46906,8 +47129,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1493164562}
-  m_Father: {fileID: 1289727180}
-  m_RootOrder: 0
+  m_Father: {fileID: 1390039684}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1284695248
 GameObject:
@@ -47044,8 +47267,7 @@ Transform:
   m_LocalPosition: {x: 5.877853, y: 0, z: -8.090172}
   m_LocalScale: {x: 0.50417054, y: 0.50417, z: 0.50417054}
   m_Children:
-  - {fileID: 1284466798}
-  - {fileID: 1740360067}
+  - {fileID: 1390039684}
   m_Father: {fileID: 1535822133}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47060,12 +47282,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: "\u725B\u4E3C\u661F"
-  DataFile: Stage4
+  GalaxyNum: 0
+  PlanetNum: 3
+  DataFile: Stage1-4
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: "\u725B\u4E3C\u661F"
 --- !u!1 &1291967170
 GameObject:
   m_ObjectHideFlags: 0
@@ -48802,9 +49026,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1346395758}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765697, y: 6.476562, z: 6.47658}
   m_Children:
   - {fileID: 1928931337}
   - {fileID: 1161647753}
@@ -48815,7 +49039,7 @@ Transform:
   - {fileID: 1093903041}
   - {fileID: 520034011}
   - {fileID: 451177260}
-  m_Father: {fileID: 1164212049}
+  m_Father: {fileID: 292203356}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347167190
@@ -49093,7 +49317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e9062e8d36021478122a665008b24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GalaxyName: "\u30B2\u30FC\u30E0\u9280\u6CB3"
   nMaxStarCrystalNum: 0
   nGetStarCrystalNum: 0
   nMaxCrystalNum: 0
@@ -49107,6 +49330,7 @@ MonoBehaviour:
   - {fileID: 1906149251}
   - {fileID: 1605374553}
   selectScene: {fileID: 0}
+  MyGalaxyNum: 0
 --- !u!1 &1351016906
 GameObject:
   m_ObjectHideFlags: 0
@@ -49815,6 +50039,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1362746532}
   m_Mesh: {fileID: 4300002, guid: 4aaa06521b9ed3e4ebe57d1d8d98f314, type: 3}
+--- !u!1 &1365727472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1365727473}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1365727473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1365727472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 438031464}
+  - {fileID: 326801263}
+  m_Father: {fileID: 1395731365}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366571025
 GameObject:
   m_ObjectHideFlags: 0
@@ -50365,6 +50619,36 @@ Transform:
   - {fileID: 1108496507}
   m_Father: {fileID: 386301422}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1390039683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390039684}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1390039684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390039683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1740360067}
+  - {fileID: 1284466798}
+  m_Father: {fileID: 1289727180}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1390932876
 GameObject:
@@ -50926,8 +51210,7 @@ Transform:
   m_LocalPosition: {x: -5.87785, y: 0, z: -8.090172}
   m_LocalScale: {x: 0.5041704, y: 0.50417, z: 0.5041704}
   m_Children:
-  - {fileID: 438031464}
-  - {fileID: 326801263}
+  - {fileID: 1365727473}
   m_Father: {fileID: 1535822133}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50942,12 +51225,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: "\u5BFF\u53F8\u661F"
-  DataFile: Stage3
+  GalaxyNum: 0
+  PlanetNum: 2
+  DataFile: Stage1-3
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: "\u5BFF\u53F8\u661F"
 --- !u!1 &1399776476
 GameObject:
   m_ObjectHideFlags: 0
@@ -52665,12 +52950,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 3
+  PlanetNum: 2
+  DataFile: Stage1-3
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1450193021
 GameObject:
   m_ObjectHideFlags: 0
@@ -54821,12 +55108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 3
+  PlanetNum: 3
+  DataFile: Stage1-4
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1502601713
 GameObject:
   m_ObjectHideFlags: 0
@@ -55532,12 +55821,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 3
+  PlanetNum: 1
+  DataFile: Stage1-2
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1526765173
 GameObject:
   m_ObjectHideFlags: 0
@@ -55643,9 +55934,7 @@ Transform:
   m_LocalPosition: {x: -9.510566, y: 0, z: 3.0901718}
   m_LocalScale: {x: 0.5041702, y: 0.50417, z: 0.5041702}
   m_Children:
-  - {fileID: 1115652356}
-  - {fileID: 1135028413}
-  - {fileID: 1871484235}
+  - {fileID: 1630034806}
   m_Father: {fileID: 1535822133}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55677,12 +55966,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: "\u713C\u304D\u8089\u661F"
-  DataFile: Yanase_Stage2-1
+  GalaxyNum: 0
+  PlanetNum: 1
+  DataFile: Stage1-2
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: "\u713C\u304D\u8089\u661F"
 --- !u!1 &1534550859
 GameObject:
   m_ObjectHideFlags: 0
@@ -57833,8 +58124,7 @@ Transform:
   m_LocalPosition: {x: 9.510571, y: 0, z: 3.0901709}
   m_LocalScale: {x: 0.5041704, y: 0.50417, z: 0.5041704}
   m_Children:
-  - {fileID: 1784477628}
-  - {fileID: 670004663}
+  - {fileID: 1221524576}
   m_Father: {fileID: 1241249910}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57849,12 +58139,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 1
+  PlanetNum: 4
+  DataFile: Stage1-5
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1609729382
 GameObject:
   m_ObjectHideFlags: 0
@@ -58664,6 +58956,37 @@ Transform:
   m_Father: {fileID: 1667145720}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1630034805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630034806}
+  m_Layer: 0
+  m_Name: Planet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1630034806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630034805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1115652356}
+  - {fileID: 1135028413}
+  - {fileID: 1871484235}
+  m_Father: {fileID: 1534149232}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1631256525
 GameObject:
   m_ObjectHideFlags: 0
@@ -59034,12 +59357,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 3
+  PlanetNum: 0
+  DataFile: Stage1-1
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1644592653
 GameObject:
   m_ObjectHideFlags: 0
@@ -59160,12 +59485,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 2
+  PlanetNum: 3
+  DataFile: Stage1-4
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1647312116
 GameObject:
   m_ObjectHideFlags: 0
@@ -63168,9 +63495,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1740360066}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.4765687, y: 6.476562, z: 6.476578}
   m_Children:
   - {fileID: 1761646116}
   - {fileID: 332690205}
@@ -63181,8 +63508,8 @@ Transform:
   - {fileID: 1200003650}
   - {fileID: 1228512460}
   - {fileID: 1651981760}
-  m_Father: {fileID: 1289727180}
-  m_RootOrder: 1
+  m_Father: {fileID: 1390039684}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1741290939
 GameObject:
@@ -64703,12 +65030,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1784477627}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2068028022}
-  m_Father: {fileID: 1605374552}
-  m_RootOrder: 0
+  m_Father: {fileID: 1221524576}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1786261248
 GameObject:
@@ -65975,12 +66302,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 2
+  PlanetNum: 1
+  DataFile: Stage1-2
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1820656469
 GameObject:
   m_ObjectHideFlags: 0
@@ -68035,7 +68364,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1534149232}
+  m_Father: {fileID: 1630034806}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1878491231
@@ -68865,8 +69194,7 @@ Transform:
   m_LocalPosition: {x: 5.877855, y: 0, z: -8.090174}
   m_LocalScale: {x: 0.50417084, y: 0.50417, z: 0.50417084}
   m_Children:
-  - {fileID: 70496219}
-  - {fileID: 2075382244}
+  - {fileID: 141220494}
   m_Father: {fileID: 1241249910}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68881,12 +69209,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636c3dee6626e1546965d920c360c1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetName: NONE
-  DataFile: 
+  GalaxyNum: 1
+  PlanetNum: 3
+  DataFile: Stage1-4
   planetData:
     IsGet_StarCrystal: 0
     IsGet_Crystal: 0
     IsClear: 0
+  PlanetName: NONE
 --- !u!1 &1918406334
 GameObject:
   m_ObjectHideFlags: 0
@@ -73175,9 +73505,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2075382243}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.476566, y: 6.4765615, z: 6.476576}
+  m_LocalScale: {x: 6.476568, y: 6.476562, z: 6.476579}
   m_Children:
   - {fileID: 356176878}
   - {fileID: 609052473}
@@ -73188,7 +73518,7 @@ Transform:
   - {fileID: 1212398922}
   - {fileID: 1926837808}
   - {fileID: 1479361817}
-  m_Father: {fileID: 1906149250}
+  m_Father: {fileID: 141220494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2075555703
@@ -73235,7 +73565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e9062e8d36021478122a665008b24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GalaxyName: NONE
   nMaxStarCrystalNum: 0
   nGetStarCrystalNum: 0
   nMaxCrystalNum: 0
@@ -73249,6 +73578,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   selectScene: {fileID: 0}
+  MyGalaxyNum: 0
 --- !u!1 &2076690292
 GameObject:
   m_ObjectHideFlags: 0
