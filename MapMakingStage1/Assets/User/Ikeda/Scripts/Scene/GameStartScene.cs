@@ -9,8 +9,7 @@ public class GameStartScene : SceneBase {
     public override void Start()
     {
         base.Start();
-        DataManager.Instance.ReSet();
-        Invoke("Next",2f);
+        DataManager.Instance.Reset_DataState();
     }
 
     public override void Update()
@@ -18,7 +17,7 @@ public class GameStartScene : SceneBase {
         base.Update();
     }
 
-    private void Next()
+    public void Next()
     {
         MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
     }

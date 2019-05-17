@@ -12,6 +12,8 @@ public class CrystalHandle : MonoBehaviour
     [SerializeField] private Material Enable_material;
     [SerializeField] private Material Disable_material;
 
+    [SerializeField,Tooltip("取得しているか")] private bool IsGet = false;
+
     void Start()
     {
         crystal.SetHandler(this);
@@ -24,12 +26,17 @@ public class CrystalHandle : MonoBehaviour
     {
         if (!CrystalJudgment(hit)) return false;
         UICrystal.GetComponent<Renderer>().material = Enable_material;
-
+        IsGet = true;
         return true;
     }
 
     bool CrystalJudgment(GameObject HitObject)
     {
         return HitObject == crystal.gameObject;
+    }
+
+    public bool IsGetting()
+    {
+        return IsGet;
     }
 }

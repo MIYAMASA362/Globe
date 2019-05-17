@@ -19,7 +19,7 @@ public class CustomCreateMenu
     [MenuItem("GameObject/MyObject/Crystal",priority = 19)]
     public static void Create_Crystal()
     {
-        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/User/Ikeda/Prefabs/Item/Crystal.prefab", typeof(GameObject));
+        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/NewStageObjects/Item/Diamond.prefab", typeof(GameObject));
         GameObject gameObject = (GameObject)GameObject.Instantiate(prefab);
         gameObject.transform.parent = GameObject.Find(stage.name + "/PlanetHolder/Crystals").transform;
         PrefabUtility.ConnectGameObjectToPrefab(gameObject,prefab);
@@ -28,7 +28,7 @@ public class CustomCreateMenu
     [MenuItem("GameObject/MyObject/StarPiece")]
     public static void Create_StarPiece()
     {
-        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/User/Ikeda/Prefabs/Item/StarPiece.prefab", typeof(GameObject));
+        GameObject prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/NewStageObjects/Item/StarPiece.prefab", typeof(GameObject));
         GameObject gameObject = (GameObject)GameObject.Instantiate(prefab);
         gameObject.transform.parent = GameObject.Find(stage.name + "/PlanetHolder/Crystals").transform;
         PrefabUtility.ConnectGameObjectToPrefab(gameObject, prefab);

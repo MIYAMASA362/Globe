@@ -50,7 +50,11 @@ public class TitleScene : SceneBase
 
         time = 0f;
         bInput = false;
-        IsContinue = DataManager.Instance.Continue();
+
+        if (DataManager.Instance.Load_PlayerData())
+            IsContinue = DataManager.Instance.playerData.IsContinue;
+        else
+            IsContinue = false;
     }
 
     // Update is called once per frame

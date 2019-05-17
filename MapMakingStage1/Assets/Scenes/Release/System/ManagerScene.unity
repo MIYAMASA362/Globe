@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.18199687, g: 0.22768529, b: 0.30740616, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -758,8 +758,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1214285329}
   - component: {fileID: 1214285331}
-  - component: {fileID: 1214285332}
   - component: {fileID: 1214285330}
+  - component: {fileID: 1214285332}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bInitLoad: 0
+  bInitLoad: 1
   animator: {fileID: 1214285331}
   Path_Manager: Assets/Scenes/Release/System/ManagerScene.unity
   Path_Pause: Assets/Scenes/Release/System/Pause.unity
@@ -802,32 +802,57 @@ MonoBehaviour:
   Path_Option: Assets/Scenes/Release/System/OptionScene.unity
   Path_DataCheck: Assets/Scenes/Release/System/DataCheck.unity
   Path_GameStart: Assets/Scenes/Release/GameStart.unity
-  Path_GalaxySelect: Assets/Scenes/Release/StageSelect.unity
+  Path_GalaxySelect: Assets/User/Suzuki/Scene/StageSelectSub.unity
   Galaxies:
-  - Path_Planets:
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/Yanase_Stage2-1.unity
-    - Assets/Scenes/Stage/Suzuki_Stage1-4.unity
-    - Assets/Scenes/Stage/Suzuki_Stage1-4.unity
-    - Assets/Scenes/Stage/Suzuki_Stage1-4.unity
-  - Path_Planets:
-    - Assets/Scenes/Stage/Suzuki_Stage1-3.unity
-    - Assets/Scenes/Stage/Suzuki_Stage1-5.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/Yanase_Stage4-1.unity
-    - Assets/Scenes/Stage/Suzuki_Stage1-4.unity
-  - Path_Planets:
-    - Assets/Scenes/Stage/Suzuki_Stage2-1.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-  - Path_Planets:
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
-    - Assets/Scenes/Stage/TemplateStage.unity
+  - name: "\u59CB\u307E\u308A\u306E\u9280\u6CB3"
+    Planets:
+    - name: "\u59CB\u307E\u308A\u306E\u60D1\u661F"
+      Path: Assets/Scenes/Stage/Stage1-1.unity
+    - name: "\u5F15\u3063\u3053\u629C\u304F"
+      Path: Assets/Scenes/Stage/Stage1-2.unity
+    - name: "\u4E57\u308B\u4E57\u308B\u4E57\u308B"
+      Path: Assets/Scenes/Stage/Stage1-3.unity
+    - name: "\u4E57\u308A\u307E\u3059\u4E57\u308A\u307E\u3059"
+      Path: Assets/Scenes/Stage/Stage1-4.unity
+    - name: "\u5FDC\u7528\u7DE8"
+      Path: Assets/Scenes/Stage/Stage1-5.unity
+  - name: "\u6C37\u306E\u9280\u6CB3"
+    Planets:
+    - name: "\u6C37\u306E\u60D1\u661F"
+      Path: Assets/Scenes/Stage/TemplateStage.unity
+    - name: "\u8ABF\u6574\u4E2D"
+      Path: Assets/Scenes/Stage/TemplateStage.unity
+    - name: "\u3053\u306E\u30B4\u30FC\u30EB\u52D5\u304F\u305E"
+      Path: Assets/Scenes/Stage/Stage2-3.unity
+    - name: "\u3053\u306E\u5B9D\u52D5\u304F\u3088"
+      Path: Assets/Scenes/Stage/Stage2-4.unity
+    - name: "\u8ABF\u6574\u4E2D"
+      Path: Assets/Scenes/Stage/TemplateStage.unity
+  - name: NONE
+    Planets:
+    - name: NONE
+      Path: Assets/User/Suda/scene/Stage3-2.unity
+    - name: NONE
+      Path: Assets/User/Suda/scene/Stage3-2.unity
+    - name: NONE
+      Path: Assets/Scenes/Stage/Stage3-2.unity
+    - name: NONE
+      Path: Assets/User/Suda/scene/Stage3-2.unity
+    - name: NONE
+      Path: Assets/Scenes/Stage/Stage3-2.unity
+  - name: NONE
+    Planets:
+    - name: NONE
+      Path: Assets/Scenes/Stage/Stage3-2.unity
+    - name: NONE
+      Path: Assets/Scenes/Stage/Stage3-2.unity
+    - name: NONE
+      Path: Assets/User/Suda/scene/Stage3-2.unity
+    - name: NONE
+      Path: Assets/User/Suda/scene/Stage3-2.unity
+    - name: NONE
+      Path: Assets/Scenes/Stage/Stage3-2.unity
+  Path_End: 
 --- !u!95 &1214285331
 Animator:
   serializedVersion: 3
@@ -858,9 +883,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:
-    CrystalNum: 0
+    IsContinue: 0
     SelectGalaxy: 0
     SelectPlanet: 0
+    nStarCrystal: 0
+    nCrystal: 0
 --- !u!1 &1421981784
 GameObject:
   m_ObjectHideFlags: 0
