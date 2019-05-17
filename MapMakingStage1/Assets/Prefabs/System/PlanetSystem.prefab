@@ -391,7 +391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1620088760938228
 GameObject:
   m_ObjectHideFlags: 1
@@ -473,22 +473,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!1 &1804441292166138
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4162206030229424}
-  - component: {fileID: 108562326546268864}
-  m_Layer: 0
-  m_Name: SpaceLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1824213840989710
 GameObject:
   m_ObjectHideFlags: 1
@@ -700,19 +684,6 @@ Transform:
   m_Father: {fileID: 4321235586049246}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!4 &4162206030229424
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1804441292166138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4344157199709168}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4178432733876644
 Transform:
   m_ObjectHideFlags: 1
@@ -777,7 +748,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4427678817037014}
-  - {fileID: 4162206030229424}
   m_Father: {fileID: 4869844117822174}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1333,43 +1303,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!108 &108562326546268864
-Light:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1804441292166138}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.12
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 1
-    m_Resolution: 3
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 32535
-  m_Lightmapping: 1
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &114042523659579212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1588,6 +1521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2b0fb43bc680043b49c5afe69fcad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atmosphere: {fileID: 0}
   clouds: {fileID: 0}
   cloudsScaleSmooth: 2
   cloudsTargetScale: 5
@@ -1630,7 +1564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChange: 0
-  mainCamera: {fileID: 20436743830514760}
   planetCamera: {fileID: 0}
   characterCamera: {fileID: 0}
 --- !u!114 &114303661820691248
@@ -1778,11 +1711,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corePlanet: {fileID: 0}
   rotationTarget: {fileID: 0}
-  accelSpeed: 1
-  maxSpeed: 45
   ArrowObject: {fileID: 0}
   ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
   rotationSpeed: 60
+  accelSpeed: 1
+  maxSpeed: 45
   isRotation: 0
   rotationAngle: 18
   curRotation: 0
@@ -2284,6 +2217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: {fileID: 0}
+  SE_FlagPlugIn: {fileID: 0}
+  SE_FlagPlugInVolume: 100
+  SE_FlagUnPlug: {fileID: 0}
+  SE_FlagUnPlugVolume: 100
   lineEffectSwitcher: {fileID: 0}
   findTag: FloatGround
   curFloatType: 0
