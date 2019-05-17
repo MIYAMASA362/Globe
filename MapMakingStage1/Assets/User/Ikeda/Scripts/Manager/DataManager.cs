@@ -13,8 +13,6 @@ public class DataManager : Singleton<DataManager>
     [Header("Player Status")]
     [SerializeField] public PlayerData playerData = null;
 
-
-
     //--- MonoBehaviour -----------------------------------
 
     private void Awake()
@@ -45,6 +43,11 @@ public class DataManager : Singleton<DataManager>
     public PlayerData GetPlayerData()
     {
         return playerData;
+    }
+
+    public void Create_PlayerData()
+    {
+        playerData = new PlayerData();
     }
 
     public bool Load_PlayerData()
