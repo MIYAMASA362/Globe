@@ -11,7 +11,7 @@ public class PlanetCamera : MonoBehaviour
     Vector3 targetDir = Vector3.zero;
     Vector3 corePosition;
 
-    bool isMoveTarget;
+    public bool isMoveTarget;
     Vector3 moveTargetPosition;
     private float followSpeed = 0.0f;
 

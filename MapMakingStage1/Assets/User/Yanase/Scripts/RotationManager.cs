@@ -7,6 +7,11 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField] private Transform corePlanet = null;
     [SerializeField] private Transform rotationTarget = null;
 
+    [Header("SE")]
+    private AudioSource planetAudio;
+    public AudioClip SE_PlanetRotation;
+    public float SE_FlagPlugInVolume = 2f;
+
     [Header("回転表示オブジェクト群"), SerializeField]
     public GameObject ArrowObject = null;
 
@@ -39,6 +44,8 @@ public class RotationManager : Singleton<RotationManager> {
         ArrowMaterial = Resources.Load<Material>("Materials/ArrowMaterial");
         ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
         ArrowObject.SetActive(false);
+
+        planetAudio = corePlanet.GetComponent<AudioSource>();
     }
 	
     //Update
@@ -48,12 +55,15 @@ public class RotationManager : Singleton<RotationManager> {
     }
 
     //FixedUpdate
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        //if (!isRotation)
-        //{
-        //    rotationSpeed = 0.0f;
-        //}
+        if(planetAudio)
+        {
+            if(isRotation)
+            {
+                if(!planetAudio.isPlaying) planetAudio.PlayOneShot(SE_PlanetRotation, SE_FlagPlugInVolume);
+            }
+        }
     }
 
     private void PlanetRotation(float angle)
@@ -82,9 +92,6 @@ public class RotationManager : Singleton<RotationManager> {
                     isRotation = false;
                     curRotation = 0.0f;
                     InputRotation();
-
-                  
-                        
                     
                 }
                 else curRotation -= roll;
@@ -126,21 +133,6 @@ public class RotationManager : Singleton<RotationManager> {
             ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
             isRotation = true;
         }
-    }
-
-    public Vector3 GetMoveDir(Vector3 position)
-    {
-        // フラグマネージャー取得
-        FlagManager flagManager = FlagManager.Instance;
-
-        if (!flagManager.flagActive || 
-            (rotationSpeed < 0.1f && rotationSpeed > -0.1f))
-            return Vector3.zero;
-
-        Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * ((rotationSpeed * 1.5f) * Time.deltaTime);
-
-        return moveDir;
     }
 
     public float GetSpeed()

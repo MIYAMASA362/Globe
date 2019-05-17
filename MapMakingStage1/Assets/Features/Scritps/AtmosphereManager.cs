@@ -31,6 +31,6 @@ public class AtmosphereManager : Singleton<AtmosphereManager>
 
     private void LateUpdate()
     {
-        atmosphere.transform.position = RotationManager.Instance.planetTransform.position + CameraManager.Instance.planetCamera.transform.forward * 0.01f;
+        atmosphere.transform.position = RotationManager.Instance.planetTransform.position + Camera.main.transform.forward * 0.01f;
     }
 }
