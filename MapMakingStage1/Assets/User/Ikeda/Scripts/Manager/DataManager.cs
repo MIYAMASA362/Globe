@@ -13,8 +13,6 @@ public class DataManager : Singleton<DataManager>
     [Header("Player Status")]
     [SerializeField] public PlayerData playerData = null;
 
-
-
     //--- MonoBehaviour -----------------------------------
 
     private void Awake()
@@ -47,6 +45,11 @@ public class DataManager : Singleton<DataManager>
         return playerData;
     }
 
+    public void Create_PlayerData()
+    {
+        playerData = new PlayerData();
+    }
+
     public bool Load_PlayerData()
     {
         if (!DataHandle.FileFind(playerData.FileName())) return false;
@@ -61,7 +64,7 @@ public class DataManager : Singleton<DataManager>
 
     public void Reset_DataState()
     {
-        DataHandle.Delete_LocalDirectoryData(false);
+        DataHandle.Delete_LocalDirectoryData(true);
 
         playerData = new PlayerData();
         playerData.IsContinue = true;
