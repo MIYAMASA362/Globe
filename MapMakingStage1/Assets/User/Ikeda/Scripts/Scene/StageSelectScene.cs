@@ -128,6 +128,7 @@ public class StageSelectScene : SceneBase
 	public override void Start ()
     {
         TargetRotObj = GalaxysHolder;
+        if (!MySceneManager.Instance.bInitLoad) MySceneManager.Instance.Start_Load();
         StartCoroutine("Init_Coroutine");
     }
 	

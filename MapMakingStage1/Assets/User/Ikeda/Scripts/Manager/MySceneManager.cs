@@ -32,7 +32,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
     [Header("State")]
     [SerializeField,Tooltip("初期化時に最初のシーンを読み込む")]
-    private bool bInitLoad = true;
+    public bool bInitLoad = true;
 
     [Header("UI State")]
     [SerializeField, Tooltip("Fadeのアニメータ")] private Animator animator;
@@ -174,6 +174,23 @@ public class MySceneManager : Singleton<MySceneManager>
         return Instance.Path_GalaxySelect;
     }
     
+    //--- 次のPlanetに移動 ---
+    public static string Load_Next_Planet()
+    {
+        DataManager.Instance.playerData.SelectPlanet++;
+
+        //最終ステージまでやった
+        if(DataManager.Instance.playerData.SelectPlanet >= Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets.Count)
+        {
+            //次の銀河へ
+            DataManager.Instance.playerData.SelectPlanet = 0;
+            DataManager.Instance.playerData.SelectGalaxy++;
+        }
+
+
+
+        return "";
+    }
 
     //--- 終了処理 ------------------------------
     public static void Game_Exit()
@@ -226,6 +243,12 @@ public class MySceneManager : Singleton<MySceneManager>
         Instance.animator.SetBool("FadeFlag", false);
         if (IsLoad_Use) return;
         Instance.animator.SetTrigger("LoadTrigger");
+    }
+
+    public void Start_Load()
+    {
+        Instance.animator.SetBool("FadeFlag", true);
+        IsLoad_Use = true;
     }
 
     //--- FadeInが完了した ----------------------
