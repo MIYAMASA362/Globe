@@ -61,11 +61,17 @@ public class TitleScene : SceneBase
             DataManager.Instance.Create_PlayerData();
             IsContinue = false;
         }
+
+        Invoke("Loaded",3f);
     }
+
+    
 
     // Update is called once per frame
     public override void Update()
     {
+        if (MySceneManager.IsLoading()) return;
+
         base.Update();
 
         time += Time.deltaTime;
@@ -163,6 +169,11 @@ public class TitleScene : SceneBase
     private void bUpdate_Change()
     {
         bUpdate = true;
+    }
+
+    public void Loaded()
+    {
+        MySceneManager.Instance.CompleteLoaded();
     }
 
     //--- IEnumerator -------------------------------------
