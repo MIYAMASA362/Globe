@@ -16,7 +16,8 @@ public class PlanetScene :SceneBase
         LOAD,
         OPENING,
         MAINGAME,
-        ENDING
+        ENDING,
+        RESULT
     }
 
     //--- Attribute ---------------------------------------------------------------------
@@ -101,6 +102,8 @@ public class PlanetScene :SceneBase
         timer.StopTimer();
 
         UnInitData();   //データセーブ
+        
+
         MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
