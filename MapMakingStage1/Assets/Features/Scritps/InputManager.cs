@@ -4,7 +4,7 @@ using System.Collections;
  
 public static class InputManager {
 
-    public static int Num = 49;
+    public static int Num = 50;
 
     //Input Name String
     
@@ -21,7 +21,7 @@ public static class InputManager {
     public const string Cancel = "Cancel";
     public const string Left_Push = "Left Push";
     public const string Left_Back = "Left Back";
-    public const string Bug_Left_AxisRotation = "Bug Left AxisRotation";
+    public const string OnInvisible = "OnInvisible";
     public const string Left_AxisRotation = "Left AxisRotation";
     public const string View = "View";
     public const string Menu = "Menu";
@@ -431,7 +431,7 @@ public static class InputManager {
         },
         
         new InputAxis {
-            name = "Bug Left AxisRotation",
+            name = "OnInvisible",
             descriptiveName = "XBox-Controller LeftTrigger",
             descriptiveNegativeName = "",
             negativeButton = "",
@@ -440,10 +440,28 @@ public static class InputManager {
             altPositiveButton = "",
             gravity = 0f,
             dead = 0.2f,
-            sensitivity = 1000f,
+            sensitivity = 1f,
             snap = true,
             invert = false,
             type = AxisType.JoystickAxis,
+            axis = 2,
+            joyNum = 0,
+        },
+        
+        new InputAxis {
+            name = "OnInvisible",
+            descriptiveName = "",
+            descriptiveNegativeName = "",
+            negativeButton = "",
+            positiveButton = "left shift",
+            altNegativeButton = "",
+            altPositiveButton = "",
+            gravity = 1000f,
+            dead = 0f,
+            sensitivity = 1f,
+            snap = false,
+            invert = false,
+            type = AxisType.KeyOrMouseButton,
             axis = 2,
             joyNum = 0,
         },

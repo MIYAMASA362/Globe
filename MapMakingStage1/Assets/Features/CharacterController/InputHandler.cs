@@ -6,6 +6,8 @@ namespace SA
     public class InputHandler : MonoBehaviour {
 
         private CharacterCamera characterCamera;
+        public PlanetWalker planetWalker;
+        public InvisibleWaker invisibleWalker;
         public float vertical;
         public float horizontal;
         public float inputSumooth = 0.2f;
@@ -15,7 +17,9 @@ namespace SA
 
         public Transform CameraPivot;
         private StateManager states;
-        
+
+        public bool isInvisible = false;
+
         //------------------------------------------
         //------------------------------------------
         void Start()
@@ -23,8 +27,11 @@ namespace SA
             states = GetComponent<StateManager>();
             states.Init();
 
-            characterCamera = CameraManager.Instance.characterCamera.GetComponent<CharacterCamera>();
-            characterCamera.Init(CameraPivot.transform);
+            characterCamera = CameraManager.Instance.characterCamera;
+            characterCamera.Init(CameraPivot);
+            characterCamera.SetInputHandler(this);
+
+            invisibleWalker.Init(CameraPivot);
 
         }//Start end 
          //------------------------------------------
@@ -56,21 +63,56 @@ namespace SA
 
             horizontal = Mathf.Lerp(horizontal, h, inputSumooth);
             vertical = Mathf.Lerp(vertical, v, inputSumooth);
+
+            if (CameraManager.Instance.characterCamera.gameObject.activeInHierarchy)
+            {
+                if ((Input.GetAxis(InputManager.OnInvisible) > 0.5f))
+                {
+                    isInvisible = true;
+                }
+                else
+                {
+                    isInvisible = false;
+                }
+            }
+            else
+            {
+                isInvisible = false;
+            }
+
+            planetWalker.horizontal = horizontal;
+            planetWalker.vertical = vertical;
+            invisibleWalker.horizontal = horizontal;
+            invisibleWalker.vertical = vertical;
         }
 
         //------------------------------------------
         void UpdateStates()
         {
-            states.vertical = vertical;
-            states.horizontal = horizontal;
+            states.FixedTick(delta);
 
-            Vector3 v = states.vertical * transform.forward;
-            Vector3 h = horizontal * transform.right;
-            states.moveDir = (v + h).normalized;
-            float m = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
-            states.moveAmount = Mathf.Clamp01(m);
+            if(invisibleWalker.isPlay)
+            {
+                characterCamera.Init(invisibleWalker.transform);
+            }
+            else
+            {
+                characterCamera.Init(CameraPivot);
+                invisibleWalker.transform.position = CameraPivot.position;
+            }
 
-            states.FixedTick(Time.deltaTime);
+            if (isInvisible)
+            {
+                planetWalker.moveAmount *= 0.8f;
+                planetWalker.horizontal *= 0.8f;
+                planetWalker.vertical *= 0.8f;
+                invisibleWalker.OnPlay(delta);
+            }
+            else
+            {
+                invisibleWalker.OnNotPlay(delta);
+                planetWalker.FixedTick(delta);
+            }
         }
 
 

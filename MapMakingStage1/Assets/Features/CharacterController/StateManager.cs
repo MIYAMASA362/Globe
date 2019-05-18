@@ -9,12 +9,6 @@ namespace SA
     {
         public Quaternion targetRotation;
 
-        public float vertical;
-        [Header("Inputs")]
-        public float horizontal;
-        public float moveAmount;
-        public Vector3 moveDir;
-
         [Header("Stats")]
         public float moveSpeed = 3;
         public float moveAmountMult = 0.3f;
@@ -95,6 +89,8 @@ namespace SA
             onGround = OnGround();
 
             if (!onGround) rigid.AddForce(gravityDirection * -gravity);
+
+
 
         }//Tick end
          //------------------------------------------

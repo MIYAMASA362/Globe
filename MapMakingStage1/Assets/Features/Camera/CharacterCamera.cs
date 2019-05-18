@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SA;
 
 public class CharacterCamera : MonoBehaviour
 {
+    private InputHandler inputHandler;
     public Transform followTarget;
     public Transform rotationPivot;
     public Transform cameraTransform;
@@ -33,9 +35,14 @@ public class CharacterCamera : MonoBehaviour
     //------------------------------------------
     public void Init(Transform t)
     {
-        Debug.Log("Init");
         followTarget = t;
     }
+
+    public void SetInputHandler(InputHandler handle)
+    {
+        inputHandler = handle;
+    }
+
     //------------------------------------------
     void LateUpdate()
     {
@@ -58,6 +65,12 @@ public class CharacterCamera : MonoBehaviour
 
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
+
+        if (inputHandler && inputHandler.isInvisible)
+        {
+            h *= -1;
+        }
+        
 
         float targetSpeed = mouseSpeed;
 

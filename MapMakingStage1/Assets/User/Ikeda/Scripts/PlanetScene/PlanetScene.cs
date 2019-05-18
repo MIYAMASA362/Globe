@@ -78,7 +78,8 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        animator.SetTrigger("AroundTrigger");
+        //        animator.SetTrigger("AroundTrigger");
+        animator.gameObject.SetActive(false);
         state = STATE.OPENING;
     }
 
