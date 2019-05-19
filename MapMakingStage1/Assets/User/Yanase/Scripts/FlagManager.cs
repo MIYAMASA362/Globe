@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class FlagManager : Singleton<FlagManager> {
 
@@ -8,11 +9,11 @@ public class FlagManager : Singleton<FlagManager> {
     private GameObject flag = null;
 
     [Header("SE")]
+    public float SE_FlagPlugInVolume = 1f;
+    public float SE_FlagDeployVolume = 3f;
+    public float SE_FlagUnPlugVolume = 1f;
+    public float SE_FloatSwapVolume = 1f;
     private AudioSource flagAudio;
-    public AudioClip SE_FlagPlugIn;
-    public float SE_FlagPlugInVolume = 100f;
-    public AudioClip SE_FlagUnPlug;
-    public float SE_FlagUnPlugVolume = 100f;
 
     [Header("軸を刺すときのエフェクト")]
     public LineEffectSwitcher lineEffectSwitcher = null;
@@ -52,6 +53,7 @@ public class FlagManager : Singleton<FlagManager> {
         flag.transform.localScale = Vector3.zero;
 
         flagAudio = flag.GetComponent<AudioSource>();
+        if (!flagAudio) flagAudio = flag.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -62,26 +64,28 @@ public class FlagManager : Singleton<FlagManager> {
 
             if (Input.GetButtonDown(InputManager.Change_AscDes))
             {
-                if (CheckFloatOnGround()) ChangeFloatOnGround();
+                if (CheckFloatOnGround())
+                {
+                    if (flagAudio) AudioManager.Instance.PlaySEOneShot(flagAudio, AUDIO.SE_FLOATSWAP, SE_FloatSwapVolume);
+                    ChangeFloatOnGround();
+                }
             }
         }
         else
         {
             flag.transform.localScale = Vector3.Lerp(flag.transform.localScale,Vector3.zero, Time.deltaTime * flagScaleSpeed);
         }
-
-
     }
 
     public void SetFlag(Vector3 axisPos, FloatType.Type type)
     {
-        if(!flag)
+        if (!flag)
         {
             Debug.Log("flag is nothing!!");
             return;
         }
 
-        if(flagActive)
+        if (flagActive)
         {
             Debug.Log("flag is active!!");
             return;
@@ -96,11 +100,11 @@ public class FlagManager : Singleton<FlagManager> {
         curFloatType = type;
         flagActive = true;
 
-        RotationManager.Instance.ArrowObject.transform.up = flag.transform.up;
-
-        if(flagAudio)
+        AudioManager audioManager = AudioManager.Instance;
+        if (flagAudio)
         {
-            flagAudio.PlayOneShot(SE_FlagPlugIn, SE_FlagPlugInVolume);
+            audioManager.PlaySEOneShot(flagAudio, AUDIO.SE_FLAGPLUGIN, SE_FlagPlugInVolume);
+            audioManager.PlaySEOneShot(flagAudio, AUDIO.SE_DEPLOY, SE_FlagDeployVolume);
         }
     }
 
@@ -117,10 +121,7 @@ public class FlagManager : Singleton<FlagManager> {
         lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flagActive = false;
 
-        if (flagAudio)
-        {
-            flagAudio.PlayOneShot(SE_FlagUnPlug, SE_FlagUnPlugVolume);
-        }
+        if (flagAudio) AudioManager.Instance.PlaySEOneShot(flagAudio, AUDIO.SE_FLAGUNPLUG, SE_FlagUnPlugVolume);
 
         return true;
     }
@@ -140,15 +141,32 @@ public class FlagManager : Singleton<FlagManager> {
     {
         if (RotationManager.Instance.isRotation) return false;
 
+        bool isCheck = true;
+
         foreach (var floatObj in floatObjects)
         {
             if (curFloatType == floatObj.type)
             {
-                if (floatObj.onGround) return false;
+                if (floatObj.onGround)
+                {
+                    isCheck = false;
+                    break;
+                }
             }
         }
 
-        return true;
+        if (!isCheck)
+        {
+            foreach (var floatObj in floatObjects)
+            {
+                if (curFloatType == floatObj.type)
+                {
+                    floatObj.isFalse = true;
+                }
+            }
+        }
+
+        return isCheck;
     }
 
     void ChangeFloatOnGround()

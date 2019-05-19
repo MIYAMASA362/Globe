@@ -9,6 +9,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
+    private const string SE_PATH = "Audio/SE";
 
     //ボリューム保存用のkeyとデフォルト値
     private const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
@@ -31,6 +32,7 @@ public class AudioManager : Singleton<AudioManager>
 
     //全AudioClipを保持
     private Dictionary<string, AudioClip> _bgmDic;
+    private Dictionary<string, AudioClip> _seDic;
 
     //=================================================================================
     //初期化
@@ -71,12 +73,19 @@ public class AudioManager : Singleton<AudioManager>
 
         //リソースフォルダから全SE&BGMのファイルを読み込みセット
         _bgmDic = new Dictionary<string, AudioClip>();
-
         object[] bgmList = Resources.LoadAll(BGM_PATH);
 
-        foreach (AudioClip bgm in bgmList)
+        foreach (AudioClip sound in bgmList)
         {
-            _bgmDic[bgm.name] = bgm;
+            _bgmDic[sound.name] = sound;
+        }
+
+        _seDic = new Dictionary<string, AudioClip>();
+        object[] seList = Resources.LoadAll(SE_PATH);
+
+        foreach (AudioClip sound in seList)
+        {
+            _seDic[sound.name] = sound;
         }
     }
     //=================================================================================
@@ -108,6 +117,35 @@ public class AudioManager : Singleton<AudioManager>
             _nextBGMName = bgmName;
             FadeOutBGM(fadeSpeedRate);
         }
+    }
+
+    public void PlaySEOneShot(AudioSource sorce, string fileName, float volume)
+    {
+        if (!_seDic.ContainsKey(fileName))
+        {
+            Debug.Log(fileName + "という名前のSEがありません");
+            return;
+        }
+
+        sorce.PlayOneShot(_seDic[fileName], volume);
+    }
+
+    public void PlaySE(AudioSource sorce, string fileName, float volume)
+    {
+        if (!_seDic.ContainsKey(fileName))
+        {
+            Debug.Log(fileName + "という名前のSEがありません");
+            return;
+        }
+
+        sorce.clip = _seDic[fileName];
+        sorce.volume = volume;
+        sorce.Play();
+    }
+
+    public void StopSE(AudioSource sorce)
+    {
+        sorce.Stop();
     }
 
     /// <summary>

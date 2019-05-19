@@ -7,7 +7,7 @@ namespace SA
 
     public class StateManager : MonoBehaviour
     {
-        public Quaternion targetRotation;
+        public ParticleSystem circleParticle;
 
         [Header("Stats")]
         public float moveSpeed = 3;
@@ -22,6 +22,7 @@ namespace SA
         public Vector3 cross;
         public float crossMult = 6;
         [Header("States")]
+        public GroundType.Type groundType;
         public bool onGround = false;
         public bool OnAxis = false;
 
@@ -90,8 +91,6 @@ namespace SA
 
             if (!onGround) rigid.AddForce(gravityDirection * -gravity);
 
-
-
         }//Tick end
          //------------------------------------------
 
@@ -118,6 +117,12 @@ namespace SA
                     OnAxis = JudgeAxis(hit.collider.gameObject);
 
                     SetParent(hit.collider.gameObject);
+
+                    GroundType ground = hit.collider.gameObject.GetComponent<GroundType>();
+                    if (ground)
+                    {
+                        groundType = ground.type;
+                    }
                 }
             }
 
@@ -149,11 +154,8 @@ namespace SA
                 return;
             }
 
-            if (transform.parent)
-            {
-                GetComponent<PlanetWalker>().oldPosition = transform.position;
-                transform.parent = null;
-            }
+            transform.parent = RotationManager.Instance.planetTransform;
+
         }
 
         public void Tick(float d)
@@ -163,6 +165,18 @@ namespace SA
             if(OnAxis)
             {
                 FlagSet();
+            }
+
+            if (FlagManager.Instance.flagActive)
+            {
+                if(!circleParticle.isPlaying)
+                {
+                    if (Input.GetButtonDown(InputManager.Change_AscDes))
+                        circleParticle.Play();
+
+                    if (Input.GetButton(InputManager.Right_AxisRotation) || Input.GetButton(InputManager.Left_AxisRotation))
+                        circleParticle.Play();
+                }
             }
         }
 

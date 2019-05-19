@@ -64,20 +64,14 @@ namespace SA
             horizontal = Mathf.Lerp(horizontal, h, inputSumooth);
             vertical = Mathf.Lerp(vertical, v, inputSumooth);
 
+            isInvisible = false;
+
             if (CameraManager.Instance.characterCamera.gameObject.activeInHierarchy)
             {
-                if ((Input.GetAxis(InputManager.OnInvisible) > 0.5f))
+                if ((Input.GetAxis(InputManager.OnInvisible) > 0.1f))
                 {
                     isInvisible = true;
                 }
-                else
-                {
-                    isInvisible = false;
-                }
-            }
-            else
-            {
-                isInvisible = false;
             }
 
             planetWalker.horizontal = horizontal;
@@ -91,26 +85,26 @@ namespace SA
         {
             states.FixedTick(delta);
 
-            if(invisibleWalker.isPlay)
-            {
-                characterCamera.Init(invisibleWalker.transform);
-            }
-            else
-            {
-                characterCamera.Init(CameraPivot);
-                invisibleWalker.transform.position = CameraPivot.position;
-            }
-
             if (isInvisible)
             {
                 planetWalker.moveAmount *= 0.8f;
                 planetWalker.horizontal *= 0.8f;
                 planetWalker.vertical *= 0.8f;
+
                 invisibleWalker.OnPlay(delta);
+
+                characterCamera.Init(invisibleWalker.transform);
+                characterCamera.SetDistance(0f);
             }
             else
             {
                 invisibleWalker.OnNotPlay(delta);
+                if(!invisibleWalker.isPlay)
+                {
+                    characterCamera.Init(CameraPivot);
+                    characterCamera.ResetDistance();
+                }
+
                 planetWalker.FixedTick(delta);
             }
         }
