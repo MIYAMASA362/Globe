@@ -34,7 +34,7 @@ public class PlanetScene :SceneBase
     private bool IsGameClear;
     public STATE state;
 
-    //--- Data ----
+    //--- Data ----------------------------------
     [Space(8)]
     [SerializeField] public string DataFile = "";
     [SerializeField] private PlanetData planetData;
@@ -60,7 +60,6 @@ public class PlanetScene :SceneBase
         IsGameClear = false;
 
     }
-
     
     public override void Update ()
     {
