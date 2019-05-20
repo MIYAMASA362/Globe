@@ -9,12 +9,6 @@ public class FootStepEvent : MonoBehaviour {
     public PlanetWalker planetWalker = null;
     AudioSource footAudio;
 
-    public float grass_Volume = 0.5f;
-    public float snow1_Volume = 2.5f;
-    public float snow2_Volume = 1.8f;
-    public float rock_Volume = 1.5f;
-    public float sand_Volume = 1.5f;
-
     private void Start()
     {
         footAudio = GetComponent<AudioSource>();
@@ -30,16 +24,16 @@ public class FootStepEvent : MonoBehaviour {
         switch(stateManager.groundType)
         {
             case GroundType.Type.Grass:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_GRASS1, grass_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_GRASS);
                 break;
             case GroundType.Type.Rock:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_ROCK1, rock_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_ROCK);
                 break;
             case GroundType.Type.Snow:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_SNOW1, snow1_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW1);
                 break;
             case GroundType.Type.Sand:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_SAND, sand_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SAND);
                 break;
         }
     }
@@ -53,16 +47,16 @@ public class FootStepEvent : MonoBehaviour {
         switch (stateManager.groundType)
         {
             case GroundType.Type.Grass:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_GRASS1, grass_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_GRASS);
                 break;
             case GroundType.Type.Rock:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_ROCK1, rock_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_ROCK);
                 break;
             case GroundType.Type.Snow:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_SNOW2, snow2_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW2);
                 break;
             case GroundType.Type.Sand:
-                audioManager.PlaySEOneShot(footAudio, AUDIO.SE_FOOTSTEP_SAND, sand_Volume);
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SAND);
                 break;
         }
     }

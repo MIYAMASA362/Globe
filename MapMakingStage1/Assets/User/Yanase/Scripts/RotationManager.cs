@@ -11,7 +11,6 @@ public class RotationManager : Singleton<RotationManager> {
     public float XBoxVibration = 0.8f;
 
     [Header("SE")]
-    public float SE_PlanetRotationVolume = 2f;
     private AudioSource planetAudio;
 
     [Space(4)]
@@ -57,7 +56,8 @@ public class RotationManager : Singleton<RotationManager> {
             {
                 if (!planetAudio.isPlaying)
                 {
-                    AudioManager.Instance.PlaySE(planetAudio, AUDIO.SE_PLANETROTATION, SE_PlanetRotationVolume);
+                    AudioManager audioManager = AudioManager.Instance;
+                    audioManager.PlaySE(planetAudio, audioManager.SE_PLANETROTATION);
                 }
             }
             else
