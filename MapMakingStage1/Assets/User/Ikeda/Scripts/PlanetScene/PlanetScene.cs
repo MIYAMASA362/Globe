@@ -9,6 +9,7 @@ using DataType;
 [RequireComponent(typeof(TimeRank))]
 [RequireComponent(typeof(CrystalHandle))]
 [RequireComponent(typeof(StarPieceHandle))]
+[RequireComponent(typeof(PlanetResult))]
 public class PlanetScene :SceneBase
 {
     public enum STATE
@@ -16,7 +17,6 @@ public class PlanetScene :SceneBase
         LOAD,
         OPENING,
         MAINGAME,
-        ENDING,
         RESULT
     }
 
@@ -27,6 +27,9 @@ public class PlanetScene :SceneBase
     private TimeRank timeRank;
     private CrystalHandle crystalHandle;
     private StarPieceHandle starPieceHandle;
+
+    //Planet系
+    private PlanetResult planetResult;
 
     //--- Animator ------------------------------
     [SerializeField] private Animator animator;
@@ -52,23 +55,39 @@ public class PlanetScene :SceneBase
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
 
+        planetResult = GetComponent<PlanetResult>();
+
         //-- データ初期化 ---
         InitData();
 
         //--- Init status ---
         base.Start();
         IsGameClear = false;
-
     }
     
     public override void Update ()
     {
-        if (state != STATE.MAINGAME) return;
-        base.Update();
+        switch (state)
+        {
+            case STATE.LOAD:
 
-        //--- Timer ---
-        timer.UpdateTimer();
-        timeRank.Update_RankUI();
+                break;
+            case STATE.OPENING:
+
+                break;
+            case STATE.MAINGAME:
+                base.Update();
+
+                //--- Timer ---
+                timer.UpdateTimer();
+                timeRank.Update_RankUI();
+                break;
+            case STATE.RESULT:
+                planetResult.Begin();
+                break;
+            default:
+                break;
+        }
 	}
 
     //--- Method ------------------------------------------------------------------------
@@ -77,7 +96,6 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        //        animator.SetTrigger("AroundTrigger");
         animator.gameObject.SetActive(false);
         state = STATE.OPENING;
     }
@@ -98,13 +116,14 @@ public class PlanetScene :SceneBase
     [ContextMenu("GameClear")]
     public void GameClear()
     {
+        if (IsGameClear) return;
+
         IsGameClear = true;
         timer.StopTimer();
 
         UnInitData();   //データセーブ
-        
 
-        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
+        state = STATE.RESULT;
     }
 
     //--- DataManager ---------------------------
@@ -147,6 +166,11 @@ public class PlanetScene :SceneBase
             planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
 
         DataHandle.Save(ref planetData, planetData.FileName());     //PlanetDataの設定
+    }
+
+    public void NextScene()
+    {
+        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
 }

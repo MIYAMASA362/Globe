@@ -11,6 +11,7 @@ public class StarPieceHandle : MonoBehaviour
     [Space(8), Header("PieceObject")]
     [SerializeField] private  StarPiece[] Pieces = new StarPiece[5];
 
+    [SerializeField] private GameObject UIStarPiece;
     [SerializeField] private GameObject[] UIPieces = new GameObject[5];
     [Space(4)]
     [SerializeField] private Material Enable_material;
@@ -71,5 +72,16 @@ public class StarPieceHandle : MonoBehaviour
     {
         return IsComplete;
     }
+
+    public void Enable_UI()
+    {
+        UIStarPiece.SetActive(true);
+    }
+
+    public void Disable_UI()
+    {
+        UIStarPiece.SetActive(false);
+    }
+
 
 }

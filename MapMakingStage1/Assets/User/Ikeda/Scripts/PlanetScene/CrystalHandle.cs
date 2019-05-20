@@ -39,4 +39,14 @@ public class CrystalHandle : MonoBehaviour
     {
         return IsGet;
     }
+
+    public void Enable_UI()
+    {
+        UICrystal.SetActive(true);
+    }
+
+    public void Disable_UI()
+    {
+        UICrystal.SetActive(false);
+    }
 }
