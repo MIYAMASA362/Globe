@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SA;
 
 public class CharacterCamera : MonoBehaviour
 {
+    private InputHandler inputHandler;
     public Transform followTarget;
     public Transform rotationPivot;
     public Transform cameraTransform;
@@ -13,7 +15,8 @@ public class CharacterCamera : MonoBehaviour
 
     public float minAngle = -5;
     public float maxAngle = 80;
-    public float distance = 5f;
+    public float distance = 3f;
+    private float initDistance = 0f;
 
     public float lookAngle;
     public float tiltAngle;
@@ -24,6 +27,11 @@ public class CharacterCamera : MonoBehaviour
     float smoothXvelocity;
     float smoothYvelocity;
 
+    private void Awake()
+    {
+        initDistance = distance;
+    }
+
     private void Start()
     {
         rotationPivot.transform.localPosition = Vector3.zero;
@@ -33,22 +41,28 @@ public class CharacterCamera : MonoBehaviour
     //------------------------------------------
     public void Init(Transform t)
     {
-        Debug.Log("Init");
         followTarget = t;
     }
+
+    public void SetInputHandler(InputHandler handle)
+    {
+        inputHandler = handle;
+    }
+
     //------------------------------------------
     void LateUpdate()
     {
+        Vector3 dist = new Vector3(0.0f, 0.0f, -distance);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, dist, Time.deltaTime * 5f);
+
         float speed = Time.deltaTime * followSpeed;
         Vector3 targetPosition = Vector3.Lerp(transform.position, followTarget.position, speed);
         transform.position = targetPosition;
 
         Vector3 planetPosition = RotationManager.Instance.planetTransform.position;
-        Vector3 gravityDirection = (planetPosition - transform.position);
-        gravityDirection.Normalize();
+        Vector3 gravityDirection = (planetPosition - transform.position).normalized;
 
-        Quaternion q = Quaternion.FromToRotation(-transform.up, gravityDirection);
-        q = q * transform.rotation;
+        Quaternion q = Quaternion.FromToRotation(-transform.up, gravityDirection) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, q, 1);
     }
     public void Tick(float d)
@@ -58,6 +72,12 @@ public class CharacterCamera : MonoBehaviour
 
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
+
+        if (inputHandler && inputHandler.isInvisible)
+        {
+            h *= -1;
+        }
+        
 
         float targetSpeed = mouseSpeed;
 
@@ -82,5 +102,31 @@ public class CharacterCamera : MonoBehaviour
         tiltAngle = Mathf.Clamp(tiltAngle, minAngle, maxAngle);
 
         rotationPivot.localRotation = Quaternion.Euler(tiltAngle, lookAngle, 0);
+    }
+
+    public void SetAngle(Vector3 position)
+    {
+        Vector3 dir = (position - transform.position).normalized;
+        Vector3 localDir = transform.InverseTransformDirection(dir);
+        localDir.y = 0;
+
+        Quaternion q = Quaternion.LookRotation(-localDir);
+       
+        tiltAngle = 38.0f;
+        lookAngle = q.eulerAngles.y;
+
+        
+    }
+
+    public void SetDistance(float dist)
+    {
+        if (!this.gameObject.activeInHierarchy) return;
+        distance = dist;
+    }
+
+    public void ResetDistance()
+    {
+        if (!this.gameObject.activeInHierarchy) return;
+        distance = initDistance;
     }
 }

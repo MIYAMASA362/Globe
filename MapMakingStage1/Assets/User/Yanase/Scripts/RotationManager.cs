@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class RotationManager : Singleton<RotationManager> {
 
     [SerializeField] private Transform corePlanet = null;
     [SerializeField] private Transform rotationTarget = null;
 
-    [Header("回転表示オブジェクト群"), SerializeField]
-    public GameObject ArrowObject = null;
+    public float XBoxVibration = 0.8f;
 
-    public Material ArrowMaterial;
+    [Header("SE")]
+    public float SE_PlanetRotationVolume = 2f;
+    private AudioSource planetAudio;
 
     [Space(4)]
     [SerializeField] private float rotationSpeed = 0.0f;
@@ -36,9 +38,8 @@ public class RotationManager : Singleton<RotationManager> {
     //Initialize
     private void Start ()
     {
-        ArrowMaterial = Resources.Load<Material>("Materials/ArrowMaterial");
-        ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
-        ArrowObject.SetActive(false);
+        planetAudio = corePlanet.GetComponent<AudioSource>();
+        if (!planetAudio) planetAudio = corePlanet.gameObject.AddComponent<AudioSource>();
     }
 	
     //Update
@@ -48,12 +49,22 @@ public class RotationManager : Singleton<RotationManager> {
     }
 
     //FixedUpdate
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        //if (!isRotation)
-        //{
-        //    rotationSpeed = 0.0f;
-        //}
+        if (planetAudio)
+        {
+            if (isRotation)
+            {
+                if (!planetAudio.isPlaying)
+                {
+                    AudioManager.Instance.PlaySE(planetAudio, AUDIO.SE_PLANETROTATION, SE_PlanetRotationVolume);
+                }
+            }
+            else
+            {
+                planetAudio.Stop();
+            }
+        }
     }
 
     private void PlanetRotation(float angle)
@@ -63,11 +74,6 @@ public class RotationManager : Singleton<RotationManager> {
 
         if (flagManager.flagActive)
         {
-            if (isRotation)
-                ArrowObject.SetActive(true);
-            else
-                ArrowObject.SetActive(false);
-
             if (isRotation)
             {
                 rotationSpeed += accelSpeed;
@@ -82,9 +88,6 @@ public class RotationManager : Singleton<RotationManager> {
                     isRotation = false;
                     curRotation = 0.0f;
                     InputRotation();
-
-                  
-                        
                     
                 }
                 else curRotation -= roll;
@@ -95,12 +98,10 @@ public class RotationManager : Singleton<RotationManager> {
                 quaternion = Quaternion.AngleAxis(roll, axisTransform.up);
                 // 回転値を合成
                 axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
-                rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
-
-                ArrowObject.transform.position = flagManager.flagTransform.position;
-                ArrowObject.transform.rotation = Quaternion.Inverse(quaternion) * ArrowObject.transform.rotation;
+                corePlanet.rotation = quaternion * corePlanet.transform.rotation;
 
                 corePlanet.GetComponent<Animator>().SetBool("vibration", true);
+                GamePad.SetVibration(PlayerIndex.One, XBoxVibration, XBoxVibration);
             }
             else
             {
@@ -108,39 +109,26 @@ public class RotationManager : Singleton<RotationManager> {
                 rotationSpeed = 0.0f;
 
                 corePlanet.GetComponent<Animator>().SetBool("vibration", false);
+                GamePad.SetVibration(PlayerIndex.One, 0.0f, 0.0f);
             }
         }
     }
 
     private void InputRotation()
     {
-        if (Input.GetButton(InputManager.Left_AxisRotation))
+        bool left = Input.GetButton(InputManager.Left_AxisRotation);
+        bool right = Input.GetButton(InputManager.Right_AxisRotation);
+
+        if (left)
         {
             curRotation = -rotationAngle;
-            ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(0f, 0f));
             isRotation = true;
         }
-        if (Input.GetButton(InputManager.Right_AxisRotation))
+        else if (right)
         {
             curRotation = rotationAngle;
-            ArrowMaterial.SetTextureOffset("_MainTex", new Vector2(1f, 0f));
             isRotation = true;
         }
-    }
-
-    public Vector3 GetMoveDir(Vector3 position)
-    {
-        // フラグマネージャー取得
-        FlagManager flagManager = FlagManager.Instance;
-
-        if (!flagManager.flagActive || 
-            (rotationSpeed < 0.1f && rotationSpeed > -0.1f))
-            return Vector3.zero;
-
-        Transform flagTransform = flagManager.flagTransform;
-        Vector3 moveDir = Vector3.Cross(flagTransform.up, position - flagTransform.position).normalized * ((rotationSpeed * 1.5f) * Time.deltaTime);
-
-        return moveDir;
     }
 
     public float GetSpeed()

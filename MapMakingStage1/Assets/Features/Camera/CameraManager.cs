@@ -9,6 +9,13 @@ public class CameraManager : Singleton<CameraManager>
     public PlanetCamera planetCamera;
     public CharacterCamera characterCamera;
 
+    private bool onCharacterCamera = false;
+
+    private void Start()
+    {
+        isChange = true;
+    }
+
     void Update()
     {
         if (Input.GetButtonDown(InputManager.View_Swith))
@@ -18,16 +25,25 @@ public class CameraManager : Singleton<CameraManager>
                 Vector3 dir = -characterCamera.cameraTransform.forward;
                 planetCamera.transform.rotation = characterCamera.cameraTransform.rotation;
                 planetCamera.transform.position = RotationManager.Instance.planetTransform.position + dir * planetCamera.distance;
+
+                isChange = !isChange;
             }
             else
             {
                 characterCamera.tiltAngle = 38f;
+                onCharacterCamera = true;
+                planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10);
             }
-
-            isChange = !isChange;
-            planetCamera.gameObject.SetActive(!isChange);
-            characterCamera.gameObject.SetActive(isChange);
         }
+        if(onCharacterCamera && !planetCamera.isMoveTarget)
+        {
+            isChange = !isChange;
+            onCharacterCamera = false;
+            characterCamera.SetAngle(planetCamera.targetPosition);
+        }
+
+        planetCamera.gameObject.SetActive(!isChange);
+        characterCamera.gameObject.SetActive(isChange);
     }
 }
 
