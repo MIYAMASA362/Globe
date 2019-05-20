@@ -7,6 +7,7 @@ public class InvisibleWaker : MonoBehaviour {
 
     Transform character;
     public float height = 5f;
+    public float offsetHeight = 2f;
     public float followSpeed = 20.0f;
     public float moveSpeed = 10.0f;
     float moveAmount = 0.0f;
@@ -26,14 +27,7 @@ public class InvisibleWaker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position != character.position)
-        {
-            isPlay = true;
-        }
-        else
-        {
-            isPlay = false;
-        }
+		
 	}
 
     private void LateUpdate()
@@ -48,6 +42,8 @@ public class InvisibleWaker : MonoBehaviour {
     {
         transform.position = Vector3.Lerp(transform.position, character.position, d * followSpeed);
         SetDistance();
+
+        
     }
 
     private void SetDistance()
@@ -55,8 +51,17 @@ public class InvisibleWaker : MonoBehaviour {
         Vector3 corePosition = RotationManager.Instance.planetTransform.position;
         Vector3 targetDir = (corePosition - transform.position).normalized;
         float curDist = (corePosition - transform.position).magnitude;
-        float targetDist = curDist - height;
+        float targetDist = curDist - (height + offsetHeight);
         transform.position += targetDir * targetDist;
+
+        if (((character.position - targetDir * offsetHeight) - transform.position).magnitude > 1f)
+        {
+            isPlay = true;
+        }
+        else
+        {
+            isPlay = false;
+        }
     }
 
     public void OnPlay(float d)

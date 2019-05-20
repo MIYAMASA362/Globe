@@ -5,7 +5,7 @@ using UnityEngine;
 public class AtmosphereManager : Singleton<AtmosphereManager>
 {
 
-    public Transform atmosphere;
+    public Transform planetAtmosphere;
     public GameObject clouds;
     public float cloudsScaleSmooth = 5f;
     public float cloudsTargetScale = 5f;
@@ -31,6 +31,6 @@ public class AtmosphereManager : Singleton<AtmosphereManager>
 
     private void LateUpdate()
     {
-        atmosphere.transform.position = RotationManager.Instance.planetTransform.position + Camera.main.transform.forward * 0.01f;
+        planetAtmosphere.transform.position = RotationManager.Instance.planetTransform.position + Camera.main.transform.forward * 0.01f;
     }
 }

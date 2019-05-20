@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1018991784440204}
+  m_RootGameObject: {fileID: 1199882969672898}
   m_IsPrefabAsset: 1
---- !u!1 &1018991784440204
+--- !u!1 &1199882969672898
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4408558585214478}
-  - component: {fileID: 114819651058851262}
-  - component: {fileID: 114535258796084652}
-  - component: {fileID: 114741966906602194}
-  - component: {fileID: 114836418203542876}
+  - component: {fileID: 4463051477265930}
+  - component: {fileID: 114985645398608028}
+  - component: {fileID: 114891609408919516}
+  - component: {fileID: 114369311609879386}
+  - component: {fileID: 114523083613258692}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -30,12 +30,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4408558585214478
+--- !u!4 &4463051477265930
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1018991784440204}
+  m_GameObject: {fileID: 1199882969672898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -43,29 +43,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114535258796084652
+--- !u!114 &114369311609879386
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1018991784440204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: {fileID: 0}
-  lineEffectSwitcher: {fileID: 0}
-  findTag: FloatGround
-  curFloatType: 0
-  flagActive: 0
-  flagScaleSpeed: 3
---- !u!114 &114741966906602194
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1018991784440204}
+  m_GameObject: {fileID: 1199882969672898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f2b0fb43bc680043b49c5afe69fcad7, type: 3}
@@ -75,33 +58,12 @@ MonoBehaviour:
   clouds: {fileID: 0}
   cloudsScaleSmooth: 2
   cloudsTargetScale: 5
---- !u!114 &114819651058851262
+--- !u!114 &114523083613258692
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1018991784440204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corePlanet: {fileID: 0}
-  rotationTarget: {fileID: 0}
-  ArrowObject: {fileID: 0}
-  ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
-  rotationSpeed: 0
-  accelSpeed: 3
-  maxSpeed: 80
-  isRotation: 0
-  rotationAngle: 18
-  curRotation: 0
---- !u!114 &114836418203542876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1018991784440204}
+  m_GameObject: {fileID: 1199882969672898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
@@ -110,3 +72,47 @@ MonoBehaviour:
   isChange: 0
   planetCamera: {fileID: 0}
   characterCamera: {fileID: 0}
+--- !u!114 &114891609408919516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1199882969672898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e73a1e421a6bf4a90f608bdbda42f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  SE_FlagPlugInVolume: 1
+  SE_FlagDeployVolume: 3
+  SE_FlagUnPlugVolume: 1
+  SE_FloatSwapVolume: 1
+  lineEffectSwitcher: {fileID: 0}
+  findTag: FloatGround
+  curFloatType: 0
+  flagActive: 0
+  flagScaleSpeed: 3
+--- !u!114 &114985645398608028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1199882969672898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corePlanet: {fileID: 0}
+  rotationTarget: {fileID: 0}
+  XBoxVibration: 0.8
+  SE_PlanetRotationVolume: 0.2
+  ArrowObject: {fileID: 0}
+  ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
+  rotationSpeed: 0
+  accelSpeed: 3
+  maxSpeed: 80
+  isRotation: 0
+  rotationAngle: 18
+  curRotation: 0

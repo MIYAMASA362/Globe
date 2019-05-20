@@ -32,14 +32,14 @@ public class CameraManager : Singleton<CameraManager>
             {
                 characterCamera.tiltAngle = 38f;
                 onCharacterCamera = true;
-                planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 15);
+                planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10);
             }
         }
         if(onCharacterCamera && !planetCamera.isMoveTarget)
         {
             isChange = !isChange;
             onCharacterCamera = false;
-            
+            characterCamera.SetAngle(planetCamera.targetPosition);
         }
 
         planetCamera.gameObject.SetActive(!isChange);

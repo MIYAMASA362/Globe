@@ -17,8 +17,8 @@ public class FloatGround : MonoBehaviour
     public bool onGround = false;
     private float startHeight;
     private float startWireHeight;
-    private Quaternion meshInitRotation;
 
+    public bool isFalse = false;
 
     void Start()
     {
@@ -28,11 +28,14 @@ public class FloatGround : MonoBehaviour
         effectRender = effectObject.GetComponent<Renderer>();
 
         effectObject.SetActive(false);
-        meshInitRotation = animator.transform.localRotation;
+        animator.enabled = true;
     }
 
     void Update()
     {
+        animator.SetBool("false", isFalse);
+        if (isFalse) isFalse = false;
+
         if (FlagManager.Instance.flagActive &&
             FlagManager.Instance.curFloatType == type)
         {
@@ -43,7 +46,8 @@ public class FloatGround : MonoBehaviour
                 onGround = wireFrameTrigger.onTrigger;
 
                 SetUpdate(RotationManager.Instance.rotationTransform, startHeight + floatHeight, true);
-                animator.enabled = true;
+
+                animator.SetBool("move", true);
 
                 if (wireFrameTrigger.onTrigger)
                 {
@@ -58,18 +62,19 @@ public class FloatGround : MonoBehaviour
             {
                 onGround = false;
                 effectRender.material.SetColor("_ShieldPatternColor", Color.cyan);
+                animator.SetBool("move", false);
 
                 SetUpdate(RotationManager.Instance.planetTransform, startHeight, false);
-                AnimationReset();
             }
         }
         else
         {
             onGround = false;
             effectObject.SetActive(false);
+            animator.SetBool("move", false);
 
             SetUpdate(RotationManager.Instance.planetTransform, startHeight, false);
-            AnimationReset();
+
         }
 
         wireFrameTrigger.transform.position = wireFrameTrigger.transform.forward * startWireHeight;
@@ -89,12 +94,5 @@ public class FloatGround : MonoBehaviour
             float height = Mathf.Lerp(transform.localPosition.y, target, floatSpeed * Time.deltaTime);
             transform.localPosition = new Vector3(0.0f, height, 0.0f);
         }
-    }
-
-    void AnimationReset()
-    {
-        animator.enabled = false;
-        animator.transform.localRotation = meshInitRotation;
-        animator.transform.localPosition = Vector3.zero;
     }
 }
