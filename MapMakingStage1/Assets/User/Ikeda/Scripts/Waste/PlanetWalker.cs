@@ -8,8 +8,6 @@ public class PlanetWalker : MonoBehaviour {
 
     //--- Attribute -----------------------------
 
-    //--- public ----------------------
-    public InputHandler inputHandler;
 
     //--- private ---------------------
     [Header("Stats")]
@@ -45,7 +43,9 @@ public class PlanetWalker : MonoBehaviour {
 
     public Animator anim;
 
-    //--- MonoBehavior --------------------------
+    public float horizontal;
+    public float vertical;
+
 
     // Use this for initialization
     void Start ()
@@ -70,14 +70,13 @@ public class PlanetWalker : MonoBehaviour {
 
     void FixedUpdate()
     {
-        MoveVec = MoveDirection();
         Get_RayCast();
         Move(MoveVec);
     }
 
     void LateUpdate()
     {
-        
+        if (anim) anim.SetFloat("move", moveAmount);
     }
 
     //RayCast
@@ -137,11 +136,9 @@ public class PlanetWalker : MonoBehaviour {
         Transform cameraTransform = Camera.main.transform;
         Vector3 forward = Vector3.Cross(this.transform.up,-cameraTransform.right).normalized;
         Vector3 right = Vector3.Cross(this.transform.up,forward).normalized;
-        float h = inputHandler.horizontal;
-        float v = inputHandler.vertical;
 
-        moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
-        return (forward * v + right * h).normalized;
+        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+        return (forward * vertical + right * horizontal).normalized;
     }
 
     //Charactor Move
@@ -156,8 +153,6 @@ public class PlanetWalker : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * moveAmount * turnSpeed);
 
         rigidbody.AddForce(velocityChanger, ForceMode.VelocityChange);
-
-        if (anim) anim.SetFloat("move", moveAmount);
 
         if (transform.parent)
         {
@@ -189,5 +184,10 @@ public class PlanetWalker : MonoBehaviour {
         velocityChange = transform.TransformDirection(velocityChange);
 
         return velocityChange;
+    }
+
+    public void FixedTick(float d)
+    {
+        MoveVec = MoveDirection();
     }
 }

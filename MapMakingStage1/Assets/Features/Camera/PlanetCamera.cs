@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlanetCamera : MonoBehaviour
 {
-    public float upSpeed = 3.0f;
     public float moveSpeed = 2.0f;
 
     public float distance = 13f;
@@ -11,13 +10,14 @@ public class PlanetCamera : MonoBehaviour
     Vector3 targetDir = Vector3.zero;
     Vector3 corePosition;
 
-    bool isMoveTarget;
+    public bool isMoveTarget;
     Vector3 moveTargetPosition;
     private float followSpeed = 0.0f;
 
     public float holizontal = 0.0f;
     public float vertical = 0.0f;
-    public float sumooth = 0.5f;
+    public float sumooth = 0.1f;
+    [HideInInspector] public Vector3 targetPosition = Vector3.zero;
 
     private void Start()
     {
@@ -44,8 +44,9 @@ public class PlanetCamera : MonoBehaviour
         {
             InputMove();
         }
-        
-        Tick();
+
+        SetDistance();
+        SetRotation();
     }
 
     private void InputMove()
@@ -56,18 +57,24 @@ public class PlanetCamera : MonoBehaviour
         holizontal = Mathf.Lerp(holizontal, h, sumooth);
         vertical = Mathf.Lerp(vertical, v, sumooth);
 
-        transform.position -= holizontal * transform.right * Time.deltaTime * moveSpeed;
-        transform.position -= vertical * transform.up * Time.deltaTime * moveSpeed;
+        float moveAmount = Mathf.Abs(holizontal) + Mathf.Abs(vertical);
+        if (moveAmount < 0.08f) moveAmount = 0.0f;
+
+        Vector3 moveDir = (holizontal * transform.right + vertical * transform.up).normalized;
+
+        transform.position -= moveDir * moveAmount * Time.deltaTime * moveSpeed;
     }
 
-
-    private void Tick()
+    private void SetDistance()
     {
         targetDir = (corePosition - transform.position).normalized;
         float curDist = (corePosition - transform.position).magnitude;
         float targetDist = curDist - distance;
         transform.position += targetDir * targetDist;
+    }
 
+    private void SetRotation()
+    {
         targetDir = (corePosition - transform.position).normalized;
         Quaternion q1 = Quaternion.FromToRotation(transform.forward, targetDir) * transform.rotation;
         transform.rotation = q1;
@@ -77,16 +84,16 @@ public class PlanetCamera : MonoBehaviour
     {
         Vector3 movePos = position - transform.up * 8f;
         Vector3 dir = (movePos - corePosition);
-        Vector3 targetPos = movePos - (dir - (dir.normalized * distance));
+        targetPosition = movePos - (dir - (dir.normalized * distance));
 
-        transform.position += Vector3.Lerp(transform.position, targetPos, speed);
+        transform.position += Vector3.Lerp(transform.position, targetPosition, speed);
 
         targetDir = (corePosition - transform.position).normalized;
         float curDist = (corePosition - transform.position).magnitude;
         float targetDist = curDist - distance;
         transform.position += targetDir * targetDist;
 
-        float dist = (transform.position - targetPos).magnitude;
+        float dist = (transform.position - targetPosition).magnitude;
         if (dist < 1f)
         {
             isMoveTarget = false;
