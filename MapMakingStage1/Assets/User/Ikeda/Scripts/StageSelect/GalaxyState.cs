@@ -6,10 +6,6 @@ using TMPro;
 public class GalaxyState : MonoBehaviour
 {
     //--- Attribute -----------------------------------------------------------
-    [Header("Galaxy Name")]
-    [SerializeField]
-    public string GalaxyName = "NONE";
-    
     [Space(8)]
     [Header("StarCrystal State")]
     [SerializeField, Tooltip("星の宝石の総取得可能数")]
@@ -37,6 +33,7 @@ public class GalaxyState : MonoBehaviour
     //--- Internal State ------------------------
     [HideInInspector]
     public StageSelectScene selectScene;
+    public int MyGalaxyNum = 0;
 
     //--- MonoBehaviour -------------------------------------------------------
 
@@ -81,11 +78,11 @@ public class GalaxyState : MonoBehaviour
         {
             if (planetState == null) continue;
 
-            nMaxStarCrystalNum += planetState.nMaxStarCrystalNum;
-            nGetStarCrystalNum += planetState.nGetStarCrystalNum;
+            nMaxStarCrystalNum += 1;
+            nGetStarCrystalNum += planetState.StarCrystalNum();
 
-            nMaxCrystalNum += planetState.nMaxCrystalNum;
-            nGetCrystalNum += planetState.nGetCrystalNum;
+            nMaxCrystalNum += 1;
+            nGetCrystalNum += planetState.CrystalNum();
         }
     }
 

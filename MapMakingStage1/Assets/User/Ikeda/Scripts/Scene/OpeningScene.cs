@@ -38,9 +38,7 @@ public class OpeningScene : SceneBase {
             InputObj.SetActive(true);
 
             if (Input.anyKeyDown)
-            {
-                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,false);
-            }
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,true);
         }
         else
         {

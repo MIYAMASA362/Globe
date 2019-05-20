@@ -1,47 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DataType;
+using UnityEngine.SceneManagement;
 
 public class PlanetState : MonoBehaviour
 {
-    [Header("Planet Name")]
-    [SerializeField]
-    public string PlanetName = "NONE";
-
-    [Header("StarCrystal State")]
-    [SerializeField, Tooltip("星の宝石の総取得可能数")]
-    public int nMaxStarCrystalNum;
-    [SerializeField, Tooltip("星の宝石の取得数")]
-    public int nGetStarCrystalNum;
-
-    [Space(8)]
-    [Header("Crystal State")]
-    [SerializeField, Tooltip("隠し宝石の総取得可能数")]
-    public int nMaxCrystalNum;
-    [SerializeField, Tooltip("隠し宝石の取得数")]
-    public int nGetCrystalNum;
-
-    // Use this for initialization
-    void Start ()
+    public enum eGalaxyNum
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-
-    //残りの星の宝石数
-    public int StarCrystal_ReaminingNum()
-    {
-        return nMaxStarCrystalNum - nGetStarCrystalNum;
+        Galaxy1 = 0,
+        Galaxy2 = 1,
+        Galaxy3 = 2,
+        Galaxy4 = 3
     }
 
-    //残りの隠し宝石数
-    public int Crystal_RemainingNum()
+    public enum ePlanetNum
     {
-        return nMaxCrystalNum - nGetCrystalNum;
+        Planet1 = 0,
+        Planet2 = 1,
+        Planet3 = 2,
+        Planet4 = 3,
+        Planet5 = 4
+    }
+
+    [Header("PlanetState")]
+    [SerializeField] public eGalaxyNum GalaxyNum = eGalaxyNum.Galaxy1;
+    [SerializeField] public ePlanetNum PlanetNum = ePlanetNum.Planet1;
+
+    [Space(4)]
+    [Header("Data")]
+    [SerializeField] public string DataFile = "NONE";
+    [SerializeField] private PlanetData planetData;
+
+    [HideInInspector] public string PlanetName;
+    
+
+    private void Awake()
+    {
+        LoadData();
+    }
+
+    //--- Method --------------------------------------------------------------
+
+    public void LoadData()
+    {
+        planetData = new PlanetData(DataFile);
+
+        if (DataHandle.FileFind(planetData.FileName()))
+            DataHandle.Load(ref planetData, planetData.FileName());
+    }
+
+    public int CrystalNum()
+    {
+        return planetData.IsGet_Crystal ? 1:0;
+    }
+
+    public int StarCrystalNum()
+    {
+        return planetData.IsGet_StarCrystal ? 1 : 0;
+    }
+
+    public int Crystal_ReaminingNum()
+    {
+        return 1 - CrystalNum();
+    }
+
+    public int StarCrystal_ReaminingNum()
+    {
+        return 1 - StarCrystalNum();
     }
 }

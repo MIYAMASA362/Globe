@@ -50,12 +50,28 @@ public class TitleScene : SceneBase
 
         time = 0f;
         bInput = false;
-        IsContinue = DataManager.Instance.Continue();
+
+        if (DataHandle.FileFind(DataManager.Instance.playerData.FileName()))
+        {
+            DataManager.Instance.Load_PlayerData();
+            IsContinue = DataManager.Instance.playerData.IsContinue;
+        }
+        else
+        {
+            DataManager.Instance.Create_PlayerData();
+            IsContinue = false;
+        }
+
+        Invoke("Loaded",3f);
     }
+
+    
 
     // Update is called once per frame
     public override void Update()
     {
+        if (MySceneManager.IsLoading()) return;
+
         base.Update();
 
         time += Time.deltaTime;
@@ -111,7 +127,8 @@ public class TitleScene : SceneBase
             {
                 //Start
                 case 0:
-                        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GameStart, false);
+                    DataManager.Instance.Reset_DataState();
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, true);
                     break;
 
                 //Continue
@@ -152,6 +169,11 @@ public class TitleScene : SceneBase
     private void bUpdate_Change()
     {
         bUpdate = true;
+    }
+
+    public void Loaded()
+    {
+        MySceneManager.Instance.CompleteLoaded();
     }
 
     //--- IEnumerator -------------------------------------
