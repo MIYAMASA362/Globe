@@ -49,6 +49,7 @@ public class Crystal : CrystalBase
         this.handle = handle;
     }
 
+    //UI位置までの移動演出
     public void MoveProduce()
     {
         time += Time.deltaTime/2f;
@@ -59,6 +60,7 @@ public class Crystal : CrystalBase
         if (time >= 0.3f) EndProduce();
     }
 
+    //演出終了
     public void EndProduce()
     {
         this.gameObject.SetActive(false);

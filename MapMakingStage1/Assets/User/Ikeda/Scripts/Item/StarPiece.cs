@@ -35,12 +35,13 @@ public class StarPiece : CrystalBase
 
         defaultScale = transform.localScale;
         ProduceTargetObj = handle.GetUIStarPiece(nPieceNum);
-        IsProduce = true;
+        IsProduce = true;   //演出開始
         IsEnable = false;
     }
 
     //--- Method --------------------------------------------------------------
 
+    //UI位置までの移動演出
     private void MoveProduce()
     {
         time += Time.deltaTime;
@@ -51,6 +52,7 @@ public class StarPiece : CrystalBase
         if (time >= 0.5f) EndProduce();
     }
 
+    //演出終了
     private void EndProduce()
     {
         this.gameObject.SetActive(false);

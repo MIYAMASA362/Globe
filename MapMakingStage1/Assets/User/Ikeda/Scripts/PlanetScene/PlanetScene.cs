@@ -32,8 +32,6 @@ public class PlanetScene :SceneBase
     private PlanetResult planetResult;
 
     //--- Animator ------------------------------
-    [SerializeField] private Animator animator;
-
     private bool IsGameClear;
     public STATE state;
 
@@ -96,7 +94,6 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        animator.gameObject.SetActive(false);
         state = STATE.OPENING;
     }
 
