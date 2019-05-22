@@ -591,6 +591,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1483562971735022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4401547678020578}
+  m_Layer: 8
+  m_Name: DevicePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1488789567839904
 GameObject:
   m_ObjectHideFlags: 1
@@ -1293,7 +1308,7 @@ Transform:
   - {fileID: 4815066546812908}
   - {fileID: 4837173843737258}
   m_Father: {fileID: 4045004129870344}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4045004129870344
 Transform:
@@ -1307,6 +1322,7 @@ Transform:
   m_Children:
   - {fileID: 4371040558927122}
   - {fileID: 4270573083037014}
+  - {fileID: 4401547678020578}
   - {fileID: 4093706159346362}
   - {fileID: 4034996063456086}
   m_Father: {fileID: 0}
@@ -1419,7 +1435,7 @@ Transform:
   m_Children:
   - {fileID: 4835861134085396}
   m_Father: {fileID: 4045004129870344}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4096142607827438
 Transform:
@@ -1748,6 +1764,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4045004129870344}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4401547678020578
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1483562971735022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.726, y: -0, z: -0.855}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4045004129870344}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4403928482626098
 Transform:
@@ -2513,7 +2542,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7619c09e3181e1e4d9573590ef798945, type: 2}
+  - {fileID: 2100000, guid: 9fd4bd0657d3b0440b050380ae10be32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2756,7 +2785,7 @@ MonoBehaviour:
   maxVelocityChange: 5
   castDistance: 0.1
   rayStartPosition: 0.3
-  rayEndPosition: -1.2
+  rayEndPosition: -0.9
   rayRadius: 0.01
   stopMaxAngle: 70
   onGround: 0
@@ -2780,11 +2809,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateManager: {fileID: 114667497107320910}
   planetWalker: {fileID: 114117206310399064}
-  grass_Volume: 0.5
-  snow1_Volume: 2.5
-  snow2_Volume: 1.8
-  rock_Volume: 1.5
-  sand_Volume: 1.5
 --- !u!114 &114667497107320910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2797,6 +2821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circleParticle: {fileID: 198212129835680442}
+  axisDevice: {fileID: 0}
   moveSpeed: 3
   moveAmountMult: 0.3
   turnSpeed: 46.15
@@ -2869,7 +2894,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.62
-  m_Center: {x: 0, y: -0.12, z: 0}
+  m_Center: {x: 0, y: -0.4, z: 0}
 --- !u!136 &136478088185360678
 CapsuleCollider:
   m_ObjectHideFlags: 1

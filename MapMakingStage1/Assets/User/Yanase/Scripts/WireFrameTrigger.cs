@@ -37,6 +37,8 @@ public class WireFrameTrigger : MonoBehaviour
     {
         if (CompareLayer(hitLayer,other.gameObject.layer)) 
         {
+            if (triggerList.Contains(other.gameObject)) return;
+
             triggerList.Add(other.gameObject);
         }
     }

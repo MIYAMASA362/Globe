@@ -5,6 +5,8 @@ using XInputDotNetPure;
 
 public class RotationManager : Singleton<RotationManager> {
 
+    public bool isStageCreate = false;
+
     [SerializeField] private Transform corePlanet = null;
     [SerializeField] private Transform rotationTarget = null;
 
@@ -98,7 +100,15 @@ public class RotationManager : Singleton<RotationManager> {
                 quaternion = Quaternion.AngleAxis(roll, axisTransform.up);
                 // 回転値を合成
                 axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
-                corePlanet.rotation = quaternion * corePlanet.transform.rotation;
+
+                if(isStageCreate)
+                {
+                    rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
+                }
+                else
+                {
+                    corePlanet.rotation = quaternion * corePlanet.transform.rotation;
+                }
 
                 corePlanet.GetComponent<Animator>().SetBool("vibration", true);
                 GamePad.SetVibration(PlayerIndex.One, XBoxVibration, XBoxVibration);

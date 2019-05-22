@@ -30,7 +30,10 @@ public class FootStepEvent : MonoBehaviour {
                 audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_ROCK);
                 break;
             case GroundType.Type.Snow:
-                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW1);
+                if (Random.Range(0, 2) == 0)
+                    audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW1);
+                else
+                    audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW2);
                 break;
             case GroundType.Type.Sand:
                 audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SAND);
@@ -53,7 +56,10 @@ public class FootStepEvent : MonoBehaviour {
                 audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_ROCK);
                 break;
             case GroundType.Type.Snow:
-                audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW2);
+                if (Random.Range(0, 2) == 0)
+                    audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW1);
+                else
+                    audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SNOW2);
                 break;
             case GroundType.Type.Sand:
                 audioManager.PlaySEOneShot(footAudio, audioManager.SE_FOOTSTEP_SAND);

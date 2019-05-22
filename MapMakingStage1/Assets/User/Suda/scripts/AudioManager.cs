@@ -92,6 +92,7 @@ public class AudioManager : Singleton<AudioManager>
             {
                 audioSourceArray[i].loop = true;
                 _bgmSource = audioSourceArray[i];
+                _bgmSource.Stop();
                 _bgmSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFULT);
             }
         }
