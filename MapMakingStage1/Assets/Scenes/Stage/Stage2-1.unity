@@ -7346,7 +7346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPausing: 1
-  animator: {fileID: 890862692}
   state: 0
   DataFile: 
   planetData:
@@ -19125,7 +19124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 3
-  IsGet: 0
 --- !u!1 &905489824
 GameObject:
   m_ObjectHideFlags: 0
@@ -19170,7 +19168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 3
-  IsGet: 0
 --- !u!1 &933911144
 GameObject:
   m_ObjectHideFlags: 0
@@ -19750,7 +19747,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 3
-  IsGet: 0
 --- !u!114 &1136605671 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114448172138441726, guid: 0f4fa3df6e94d224da36475e86656877,
@@ -21848,7 +21844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 1
-  IsGet: 0
 --- !u!1 &1504842298
 GameObject:
   m_ObjectHideFlags: 0
@@ -26862,6 +26857,7 @@ MonoBehaviour:
   - {fileID: 2093951261}
   - {fileID: 1714662446}
   - {fileID: 1130370016}
+  UIStarPiece: {fileID: 1549047535}
   UIPieces:
   - {fileID: 1790184289}
   - {fileID: 1199408295}
@@ -28309,7 +28305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 3
-  IsGet: 0
 --- !u!1 &1721744185
 GameObject:
   m_ObjectHideFlags: 0
@@ -28780,6 +28775,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1790184289}
   m_Mesh: {fileID: 4300016, guid: 3d05a24d0d8e3a147838d52f2e653bf3, type: 3}
+--- !u!1 &1804282863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804282865}
+  - component: {fileID: 1804282864}
+  m_Layer: 0
+  m_Name: MySceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1804282864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1804282863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bInitLoad: 1
+  animator: {fileID: 0}
+  Path_Manager: 
+  Path_Pause: 
+  Path_Opening: 
+  Path_Title: 
+  Path_Option: 
+  Path_DataCheck: 
+  Path_GameStart: 
+  Path_GalaxySelect: 
+  Galaxies: []
+  Path_End: 
+--- !u!4 &1804282865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1804282863}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1814943613
 GameObject:
   m_ObjectHideFlags: 0
@@ -29943,7 +29990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 3
-  IsGet: 0
 --- !u!1 &2103247485
 GameObject:
   m_ObjectHideFlags: 0
