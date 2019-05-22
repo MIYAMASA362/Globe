@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2b0fb43bc680043b49c5afe69fcad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atmosphere: {fileID: 0}
+  planetAtmosphere: {fileID: 0}
   clouds: {fileID: 0}
   cloudsScaleSmooth: 2
   cloudsTargetScale: 5
@@ -84,10 +84,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: {fileID: 0}
-  SE_FlagPlugInVolume: 1
-  SE_FlagDeployVolume: 3
-  SE_FlagUnPlugVolume: 1
-  SE_FloatSwapVolume: 1
   lineEffectSwitcher: {fileID: 0}
   findTag: FloatGround
   curFloatType: 0
@@ -104,12 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1700d4cc419acc4385c82b17920d20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStageCreate: 0
   corePlanet: {fileID: 0}
   rotationTarget: {fileID: 0}
   XBoxVibration: 0.8
-  SE_PlanetRotationVolume: 0.2
-  ArrowObject: {fileID: 0}
-  ArrowMaterial: {fileID: 2100000, guid: 5346ce83e566b4a41a88656aa78bd85a, type: 2}
   rotationSpeed: 0
   accelSpeed: 3
   maxSpeed: 80
