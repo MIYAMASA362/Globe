@@ -25,7 +25,7 @@ public class CrystalHandle : MonoBehaviour
     public bool HitCrystal(GameObject hit)
     {
         if (!CrystalJudgment(hit)) return false;
-        UICrystal.GetComponent<Renderer>().material = Enable_material;
+        
         IsGet = true;
         return true;
     }
@@ -38,5 +38,25 @@ public class CrystalHandle : MonoBehaviour
     public bool IsGetting()
     {
         return IsGet;
+    }
+
+    public void Enable_UI()
+    {
+        UICrystal.SetActive(true);
+    }
+
+    public void Disable_UI()
+    {
+        UICrystal.SetActive(false);
+    }
+
+    public void UICrystalEnter()
+    {
+        UICrystal.GetComponent<Renderer>().material = Enable_material;
+    }
+
+    public GameObject GetCrystalTarget()
+    {
+        return this.UICrystal;
     }
 }

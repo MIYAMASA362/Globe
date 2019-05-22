@@ -33,7 +33,6 @@ public class PlanetState : MonoBehaviour
     [SerializeField] private PlanetData planetData;
 
     [HideInInspector] public string PlanetName;
-    
 
     private void Awake()
     {
