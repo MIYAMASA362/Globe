@@ -61,7 +61,7 @@ public class FloatGround : MonoBehaviour
             else
             {
                 onGround = false;
-                effectRender.material.SetColor("_ShieldPatternColor", Color.cyan);
+                effectRender.material.SetColor("_ShieldPatternColor", Color.white);
                 animator.SetBool("move", false);
 
                 SetUpdate(RotationManager.Instance.planetTransform, startHeight, false);

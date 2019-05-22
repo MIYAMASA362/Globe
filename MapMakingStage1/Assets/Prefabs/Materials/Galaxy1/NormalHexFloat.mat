@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: NormalHexFloat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP
-  m_LightmapFlags: 0
+  m_ShaderKeywords: _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,7 +24,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1.73, y: 1.78}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
@@ -49,7 +49,7 @@ Material:
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1, y: 1}
     - _Emmision:
         m_Texture: {fileID: 2800000, guid: 5798ded558355430c8a9b13ee12a847c, type: 3}
         m_Scale: {x: 2, y: 2}
@@ -61,7 +61,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 44c706d49a9a1be448d111222a8f5812, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1, y: 1}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -94,14 +94,14 @@ Material:
     - _FreshnelScale: 0
     - _Gloss: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.43
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _MaxClamp: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 0
+    - _SmoothnessTextureChannel: 1
     - _Specular: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -111,14 +111,14 @@ Material:
     - _tr: 0
     m_Colors:
     - _ASEOutlineColor: {r: 0, g: 1, b: 0.11449838, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.5019608}
     - _Color0: {r: 0, g: 0, b: 0, a: 0}
     - _ColorTri: {r: 0, g: 0, b: 0, a: 0}
     - _DiffuseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DistortionDirection: {r: 2, g: 2, b: 0, a: 0}
     - _DistortionDirection2: {r: 2, g: 2, b: 0, a: 0}
     - _DistortionTiling: {r: 2, g: 2, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmmisionColor: {r: 0, g: 0, b: 0, a: 0}
     - _Emmisive: {r: 0, g: 0, b: 0, a: 0}
     - _FreshnelColor: {r: 0, g: 0, b: 0, a: 0}

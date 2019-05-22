@@ -2,11 +2,40 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class AudioData
+{
+    public AudioClip clip;
+    public float volume;
+}
+
 /// <summary>
 /// BGMとSEの管理をするマネージャ。シングルトン。
 /// </summary>
+[System.Serializable]
 public class AudioManager : Singleton<AudioManager>
 {
+    [Header("BGM")]
+    public AudioData BGM_STAGE1;
+    public AudioData BGM_STAGE2;
+    public AudioData BGM_STAGE3;
+    public AudioData BGM_STAGE4;
+
+    [Header("足音")]
+    public AudioData SE_FOOTSTEP_GRASS;
+    public AudioData SE_FOOTSTEP_ROCK;
+    public AudioData SE_FOOTSTEP_SAND;
+    public AudioData SE_FOOTSTEP_SNOW1;
+    public AudioData SE_FOOTSTEP_SNOW2;
+
+    [Header("軸系")]
+    public AudioData SE_PLANETROTATION;
+    public AudioData SE_DEPLOY;
+    public AudioData SE_FLAGPLUGIN;
+    public AudioData SE_FLAGUNPLUG;
+    public AudioData SE_FLOATSWAP;
+
+
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
     private const string SE_PATH = "Audio/SE";
@@ -21,18 +50,14 @@ public class AudioManager : Singleton<AudioManager>
     private float _bgmFadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH;
 
     //次流すBGM名、SE名
-    private string _nextBGMName;
+    private AudioData _nextBGM = new AudioData();
 
     //BGMをフェードアウト中か
     private bool _isFadeOut = false;
 
-    //BGM用、SE用に分けてオーディオソースを持つ
+    //オーディオソースを持つ
     private AudioSource _bgmSource;
     private const int BGM_SOURCE_NUM = 1;
-
-    //全AudioClipを保持
-    private Dictionary<string, AudioClip> _bgmDic;
-    private Dictionary<string, AudioClip> _seDic;
 
     //=================================================================================
     //初期化
@@ -67,26 +92,11 @@ public class AudioManager : Singleton<AudioManager>
             {
                 audioSourceArray[i].loop = true;
                 _bgmSource = audioSourceArray[i];
+                _bgmSource.Stop();
                 _bgmSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFULT);
             }
         }
 
-        //リソースフォルダから全SE&BGMのファイルを読み込みセット
-        _bgmDic = new Dictionary<string, AudioClip>();
-        object[] bgmList = Resources.LoadAll(BGM_PATH);
-
-        foreach (AudioClip sound in bgmList)
-        {
-            _bgmDic[sound.name] = sound;
-        }
-
-        _seDic = new Dictionary<string, AudioClip>();
-        object[] seList = Resources.LoadAll(SE_PATH);
-
-        foreach (AudioClip sound in seList)
-        {
-            _seDic[sound.name] = sound;
-        }
     }
     //=================================================================================
     //BGM
@@ -96,50 +106,52 @@ public class AudioManager : Singleton<AudioManager>
     /// 指定したファイル名のBGMを流す。ただし既に流れている場合は前の曲をフェードアウトさせてから。
     /// 第二引数のfadeSpeedRateに指定した割合でフェードアウトするスピードが変わる
     /// </summary>
-    public void PlayBGM(string bgmName, float fadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH)
+    public void PlayBGM(AudioData bgm, float fadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH)
     {
-        if (!_bgmDic.ContainsKey(bgmName))
+        if (!bgm.clip)
         {
-            Debug.Log(bgmName + "という名前のBGMがありません");
+            Debug.Log(bgm.clip.name + "という名前のBGMがありません");
             return;
         }
 
         //現在BGMが流れていない時はそのまま流す
         if (!_bgmSource.isPlaying)
         {
-            _nextBGMName = "";
-            _bgmSource.clip = _bgmDic[bgmName] as AudioClip;
+            _nextBGM.clip = null;
+            _nextBGM.volume = 0;
+            _bgmSource.clip = bgm.clip;
+            _bgmSource.volume = bgm.volume;
             _bgmSource.Play();
         }
         //違うBGMが流れている時は、流れているBGMをフェードアウトさせてから次を流す。同じBGMが流れている時はスルー
-        else if (_bgmSource.clip.name != bgmName)
+        else if (_bgmSource.clip != bgm.clip)
         {
-            _nextBGMName = bgmName;
+            _nextBGM = bgm;
             FadeOutBGM(fadeSpeedRate);
         }
     }
 
-    public void PlaySEOneShot(AudioSource sorce, string fileName, float volume)
+    public void PlaySEOneShot(AudioSource sorce, AudioData audioData)
     {
-        if (!_seDic.ContainsKey(fileName))
+        if (!audioData.clip)
         {
-            Debug.Log(fileName + "という名前のSEがありません");
+            Debug.Log(audioData.clip.name + "という名前のSEがありません");
             return;
         }
 
-        sorce.PlayOneShot(_seDic[fileName], volume);
+        sorce.PlayOneShot(audioData.clip, audioData.volume);
     }
 
-    public void PlaySE(AudioSource sorce, string fileName, float volume)
+    public void PlaySE(AudioSource sorce, AudioData audioData)
     {
-        if (!_seDic.ContainsKey(fileName))
+        if (!audioData.clip)
         {
-            Debug.Log(fileName + "という名前のSEがありません");
+            Debug.Log(audioData.clip.name + "という名前のSEがありません");
             return;
         }
 
-        sorce.clip = _seDic[fileName];
-        sorce.volume = volume;
+        sorce.clip = audioData.clip;
+        sorce.volume = audioData.volume;
         sorce.Play();
     }
 
@@ -181,9 +193,9 @@ public class AudioManager : Singleton<AudioManager>
             _bgmSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFULT);
             _isFadeOut = false;
 
-            if (!string.IsNullOrEmpty(_nextBGMName))
+            if (!_nextBGM.clip)
             {
-                PlayBGM(_nextBGMName);
+                PlayBGM(_nextBGM);
             }
         }
 
