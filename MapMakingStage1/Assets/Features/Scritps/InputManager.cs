@@ -802,7 +802,7 @@ public static class InputManager {
             dead = 0.19f,
             sensitivity = 1f,
             snap = false,
-            invert = false,
+            invert = true,
             type = AxisType.JoystickAxis,
             axis = 4,
             joyNum = 0,
