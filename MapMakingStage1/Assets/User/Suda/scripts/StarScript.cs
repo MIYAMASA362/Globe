@@ -15,10 +15,8 @@ public class StarScript : MonoBehaviour {
         //プレイヤーのrotationを修正
         player.transform.up = (player.transform.position - RotationManager.Instance.planetTransform.position).normalized;
 
-        FlagManager.Instance.flagTransform.up = transform.forward;
-
         //BGMスタート
-        AudioManager.Instance.PlayBGM(AUDIO.BGM_STAGE1_SAMPLE);
-        AudioManager.Instance.ChangeVolume(0.5f);
+        AudioManager audioManager = AudioManager.Instance;
+        audioManager.PlayBGM(audioManager.BGM_STAGE1);
 	}
 }

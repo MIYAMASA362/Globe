@@ -8,6 +8,7 @@ namespace SA
     public class StateManager : MonoBehaviour
     {
         public ParticleSystem circleParticle;
+        public AxisDevice axisDevice;
 
         [Header("Stats")]
         public float moveSpeed = 3;
@@ -154,8 +155,12 @@ namespace SA
                 return;
             }
 
-            transform.parent = RotationManager.Instance.planetTransform;
-
+            Transform planetTransform = RotationManager.Instance.planetTransform;
+            if (transform.parent != planetTransform)
+            {
+                transform.parent = planetTransform;
+                GetComponent<PlanetWalker>().oldPosition = transform.localPosition;
+            }
         }
 
         public void Tick(float d)
@@ -189,12 +194,21 @@ namespace SA
                 {
                     if (axisObject == axisTransform.parent.gameObject)
                     {
-                        if(flagManager.DestoyFlag(axisTransform.position)) axisObject = null;
+                        if (flagManager.DestoyFlag(axisTransform.position))
+                        {
+                            axisObject = null;
+                            axisDevice.ResetChase();
+                            circleParticle.Play();
+                        }
                     }
                 }
                 else
                 {
-                    flagManager.SetFlag(axisTransform.position, axisTransform.GetComponent<FloatType>().type);
+                    Transform target = axisTransform.GetChild(0);
+                    if (axisDevice.chaseTarget == target) return;
+
+                    axisDevice.SetTarget(target, axisTransform.GetComponent<FloatType>().type);
+                    circleParticle.Play();
                     axisObject = axisTransform.parent.gameObject;
                 }
             }
