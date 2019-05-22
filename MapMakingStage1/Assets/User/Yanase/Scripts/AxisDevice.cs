@@ -12,7 +12,6 @@ public class AxisDevice : MonoBehaviour {
     public float chaseSpeed = 1.0f;
     public float setSpeed = 1.0f;
     bool onSet = false;
-    FloatType.Type type;
 
     // Use this for initialization
     void Start () {
@@ -38,21 +37,14 @@ public class AxisDevice : MonoBehaviour {
             collider.enabled = false;
             transform.position = Vector3.Lerp(transform.position, chaseTarget.position, delta * setSpeed);
             transform.rotation = Quaternion.Slerp(transform.rotation, chaseTarget.rotation, delta * setSpeed);
-
-            float distance = (transform.position - chaseTarget.position).magnitude;
-            if (distance < 0.1f)
-            {
-                FlagManager.Instance.SetFlag(chaseTarget.position, type);
-            }
         }
 	}
 
-    public void SetTarget(Transform target, FloatType.Type type)
+    public void SetTarget(Transform target)
     {
         if (!target) return;
 
         chaseTarget = target;
-        this.type = type;
         onSet = true;
     }
 

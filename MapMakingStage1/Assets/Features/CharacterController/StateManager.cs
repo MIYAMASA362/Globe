@@ -207,7 +207,8 @@ namespace SA
                     Transform target = axisTransform.GetChild(0);
                     if (axisDevice.chaseTarget == target) return;
 
-                    axisDevice.SetTarget(target, axisTransform.GetComponent<FloatType>().type);
+                    FlagManager.Instance.SetFlag(target.position, axisTransform.GetComponent<FloatType>().type);
+                    axisDevice.SetTarget(target);
                     circleParticle.Play();
                     axisObject = axisTransform.parent.gameObject;
                 }
