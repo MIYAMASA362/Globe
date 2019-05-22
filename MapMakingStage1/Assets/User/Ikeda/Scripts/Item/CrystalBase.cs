@@ -6,9 +6,6 @@ public class CrystalBase : MonoBehaviour
 {
     public float RotSpeed = 3f;
 
-    //データを参照し、既に取得されてるかを保持
-    public bool IsGet = false;
-
     // Use this for initialization
     void Start ()
     {
@@ -20,4 +17,5 @@ public class CrystalBase : MonoBehaviour
     {
         this.transform.rotation *= Quaternion.AngleAxis(RotSpeed, Vector3.up);
     }
+
 }
