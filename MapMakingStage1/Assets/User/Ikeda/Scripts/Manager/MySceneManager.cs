@@ -42,6 +42,7 @@ public class MySceneManager : Singleton<MySceneManager>
     [SerializeField] public string Path_Opening;
     [SerializeField] public string Path_Title;
     [SerializeField] public string Path_Option;
+    [SerializeField] public string Path_BackGround;
     [SerializeField] public string Path_DataCheck;
     [SerializeField] public string Path_GameStart;
     [SerializeField] public string Path_GalaxySelect;
@@ -54,13 +55,15 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
-    private static bool IsLoad_Pause = false;            //Pauseを読み込む
+    private static bool IsLoad_Pause = false;           //Pauseを読み込む
+
 
     //--- operation -----------------------------
 
     public static bool IsPausing { get; private set; }  //Pause中:true
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
+    public static bool IsPause_BackLoad { get; private set; }   //背後にPauseが読み込まれている
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -187,8 +190,6 @@ public class MySceneManager : Singleton<MySceneManager>
             DataManager.Instance.playerData.SelectGalaxy++;
         }
 
-
-
         return "";
     }
 
@@ -214,6 +215,14 @@ public class MySceneManager : Singleton<MySceneManager>
     public void LoadPause()
     {
         IsLoad_Pause = true;
+    }
+
+    public void LoadOption()
+    {
+        IsPause_BackLoad = IsPausing;
+        if (IsPause_BackLoad)
+            SceneManager.UnloadSceneAsync(Path_Pause);
+        SceneManager.LoadScene(Path_Option,LoadSceneMode.Additive);
     }
 
     //--- SceneLoad FadeInOut -------------------------------------------------
