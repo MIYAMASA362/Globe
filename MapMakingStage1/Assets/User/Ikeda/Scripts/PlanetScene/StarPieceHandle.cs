@@ -11,8 +11,10 @@ public class StarPieceHandle : MonoBehaviour
     [Space(8), Header("PieceObject")]
     [SerializeField] private  StarPiece[] Pieces = new StarPiece[5];
 
-    [SerializeField] private GameObject UIStarPiece;
+    [SerializeField] private Animator UIStarPieceAnimator;
+    [SerializeField] private ParticleSystem CompletedParticle;
     [SerializeField] private GameObject[] UIPieces = new GameObject[5];
+    
     [Space(4)]
     [SerializeField] private Material Enable_material;
     [SerializeField] private Material Disable_material;
@@ -20,9 +22,19 @@ public class StarPieceHandle : MonoBehaviour
     [Space(8)]
     [SerializeField] private int nGetPiece;
 
+    AudioSource audioSource;
+
+    float animTime = 0.0f;
+
     // Use this for initialization
     void Start ()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         //StarPieceにHandle設定
         foreach (StarPiece starPiece in Pieces)
         {
@@ -43,19 +55,27 @@ public class StarPieceHandle : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        if (UIStarPieceAnimator.GetBool("get"))
+        {
+            animTime += Time.deltaTime;
+            if (animTime > 1.0f)
+            {
+                UIStarPieceAnimator.SetBool("get", false);
+            }
+        }
+    }
 
     //登録されたオブジェクト群との確認とUI変更
     public bool HitStarPiece(StarPiece HitObject)
     {
         if (!PiecesJudgment(HitObject.gameObject)) return false;
 
-        HitObject.Set_PieceNum(nGetPiece);
-
+        HitObject.SetPieceNum(nGetPiece);
         nGetPiece++;
-        if (nGetPiece >= UIPieces.Length)
-            IsComplete = true;
+
+        AudioManager manager = AudioManager.Instance;
+        manager.PlaySEOneShot(audioSource, manager.SE_GETSTAR);
+            
         return true;
     }
 
@@ -75,26 +95,31 @@ public class StarPieceHandle : MonoBehaviour
         return IsComplete;
     }
 
-    public void Enable_UI()
-    {
-        UIStarPiece.SetActive(true);
-    }
-
     public void Disable_UI()
     {
-        UIStarPiece.SetActive(false);
+        UIStarPieceAnimator.gameObject.SetActive(false);
     }
 
     //UIのオブジェクト返し
-    public GameObject GetUIStarPiece(int nPieceNum)
+    public Transform GetUIStarPiece(int nPieceNum)
     {
-        return UIPieces[nPieceNum];
+        return UIPieces[nPieceNum].transform;
     }
 
     //入手したStarPieceがたどり着いた
     public void UIStarPieceEnter(int nPieceNum)
     {
+        if (nPieceNum + 1 >= UIPieces.Length)
+        {
+            IsComplete = true;
+            CompletedParticle.Play();
+            AudioManager manager = AudioManager.Instance;
+            manager.PlaySEOneShot(audioSource, manager.SE_COMPLETESTAR);
+        }
+
         UIPieces[nPieceNum].GetComponent<Renderer>().material = Enable_material;
+        UIStarPieceAnimator.SetBool("get", true);
+        animTime = 0;
     }
 }
 
