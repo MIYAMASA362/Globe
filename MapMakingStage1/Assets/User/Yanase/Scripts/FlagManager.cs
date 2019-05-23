@@ -8,11 +8,6 @@ public class FlagManager : Singleton<FlagManager> {
     [Header("軸回転させる旗"), SerializeField]
     private GameObject flag = null;
 
-    [Header("SE")]
-    public float SE_FlagPlugInVolume = 1f;
-    public float SE_FlagDeployVolume = 3f;
-    public float SE_FlagUnPlugVolume = 1f;
-    public float SE_FloatSwapVolume = 1f;
     private AudioSource flagAudio;
 
     [Header("軸を刺すときのエフェクト")]
@@ -66,7 +61,11 @@ public class FlagManager : Singleton<FlagManager> {
             {
                 if (CheckFloatOnGround())
                 {
-                    if (flagAudio) AudioManager.Instance.PlaySEOneShot(flagAudio, AUDIO.SE_FLOATSWAP, SE_FloatSwapVolume);
+                    if (flagAudio)
+                    {
+                        AudioManager audioManager = AudioManager.Instance;
+                        audioManager.PlaySEOneShot(flagAudio, audioManager.SE_FLOATSWAP);
+                    }
                     ChangeFloatOnGround();
                 }
             }
@@ -103,8 +102,8 @@ public class FlagManager : Singleton<FlagManager> {
         AudioManager audioManager = AudioManager.Instance;
         if (flagAudio)
         {
-            audioManager.PlaySEOneShot(flagAudio, AUDIO.SE_FLAGPLUGIN, SE_FlagPlugInVolume);
-            audioManager.PlaySEOneShot(flagAudio, AUDIO.SE_DEPLOY, SE_FlagDeployVolume);
+            audioManager.PlaySEOneShot(flagAudio, audioManager.SE_FLAGPLUGIN);
+            audioManager.PlaySEOneShot(flagAudio, audioManager.SE_DEPLOY);
         }
     }
 
@@ -121,7 +120,11 @@ public class FlagManager : Singleton<FlagManager> {
         lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flagActive = false;
 
-        if (flagAudio) AudioManager.Instance.PlaySEOneShot(flagAudio, AUDIO.SE_FLAGUNPLUG, SE_FlagUnPlugVolume);
+        if (flagAudio)
+        {
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlaySEOneShot(flagAudio, audioManager.SE_FLAGUNPLUG);
+        }
 
         return true;
     }
