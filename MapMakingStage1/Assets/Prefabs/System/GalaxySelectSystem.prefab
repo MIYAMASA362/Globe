@@ -163,7 +163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1051268170235926
 GameObject:
   m_ObjectHideFlags: 1
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 114760053710030062}
   m_Layer: 0
   m_Name: MainCam
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2182,7 +2182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1761969833762126
 GameObject:
   m_ObjectHideFlags: 1
@@ -5203,7 +5203,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 25fed97af64dd7e4e9959fd2f210a24d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4c8406bc8d56d34ea225552356fa2c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5350,7 +5350,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 28dd84cd7c647c340a29b6287b947cf5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ee5ddbce98ca9044b3183738dc0e8a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5398,7 +5398,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3ff940c61cc0f344da0108aa18a3cf65, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb4136df8e722a84db7b6e37e688e93f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5826,16 +5826,16 @@ MonoBehaviour:
   ItemUI_Text_Crystal: {fileID: 114537616867295116}
   ItemUI_Obj_GalaxyText: {fileID: 1421244390071828}
   ItemUI_Obj_PlanetText: {fileID: 1492962020980274}
-  StarCrystal_CountText: {fileID: 0}
-  Crystal_CountText: {fileID: 0}
+  StarCrystal_CountText: {fileID: 114230152747303104}
+  Crystal_CountText: {fileID: 114641862485388962}
   LockUI: {fileID: 1700910921535818}
   LockUI_Text: {fileID: 114207117975705046}
   GalaxySelectUI: {fileID: 1756122182838736}
   PlanetSelectUI: {fileID: 1043498210782220}
   nMaxStarCrystalNum: 0
-  nGetStarCrystalNum: 2
+  nGetStarCrystalNum: 0
   nMaxCrystalNum: 0
-  nGetCrystalNum: 2
+  nGetCrystalNum: 0
   galaxyCamera: {fileID: 0}
   GalaxysHolder: {fileID: 0}
   Galaxies:
@@ -6318,8 +6318,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1677b7c8121b5942afe5ae1321fa80c, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d02a35083adb56c42949ceac8a73c95b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6345,7 +6345,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c720acf9803546045aefe6a0eb86f506, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be7b85647f2a1174b9f29f3e68ab0198, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6873,7 +6873,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 25fed97af64dd7e4e9959fd2f210a24d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4c8406bc8d56d34ea225552356fa2c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6916,8 +6916,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1677b7c8121b5942afe5ae1321fa80c, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d02a35083adb56c42949ceac8a73c95b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7161,7 +7161,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7225,7 +7225,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c720acf9803546045aefe6a0eb86f506, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be7b85647f2a1174b9f29f3e68ab0198, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7252,7 +7252,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3ff940c61cc0f344da0108aa18a3cf65, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb4136df8e722a84db7b6e37e688e93f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7379,7 +7379,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7556,7 +7556,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7791,7 +7791,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 28dd84cd7c647c340a29b6287b947cf5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ee5ddbce98ca9044b3183738dc0e8a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8377,7 +8377,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -8491,7 +8491,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
