@@ -6,6 +6,7 @@ public class WireFrameTrigger : MonoBehaviour
 {
     public bool onTrigger = false;
     public LayerMask hitLayer;
+    public Transform myCollider;
     private List<GameObject> triggerList = new List<GameObject>();
     Material matrial; 
 
@@ -37,6 +38,7 @@ public class WireFrameTrigger : MonoBehaviour
     {
         if (CompareLayer(hitLayer,other.gameObject.layer)) 
         {
+            if (myCollider == other.transform) return;
             if (triggerList.Contains(other.gameObject)) return;
 
             triggerList.Add(other.gameObject);
@@ -47,6 +49,7 @@ public class WireFrameTrigger : MonoBehaviour
     {
         if (CompareLayer(hitLayer, other.gameObject.layer))
         {
+            if (myCollider == other.transform) return;
             triggerList.Remove(other.gameObject);
         }
     }
