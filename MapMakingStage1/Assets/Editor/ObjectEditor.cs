@@ -16,17 +16,17 @@ public class ObjectEditor : MonoBehaviour {
 	}
 }
 
-[CustomEditor(typeof(Crystal))]
-public class CrystalEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        EditorGUILayout.HelpBox(
-            "Rot Speedはクリスタルの回転スピード。" +"\n"+
-            "PlanetSceneには各Sceneの[ EventSystem ]もしくは[ PlanetSystem ]の中のPlanetScene.csを入れます。" + "\n"+
-            "PlanetSceneにこのCrystalを登録しないと判定しないので注意!",
-            MessageType.None);
+//[CustomEditor(typeof(Crystal))]
+//public class CrystalEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        EditorGUILayout.HelpBox(
+//            "Rot Speedはクリスタルの回転スピード。" +"\n"+
+//            "PlanetSceneには各Sceneの[ EventSystem ]もしくは[ PlanetSystem ]の中のPlanetScene.csを入れます。" + "\n"+
+//            "PlanetSceneにこのCrystalを登録しないと判定しないので注意!",
+//            MessageType.None);
 
-        base.OnInspectorGUI();
-    }
-}
+//        base.OnInspectorGUI();
+//    }
+//}
