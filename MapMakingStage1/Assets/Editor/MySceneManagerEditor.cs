@@ -27,6 +27,7 @@ public class MySceneManagerEditor : Editor
     private SceneAsset Opening;
     private SceneAsset Title;
     private SceneAsset Option;
+    private SceneAsset BackGround;
     private SceneAsset DataCheck;
     private SceneAsset GameStart;
     private SceneAsset GalaxySelect;
@@ -84,6 +85,7 @@ public class MySceneManagerEditor : Editor
         Opening = EditorGUILayout.ObjectField("Opening", Opening, typeof(SceneAsset), true) as SceneAsset;
         Title = EditorGUILayout.ObjectField("Title", Title, typeof(SceneAsset), true) as SceneAsset;
         Option = EditorGUILayout.ObjectField("Option", Option, typeof(SceneAsset), true) as SceneAsset;
+        BackGround = EditorGUILayout.ObjectField("BackGround", BackGround, typeof(SceneAsset), true) as SceneAsset;
 
         GUILayout.Space(4);
         DataCheck = EditorGUILayout.ObjectField("DataCheck", DataCheck, typeof(SceneAsset), true) as SceneAsset;
@@ -158,6 +160,7 @@ public class MySceneManagerEditor : Editor
         Opening = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Opening);
         Title = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Title);
         Option = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_Option);
+        BackGround = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_BackGround);
 
         DataCheck = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_DataCheck);
         GameStart = AssetDatabase.LoadAssetAtPath<SceneAsset>(mySceneManager.Path_GameStart);
@@ -192,6 +195,7 @@ public class MySceneManagerEditor : Editor
         mySceneManager.Path_Opening = AssetDatabase.GetAssetPath(Opening);
         mySceneManager.Path_Title = AssetDatabase.GetAssetPath(Title);
         mySceneManager.Path_Option = AssetDatabase.GetAssetPath(Option);
+        mySceneManager.Path_BackGround = AssetDatabase.GetAssetPath(BackGround);
         mySceneManager.Path_DataCheck = AssetDatabase.GetAssetPath(DataCheck);
         mySceneManager.Path_GameStart = AssetDatabase.GetAssetPath(GameStart);
         mySceneManager.Path_GalaxySelect = AssetDatabase.GetAssetPath(GalaxySelect);
@@ -238,6 +242,9 @@ public class MySceneManagerEditor : Editor
         //Option
         editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(Option), true));
 
+        //BackGround
+        editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(BackGround), true));
+
         //Opening
         editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(Opening), true));
 
@@ -268,15 +275,17 @@ public class MySceneManagerEditor : Editor
 
     public void Create_DataFile()
     {
-        DataHandle.Delete_LocalDirectoryData(true);
+        DataHandle.Delete_DirectoryFile(DataType.DirectoryPath.player);
+        DataHandle.Delete_DirectoryFile(DataType.DirectoryPath.planets);
 
         DataType.PlayerData playerData = new DataType.PlayerData();
-        DataHandle.Save(ref playerData,playerData.FileName());
+        DataHandle.Save(ref playerData,playerData.FilePath());
 
         foreach(Galaxy galaxy in Galaxies)
         {
             foreach(Planet planet in galaxy.Planets)
             {
+                if (planet.sceneAsset == null) continue;
                 string AssetName = planet.sceneAsset.ToString();
                 for(int i = 0; i<AssetName.Length; i++)
                 {
@@ -284,7 +293,7 @@ public class MySceneManagerEditor : Editor
 
                     string FileName = AssetName.Remove(i-1,(AssetName.Length+1) -i);
                     DataType.PlanetData planetData = new DataType.PlanetData(FileName);
-                    DataHandle.Save(ref planetData,planetData.FileName());
+                    DataHandle.Save(ref planetData,planetData.FilePath());
                     break;
                 }
             }
