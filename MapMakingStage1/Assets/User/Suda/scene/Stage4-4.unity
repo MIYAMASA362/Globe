@@ -12967,6 +12967,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE4.clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE1.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d498f4b268bb5c841b95eba39a260cb6, type: 3}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE4.volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE1.volume
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db68cc05ddcc8944cbe7dadf3feba484, type: 2}
   m_IsPrefabAsset: 0
@@ -13189,7 +13209,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 89b02141492d0ba418bb6f5d64d23939, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29257,6 +29277,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -130.38
       objectReference: {fileID: 0}
+    - target: {fileID: 1952496387338312, guid: cedbd4cf992d7bc40a4a9d053080f3e9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cedbd4cf992d7bc40a4a9d053080f3e9, type: 2}
   m_IsPrefabAsset: 0
@@ -34356,36 +34380,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: corePlanet
-      value: 
-      objectReference: {fileID: 1729506971}
-    - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: rotationTarget
-      value: 
-      objectReference: {fileID: 1729506969}
-    - target: {fileID: 114891609408919516, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: lineEffectSwitcher
-      value: 
-      objectReference: {fileID: 1729506968}
-    - target: {fileID: 114891609408919516, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: flag
-      value: 
-      objectReference: {fileID: 1811547673}
-    - target: {fileID: 114369311609879386, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: planetAtmosphere
-      value: 
-      objectReference: {fileID: 1776601975}
-    - target: {fileID: 114369311609879386, guid: 1c3d241f302c68b4c835c64677b9c418,
-        type: 2}
-      propertyPath: clouds
-      value: 
-      objectReference: {fileID: 625324087}
     - target: {fileID: 114523083613258692, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: planetCamera
@@ -34396,11 +34390,36 @@ Prefab:
       propertyPath: characterCamera
       value: 
       objectReference: {fileID: 254474533}
+    - target: {fileID: 114369311609879386, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: planetAtmosphere
+      value: 
+      objectReference: {fileID: 1776601975}
+    - target: {fileID: 114369311609879386, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: clouds
+      value: 
+      objectReference: {fileID: 625324087}
+    - target: {fileID: 114891609408919516, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: flag
+      value: 
+      objectReference: {fileID: 1811547673}
+    - target: {fileID: 114891609408919516, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: lineEffectSwitcher
+      value: 
+      objectReference: {fileID: 1729506968}
     - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
-      propertyPath: isStageCreate
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: corePlanet
+      value: 
+      objectReference: {fileID: 1729506971}
+    - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
+        type: 2}
+      propertyPath: rotationTarget
+      value: 
+      objectReference: {fileID: 1729506969}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
   m_IsPrefabAsset: 0
@@ -34916,7 +34935,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: bc31b272b5ff2b74abcf6664b1c59328, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
