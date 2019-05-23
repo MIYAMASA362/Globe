@@ -47,6 +47,8 @@ public class PauseScene : SceneBase
 	// Update is called once per frame
 	public override void Update ()
     {
+        if (MySceneManager.IsOption) return;
+
         if (tm_StateName.text != MySceneManager.SelectPlanetName)
             tm_StateName.text = MySceneManager.SelectPlanetName;
 
@@ -95,11 +97,10 @@ public class PauseScene : SceneBase
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:
-                    StageSelectScene.Load_Star_PlanetSelect();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
                     break;
                 case 3:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
+                    MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, false);

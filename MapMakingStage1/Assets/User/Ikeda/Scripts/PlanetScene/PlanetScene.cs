@@ -127,7 +127,7 @@ public class PlanetScene :SceneBase
 
     private void InitData()
     {
-        DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
+        DataManager.Instance.PlayerData_Save();                    //PlayerDataのセーブ
         LoadData();
     }
 
@@ -136,25 +136,26 @@ public class PlanetScene :SceneBase
         DataFile = this.gameObject.scene.name;
         planetData = new PlanetData(DataFile);
 
-        if (DataHandle.FileFind(planetData.FileName()))
-            DataHandle.Load(ref planetData, planetData.FileName()); //データがあれば読み込み
+        if (DataHandle.FileFind(planetData.FilePath()))
+            DataHandle.Load(ref planetData, planetData.FilePath()); //データがあれば読み込み
         else
-            DataHandle.Save(ref planetData, planetData.FileName()); //データがなければ書き込み
+            DataHandle.Save(ref planetData, planetData.FilePath()); //データがなければ書き込み
     }
 
     public void SaveData()
     {
         planetData = new PlanetData(DataFile);
-        DataHandle.Save(ref planetData,planetData.FileName());
+        DataHandle.Save(ref planetData,planetData.FilePath());
     }
 
     private void UnInitData()
     {
-        DataManager.Instance.Save_PlayerData();                     //PlayerDataのセーブ
+        DataManager.Instance.PlayerData_Save();            //PlayerDataのセーブ
 
         PlanetData oldData = planetData;
 
         planetData = new PlanetData(DataFile);
+
         if(!oldData.IsClear)
             planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
         if(!oldData.IsGet_StarCrystal)
@@ -162,7 +163,7 @@ public class PlanetScene :SceneBase
         if(!oldData.IsGet_Crystal)
             planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
 
-        DataHandle.Save(ref planetData, planetData.FileName());     //PlanetDataの設定
+        DataHandle.Save(ref planetData, planetData.FilePath());     //PlanetDataの設定
     }
 
     public void NextScene()

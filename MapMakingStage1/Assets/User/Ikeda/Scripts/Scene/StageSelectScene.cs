@@ -301,7 +301,7 @@ public class StageSelectScene : SceneBase
                 nGalaxySelectNum = nGalaxySelectNum % nMaxGalaxyNum;
 
             //保存データ更新
-            SelectDataUpdate();
+            Save_SelectData();
 
             //回転対象を設定
             Set_RotTargetState(GalaxysHolder,GALAXY_ROTARION_ANGLE * nGalaxySelectNum);
@@ -367,7 +367,7 @@ public class StageSelectScene : SceneBase
             nPlanetSelectNum = nPlanetSelectNum % nMaxPlanetNum;
 
             //保存データ更新
-            SelectDataUpdate();
+            Save_SelectData();
 
             //回転対象を設定
             Set_RotTargetState(Galaxies[nGalaxySelectNum].galaxyState.PlanetParent, PLANET_ROTATION_ANGLE * nPlanetSelectNum);
@@ -554,11 +554,9 @@ public class StageSelectScene : SceneBase
 
     //--- DataManager -------------------------------------
 
-    //--- データ更新 ----------------------------
-    private void SelectDataUpdate()
+    private void Save_SelectData()
     {
-        DataManager.Instance.playerData.SelectGalaxy = nGalaxySelectNum;
-        DataManager.Instance.playerData.SelectPlanet = nPlanetSelectNum;
+        DataManager.Instance.PlayerData_SetSelect(nGalaxySelectNum, nPlanetSelectNum);
     }
 
     //--- SceneManager ------------------------------------
@@ -566,7 +564,7 @@ public class StageSelectScene : SceneBase
     public void LoadPlanetScene()
     {
         //データを保存
-        SelectDataUpdate();
+        Save_SelectData();
         //シーン遷移
         MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
     }
