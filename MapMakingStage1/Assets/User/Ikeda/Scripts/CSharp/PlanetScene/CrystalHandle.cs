@@ -14,8 +14,16 @@ public class CrystalHandle : MonoBehaviour
 
     [SerializeField,Tooltip("取得しているか")] private bool IsGet = false;
 
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         crystal.SetHandler(this);
 
         UICrystal.GetComponent<Renderer>().material = Disable_material;
@@ -25,7 +33,10 @@ public class CrystalHandle : MonoBehaviour
     public bool HitCrystal(GameObject hit)
     {
         if (!CrystalJudgment(hit)) return false;
-        
+
+        AudioManager manager = AudioManager.Instance;
+        manager.PlaySEOneShot(audioSource, manager.SE_GETDIAMOND1);
+
         IsGet = true;
         return true;
     }
@@ -53,10 +64,12 @@ public class CrystalHandle : MonoBehaviour
     public void UICrystalEnter()
     {
         UICrystal.GetComponent<Renderer>().material = Enable_material;
+        AudioManager manager = AudioManager.Instance;
+        manager.PlaySEOneShot(audioSource, manager.SE_GETDIAMOND2);
     }
 
-    public GameObject GetCrystalTarget()
+    public Transform GetCrystalTarget()
     {
-        return this.UICrystal;
+        return this.UICrystal.transform;
     }
 }

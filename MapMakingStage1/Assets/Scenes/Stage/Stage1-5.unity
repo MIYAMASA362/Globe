@@ -350,7 +350,7 @@ Prefab:
     - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: isStageCreate
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
@@ -419,12 +419,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d294da5ed8878d241b192b272bf9f9ce, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &346586198 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114731878507115768, guid: 3b91607223a1e384f991359d149f0851,
-    type: 2}
-  m_PrefabInternal: {fileID: 1397566750}
-  m_Script: {fileID: 11500000, guid: f0c6170e73e92ef4a8caf89c35250913, type: 3}
 --- !u!1001 &389451141
 Prefab:
   m_ObjectHideFlags: 0
@@ -713,11 +707,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114056060093878284, guid: b48a66f4195c0994ebfb179cbcaf7322,
-        type: 2}
-      propertyPath: planetScene
-      value: 
-      objectReference: {fileID: 346586198}
+    - target: {fileID: 1078746344676666, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1190022323519184, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994425945357126, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317255941144286, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705854212296928, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1881874642803948, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b48a66f4195c0994ebfb179cbcaf7322, type: 2}
   m_IsPrefabAsset: 0
@@ -869,6 +882,40 @@ Prefab:
       propertyPath: ResultCamera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 13.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114852447990083498, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: crystal
+      value: 
+      objectReference: {fileID: 1586851931}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 309271745}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 1518401789}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[2]
+      value: 
+      objectReference: {fileID: 1381344385}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[3]
+      value: 
+      objectReference: {fileID: 1288768832}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[4]
+      value: 
+      objectReference: {fileID: 298547422}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b91607223a1e384f991359d149f0851, type: 2}
   m_IsPrefabAsset: 0
@@ -912,6 +959,7 @@ MonoBehaviour:
   Path_Opening: 
   Path_Title: 
   Path_Option: 
+  Path_BackGround: 
   Path_DataCheck: 
   Path_GameStart: 
   Path_GalaxySelect: 
