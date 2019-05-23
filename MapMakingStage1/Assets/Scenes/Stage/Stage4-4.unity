@@ -5480,10 +5480,10 @@ Transform:
   m_GameObject: {fileID: 125416002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.897847, y: 6.897847, z: 6.897847}
+  m_LocalScale: {x: 1.065047, y: 1.0650477, z: 1.0650454}
   m_Children: []
-  m_Father: {fileID: 1636181252}
-  m_RootOrder: 2
+  m_Father: {fileID: 1729506971}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &125416004
 MeshRenderer:
@@ -5670,7 +5670,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6e73fc9a8f6cbdc43b061dff89591687, type: 2}
+  - {fileID: 2100000, guid: 4ec3b71dd11be7345974886b955d68cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14434,7 +14434,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6e73fc9a8f6cbdc43b061dff89591687, type: 2}
+  - {fileID: 2100000, guid: 4ec3b71dd11be7345974886b955d68cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15210,7 +15210,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6e73fc9a8f6cbdc43b061dff89591687, type: 2}
+  - {fileID: 2100000, guid: 4ec3b71dd11be7345974886b955d68cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15247,6 +15247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1729506971}
+  - component: {fileID: 1041721589}
   m_Layer: 0
   m_Name: PlanetHolder
   m_TagString: Untagged
@@ -15254,6 +15255,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &1041721589
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1041721588}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7404fec3487c21246b4fe0f6a8bce397, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1062419732
 GameObject:
   m_ObjectHideFlags: 0
@@ -23176,7 +23195,6 @@ Transform:
   m_Children:
   - {fileID: 1729506971}
   - {fileID: 1729506969}
-  - {fileID: 125416003}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23644,6 +23662,7 @@ Transform:
   - {fileID: 1917901479}
   - {fileID: 1703271285}
   - {fileID: 802361576}
+  - {fileID: 125416003}
   m_Father: {fileID: 1636181252}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34415,7 +34434,7 @@ Prefab:
     - target: {fileID: 114985645398608028, guid: 1c3d241f302c68b4c835c64677b9c418,
         type: 2}
       propertyPath: isStageCreate
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}

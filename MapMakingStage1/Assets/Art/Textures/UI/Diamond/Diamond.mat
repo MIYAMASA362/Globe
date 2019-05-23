@@ -5,12 +5,11 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: Diamond
-  m_Shader: {fileID: 4800000, guid: 0987e5b4f68110342af32efedf677f3a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 26a9dbe1913e7ac4fab88460d856bcd1, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 0
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,8 +18,24 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Atlas:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CubeMap:
+        m_Texture: {fileID: 8900000, guid: a9f053d430424adb925523ba78342596, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -35,7 +50,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Diffuse:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Foam:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -43,7 +66,31 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Metallic:
+        m_Texture: {fileID: 2800000, guid: 2665c395410e391469e722b3071ed218, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 0, y: 0}
+        m_Offset: {x: 0, y: 0}
+    - _Normals:
+        m_Texture: {fileID: 2800000, guid: 10ff51d2d87fb7b46b70b55f8551c146, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Occlusion:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -55,40 +102,104 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Stars:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TopTexture0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ASEOutlineWidth: 0
+    - _BranchPhase: 0
     - _BumpScale: 1
+    - _ChromaticAberration: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EdgeFlutter: 1
     - _Float0: 0
     - _FreshnelPower: 0
     - _FreshnelScale: 0
-    - _Gloss: 0.31
+    - _Gloss: 0.59
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _GlossScale: 0
+    - _Glossiness: 1
     - _GlossyReflections: 1
+    - _IndexofRefraction: 2.45
     - _MaxClamp: 0
-    - _Metallic: 0
+    - _Metallic: 0.7
     - _Mode: 0
+    - _NoiseMapStrength: 0
+    - _NormalScale: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0.07
     - _Parallax: 0.02
+    - _PrimaryFactor: 0
+    - _RimOffset: 0.24
+    - _RimPower: 0
+    - _SecondaryFactor: 0
+    - _ShadowTransform: 4.44
+    - _Smoothness: 0.79
     - _SmoothnessTextureChannel: 0
-    - _Specular: 1.74
+    - _SoapAmount: 0
+    - _SpecScale: 0
+    - _Specular: 1.45
     - _SpecularHighlights: 1
+    - _SpecularScale: 0
     - _SrcBlend: 1
+    - _TessValue: 15
+    - _Texture: 0
+    - _TimeScale: 1
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 0
+    - _gradientInvert: 0
     - _tr: 1.46
     m_Colors:
-    - _ASEOutlineColor: {r: 0.03137237, g: 0.36020976, b: 0.4433962, a: 0}
-    - _Color: {r: 0.4245283, g: 0.3004212, b: 0, a: 1}
-    - _ColorTri: {r: 0, g: 0.5642269, b: 0.6415094, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emmisive: {r: 1, g: 0.9764151, b: 0.9764151, a: 0}
-    - _FreshnelColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0}
+    - _ASEOutlineColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 0, g: 0.9781742, b: 1, a: 1}
+    - _ColorTri: {r: 0, g: 0.8584906, b: 0.8584906, a: 0}
+    - _EmissionColor: {r: 0, g: 0.28830078, b: 0.25001082, a: 1}
+    - _EmmisiobColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Emmisive: {r: 1, g: 1, b: 1, a: 0}
+    - _FreshnelColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Max: {r: 0, g: 0, b: 0, a: 0}
+    - _Min: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseMapPannerSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseMapSize: {r: 512, g: 512, b: 0, a: 0}
+    - _RimColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 0}
+    - _RingPannerSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0, g: 1, b: 0.8083904, a: 1}
+    - _StarsColor: {r: 0, g: 0, b: 0, a: 0}
+    - _StarsTiling: {r: 0, g: 0, b: 0, a: 0}
+    - _TileSize: {r: 2, g: 2, b: 0, a: 0}
+    - _Tint: {r: 0, g: 0, b: 0, a: 0}
+    - _ToonrampColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TreeInstanceColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TreeInstanceScale: {r: 0, g: 0, b: 0, a: 0}
+    - _TreeOffset: {r: 0, g: 5, b: 0, a: 0}
+    - _color1: {r: 0.41960788, g: 0.24313727, b: 0.25882348, a: 1}
+    - _color2: {r: 0.13725486, g: 0.14901957, b: 0.26274508, a: 1}
+    - _sttt: {r: 0, g: 0, b: 0, a: 0}

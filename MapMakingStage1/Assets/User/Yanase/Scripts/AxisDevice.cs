@@ -27,9 +27,9 @@ public class AxisDevice : MonoBehaviour {
         {
             rigidbody.isKinematic = false;
             collider.enabled = true;
-            Vector3 moveForce = (chaseTarget.position - transform.position).normalized * delta * chaseSpeed;
-            rigidbody.AddForceAtPosition(moveForce, transform.position + transform.up * 0.1f);
             transform.position = Vector3.Lerp(transform.position, chaseTarget.position, delta * chaseSpeed * 0.1f);
+            Vector3 moveForce = (chaseTarget.position - transform.position).normalized * delta * chaseSpeed;
+            rigidbody.AddForceAtPosition(moveForce, transform.position + transform.up * 0.05f);
         }
         else
         {

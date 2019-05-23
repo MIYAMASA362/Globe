@@ -5,8 +5,6 @@ using UnityEditor;
 using UnityEngine.UI;
 using DataType;
 
-[RequireComponent(typeof(Timer))]
-[RequireComponent(typeof(TimeRank))]
 [RequireComponent(typeof(CrystalHandle))]
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
@@ -24,8 +22,6 @@ public class PlanetScene :SceneBase
     //--- Attribute ---------------------------------------------------------------------
 
     //Component
-    private Timer timer;
-    private TimeRank timeRank;
     private CrystalHandle crystalHandle;
     private StarPieceHandle starPieceHandle;
 
@@ -52,8 +48,6 @@ public class PlanetScene :SceneBase
         Invoke("Loaded",4f);
 
         //--- Component ---
-        timer = this.GetComponent<Timer>();
-        timeRank = this.GetComponent<TimeRank>();
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
         planetOpening = this.GetComponent<PlanetOpening>();
@@ -80,9 +74,6 @@ public class PlanetScene :SceneBase
             case STATE.MAINGAME:
                 base.Update();
 
-                //--- Timer ---
-                timer.UpdateTimer();
-                timeRank.Update_RankUI();
                 break;
             case STATE.RESULT:
                 planetResult.Begin();
@@ -105,7 +96,6 @@ public class PlanetScene :SceneBase
     //--- オープニング終了 ----------------------
     public void EndOpening()
     {
-        timer.StartTimer();
         state = STATE.MAINGAME;
     }
 
@@ -121,7 +111,6 @@ public class PlanetScene :SceneBase
         if (IsGameClear) return;
 
         IsGameClear = true;
-        timer.StopTimer();
 
         UnInitData();   //データセーブ
 

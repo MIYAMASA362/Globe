@@ -7,49 +7,91 @@ public class StarPiece : CrystalBase
     //--- Attribute -----------------------------------------------------------
 
     private StarPieceHandle handle;
-    private bool IsEnable = true;   //取得されているか
-    private bool IsProduce = false; //演出フラグ
+    private Transform followTarget;    //StarPieceUI
 
-    private GameObject ProduceTargetObj;    //StarPieceUI
-    private float time;                     //演出経過時間
-    private int nPieceNum = 0;              //ピース番号
+    [Header("Get")]
+    public float getHeight = 1.0f;
+    public float getTime = 1.0f;
 
-    private Vector3 defaultScale;
+    [Header("Follow")]
+    public float followSpeed = 1.0f;
+    private int nPieceNum = 0;          //ピース番号
+
+    
 
     //--- MonoBehavior --------------------------------------------------------
+    private void Start()
+    {
+       
+    }
+
 
     public override void Update()
     {
-        if (!IsProduce) { base.Update();  return; }
-        MoveProduce();
+        base.Update();
+
+        switch (state)
+        {
+            case State.Idle:
+                break;
+            case State.Get:
+
+                UpdeteGet();
+                break;
+            case State.Follow:
+
+                UpdateFollow();
+                break;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsEnable) return;
+        if (state != State.Idle) return;
         if (!handle) { Debug.Log("Not StarPieceHandle!!"); return; }
         if (!other.CompareTag("Player")) return;
 
-        handle.HitStarPiece(this);
-        this.transform.SetParent(Camera.main.transform);
+        SetGet(other.transform);
+    }
 
-        defaultScale = transform.localScale;
-        ProduceTargetObj = handle.GetUIStarPiece(nPieceNum);
-        IsProduce = true;   //演出開始
-        IsEnable = false;
+    private void SetGet(Transform target)
+    {
+        handle.HitStarPiece(this);
+        this.transform.SetParent(target);
+        transform.localPosition = new Vector3(0.0f, getHeight, 0.0f);
+        RotSpeed += 3.0f;
+        state = State.Get;
+    }
+
+    private void SetFollow()
+    {
+        transform.SetParent(Camera.main.transform);
+        followTarget = handle.GetUIStarPiece(nPieceNum);
+        state = State.Follow;
+    }
+
+    private void UpdeteGet()
+    {
+        base.Update();
+        getTime -= Time.deltaTime;
+        if(getTime <= 0)
+        {
+            SetFollow();
+        }
     }
 
     //--- Method --------------------------------------------------------------
 
     //UI位置までの移動演出
-    private void MoveProduce()
+    private void UpdateFollow()
     {
-        time += Time.deltaTime;
-        this.gameObject.transform.position = Vector3.Lerp(transform.position, ProduceTargetObj.transform.position, time);
-        this.gameObject.transform.localScale = Vector3.Lerp(transform.localScale, defaultScale * 0.1f, time);
-        this.gameObject.transform.rotation = Quaternion.Lerp(transform.rotation, ProduceTargetObj.transform.rotation, time);
+        float delta = Time.deltaTime;
+        transform.position = Vector3.Lerp(transform.position, followTarget.position, delta * followSpeed);
+        transform.localScale = Vector3.Lerp(transform.localScale, followTarget.lossyScale, delta * followSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, followTarget.rotation, delta * followSpeed);
 
-        if (time >= 0.5f) EndProduce();
+        float dist = (transform.position - followTarget.position).magnitude;
+        if (dist < 0.05f) EndProduce();
     }
 
     //演出終了
@@ -64,7 +106,7 @@ public class StarPiece : CrystalBase
         this.handle = handle;
     }
 
-    public void Set_PieceNum(int nGetPiece)
+    public void SetPieceNum(int nGetPiece)
     {
         nPieceNum = nGetPiece;
     }
