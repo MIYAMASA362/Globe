@@ -36,13 +36,14 @@ public class TitleScene : SceneBase
     {
         base.Start();
 
+        MySceneManager.IsPause_BackLoad = false;
         //背景読み込み
         SceneManager.LoadScene(MySceneManager.Instance.Path_BackGround,LoadSceneMode.Additive);
 
-        Init_Select();
-
         //コンティニュー
         IsContinue = DataManager.Instance.playerData.IsContinue;
+
+        Init_Select();
 
         Invoke("Loaded",4f);
     }
@@ -78,13 +79,14 @@ public class TitleScene : SceneBase
     private void Init_Select()
     {
         MaxSelectNum = select.Length;
+        if (IsContinue) SelectNum = 1;
 
-        Selecter.localPosition = select[0].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
+        Selecter.localPosition = select[SelectNum].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
 
         for (int i = 0; i < MaxSelectNum; i++)
             select[i].transform.GetChild(0).gameObject.SetActive(false);
 
-        select[0].transform.GetChild(0).gameObject.SetActive(true);
+        select[SelectNum].transform.GetChild(0).gameObject.SetActive(true);
     }
 
     //セレクトの更新

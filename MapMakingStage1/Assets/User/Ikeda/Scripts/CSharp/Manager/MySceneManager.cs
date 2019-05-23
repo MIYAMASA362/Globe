@@ -63,7 +63,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsPausing { get; private set; }  //Pause中:true
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
-    public static bool IsPause_BackLoad { get; private set; }   //背後にPauseが読み込まれている
+    public static bool IsPause_BackLoad { get; set; }   //背後にPauseが読み込まれている
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -219,7 +219,6 @@ public class MySceneManager : Singleton<MySceneManager>
 
     public void LoadOption()
     {
-        IsPause_BackLoad = IsPausing;
         if (IsPause_BackLoad)
             SceneManager.UnloadSceneAsync(Path_Pause);
         SceneManager.LoadScene(Path_Option,LoadSceneMode.Additive);

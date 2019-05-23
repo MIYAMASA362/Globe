@@ -91,22 +91,23 @@ public class PauseScene : SceneBase
             switch (SelectNum)
             {
                 case 0:
-                    
+                    MySceneManager.Instance.LoadBack_Pause();
                     break;
                 case 1:
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,false);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
                     break;
                 case 3:
+                    MySceneManager.IsPause_BackLoad = true;
                     MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, false);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;
                 default:
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, false);
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;
             }
         }

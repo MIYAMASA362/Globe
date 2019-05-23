@@ -44,6 +44,8 @@ public class PlanetScene :SceneBase
 
     public override void Start ()
     {
+        base.Start();
+
         state = STATE.MAINGAME;
         Invoke("Loaded",4f);
 
@@ -59,7 +61,6 @@ public class PlanetScene :SceneBase
         InitData();
 
         //--- Init status ---
-        base.Start();
         IsGameClear = false;
     }
     
@@ -94,7 +95,7 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        state = STATE.OPENING;
+        EndOpening();
     }
 
     //--- オープニング終了 ----------------------
