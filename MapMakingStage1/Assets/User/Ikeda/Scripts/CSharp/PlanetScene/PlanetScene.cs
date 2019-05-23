@@ -44,7 +44,7 @@ public class PlanetScene :SceneBase
 
     public override void Start ()
     {
-        state = STATE.LOAD;
+        state = STATE.MAINGAME;
         Invoke("Loaded",4f);
 
         //--- Component ---
