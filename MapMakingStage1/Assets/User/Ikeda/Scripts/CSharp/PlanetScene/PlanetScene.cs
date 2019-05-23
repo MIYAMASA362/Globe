@@ -10,6 +10,7 @@ using DataType;
 [RequireComponent(typeof(CrystalHandle))]
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
+[RequireComponent(typeof(PlanetOpening))]
 public class PlanetScene :SceneBase
 {
     public enum STATE
@@ -29,6 +30,7 @@ public class PlanetScene :SceneBase
     private StarPieceHandle starPieceHandle;
 
     //Planet系
+    private PlanetOpening planetOpening;
     private PlanetResult planetResult;
 
     //--- Animator ------------------------------
@@ -54,6 +56,7 @@ public class PlanetScene :SceneBase
         timeRank = this.GetComponent<TimeRank>();
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
+        planetOpening = this.GetComponent<PlanetOpening>();
 
         planetResult = GetComponent<PlanetResult>();
 
@@ -95,6 +98,7 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
+        planetOpening.PopUp_StageLabel();
         EndOpening();
     }
 
