@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class TitleScene : SceneBase
 {
+    //--- Attribute -----------------------------------------------------------
+    private const float IdleTime = 10f;
 
     //--- State -------------------------------------------
     [SerializeField]
     private RectTransform Selecter;
-    [SerializeField]
-    private GameObject NotContinueMessage;
 
     [Space(8)]
     [SerializeField]
@@ -19,172 +16,151 @@ public class TitleScene : SceneBase
     [SerializeField]
     private GameObject[] select = new GameObject[4];
 
-    [Space(4),SerializeField]
-    private float WaitTime = 10f;
-
     //--- Internal ------------------------------
-    private float time = 0f;
-    private int SelectNum = 0;  //選択中のもの
-    private int MaxNum = 0;
-    private bool bUpdate = false;
-    private bool bInput = false;
-    private bool bWait = false;
-    private bool IsContinue = false;
+    private float IdleCount = 0f;       //Idleカウンタ
+    private int SelectNum = 0;          //選択中のもの
+    private int MaxSelectNum = 0;       //最大セレクタ数
+    private bool bInput = false;        //入力可否
+    private bool IsContinue = false;    //コンティニュー可否
 
-    //--- MonoBehaviour -----------------------------------
+    //--- MonoBehaviour -------------------------------------------------------
+
+    public void Awake()
+    {
+        IdleCount = 0f;
+        bInput = false;
+    }
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        MaxNum = select.Length;
 
-        NotContinueMessage.SetActive(false);
+        //背景読み込み
+        SceneManager.LoadScene(MySceneManager.Instance.Path_BackGround,LoadSceneMode.Additive);
 
-        Selecter.localPosition = select[0].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
+        Init_Select();
 
-        for (int i = 0; i < MaxNum; i++)
-            select[i].transform.GetChild(0).gameObject.SetActive(false);
+        //コンティニュー
+        IsContinue = DataManager.Instance.playerData.IsContinue;
 
-        select[0].transform.GetChild(0).gameObject.SetActive(true);
-
-        time = 0f;
-        bInput = false;
-
-        if (DataHandle.FileFind(DataManager.Instance.playerData.FileName()))
-        {
-            DataManager.Instance.Load_PlayerData();
-            IsContinue = DataManager.Instance.playerData.IsContinue;
-        }
-        else
-        {
-            DataManager.Instance.Create_PlayerData();
-            IsContinue = false;
-        }
-
-        Invoke("Loaded",3f);
+        Invoke("Loaded",4f);
     }
-
-    
 
     // Update is called once per frame
     public override void Update()
     {
-        if (MySceneManager.IsLoading()) return;
+        if (MySceneManager.IsOption || MySceneManager.IsLoading()) return;
 
-        base.Update();
+        Update_Select();
 
-        time += Time.deltaTime;
+        Select_Submit();
 
-        if (MySceneManager.IsOption || bWait) return;
+        Update_IdleTime();
+    }
+
+    //--- Method --------------------------------------------------------------
+
+    //オープニングに再帰する
+    private void Update_IdleTime()
+    {
+        IdleCount += Time.deltaTime;
+
+        //何か入力があれば
+        if (Input.anyKey) { IdleCount = 0f; return; }
+
+        //Idle時間を超えた
+        if (IdleCount < IdleTime) return;
+        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
+    }
+
+    //セレクトの初期化
+    private void Init_Select()
+    {
+        MaxSelectNum = select.Length;
+
+        Selecter.localPosition = select[0].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
+
+        for (int i = 0; i < MaxSelectNum; i++)
+            select[i].transform.GetChild(0).gameObject.SetActive(false);
+
+        select[0].transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    //セレクトの更新
+    private void Update_Select()
+    {
+        float selecter = Input.GetAxis(InputManager.Y_Selecter);
+        if (selecter == 0) bInput = true;
+        if (!bInput) return;
 
         int old = SelectNum;
 
-        float selecter = Input.GetAxis(InputManager.Y_Selecter);
+        //セレクタ更新
+        if (selecter >= 0.5f) SelectNum--;
+        else if (selecter <= -0.5f) SelectNum++;
 
-        if(selecter == 0)
-            bInput = true;
+        //入力があった
+        if (old == SelectNum) return;
+        bInput = false;
 
-        if(bInput)
+        //コンティニュー出来ない
+        if (!IsContinue && SelectNum == 1)
         {
-            if (selecter >= 0.5f)
-            {
-                SelectNum--;
-                bInput = false;
-            }
-            else if (selecter <= -0.5f)
-            {
+            if (old < SelectNum)
                 SelectNum++;
-                bInput = false;
-            }
+            else
+                SelectNum--;
         }
 
-        if (old != SelectNum)
-        {
-            //コンティニュー出来ない
-            if (!IsContinue && SelectNum == 1)
-            {
-                if (old < SelectNum)
-                    SelectNum++;
-                else
-                    SelectNum--;
-            }
+        if (SelectNum <= -1) SelectNum = MaxSelectNum - 1;
+        SelectNum = SelectNum % MaxSelectNum;
 
-            if (SelectNum <= -1) SelectNum = MaxNum - 1;
-            SelectNum = SelectNum % MaxNum;
+        for (int i = 0; i < MaxSelectNum; i++)
+            select[i].transform.GetChild(0).gameObject.SetActive(SelectNum == i);
 
-            for (int i = 0; i < MaxNum; i++)
-            {
-                select[i].transform.GetChild(0).gameObject.SetActive(SelectNum == i);
-            }
-
-            Selecter.localPosition = select[SelectNum].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
-        }
-
-        if (Input.GetButtonDown(InputManager.Submit))
-        {
-            switch (SelectNum)
-            {
-                //Start
-                case 0:
-                    DataManager.Instance.Reset_DataState();
-                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, true);
-                    break;
-
-                //Continue
-                case 1:
-                    if (IsContinue)
-                        MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(), true);
-                    break;
-
-                //Option
-                case 2:
-                    //SceneManager.LoadScene(MySceneManager.Instance.Path_Option, LoadSceneMode.Additive);
-                    break;
-
-                //Exit
-                case 3:
-                    MySceneManager.Game_Exit();
-                    break;
-
-                default:
-                    //MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, false);
-                    break;
-            }
-        }
-
-        //何か入力があれば
-        if (Input.anyKey)
-        {
-            time = 0f;
-        }
-        else if(time >= WaitTime)
-        {
-            MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
-        }
+        //セレクタ位置更新
+        Selecter.localPosition = select[SelectNum].transform.localPosition + (Vector3.right * Selecter.localPosition.x);
     }
 
-    //--- Method ------------------------------------------
-
-    private void bUpdate_Change()
+    //セレクトされた物が決定された
+    private void Select_Submit()
     {
-        bUpdate = true;
+        if (!Input.GetButtonDown(InputManager.Submit)) return;
+        switch (SelectNum)
+        {
+            //Start
+            case 0:
+                DataManager.Instance.Reset_GameData();
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, true);
+                break;
+
+            //Continue
+            case 1:
+                if (IsContinue)
+                    MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect, true);
+                break;
+
+            //Option
+            case 2:
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Option, true);
+                break;
+
+            //Exit
+            case 3:
+                MySceneManager.Game_Exit();
+                break;
+
+            default:
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
+                break;
+        }
     }
 
+    //ロード完了
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-    }
-
-    //--- IEnumerator -------------------------------------
-
-    IEnumerator Continue_WaitInput()
-    {
-        yield return new WaitForSeconds(2.0f);
-        while (!Input.anyKeyDown) { yield return 0; }
-        NotContinueMessage.SetActive(false);
-        bWait = false;
-        yield return null;
     }
 
 }
