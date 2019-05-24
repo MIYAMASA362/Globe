@@ -41,15 +41,12 @@ public class PauseScene : SceneBase
         SelectNum = 0;
         ContentUI[SelectNum].position += KeepContentUI[SelectNum].transform.right * PopX;
         SelectingUI.position = ContentUI[SelectNum].position;
-
     }
 	
 	// Update is called once per frame
 	public override void Update ()
     {
         if (MySceneManager.IsOption) return;
-
-        
 
         //Selectの変更
         int n = SelectNum;
@@ -99,7 +96,6 @@ public class PauseScene : SceneBase
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
                     break;
                 case 3:
-                    MySceneManager.IsPause_BackLoad = true;
                     MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
@@ -110,7 +106,5 @@ public class PauseScene : SceneBase
                     break;
             }
         }
-
-        
     }
 }
