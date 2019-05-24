@@ -50,7 +50,6 @@ public class MySceneManager : Singleton<MySceneManager>
     [SerializeField] public string Path_End;
 
     public static string NextLoadScene;
-    public static string SelectPlanetName = "NONE";
 
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
@@ -159,9 +158,7 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- 現在の惑星 ----------------------------
     public static string Get_NowPlanet()
     {
-        Planet planet = Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet];
-        SelectPlanetName = planet.name;
-        return planet.Path;
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet].Path;
     }
 
     //--- 現在の銀河 ----------------------------
@@ -286,4 +283,13 @@ public class MySceneManager : Singleton<MySceneManager>
         return IsLoad_Use;
     }
 
+    public static string Get_GalaxyName()
+    {
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].name;
+    }
+
+    public static string Get_PlanetName()
+    {
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet].name;
+    }
 }

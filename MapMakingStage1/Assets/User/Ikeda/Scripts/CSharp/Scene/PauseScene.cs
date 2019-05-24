@@ -27,7 +27,7 @@ public class PauseScene : SceneBase
 	// Use this for initialization
 	public override void Start ()
     {
-        tm_StateName.text = SceneManager.GetActiveScene().name;
+        tm_StateName.text = MySceneManager.Get_PlanetName();
         SelectingUI.gameObject.SetActive(true);
         bInput = false;
 
@@ -49,8 +49,7 @@ public class PauseScene : SceneBase
     {
         if (MySceneManager.IsOption) return;
 
-        if (tm_StateName.text != MySceneManager.SelectPlanetName)
-            tm_StateName.text = MySceneManager.SelectPlanetName;
+        
 
         //Selectの変更
         int n = SelectNum;
