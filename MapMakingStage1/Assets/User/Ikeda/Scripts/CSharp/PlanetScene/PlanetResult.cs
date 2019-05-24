@@ -38,6 +38,8 @@ public class PlanetResult : MonoBehaviour
     private GameObject ResultCamera;
     [SerializeField]
     private GameObject PlayerChara;
+    [SerializeField]
+    private GameObject StarsBackGround;
 
     private float Input_Wait = 0;
 
@@ -66,6 +68,8 @@ public class PlanetResult : MonoBehaviour
     private void Update()
     {
         if (!IsEnable) return;
+
+        StarsBackGround.transform.rotation = Quaternion.AngleAxis(-15f * Time.deltaTime,Vector3.right) * StarsBackGround.transform.rotation;
 
         Input_Wait += Time.deltaTime;
         
