@@ -166,9 +166,16 @@ public class MySceneManager : Singleton<MySceneManager>
             //次の銀河へ
             DataManager.Instance.playerData.SelectPlanet = 0;
             DataManager.Instance.playerData.SelectGalaxy++;
+            return Instance.Path_GalaxySelect;
         }
 
-        return "";
+        return Get_NowPlanet();
+    }
+
+    //--- エンディング読み込み ------------------
+    public static void Ending()
+    {
+        FadeInLoad(Instance.Path_End, true);
     }
 
     //--- 終了処理 ------------------------------
