@@ -283,6 +283,7 @@ MonoBehaviour:
   Path_Opening: 
   Path_Title: 
   Path_Option: 
+  Path_BackGround: 
   Path_DataCheck: 
   Path_GameStart: 
   Path_GalaxySelect: 
@@ -312,11 +313,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4994196054064958, guid: e14dabb35dc68db4ea412b04d550cd06,
     type: 2}
   m_PrefabInternal: {fileID: 855398034}
---- !u!1 &293746109 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1801229107544550, guid: 3b91607223a1e384f991359d149f0851,
-    type: 2}
-  m_PrefabInternal: {fileID: 1130763594}
 --- !u!1001 &342134316
 Prefab:
   m_ObjectHideFlags: 0
@@ -647,8 +643,13 @@ MonoBehaviour:
     IsContinue: 0
     SelectGalaxy: 0
     SelectPlanet: 0
-    nStarCrystal: 0
-    nCrystal: 0
+  commonData:
+    BGM_Volume: 0
+    SE_Volume: 0
+    IsCameraReverseVertical: 0
+    IsCameraReverseHorizontal: 0
+    IsVibration: 1
+    fVibration: 0
 --- !u!4 &1006783202
 Transform:
   m_ObjectHideFlags: 0
@@ -699,7 +700,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4684385115988188, guid: db68cc05ddcc8944cbe7dadf3feba484, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
         type: 2}
@@ -787,7 +788,7 @@ Prefab:
         type: 2}
       propertyPath: UIPieces.Array.data[5]
       value: 
-      objectReference: {fileID: 293746109}
+      objectReference: {fileID: 0}
     - target: {fileID: 114739189485926700, guid: 3b91607223a1e384f991359d149f0851,
         type: 2}
       propertyPath: UIPieces.Array.data[6]
@@ -817,6 +818,35 @@ Prefab:
       propertyPath: m_Layer
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 13.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 461158802}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 461158801}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[2]
+      value: 
+      objectReference: {fileID: 1286215891}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[3]
+      value: 
+      objectReference: {fileID: 461158799}
+    - target: {fileID: 114937593285707930, guid: 3b91607223a1e384f991359d149f0851,
+        type: 2}
+      propertyPath: Pieces.Array.data[4]
+      value: 
+      objectReference: {fileID: 461158798}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b91607223a1e384f991359d149f0851, type: 2}
   m_IsPrefabAsset: 0
@@ -926,7 +956,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4311741157165034, guid: a5353f0601972c84685111e0dd50be9c, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 20229634787268756, guid: a5353f0601972c84685111e0dd50be9c,
         type: 2}
