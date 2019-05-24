@@ -35,6 +35,12 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_FLAGUNPLUG;
     public AudioData SE_FLOATSWAP;
 
+    [Header("アイテム系")]
+    public AudioData SE_GETSTAR;
+    public AudioData SE_COMPLETESTAR;
+    public AudioData SE_GETDIAMOND1;
+    public AudioData SE_GETDIAMOND2;
+
 
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
