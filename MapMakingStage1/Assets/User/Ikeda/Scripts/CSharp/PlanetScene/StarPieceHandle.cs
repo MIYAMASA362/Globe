@@ -121,6 +121,12 @@ public class StarPieceHandle : MonoBehaviour
         UIStarPieceAnimator.SetBool("get", true);
         animTime = 0;
     }
+
+    public void Particle_Stop()
+    {
+        CompletedParticle.Stop();
+        CompletedParticle.gameObject.SetActive(false);
+    }
 }
 
 

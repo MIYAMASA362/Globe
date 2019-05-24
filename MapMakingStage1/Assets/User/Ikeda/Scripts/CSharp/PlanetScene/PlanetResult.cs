@@ -36,11 +36,15 @@ public class PlanetResult : MonoBehaviour
     private GameObject ShipCamera;
     [SerializeField]
     private GameObject ResultCamera;
+    [SerializeField]
+    private GameObject PlayerChara;
 
     private float Input_Wait = 0;
 
     private bool IsEnable = false;
     private bool IsInput = false;
+
+    private bool IsFadeIn = false;
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -118,5 +122,10 @@ public class PlanetResult : MonoBehaviour
         IsEnable = false;
 
         ResultEndAnimator.SetTrigger("EndResult");
+    }
+
+    public void UnLoadPlayer()
+    {
+        PlayerChara.SetActive(false);
     }
 }

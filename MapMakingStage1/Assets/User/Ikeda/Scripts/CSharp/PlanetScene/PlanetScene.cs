@@ -76,6 +76,7 @@ public class PlanetScene :SceneBase
 
                 break;
             case STATE.RESULT:
+                starPieceHandle.Particle_Stop();
                 planetResult.Begin();
                 break;
             default:
