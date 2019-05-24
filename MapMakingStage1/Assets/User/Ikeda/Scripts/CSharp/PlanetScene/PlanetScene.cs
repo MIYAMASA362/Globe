@@ -163,7 +163,8 @@ public class PlanetScene :SceneBase
 
     public void NextScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
+        MySceneManager.FadeInLoad(MySceneManager.Load_Next_Planet(),true);
+        //MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
 }
