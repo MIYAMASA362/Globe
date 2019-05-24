@@ -52,7 +52,7 @@ public class PlanetResult : MonoBehaviour
         AchievCrystalUI.SetActive(false);
         NotAchievCrystalUI.SetActive(false);
         AchievStarCrystalUI.SetActive(false);
-        NotAchievCrystalUI.SetActive(false);
+        NotAchievStarCrystalUI.SetActive(false);
 
         ShipCamera.SetActive(false);
         ResultCamera.SetActive(false);
