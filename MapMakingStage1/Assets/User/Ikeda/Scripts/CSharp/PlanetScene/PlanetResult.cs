@@ -36,11 +36,17 @@ public class PlanetResult : MonoBehaviour
     private GameObject ShipCamera;
     [SerializeField]
     private GameObject ResultCamera;
+    [SerializeField]
+    private GameObject PlayerChara;
+    [SerializeField]
+    private GameObject StarsBackGround;
 
     private float Input_Wait = 0;
 
     private bool IsEnable = false;
     private bool IsInput = false;
+
+    private bool IsFadeIn = false;
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -62,6 +68,8 @@ public class PlanetResult : MonoBehaviour
     private void Update()
     {
         if (!IsEnable) return;
+
+        StarsBackGround.transform.rotation = Quaternion.AngleAxis(-15f * Time.deltaTime,Vector3.right) * StarsBackGround.transform.rotation;
 
         Input_Wait += Time.deltaTime;
         
@@ -118,5 +126,10 @@ public class PlanetResult : MonoBehaviour
         IsEnable = false;
 
         ResultEndAnimator.SetTrigger("EndResult");
+    }
+
+    public void UnLoadPlayer()
+    {
+        PlayerChara.SetActive(false);
     }
 }
