@@ -73,6 +73,7 @@ public class PlanetOpening : MonoBehaviour
         PopUpCount = 0f;
         IsEnable = true;
         IsPopUp = true;
+        Invoke("PopDown_StageLabel",4f);
     }
 
     [ContextMenu("PopDown")]

@@ -79,7 +79,8 @@ public class OptionScene : MonoBehaviour
         SelectNum = 0;
         SelecterObj.localPosition = SelectContent[SelectNum].localPosition;
 
-        MySceneManager.Instance.CompleteLoaded();
+        if(!MySceneManager.IsPause_BackLoad)
+            MySceneManager.Instance.CompleteLoaded();
 	}
 	
 	// Update is called once per frame
