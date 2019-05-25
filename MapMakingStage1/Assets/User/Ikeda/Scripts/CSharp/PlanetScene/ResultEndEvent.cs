@@ -29,4 +29,9 @@ public class ResultEndEvent : MonoBehaviour
     {
         planetResult.Print();
     }
+
+    public void UnLoadPlayer()
+    {
+        planetResult.UnLoadPlayer();
+    }
 }

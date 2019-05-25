@@ -27,7 +27,7 @@ public class PauseScene : SceneBase
 	// Use this for initialization
 	public override void Start ()
     {
-        tm_StateName.text = SceneManager.GetActiveScene().name;
+        tm_StateName.text = MySceneManager.Get_PlanetName();
         SelectingUI.gameObject.SetActive(true);
         bInput = false;
 
@@ -41,16 +41,12 @@ public class PauseScene : SceneBase
         SelectNum = 0;
         ContentUI[SelectNum].position += KeepContentUI[SelectNum].transform.right * PopX;
         SelectingUI.position = ContentUI[SelectNum].position;
-
     }
 	
 	// Update is called once per frame
 	public override void Update ()
     {
         if (MySceneManager.IsOption) return;
-
-        if (tm_StateName.text != MySceneManager.SelectPlanetName)
-            tm_StateName.text = MySceneManager.SelectPlanetName;
 
         //Selectの変更
         int n = SelectNum;
@@ -100,7 +96,6 @@ public class PauseScene : SceneBase
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
                     break;
                 case 3:
-                    MySceneManager.IsPause_BackLoad = true;
                     MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
@@ -111,7 +106,5 @@ public class PauseScene : SceneBase
                     break;
             }
         }
-
-        
     }
 }

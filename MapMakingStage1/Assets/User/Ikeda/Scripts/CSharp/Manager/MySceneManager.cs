@@ -50,20 +50,19 @@ public class MySceneManager : Singleton<MySceneManager>
     [SerializeField] public string Path_End;
 
     public static string NextLoadScene;
-    public static string SelectPlanetName = "NONE";
 
     public static bool IsPlayGame = false;              //ゲームをプレイできるか
     private static bool IsFade_Use = false;             //FadeIn/Outを利用
     private static bool IsLoad_Use = false;             //Loadを利用
     private static bool IsLoad_Pause = false;           //Pauseを読み込む
 
-
     //--- operation -----------------------------
 
     public static bool IsPausing { get; private set; }  //Pause中:true
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
-    public static bool IsPause_BackLoad { get; set; }   //背後にPauseが読み込まれている
+    public static bool IsPause_BackLoad { get; set; }   //背後にPauseがある
+
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -95,25 +94,6 @@ public class MySceneManager : Singleton<MySceneManager>
         else
             Time.timeScale = 1;
     }
-
-    //--- Coroutine -----------------------------------------------------------
-
-    //--- Pause画面を登録 -----------------------
-    IEnumerator IE_LoadPause()
-    {
-        AsyncOperation async = SceneManager.LoadSceneAsync(Instance.Path_Pause, LoadSceneMode.Additive);
-        async.allowSceneActivation = false;
-        IsLoad_Pause = false;
-
-        while (!IsLoad_Pause)
-            yield return null;
-
-        async.allowSceneActivation = true;
-        IsLoad_Pause = false;
-
-        yield return null;
-    }
-
 
     //--- Method --------------------------------------------------------------
 
@@ -159,9 +139,7 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- 現在の惑星 ----------------------------
     public static string Get_NowPlanet()
     {
-        Planet planet = Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet];
-        SelectPlanetName = planet.name;
-        return planet.Path;
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet].Path;
     }
 
     //--- 現在の銀河 ----------------------------
@@ -188,9 +166,16 @@ public class MySceneManager : Singleton<MySceneManager>
             //次の銀河へ
             DataManager.Instance.playerData.SelectPlanet = 0;
             DataManager.Instance.playerData.SelectGalaxy++;
+            return Instance.Path_GalaxySelect;
         }
 
-        return "";
+        return Get_NowPlanet();
+    }
+
+    //--- エンディング読み込み ------------------
+    public static void Ending()
+    {
+        FadeInLoad(Instance.Path_End, true);
     }
 
     //--- 終了処理 ------------------------------
@@ -215,6 +200,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public void LoadPause()
     {
         IsLoad_Pause = true;
+        IsPause_BackLoad = true;
     }
 
     public void LoadOption()
@@ -222,6 +208,22 @@ public class MySceneManager : Singleton<MySceneManager>
         if (IsPause_BackLoad)
             SceneManager.UnloadSceneAsync(Path_Pause);
         SceneManager.LoadScene(Path_Option,LoadSceneMode.Additive);
+    }
+
+    //--- Pause画面を登録 -----------------------
+    IEnumerator IE_LoadPause()
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(Instance.Path_Pause, LoadSceneMode.Additive);
+        async.allowSceneActivation = false;
+        IsLoad_Pause = false;
+
+        while (!IsLoad_Pause)
+            yield return null;
+
+        async.allowSceneActivation = true;
+        IsLoad_Pause = false;
+
+        yield return null;
     }
 
     //--- SceneLoad FadeInOut -------------------------------------------------
@@ -268,8 +270,8 @@ public class MySceneManager : Singleton<MySceneManager>
     //--- Load画面を終了 ------------------------
     public void CompleteLoaded()
     {
-            Instance.animator.SetTrigger("LoadTrigger");
-            IsLoad_Use = false;
+        Instance.animator.SetTrigger("LoadTrigger");
+        IsLoad_Use = false;
     }
 
     //--- DataManager ---------------------------------------------------------
@@ -286,4 +288,13 @@ public class MySceneManager : Singleton<MySceneManager>
         return IsLoad_Use;
     }
 
+    public static string Get_GalaxyName()
+    {
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].name;
+    }
+
+    public static string Get_PlanetName()
+    {
+        return Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets[DataManager.Instance.playerData.SelectPlanet].name;
+    }
 }

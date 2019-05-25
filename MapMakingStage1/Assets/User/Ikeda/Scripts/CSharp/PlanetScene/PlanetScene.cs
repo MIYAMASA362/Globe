@@ -8,6 +8,7 @@ using DataType;
 [RequireComponent(typeof(CrystalHandle))]
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
+[RequireComponent(typeof(PlanetOpening))]
 public class PlanetScene :SceneBase
 {
     public enum STATE
@@ -25,6 +26,7 @@ public class PlanetScene :SceneBase
     private StarPieceHandle starPieceHandle;
 
     //Planet系
+    private PlanetOpening planetOpening;
     private PlanetResult planetResult;
 
     //--- Animator ------------------------------
@@ -48,6 +50,7 @@ public class PlanetScene :SceneBase
         //--- Component ---
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
+        planetOpening = this.GetComponent<PlanetOpening>();
 
         planetResult = GetComponent<PlanetResult>();
 
@@ -73,6 +76,7 @@ public class PlanetScene :SceneBase
 
                 break;
             case STATE.RESULT:
+                starPieceHandle.Particle_Stop();
                 planetResult.Begin();
                 break;
             default:
@@ -86,6 +90,7 @@ public class PlanetScene :SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
+        planetOpening.PopUp_StageLabel();
         EndOpening();
     }
 
@@ -158,7 +163,8 @@ public class PlanetScene :SceneBase
 
     public void NextScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
+        MySceneManager.FadeInLoad(MySceneManager.Load_Next_Planet(),true);
+        //MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
 }
