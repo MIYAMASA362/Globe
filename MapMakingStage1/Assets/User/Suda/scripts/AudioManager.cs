@@ -34,6 +34,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_FLAGPLUGIN;
     public AudioData SE_FLAGUNPLUG;
     public AudioData SE_FLOATSWAP;
+    public AudioData SE_FLOATGROUNDENTER;
 
     [Header("アイテム系")]
     public AudioData SE_GETSTAR;

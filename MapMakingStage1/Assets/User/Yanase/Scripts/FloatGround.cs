@@ -20,6 +20,8 @@ public class FloatGround : MonoBehaviour
 
     public bool isFalse = false;
 
+   public bool a = false;
+
     void Start()
     {
         startHeight = transform.localPosition.y;

@@ -794,6 +794,10 @@ Prefab:
       propertyPath: rotationTarget
       value: 
       objectReference: {fileID: 1729506969}
+    - target: {fileID: 4463051477265930, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3d241f302c68b4c835c64677b9c418, type: 2}
   m_IsPrefabAsset: 0
@@ -13426,8 +13430,13 @@ MonoBehaviour:
     IsContinue: 0
     SelectGalaxy: 0
     SelectPlanet: 0
-    nStarCrystal: 0
-    nCrystal: 0
+  commonData:
+    BGM_Volume: 0
+    SE_Volume: 0
+    IsCameraReverseVertical: 0
+    IsCameraReverseHorizontal: 0
+    IsVibration: 1
+    fVibration: 0
 --- !u!4 &721832793
 Transform:
   m_ObjectHideFlags: 0
@@ -14095,6 +14104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 1
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!1 &828642006
 GameObject:
   m_ObjectHideFlags: 0
@@ -14638,6 +14650,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 4
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!135 &946546603
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16214,6 +16229,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 17408
+  myCollider: {fileID: 0}
 --- !u!54 &1192378825
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16339,6 +16355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 4
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!135 &1212941405
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16650,6 +16669,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 17408
+  myCollider: {fileID: 0}
 --- !u!54 &1278274092
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16759,6 +16779,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 4
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!135 &1298476135
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -22529,6 +22552,7 @@ MonoBehaviour:
   Path_Opening: 
   Path_Title: 
   Path_Option: 
+  Path_BackGround: 
   Path_DataCheck: 
   Path_GameStart: 
   Path_GalaxySelect: 
@@ -22735,6 +22759,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 17408
+  myCollider: {fileID: 0}
 --- !u!54 &1487045762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23369,6 +23394,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 17408
+  myCollider: {fileID: 0}
 --- !u!54 &1586785134
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24336,6 +24362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 4
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!135 &1693064181
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -24618,6 +24647,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotSpeed: 4
+  getHeight: 1
+  getTime: 1
+  followSpeed: 1
 --- !u!135 &1726842047
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -29844,6 +29876,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 17408
+  myCollider: {fileID: 0}
 --- !u!54 &1815291176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30135,13 +30168,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4684385115988188, guid: db68cc05ddcc8944cbe7dadf3feba484, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
         type: 2}
       propertyPath: BGM_STAGE1.clip
       value: 
-      objectReference: {fileID: 8300000, guid: d1df0e3df200dfb41b3c4741c6b6efef, type: 3}
+      objectReference: {fileID: 8300000, guid: abf37034d5484b74591f5d13e5b066a2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db68cc05ddcc8944cbe7dadf3feba484, type: 2}
   m_IsPrefabAsset: 0
@@ -36122,6 +36155,10 @@ Prefab:
       propertyPath: crystal
       value: 
       objectReference: {fileID: 814310943}
+    - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 13.65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b91607223a1e384f991359d149f0851, type: 2}
   m_IsPrefabAsset: 0

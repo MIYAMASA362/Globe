@@ -40,6 +40,8 @@ public class FlagManager : Singleton<FlagManager> {
     private Vector3 InitScale = Vector3.zero;
     public float flagScaleSpeed = 3.0f;
 
+    float vibrationTime = 0.0f;
+
     void Start () {
 
         FindFloatGround();
@@ -53,6 +55,16 @@ public class FlagManager : Singleton<FlagManager> {
 
     void Update()
     {
+        if(vibrationTime > 0)
+        {
+            vibrationTime -= Time.deltaTime;
+            RotationManager flagManager = RotationManager.Instance;
+            if (vibrationTime > 0)
+                GamePad.SetVibration(PlayerIndex.One, flagManager.XBoxVibration, flagManager.XBoxVibration);
+            else
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+        }
+
         if (flagActive)
         {
             flag.transform.localScale = Vector3.Lerp(flag.transform.localScale, InitScale, Time.deltaTime * flagScaleSpeed);
@@ -99,6 +111,8 @@ public class FlagManager : Singleton<FlagManager> {
         curFloatType = type;
         flagActive = true;
 
+        vibrationTime = 0.3f;
+
         AudioManager audioManager = AudioManager.Instance;
         if (flagAudio)
         {
@@ -119,6 +133,8 @@ public class FlagManager : Singleton<FlagManager> {
 
         lineEffectSwitcher.SetEffect(axisPos, Color.red);
         flagActive = false;
+
+        vibrationTime = 0.3f;
 
         if (flagAudio)
         {
@@ -167,6 +183,12 @@ public class FlagManager : Singleton<FlagManager> {
                     floatObj.isFalse = true;
                 }
             }
+
+            if (flagAudio)
+            {
+                AudioManager audioManager = AudioManager.Instance;
+                audioManager.PlaySEOneShot(flagAudio, audioManager. SE_FLOATSWAP);
+            }
         }
 
         return isCheck;
@@ -176,10 +198,17 @@ public class FlagManager : Singleton<FlagManager> {
     {
         foreach (var floatObj in floatObjects)
         {
-            if(curFloatType == floatObj.type)
+            if (curFloatType == floatObj.type)
             {
                 floatObj.isFloat = !floatObj.isFloat;
+                floatObj.a = true;
             }
+        }
+
+        if (flagAudio)
+        {
+            AudioManager manager = AudioManager.Instance;
+            manager.PlaySEOneShot(flagAudio, manager.SE_FLOATGROUNDENTER);
         }
     }
 }
