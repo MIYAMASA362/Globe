@@ -68,17 +68,6 @@ public class PlanetWalker : MonoBehaviour {
         );
     }
 
-    void FixedUpdate()
-    {
-        Get_RayCast();
-        Move(MoveVec);
-    }
-
-    void LateUpdate()
-    {
-        if (anim) anim.SetFloat("move", moveAmount);
-    }
-
     //RayCast
     void Get_RayCast()
     {
@@ -146,8 +135,6 @@ public class PlanetWalker : MonoBehaviour {
     {
         Vector3 velocityChanger = VelocityChanger(MoveDir * speed * moveAmount * Time.deltaTime);
         Transform gravityCenter = RotationManager.Instance.planetTransform;
-        Vector3 gravityDirection = (transform.position - gravityCenter.position).normalized;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, gravityDirection) * transform.rotation, Time.deltaTime * 5.0f);
 
         Quaternion q = Quaternion.FromToRotation(transform.forward, MoveDir) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * moveAmount * turnSpeed);
@@ -189,5 +176,9 @@ public class PlanetWalker : MonoBehaviour {
     public void FixedTick(float d)
     {
         MoveVec = MoveDirection();
+        Get_RayCast();
+        Move(MoveVec);
+
+        if (anim) anim.SetFloat("move", moveAmount);
     }
 }

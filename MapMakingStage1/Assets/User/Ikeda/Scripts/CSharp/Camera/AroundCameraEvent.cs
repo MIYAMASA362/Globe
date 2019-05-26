@@ -9,6 +9,7 @@ public class AroundCameraEvent : MonoBehaviour {
     public void EndOpening()
     {
         planetScene.EndOpening();
-        planetScene.state = PlanetScene.STATE.MAINGAME;
+        CameraManager.Instance.characterCamera.SetAngle(transform.position);
+        this.gameObject.SetActive(false);
     }
 }

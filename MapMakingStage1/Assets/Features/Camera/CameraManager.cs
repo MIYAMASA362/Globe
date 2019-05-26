@@ -5,11 +5,22 @@ using UnityEngine;
 
 public class CameraManager : Singleton<CameraManager>
 {
+    public enum State
+    {
+        Start,
+        Game
+    }
+
+    public State state = State.Game;
+
     public bool isChange;
     public PlanetCamera planetCamera;
     public CharacterCamera characterCamera;
 
     private bool onCharacterCamera = false;
+
+    public float timer = 0.0f;
+    public bool isStart;
 
     private void Start()
     {
@@ -18,32 +29,52 @@ public class CameraManager : Singleton<CameraManager>
 
     void Update()
     {
-        if (Input.GetButtonDown(InputManager.View_Swith))
+        switch(state)
         {
-            if(!planetCamera.gameObject.activeInHierarchy)
-            {
-                Vector3 dir = -characterCamera.cameraTransform.forward;
-                planetCamera.transform.rotation = characterCamera.cameraTransform.rotation;
-                planetCamera.transform.position = RotationManager.Instance.planetTransform.position + dir * planetCamera.distance;
+            case State.Start:
 
-                isChange = !isChange;
-            }
-            else
-            {
-                characterCamera.tiltAngle = 38f;
-                onCharacterCamera = true;
-                planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10);
-            }
-        }
-        if(onCharacterCamera && !planetCamera.isMoveTarget)
-        {
-            isChange = !isChange;
-            onCharacterCamera = false;
-            characterCamera.SetAngle(planetCamera.targetPosition);
+
+                break;
+            case State.Game:
+
+
+                if (Input.GetButtonDown(InputManager.View_Swith))
+                {
+                    if (!planetCamera.gameObject.activeInHierarchy)
+                    {
+                        Vector3 dir = -characterCamera.cameraTransform.forward;
+                        planetCamera.transform.rotation = characterCamera.cameraTransform.rotation;
+                        planetCamera.transform.position = RotationManager.Instance.planetTransform.position + dir * planetCamera.distance;
+
+                        isChange = !isChange;
+                    }
+                    else
+                    {
+                        characterCamera.tiltAngle = 38f;
+                        onCharacterCamera = true;
+                        planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10);
+                    }
+                }
+
+                if (onCharacterCamera && !planetCamera.isMoveTarget)
+                {
+                    isChange = !isChange;
+                    onCharacterCamera = false;
+                    characterCamera.SetAngle(planetCamera.targetPosition);
+                }
+                break;
         }
 
         planetCamera.gameObject.SetActive(!isChange);
         characterCamera.gameObject.SetActive(isChange);
+    }
+
+    public void SetStart()
+    {
+        timer = 0.0f;
+        isStart = true;
+        isChange = false;
+        state = State.Start;
     }
 }
 

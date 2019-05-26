@@ -97,9 +97,20 @@ namespace SA
             gravityDirection = (transform.position - gravityCenter.position).normalized;
             delta = d;
 
-            onGround = OnGround();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, gravityDirection) * transform.rotation, delta * 5.0f);
 
-            if (!onGround) rigid.AddForce(gravityDirection * -gravity);
+            onGround = OnGround();
+            
+            if (!onGround)
+                rigid.AddForce(gravityDirection * -gravity);
+
+            if(state == State.Start)
+            {
+                if(onGround)
+                {
+                    anim.SetTrigger("impact");
+                }
+            }
 
         }//Tick end
          //------------------------------------------
