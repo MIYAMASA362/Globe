@@ -7,6 +7,15 @@ namespace SA
 
     public class StateManager : MonoBehaviour
     {
+        public enum State
+        {
+            Start,
+            GameMain,
+            End
+        }
+
+        public State state = State.GameMain;
+
         public ParticleSystem circleParticle;
         public AxisDevice axisDevice;
 

@@ -38,9 +38,14 @@ namespace SA
         void FixedUpdate()
         {
             delta = Time.fixedDeltaTime;
-            GetInput();
-            UpdateStates();
-            characterCamera.Tick(delta);
+            states.FixedTick(delta);
+
+            if (states.state == StateManager.State.GameMain)
+            {
+                GetInput();
+                UpdateStates();
+                characterCamera.Tick(delta);
+            }
 
         }//Update end
          //------------------------------------------
@@ -83,8 +88,6 @@ namespace SA
         //------------------------------------------
         void UpdateStates()
         {
-            states.FixedTick(delta);
-
             if (isInvisible)
             {
                 planetWalker.moveAmount *= 0.8f;

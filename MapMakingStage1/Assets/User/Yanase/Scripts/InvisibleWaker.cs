@@ -42,8 +42,6 @@ public class InvisibleWaker : MonoBehaviour {
     {
         transform.position = Vector3.Lerp(transform.position, character.position, d * followSpeed);
         SetDistance();
-
-        
     }
 
     private void SetDistance()
