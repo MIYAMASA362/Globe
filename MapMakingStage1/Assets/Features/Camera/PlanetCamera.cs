@@ -58,6 +58,10 @@ public class PlanetCamera : MonoBehaviour
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
 
+        DataManager data = DataManager.Instance;
+        if (data.commonData.IsCameraReverseHorizontal) h *= -1f;
+        if (data.commonData.IsCameraReverseVertical) v *= -1f;
+
         holizontal = Mathf.Lerp(holizontal, h, sumooth);
         vertical = Mathf.Lerp(vertical, v, sumooth);
 
