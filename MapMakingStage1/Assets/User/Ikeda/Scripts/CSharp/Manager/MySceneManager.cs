@@ -20,7 +20,8 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        [HideInInspector]public string name = "";
+        [HideInInspector] public string name = "";
+        public int UnLockCrystalNum = 0;
         public List<Planet> Planets = new List<Planet>();
     }
 
@@ -62,7 +63,6 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsOption  { get; private set; }  //Option中:true
     public static bool IsFadeing { get; private set; }  //Fade中:true
     public static bool IsPause_BackLoad { get; set; }   //背後にPauseがある
-
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -148,6 +148,13 @@ public class MySceneManager : Singleton<MySceneManager>
         return Instance.Path_GalaxySelect;
     }
 
+    public static string Get_NextGalaxyPlanet()
+    {
+        if (DataManager.Instance.playerData.GetStarCrystalNum >= Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].UnLockCrystalNum)
+            return Get_NowPlanet();
+        return Instance.Path_GalaxySelect;
+    }
+
     //--- Planetの選択に戻る
     public static string Load_PlanetSelect()
     {
@@ -166,7 +173,7 @@ public class MySceneManager : Singleton<MySceneManager>
             //次の銀河へ
             DataManager.Instance.playerData.SelectPlanet = 0;
             DataManager.Instance.playerData.SelectGalaxy++;
-            return Instance.Path_GalaxySelect;
+            return Get_NextGalaxyPlanet();
         }
 
         return Get_NowPlanet();

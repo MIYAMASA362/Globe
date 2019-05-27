@@ -151,13 +151,20 @@ public class PlanetScene :SceneBase
 
         planetData = new PlanetData(DataFile);
 
-        if(!oldData.IsClear)
+        if (!oldData.IsClear)
+        {
             planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
-        if(!oldData.IsGet_StarCrystal)
+        }
+        if (!oldData.IsGet_StarCrystal)
+        {
             planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
-        if(!oldData.IsGet_Crystal)
+            DataManager.Instance.playerData.GetStarCrystalNum++;
+        }
+        if (!oldData.IsGet_Crystal)
+        {
             planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
-
+            DataManager.Instance.playerData.GetCrystalNum++;
+        }
         DataHandle.Save(ref planetData, planetData.FilePath());     //PlanetDataの設定
     }
 
