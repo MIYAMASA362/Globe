@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SA;
+
 
 public class CameraManager : Singleton<CameraManager>
 {
@@ -22,8 +22,6 @@ public class CameraManager : Singleton<CameraManager>
     public float timer = 0.0f;
     public bool isStart;
 
-    public GoalScript goal;
-
     private void Start()
     {
         isChange = true;
@@ -34,32 +32,7 @@ public class CameraManager : Singleton<CameraManager>
         switch(state)
         {
             case State.Start:
-                timer += Time.deltaTime;
-                float time1 = 1.0f;
-                float time2 = 3.0f;
 
-                if (timer > time1 && timer < time2)
-                {
-                    planetCamera.SetTarget(goal.transform.position, Time.deltaTime * 10f);
-                }
-                else if(timer > time2)
-                {
-                    if (timer < time2 + 0.2f) 
-                    {
-                        planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10f);
-                    }
-
-                    if (!planetCamera.isMoveTarget)
-                    {
-                        characterCamera.tiltAngle = 38f;
-                        characterCamera.SetAngle(planetCamera.transform.position);
-                        isChange = !isChange;
-                        state = State.Game;
-                        //BGMスタート
-                        
-                        Invoke("PlayBGM", 1f);
-                    }
-                }
 
                 break;
             case State.Game:
@@ -102,13 +75,6 @@ public class CameraManager : Singleton<CameraManager>
         isStart = true;
         isChange = false;
         state = State.Start;
-        planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10f);
-    }
-
-    void PlayBGM()
-    {
-        AudioManager audioManager = AudioManager.Instance;
-        audioManager.PlayBGM(audioManager.BGM_STAGE1);
     }
 }
 

@@ -109,11 +109,6 @@ namespace SA
                 if(onGround)
                 {
                     anim.SetTrigger("impact");
-
-                    if(anim.GetBool("getUp"))
-                    {
-                        state = State.GameMain;
-                    }
                 }
             }
 

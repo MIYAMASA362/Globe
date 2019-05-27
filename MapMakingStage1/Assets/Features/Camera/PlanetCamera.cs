@@ -33,7 +33,6 @@ public class PlanetCamera : MonoBehaviour
     void LateUpdate()
     {
         if (!this.gameObject.activeInHierarchy) return;
-        
 
         targetDir = (corePosition - transform.position).normalized;
 
@@ -43,10 +42,7 @@ public class PlanetCamera : MonoBehaviour
         }
         else
         {
-            if (CameraManager.Instance.state == CameraManager.State.Game)
-            {
-                InputMove();
-            }
+            InputMove();
         }
 
         SetDistance();

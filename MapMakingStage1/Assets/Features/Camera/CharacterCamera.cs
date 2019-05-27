@@ -115,7 +115,7 @@ public class CharacterCamera : MonoBehaviour
         tiltAngle = 38.0f;
         lookAngle = q.eulerAngles.y;
 
-        rotationPivot.localRotation = Quaternion.Euler(tiltAngle, lookAngle, 0);
+        
     }
 
     public void SetDistance(float dist)

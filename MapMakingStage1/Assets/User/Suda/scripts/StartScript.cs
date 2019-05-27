@@ -24,6 +24,10 @@ public class StartScript : MonoBehaviour {
 
     void Start()
     {
+        //BGMスタート
+        AudioManager audioManager = AudioManager.Instance;
+        audioManager.PlayBGM(audioManager.BGM_STAGE1);
+
         GameObject.Destroy(this.gameObject);
     }
 }

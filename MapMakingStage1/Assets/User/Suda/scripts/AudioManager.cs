@@ -43,12 +43,6 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_GETDIAMOND1;
     public AudioData SE_GETDIAMOND2;
 
-    [Header("衝撃音")]
-    public AudioData SE_IMPACT_GRASS;
-    public AudioData SE_IMPACT_ROCK;
-    public AudioData SE_IMPACT_SAND;
-    public AudioData SE_IMPACT_SNOW;
-
 
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
