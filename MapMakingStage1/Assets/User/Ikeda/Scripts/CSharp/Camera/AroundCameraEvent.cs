@@ -8,7 +8,6 @@ public class AroundCameraEvent : MonoBehaviour {
 
     public void EndOpening()
     {
-        planetScene.EndOpening();
-        planetScene.state = PlanetScene.STATE.MAINGAME;
+        planetScene.SetState(PlanetScene.STATE.MAINGAME);
     }
 }

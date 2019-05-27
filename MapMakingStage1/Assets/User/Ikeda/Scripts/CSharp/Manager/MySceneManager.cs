@@ -168,15 +168,16 @@ public class MySceneManager : Singleton<MySceneManager>
         DataManager.Instance.playerData.SelectPlanet++;
 
         //最終ステージまでやった
-        if(DataManager.Instance.playerData.SelectPlanet >= Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets.Count)
-        {
-            //次の銀河へ
-            DataManager.Instance.playerData.SelectPlanet = 0;
-            DataManager.Instance.playerData.SelectGalaxy++;
-            return Get_NextGalaxyPlanet();
-        }
+        if(DataManager.Instance.playerData.SelectPlanet < Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets.Count)
+            return Get_NowPlanet();
 
-        return Get_NowPlanet();
+        //次の銀河へ
+        DataManager.Instance.playerData.SelectPlanet = 0;
+        DataManager.Instance.playerData.SelectGalaxy++;
+        if (DataManager.Instance.playerData.SelectGalaxy >= Instance.Galaxies.Count)
+            return Instance.Path_End;
+
+        return Get_NextGalaxyPlanet();
     }
 
     //--- エンディング読み込み ------------------
