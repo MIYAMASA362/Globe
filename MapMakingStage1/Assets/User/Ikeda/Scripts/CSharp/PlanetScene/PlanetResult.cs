@@ -22,6 +22,8 @@ public class PlanetResult : MonoBehaviour
     private GameObject AchievCrystalUI;
     [SerializeField]
     private GameObject NotAchievCrystalUI;
+    [SerializeField]
+    private ItemUI ItemPopUp;
 
     [Space(8)]
     [SerializeField, Tooltip("リザルト時スタークリスタルUI")]
@@ -101,6 +103,8 @@ public class PlanetResult : MonoBehaviour
 
         ShipCamera.SetActive(true);
         ResultEndAnimator.SetTrigger("TakeOff");
+
+        ItemPopUp.PopDown();
     }
 
     public void Print()
