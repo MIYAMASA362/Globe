@@ -15,7 +15,13 @@ public class EndingSystem : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
+
+    public void NextScene()
+    {
+        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,true);
+    }
 }
