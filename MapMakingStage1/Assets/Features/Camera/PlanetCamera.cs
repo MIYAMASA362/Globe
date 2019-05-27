@@ -33,6 +33,7 @@ public class PlanetCamera : MonoBehaviour
     void LateUpdate()
     {
         if (!this.gameObject.activeInHierarchy) return;
+        
 
         targetDir = (corePosition - transform.position).normalized;
 
@@ -42,7 +43,10 @@ public class PlanetCamera : MonoBehaviour
         }
         else
         {
-            InputMove();
+            if (CameraManager.Instance.state == CameraManager.State.Game)
+            {
+                InputMove();
+            }
         }
 
         SetDistance();
@@ -82,7 +86,7 @@ public class PlanetCamera : MonoBehaviour
 
     private void MoveTarget(Vector3 position, float speed)
     {
-        Vector3 movePos = position - transform.up * 8f;
+        Vector3 movePos = position - transform.up * 5f;
         Vector3 dir = (movePos - corePosition);
         targetPosition = movePos - (dir - (dir.normalized * distance));
 
