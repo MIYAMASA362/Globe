@@ -81,10 +81,10 @@ public class RotationManager : Singleton<RotationManager> {
                 rotationSpeed += accelSpeed;
                 rotationSpeed = Mathf.Clamp(rotationSpeed, 0f, maxSpeed);
 
-                float roll = ((curRotation >= 0) ? rotationSpeed : -rotationSpeed) * Time.deltaTime;
-                float deff = (curRotation >= 0) ? (curRotation - roll) : -(curRotation - roll);
+                float roll = ((curRotation >= 0.0000f) ? rotationSpeed : -rotationSpeed) * Time.deltaTime;
+                float deff = (curRotation >= 0.0000f) ? (curRotation - roll) : -(curRotation - roll);
 
-                if (deff <= 0)
+                if (deff <= 0f)
                 {
                     roll = curRotation;
                     isRotation = false;
@@ -99,15 +99,15 @@ public class RotationManager : Singleton<RotationManager> {
 
                 quaternion = Quaternion.AngleAxis(roll, axisTransform.up);
                 // 回転値を合成
-                axisTransform.rotation = Quaternion.Inverse(quaternion) * axisTransform.rotation;
+                axisTransform.rotation = quaternion * axisTransform.rotation;
 
                 if(isStageCreate)
                 {
-                    rotationTarget.rotation = quaternion * rotationTarget.transform.rotation;
+                    rotationTarget.rotation = quaternion * rotationTarget.rotation;
                 }
                 else
                 {
-                    corePlanet.rotation = quaternion * corePlanet.transform.rotation;
+                    corePlanet.rotation = quaternion * corePlanet.rotation;
                 }
 
                 corePlanet.GetComponent<Animator>().SetBool("vibration", true);

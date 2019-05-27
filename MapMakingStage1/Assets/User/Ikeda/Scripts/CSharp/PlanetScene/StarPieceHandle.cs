@@ -74,7 +74,7 @@ public class StarPieceHandle : MonoBehaviour
         nGetPiece++;
 
         AudioManager manager = AudioManager.Instance;
-        manager.PlaySEOneShot(audioSource, manager.SE_GETSTAR);
+        manager.PlaySEOneShot(audioSource, manager.SE_GETSTAR1);
             
         return true;
     }
@@ -115,6 +115,11 @@ public class StarPieceHandle : MonoBehaviour
             CompletedParticle.Play();
             AudioManager manager = AudioManager.Instance;
             manager.PlaySEOneShot(audioSource, manager.SE_COMPLETESTAR);
+        }
+        else
+        {
+            AudioManager manager = AudioManager.Instance;
+            manager.PlaySEOneShot(audioSource, manager.SE_GETSTAR2);
         }
 
         UIPieces[nPieceNum].GetComponent<Renderer>().material = Enable_material;
