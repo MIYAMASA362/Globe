@@ -45,6 +45,10 @@ public class PlanetScene :SceneBase
         base.Start();
 
         state = STATE.MAINGAME;
+
+        //-- データ初期化 ---
+        InitData();
+
         Invoke("Loaded",4f);
 
         //--- Component ---
@@ -54,8 +58,7 @@ public class PlanetScene :SceneBase
 
         planetResult = GetComponent<PlanetResult>();
 
-        //-- データ初期化 ---
-        InitData();
+        
 
         //--- Init status ---
         IsGameClear = false;
@@ -130,6 +133,8 @@ public class PlanetScene :SceneBase
     {
         DataFile = this.gameObject.scene.name;
         planetData = new PlanetData(DataFile);
+        Debug.Log("LoadData:"+planetData.FilePath());
+
 
         if (DataHandle.FileFind(planetData.FilePath()))
             DataHandle.Load(ref planetData, planetData.FilePath()); //データがあれば読み込み
@@ -139,26 +144,37 @@ public class PlanetScene :SceneBase
 
     public void SaveData()
     {
-        planetData = new PlanetData(DataFile);
+        Debug.Log("SaveFile:" + planetData.FilePath());
         DataHandle.Save(ref planetData,planetData.FilePath());
     }
 
     private void UnInitData()
     {
-        DataManager.Instance.PlayerData_Save();            //PlayerDataのセーブ
+        DataManager.Instance.PlayerData_Save();            //PlayerDataのセーブ 
 
-        PlanetData oldData = planetData;
-
-        planetData = new PlanetData(DataFile);
-
-        if(!oldData.IsClear)
+        if(!planetData.IsClear)
             planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
-        if(!oldData.IsGet_StarCrystal)
-            planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
-        if(!oldData.IsGet_Crystal)
-            planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
 
-        DataHandle.Save(ref planetData, planetData.FilePath());     //PlanetDataの設定
+        if (!planetData.IsGet_StarCrystal)
+        {
+            planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
+            DataManager.Instance.playerData.GetStarCrystalNum++;
+        }
+
+        if (!planetData.IsGet_Crystal)
+        {
+            planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
+            DataManager.Instance.playerData.GetCrystalNum++;
+        }
+
+        PlanetData OldData = planetData;
+        this.planetData = new PlanetData(DataFile);
+
+        this.planetData.IsClear = OldData.IsClear;
+        this.planetData.IsGet_Crystal = OldData.IsGet_Crystal;
+        this.planetData.IsGet_StarCrystal = OldData.IsGet_StarCrystal;
+
+        SaveData();
     }
 
     public void NextScene()

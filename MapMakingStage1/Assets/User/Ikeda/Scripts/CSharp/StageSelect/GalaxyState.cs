@@ -5,7 +5,18 @@ using TMPro;
 
 public class GalaxyState : MonoBehaviour
 {
+    public enum Galaxy
+    {
+        Galaxy1 = 0,
+        Galaxy2,
+        Galaxy3,
+        Galaxy4
+    }
+
     //--- Attribute -----------------------------------------------------------
+
+    [SerializeField] private Galaxy eGalaxy;
+
     [Space(8)]
     [Header("StarCrystal State")]
     [SerializeField, Tooltip("星の宝石の総取得可能数")]
@@ -19,10 +30,6 @@ public class GalaxyState : MonoBehaviour
     public int nMaxCrystalNum = 0;
     [SerializeField, Tooltip("隠し宝石の取得数")]
     public int nGetCrystalNum = 0;
-
-    [Space(8)]
-    [SerializeField, Tooltip("ロック解除要求隠し宝石数")]
-    private int nUnLockCrystalNum = 0;
 
     [Space(8)]
     [SerializeField, Tooltip("ステージ親")]
@@ -39,14 +46,13 @@ public class GalaxyState : MonoBehaviour
 
     private void Awake()
     {
-       if(PlanetParent != null)
-       {
-            for(int i =0; i < PlanetParent.transform.childCount; i++)
-            {
-                GameObject child =  PlanetParent.transform.GetChild(i).gameObject;
-                Planets[i] = child.transform.GetComponent<PlanetState>();
-            }
-       }
+        if (PlanetParent == null) return;
+
+        for(int i =0; i < PlanetParent.transform.childCount; i++)
+        {
+            GameObject child =  PlanetParent.transform.GetChild(i).gameObject;
+            Planets[i] = child.transform.GetComponent<PlanetState>();
+        }
     }
 
     // Use this for initialization
@@ -89,13 +95,13 @@ public class GalaxyState : MonoBehaviour
     //Lockできるか
     public bool CheckLock(int nCrystalNum)
     {
-        return nUnLockCrystalNum > nCrystalNum;
+        return MySceneManager.Instance.Galaxies[(int)eGalaxy].UnLockCrystalNum > nCrystalNum;
     }
 
     //隠し宝石差分個数
     public int Crtstal_Diffrence(int nCystalNum)
     {
-        return nUnLockCrystalNum - nCystalNum;
+        return MySceneManager.Instance.Galaxies[(int)eGalaxy].UnLockCrystalNum - nCystalNum;
     }
 
     //残りの星の宝石数

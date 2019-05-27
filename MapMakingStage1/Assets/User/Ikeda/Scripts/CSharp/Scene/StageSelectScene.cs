@@ -73,20 +73,6 @@ public class StageSelectScene : SceneBase
     [SerializeField, Tooltip("ステージ選択時のUIオブジェクト")]
     private GameObject PlanetSelectUI;
 
-    [Space(8)]    
-    [Header("StarCrystal State")]
-    [SerializeField, Tooltip("星の宝石の総取得可能数")]
-    private int nMaxStarCrystalNum;
-    [SerializeField, Tooltip("星の宝石の取得数")]
-    private int nGetStarCrystalNum;
-
-    [Space(8)]
-    [Header("Crystal State")]
-    [SerializeField,Tooltip("隠し宝石の総取得可能数")]
-    private int nMaxCrystalNum;
-    [SerializeField,Tooltip("隠し宝石の取得数")]
-    private int nGetCrystalNum;
-
     [Space(4)]
     [Header("Select State")]
     [SerializeField, Tooltip("エリア選択時のカメラ")]
@@ -186,12 +172,6 @@ public class StageSelectScene : SceneBase
 
         //---　初期化(初期状態に必要なパラメータなどにアクセスして調整する) ---
 
-        //星の宝石の設定
-        nMaxStarCrystalNum = 0;
-
-        //隠し宝石の設定
-        nMaxCrystalNum = 0;
-
         yield return new WaitForSeconds(1f);
 
         //GalaxyStateを設定し、情報取得
@@ -204,14 +184,6 @@ public class StageSelectScene : SceneBase
             //エリアの集計を設定
             galaxy.galaxyState.selectScene = this.GetComponent<StageSelectScene>();
             galaxy.galaxyState.InitState();
-
-            //隠し宝石
-            nMaxCrystalNum += galaxy.galaxyState.nMaxCrystalNum;
-            nGetCrystalNum += galaxy.galaxyState.nGetCrystalNum;
-
-            //星の宝石
-            nMaxStarCrystalNum += galaxy.galaxyState.nMaxStarCrystalNum;
-            nGetStarCrystalNum += galaxy.galaxyState.nGetStarCrystalNum;
         }
 
         yield return new WaitForSeconds(1f);
@@ -249,8 +221,8 @@ public class StageSelectScene : SceneBase
         //テキストの設定
         GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
 
-        StarCrystal_CountText.text = nGetStarCrystalNum.ToString("00");
-        Crystal_CountText.text = nGetCrystalNum.ToString("00");
+        StarCrystal_CountText.text = DataManager.Instance.playerData.GetStarCrystalNum.ToString("00");
+        Crystal_CountText.text = DataManager.Instance.playerData.GetCrystalNum.ToString("00");
 
         //Cameraの切り替え
         Set_GalaxyCamera();
@@ -444,14 +416,14 @@ public class StageSelectScene : SceneBase
         if (!IsActive) return;
 
         //Lockされた
-        bool IsLock = Galaxies[nGalaxySelectNum].galaxyState.CheckLock(nGetCrystalNum);
+        bool IsLock = Galaxies[nGalaxySelectNum].galaxyState.CheckLock(DataManager.Instance.playerData.GetCrystalNum);
         //銀河の情報
         GalaxyState galaxyState = Galaxies[nGalaxySelectNum].galaxyState;
         if (IsLock)
         {
             //ロックされているのか表示
             LockUI.SetActive(true);
-            LockUI_Text.text = "あと" + galaxyState.Crtstal_Diffrence(nGetCrystalNum)+"こ";
+            LockUI_Text.text = "あと" + galaxyState.Crtstal_Diffrence(DataManager.Instance.playerData.GetCrystalNum)+"こ";
         }
         else
             Change_ItemUI(IsActive);
@@ -512,7 +484,7 @@ public class StageSelectScene : SceneBase
         //決定キーが押された
         if (!Input.GetButtonDown(InputManager.Submit)) return false;
         //銀河のロックが解除されるか
-        if (Galaxies[nGalaxySelectNum].galaxyState.CheckLock(nGetCrystalNum)) return false;
+        if (Galaxies[nGalaxySelectNum].galaxyState.CheckLock(DataManager.Instance.playerData.GetCrystalNum)) return false;
         IsInput_PauseTime = ISINPUT_POUSETIME;
         return true;
     }

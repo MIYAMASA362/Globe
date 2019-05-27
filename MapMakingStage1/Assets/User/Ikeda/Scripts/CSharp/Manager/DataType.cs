@@ -43,6 +43,9 @@ namespace DataType
         public int SelectGalaxy = 0;
         public int SelectPlanet = 0;
 
+        public int GetCrystalNum = 0;
+        public int GetStarCrystalNum = 0;
+
         public PlayerData() : base("Player", ".player") { }
 
         public override string FilePath()
@@ -63,6 +66,11 @@ namespace DataType
         public override string FilePath()
         {
             return DirectoryPath.planets +"/" + base.FilePath();
+        }
+
+        public bool IsComplate()
+        {
+            return IsGet_StarCrystal && IsGet_Crystal;
         }
     }
 

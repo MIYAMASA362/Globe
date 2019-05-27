@@ -29,6 +29,12 @@ public class PlanetResult : MonoBehaviour
     [SerializeField]
     private GameObject NotAchievStarCrystalUI;
 
+    [Space(8)]
+    [SerializeField, Tooltip("銀河アンロック表示")]
+    private GameObject GalaxyUnLockUI;
+    [SerializeField]
+    private TextMeshProUGUI UnLockText;
+
     [Space(10)]
     [SerializeField]
     private Animator ResultEndAnimator;
