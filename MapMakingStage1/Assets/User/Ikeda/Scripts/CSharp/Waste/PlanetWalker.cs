@@ -51,7 +51,6 @@ public class PlanetWalker : MonoBehaviour {
     void Start ()
     {
         rigidbody = this.GetComponent<Rigidbody>();
-        oldPosition = this.transform.position;
         defaultScale = this.transform.lossyScale;
         anim = GetComponent<StateManager>().anim;
     }

@@ -19,11 +19,22 @@ public class PlanetScene : Singleton <PlanetScene>
         RESULT
     }
 
+    public enum BGM
+    {
+        GALAXY_1,
+        GALAXY_2,
+        GALAXY_3,
+        GALAXY_4
+    }
+
+    public BGM bgm;
+
     //--- Attribute ---------------------------------------------------------------------
     [Header("State")]
     [SerializeField, Tooltip("このSceneがPause画面を使うか")]
     private bool IsPausing = true;
 
+    public bool skipOpening = false;
 
     //Component
     private CrystalHandle crystalHandle;
@@ -43,6 +54,11 @@ public class PlanetScene : Singleton <PlanetScene>
     [SerializeField] private PlanetData planetData;
 
     //--- MonoBehaviour -----------------------------------------------------------------
+
+    private void Awake()
+    {
+        skipOpening = MySceneManager.IsRestart();
+    }
 
     private void Start ()
     {
@@ -92,12 +108,34 @@ public class PlanetScene : Singleton <PlanetScene>
     private void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        planetOpening.Begin();
+
+        if(skipOpening)
+        {
+            state = STATE.MAINGAME;
+            planetOpening.popUpScript.PopUp();
+            Invoke("PopDown", 3f);
+            PlayBGM();
+        }
+        else
+        {
+            planetOpening.Begin();
+        }
     }
 
-    public void SetState(STATE state)
+    public void SetOpening()
     {
-        this.state = state;
+        state = STATE.OPENING;
+    }
+
+    public void EndOpening()
+    {
+        state = STATE.MAINGAME;
+        Invoke("PlayBGM", 1f);
+    }
+
+    public void PopDown()
+    {
+        planetOpening.popUpScript.PopDown();
     }
 
     //--- Game ----------------------------------
@@ -191,4 +229,25 @@ public class PlanetScene : Singleton <PlanetScene>
             Time.timeScale = 1.0f;
     }
 
+    void PlayBGM()
+    {
+        AudioManager audioManager = AudioManager.Instance;
+
+        switch (bgm)
+        {
+            case BGM.GALAXY_1:
+                audioManager.PlayBGM(audioManager.BGM_STAGE1);
+                break;
+            case BGM.GALAXY_2:
+                audioManager.PlayBGM(audioManager.BGM_STAGE2);
+                break;
+            case BGM.GALAXY_3:
+                audioManager.PlayBGM(audioManager.BGM_STAGE3);
+                break;
+            case BGM.GALAXY_4:
+                audioManager.PlayBGM(audioManager.BGM_STAGE4);
+                break;
+        }
+
+    }
 }

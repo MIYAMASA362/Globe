@@ -20,7 +20,6 @@ public class AroundCameraEvent : MonoBehaviour {
 
     public void EndOpening()
     {
-        planetScene.SetState(PlanetScene.STATE.MAINGAME);
         PlanetCamera planetCamera = CameraManager.Instance.planetCamera;
 
         planetCamera.transform.position = this.transform.position;

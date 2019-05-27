@@ -55,9 +55,7 @@ public class CameraManager : Singleton<CameraManager>
                         characterCamera.SetAngle(planetCamera.transform.position);
                         isChange = !isChange;
                         state = State.Game;
-                        //BGMスタート
-                        
-                        Invoke("PlayBGM", 1f);
+                        PlanetScene.Instance.EndOpening();
                     }
                 }
 
@@ -103,12 +101,6 @@ public class CameraManager : Singleton<CameraManager>
         isChange = false;
         state = State.Start;
         planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10f);
-    }
-
-    void PlayBGM()
-    {
-        AudioManager audioManager = AudioManager.Instance;
-        audioManager.PlayBGM(audioManager.BGM_STAGE1);
     }
 }
 

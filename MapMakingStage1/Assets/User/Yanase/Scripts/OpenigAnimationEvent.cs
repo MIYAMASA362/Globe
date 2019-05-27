@@ -40,7 +40,6 @@ public class OpenigAnimationEvent : MonoBehaviour {
 
     public void EndAnimation()
     {
-        PlanetScene.Instance.planetOpening.End();
         GameObject.Destroy(this.gameObject);
     }
 }
