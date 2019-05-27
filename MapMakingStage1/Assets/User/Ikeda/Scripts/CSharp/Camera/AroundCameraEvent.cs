@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class AroundCameraEvent : MonoBehaviour {
 
-    [SerializeField] private PlanetScene planetScene;
+    public Animator anim;
+    private PlanetScene planetScene;
+
+    public void Init(PlanetScene planetScene)
+    {
+        this.planetScene = planetScene;
+        anim.enabled = false;
+    }
+
+    public void AnimationStart()
+    {
+        anim.enabled = true;
+    }
 
     public void EndOpening()
     {
-        planetScene.EndOpening();
-        CameraManager.Instance.characterCamera.SetAngle(transform.position);
+        planetScene.SetState(PlanetScene.STATE.MAINGAME);
+        PlanetCamera planetCamera = CameraManager.Instance.planetCamera;
+
+        planetCamera.transform.position = this.transform.position;
+        planetCamera.transform.rotation = this.transform.rotation;
+        CameraManager.Instance.SetStart();
+
         this.gameObject.SetActive(false);
     }
 }

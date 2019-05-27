@@ -66,4 +66,30 @@ public class FootStepEvent : MonoBehaviour {
                 break;
         }
     }
+
+    void GetUpToBlend()
+    {
+        GetComponent<Animator>().SetBool("getUp", true);
+    }
+
+    void Impact()
+    {
+        AudioManager audioManager = AudioManager.Instance;
+
+        switch (stateManager.groundType)
+        {
+            case GroundType.Type.Grass:
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_IMPACT_GRASS);
+                break;
+            case GroundType.Type.Rock:
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_IMPACT_ROCK);
+                break;
+            case GroundType.Type.Snow:
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_IMPACT_SNOW);
+                break;
+            case GroundType.Type.Sand:
+                audioManager.PlaySEOneShot(footAudio, audioManager.SE_IMPACT_SAND);
+                break;
+        }
+    }
 }
