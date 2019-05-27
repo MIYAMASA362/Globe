@@ -73,6 +73,9 @@ public class StarPieceHandle : MonoBehaviour
         HitObject.SetPieceNum(nGetPiece);
         nGetPiece++;
 
+        if (nGetPiece>= UIPieces.Length)
+            IsComplete = true;
+
         AudioManager manager = AudioManager.Instance;
         manager.PlaySEOneShot(audioSource, manager.SE_GETSTAR1);
             
@@ -111,7 +114,6 @@ public class StarPieceHandle : MonoBehaviour
     {
         if (nPieceNum + 1 >= UIPieces.Length)
         {
-            IsComplete = true;
             CompletedParticle.Play();
             AudioManager manager = AudioManager.Instance;
             manager.PlaySEOneShot(audioSource, manager.SE_COMPLETESTAR);
@@ -132,6 +134,8 @@ public class StarPieceHandle : MonoBehaviour
         CompletedParticle.Stop();
         CompletedParticle.gameObject.SetActive(false);
     }
+
+
 }
 
 
