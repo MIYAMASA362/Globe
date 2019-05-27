@@ -93,6 +93,7 @@ namespace SA
                 planetWalker.moveAmount *= 0.8f;
                 planetWalker.horizontal *= 0.8f;
                 planetWalker.vertical *= 0.8f;
+                planetWalker.anim.SetFloat("move", planetWalker.moveAmount);
 
                 invisibleWalker.OnPlay(delta);
 

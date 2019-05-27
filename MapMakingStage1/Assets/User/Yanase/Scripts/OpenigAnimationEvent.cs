@@ -5,6 +5,7 @@ using SA;
 
 public class OpenigAnimationEvent : MonoBehaviour {
 
+    public Animator anim;
     private GameObject startCharacter;
     private StateManager gameCharacter;
     
@@ -14,14 +15,24 @@ public class OpenigAnimationEvent : MonoBehaviour {
         this.startCharacter = startCharacter;
         this.gameCharacter = gameCharacter;
         gameCharacter.state = StateManager.State.Start;
+        anim.enabled = false;
     }
 
-	public void ChangeCharacter()
+    public void AnimationStart()
+    {
+        anim.enabled = true;
+    }
+
+    public void ChangeCharacter()
     {
         startCharacter.SetActive(false);
         gameCharacter.gameObject.SetActive(true);
+        gameCharacter.axisDevice.gameObject.SetActive(true);
 
         gameCharacter.transform.position = startCharacter.transform.position;
+        gameCharacter.transform.rotation = startCharacter.transform.rotation;
+        gameCharacter.axisDevice.transform.position = startCharacter.transform.position;
+
         gameCharacter.state = StateManager.State.Start;
         gameCharacter.anim.SetTrigger("falling");
     }

@@ -35,7 +35,7 @@ public class PlanetOpening : MonoBehaviour
     void Start ()
     {
         Set_StageLabel();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()

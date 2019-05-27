@@ -9,7 +9,7 @@ using DataType;
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
 [RequireComponent(typeof(PlanetOpening))]
-public class PlanetScene :SceneBase
+public class PlanetScene : SceneBase
 {
     public enum STATE
     {
@@ -44,7 +44,7 @@ public class PlanetScene :SceneBase
     {
         base.Start();
 
-        state = STATE.MAINGAME;
+//        state = STATE.MAINGAME;
         Invoke("Loaded",4f);
 
         //--- Component ---
@@ -89,15 +89,16 @@ public class PlanetScene :SceneBase
     //--- ロードを完了させる --------------------
     public void Loaded()
     {
-        MySceneManager.Instance.CompleteLoaded();
+        MySceneManager instance = MySceneManager.Instance;
+        if (instance) instance.CompleteLoaded();
         planetOpening.PopUp_StageLabel();
-        EndOpening();
+        SetState(STATE.OPENING);
     }
 
     //--- オープニング終了 ----------------------
-    public void EndOpening()
+    public void SetState(STATE state)
     {
-        state = STATE.MAINGAME;
+        this.state = state;
     }
 
     //--- Game ----------------------------------
