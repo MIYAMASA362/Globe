@@ -6,6 +6,7 @@ using UnityEngine;
 public class GoalScript : MonoBehaviour {
 
     [SerializeField] private PlanetScene planetScene = null;
+    [SerializeField] private GameObject ShipFire = null;
 
     //ファンファーレのAudio
     private AudioSource audioSource;
@@ -13,6 +14,8 @@ public class GoalScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        ShipFire.SetActive(false);
+
         if(planetScene == null)planetScene = GameObject.Find("EventSystem").GetComponent<PlanetScene>();
 
         if (planetScene == null) Debug.LogError("PlanetScene.csが見つかりませんでした。PlanetScene.cs is not find");
@@ -30,6 +33,7 @@ public class GoalScript : MonoBehaviour {
             //ゴール後処理(シーン遷移)
             Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
             AudioManager.Instance.StopBGM();
+            ShipFire.SetActive(true);
 
             planetScene.GameClear();
         }
