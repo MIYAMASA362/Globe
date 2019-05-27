@@ -9,7 +9,7 @@ using DataType;
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
 [RequireComponent(typeof(PlanetOpening))]
-public class PlanetScene :SceneBase
+public class PlanetScene : Singleton <PlanetScene>
 {
     public enum STATE
     {
@@ -20,13 +20,17 @@ public class PlanetScene :SceneBase
     }
 
     //--- Attribute ---------------------------------------------------------------------
+    [Header("State")]
+    [SerializeField, Tooltip("このSceneがPause画面を使うか")]
+    private bool IsPausing = true;
+
 
     //Component
     private CrystalHandle crystalHandle;
     private StarPieceHandle starPieceHandle;
 
     //Planet系
-    private PlanetOpening planetOpening;
+    [HideInInspector] public PlanetOpening planetOpening;
     private PlanetResult planetResult;
 
     //--- Animator ------------------------------
@@ -40,9 +44,10 @@ public class PlanetScene :SceneBase
 
     //--- MonoBehaviour -----------------------------------------------------------------
 
-    public override void Start ()
+    private void Start ()
     {
-        base.Start();
+        if (IsPausing) MySceneManager.Instance.LoadBack_Pause();
+
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
         planetOpening = this.GetComponent<PlanetOpening>();
@@ -58,7 +63,7 @@ public class PlanetScene :SceneBase
         IsGameClear = false;
     }
     
-    public override void Update ()
+    private void Update ()
     {
         switch (state)
         {
@@ -69,7 +74,7 @@ public class PlanetScene :SceneBase
 
                 break;
             case STATE.MAINGAME:
-                base.Update();
+                OnPause();
 
                 break;
             case STATE.RESULT:
@@ -173,6 +178,17 @@ public class PlanetScene :SceneBase
     {
         MySceneManager.FadeInLoad(MySceneManager.Load_Next_Planet(),true);
         //MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
+    }
+
+    //Pause画面
+    public void OnPause()
+    {
+        if (IsPausing) MySceneManager.Pause(!MySceneManager.IsPausing);
+
+        if (MySceneManager.IsPausing || MySceneManager.IsOption)
+            Time.timeScale = 0.0f;
+        else
+            Time.timeScale = 1.0f;
     }
 
 }

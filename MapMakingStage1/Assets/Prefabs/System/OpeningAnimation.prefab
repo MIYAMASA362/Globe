@@ -1644,7 +1644,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902910762470960}
-  m_LocalRotation: {x: 0.33224726, y: 0.08509695, z: -0.18501292, w: 0.92094547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1652,7 +1652,7 @@ Transform:
   - {fileID: 4344047957141520}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 40.050003, y: 2.5310001, z: -21.796001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4275697535966626
 Transform:
   m_ObjectHideFlags: 1
@@ -1761,14 +1761,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762840701780810}
-  m_LocalRotation: {x: -0.05896387, y: 0.54241925, z: 0.06333379, w: 0.8356396}
-  m_LocalPosition: {x: -1.754, y: 4.207, z: -1.189}
+  m_LocalRotation: {x: 0.03573307, y: 0.97807896, z: -0.1561571, w: 0.13304026}
+  m_LocalPosition: {x: -2.13, y: 3.53, z: -0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4527227333882572}
   m_Father: {fileID: 4267992825307392}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -9.628, y: 65.771, z: 2.4350002}
+  m_LocalEulerAnglesHint: {x: 18.359001, y: 164.785, z: 1.7120001}
 --- !u!4 &4354000343579344
 Transform:
   m_ObjectHideFlags: 1
@@ -2458,7 +2458,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1566417763701108}
   m_LocalRotation: {x: 0.4999999, y: 0.5, z: 0.5, w: 0.5000001}
-  m_LocalPosition: {x: 0.38026416, y: -0.00013791617, z: -0.14168498}
+  m_LocalPosition: {x: 0.458, y: -0.00013791617, z: -0.14168498}
   m_LocalScale: {x: 0.19641417, y: 0.19641401, z: 0.196414}
   m_Children:
   - {fileID: 4897639827735066}
@@ -2853,7 +2853,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8a93a5527a63e814a8be264ba496a3ad, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3069,11 +3069,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dde3b8d213db4742969ad9ed5844326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetScene: {fileID: 0}
+  gameCharacter: {fileID: 0}
+  startCharacter: {fileID: 1566417763701108}
   animationEvent: {fileID: 114453637135019898}
   aroundCamera: {fileID: 114273074343768674}
-  startCharacter: {fileID: 1566417763701108}
-  gameCharacter: {fileID: 0}
 --- !u!137 &137161153085383422
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

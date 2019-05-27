@@ -58,12 +58,13 @@ public class FlagManager : Singleton<FlagManager> {
         if(vibrationTime > 0)
         {
             vibrationTime -= Time.deltaTime;
-            RotationManager flagManager = RotationManager.Instance;
             if (vibrationTime > 0)
-                GamePad.SetVibration(PlayerIndex.One, flagManager.XBoxVibration, flagManager.XBoxVibration);
+                GamePad.SetVibration(PlayerIndex.One, RotationManager.XBoxVibration, RotationManager.XBoxVibration);
             else
                 GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
         }
+
+        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
 
         if (flagActive)
         {
@@ -90,6 +91,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     public void SetFlag(Vector3 axisPos, FloatType.Type type)
     {
+        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+
         if (!flag)
         {
             Debug.Log("flag is nothing!!");
@@ -123,6 +126,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     public bool DestoyFlag(Vector3 axisPos)
     {
+        if (MySceneManager.IsPausing || MySceneManager.IsOption) return false;
+
         if (!flag)
         {
             Debug.Log("flag is nothing!!");

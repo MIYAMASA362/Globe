@@ -89,10 +89,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void LateUpdate()
     {
-        if (IsPausing)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
+        
     }
 
     //--- Method --------------------------------------------------------------
@@ -124,6 +121,8 @@ public class MySceneManager : Singleton<MySceneManager>
         //入力があるか
         if (!Input.GetButtonDown(InputManager.Menu)) return;
 
+        if (IsOption) return;
+        
         //Pause状態とbEnableが逆であるのか
         if (IsPausing == bEnable) return;
 

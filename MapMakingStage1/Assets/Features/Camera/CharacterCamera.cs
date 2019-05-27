@@ -52,6 +52,8 @@ public class CharacterCamera : MonoBehaviour
     //------------------------------------------
     void LateUpdate()
     {
+        if (MySceneManager.IsPausing || MySceneManager.IsFadeing) return;
+
         Vector3 dist = new Vector3(0.0f, 0.0f, -distance);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, dist, Time.deltaTime * 5f);
 
@@ -73,9 +75,14 @@ public class CharacterCamera : MonoBehaviour
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
 
+        DataManager data = DataManager.Instance;
+        if (data.commonData.IsCameraReverseHorizontal) h *= -1f;
+        if (data.commonData.IsCameraReverseVertical) v *= -1f;
+
         if (inputHandler && inputHandler.isInvisible)
         {
-            h *= -1;
+            h *= -1f;
+            v *= -1f;
         }
         
 

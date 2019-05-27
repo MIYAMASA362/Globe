@@ -5,15 +5,17 @@ using SA;
 
 public class OpeningAnimationHandler : MonoBehaviour {
 
-    public PlanetScene planetScene;
+    private PlanetScene planetScene;
+    public StateManager gameCharacter;
+    public GameObject startCharacter;
     public OpenigAnimationEvent animationEvent;
     public AroundCameraEvent aroundCamera;
-    public GameObject startCharacter;
-    public StateManager gameCharacter;
 
 
     // Use this for initialization
     void Start () {
+        planetScene = PlanetScene.Instance;
+
         aroundCamera.Init(planetScene);
         startCharacter.SetActive(true);
         gameCharacter.gameObject.SetActive(false);

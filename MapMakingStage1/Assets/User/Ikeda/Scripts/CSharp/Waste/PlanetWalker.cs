@@ -26,7 +26,7 @@ public class PlanetWalker : MonoBehaviour {
     [SerializeField] bool onGround = false;
 
     //--- private ---------------------
-    new Rigidbody rigidbody = null;
+    public new Rigidbody rigidbody = null;
     RaycastHit casthit;
 
     //Input

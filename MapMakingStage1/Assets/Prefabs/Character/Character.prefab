@@ -1370,7 +1370,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1599087911765272}
   m_LocalRotation: {x: 0.3036173, y: 0.30036315, z: -0.09089156, w: 0.89963174}
-  m_LocalPosition: {x: 7.07, y: 3.23, z: -2.01}
+  m_LocalPosition: {x: 1.67, y: 3.1, z: 2}
   m_LocalScale: {x: 0.31845012, y: 0.31845033, z: 0.31844985}
   m_Children:
   - {fileID: 4371040558927122}
@@ -2746,6 +2746,7 @@ MonoBehaviour:
   rayRadius: 0.01
   stopMaxAngle: 70
   onGround: 0
+  rigidbody: {fileID: 0}
   moveAmount: 0
   turnSpeed: 10
   oldPosition: {x: 0, y: 0, z: 0}
@@ -2854,6 +2855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df74fb815f3e9346adba637b1d5f00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 1
   circleParticle: {fileID: 198212129835680442}
   axisDevice: {fileID: 0}
   moveSpeed: 3
@@ -2893,7 +2895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolator: 1
   _target: {fileID: 4063031831095352}
-  _positionSpeed: 5.6
+  _positionSpeed: 20
   _rotationSpeed: 33
   _jumpDistance: 1
   _jumpAngle: 60
@@ -2910,6 +2912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetWalker: {fileID: 114117206310399064}
   invisibleWalker: {fileID: 0}
+  backPack: {fileID: 114779504338099278}
   vertical: 0
   horizontal: 0
   inputSumooth: 0.2
