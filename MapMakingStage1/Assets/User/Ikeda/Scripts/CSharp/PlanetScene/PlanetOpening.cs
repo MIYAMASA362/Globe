@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class PlanetOpening : MonoBehaviour 
 {
+    [SerializeField]
+    public PopUpScript popUpScript;
+
     //--- Attribute -----------------------------------------------------------
     [Header("StageName State")]
     [SerializeField]
@@ -13,79 +17,30 @@ public class PlanetOpening : MonoBehaviour
     private TextMeshProUGUI tm_GalaxyName;
     [SerializeField,Tooltip("ステージ名")]
     private TextMeshProUGUI tm_StageName;
-    [SerializeField,Tooltip("PopUpに要する時間")]
-    private float PopUp_Time = 0.25f;
-    [SerializeField,Tooltip("PopUpする距離")]
-    private float PopUp_MaxDistance = 800f;
-    [SerializeField,Tooltip("右方向にPopUpする")]
-    private bool PopUp_Right = false;
-
-    //--- Internal --------------------------------------------------
-    private bool IsEnable = false;
-    private bool IsPopUp  = false;
-    private float PopUpCount = 0f;
-    private Vector3 HidePos;
 
     //--- MonoBehaviour -------------------------------------------------------
-
-    void Awake()
-    {
-        
-    }
 
     // Use this for initialization
     void Start ()
     {
-        Set_StageLabel();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        Update_StageLabel();
-	}
-
-    //--- Method --------------------------------------------------------------
-    
-    //--- StageLabel ------------------------------------------------
-    private void Set_StageLabel()
-    {
         tm_GalaxyName.text = MySceneManager.Get_GalaxyName();
         tm_StageName.text = MySceneManager.Get_PlanetName();
-        int mag = PopUp_Right ? 1 : -1;
-        HidePos = StageLabel.transform.position + (StageLabel.transform.right * PopUp_MaxDistance * mag);
-        StageLabel.transform.position = HidePos;
     }
 
-    private void Update_StageLabel()
+    //--- Method --------------------------------------------------------------
+
+    public void Begin()
     {
-        if (!IsEnable) return;
+        this.GetComponent<PlanetScene>().SetState(PlanetScene.STATE.OPENING);
 
-        float time = PopUpCount / PopUp_Time;
-        int mag = PopUp_Right ? -1 : 1;
-        Vector3 target = IsPopUp ? HidePos + (StageLabel.transform.right * PopUp_MaxDistance * mag) : HidePos;
-
-        StageLabel.transform.position = Vector3.Lerp(StageLabel.transform.position, target, time);
-        if (time > 1.0) { IsEnable = false; return; }
-        PopUpCount += Time.deltaTime;
+        popUpScript.PopUp();
+        Invoke("End", 4f);
     }
 
-    [ContextMenu("PopUp")]
-    public void PopUp_StageLabel()
+    public void End()
     {
-        PopUpCount = 0f;
-        IsEnable = true;
-        IsPopUp = true;
-        Invoke("PopDown_StageLabel",4f);
+        this.GetComponent<PlanetScene>().SetState(PlanetScene.STATE.MAINGAME);
+        popUpScript.PopDown();
     }
 
-    [ContextMenu("PopDown")]
-    public void PopDown_StageLabel()
-    {
-        PopUpCount = 0f;
-        IsEnable = true;
-        IsPopUp = false;
-    }
-
-    
 }
