@@ -27,8 +27,10 @@ public class StageSelectScene : SceneBase
     }
 
     //--- Attribute -----------------------------------------------------------
-    
+
     //--- Inspecter State -----------------------
+    [SerializeField]
+    private Animator EnterAnimator;
     [Header("UI State")]
     [SerializeField,Tooltip("銀河の名前")]
     private TextMeshProUGUI GalaxyNameText;
@@ -94,8 +96,8 @@ public class StageSelectScene : SceneBase
 
     //--- Internal State ------------------------
     private static bool IsLoad_Start_PlanetSelect = false;
-    [SerializeField] private STATE state = STATE.GALAXYSELECT;  //状態遷移
-    [SerializeField] private bool IsInput = false;              //入力可能か
+    [SerializeField] private STATE state;                   //状態遷移
+    [SerializeField] private bool IsInput = false;          //入力可能か
     [SerializeField] private float IsInput_PauseTime = 0f;      //IsInputをfalse状態にする時間
     private bool IsInputLeft = false;           //左入力
     private bool IsInputRight = false;          //右入力
@@ -150,10 +152,9 @@ public class StageSelectScene : SceneBase
                 break;
         }
 
-        Quaternion q1 = TargetRotObj.transform.rotation;
-        Quaternion q2 = Quaternion.Euler(0f, TargetAngle, 0f);
-        TargetRotObj.transform.rotation = Quaternion.Lerp(q1, q2, Time.deltaTime * ROTATION_SPEED);
+        TargetRotation();
     }
+
 
     private void OnDrawGizmos()
     {
@@ -188,9 +189,11 @@ public class StageSelectScene : SceneBase
 
         yield return new WaitForSeconds(1f);
 
-        //選択中の内容
-        nGalaxySelectNum = 0;
-        nPlanetSelectNum = 0;
+        //読み込み
+        DataManager.Instance.PlayerData_Load();
+        
+        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
+        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
 
         //最大数の設定
         nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
@@ -201,28 +204,24 @@ public class StageSelectScene : SceneBase
         PlanetSelectUI.SetActive(false);
 
         //GalaxyCameraを設定
-        if (state == STATE.GALAXYSELECT)
-        {
-            galaxyCamera.SetActive(true);
-            GalaxySelectUI.SetActive(true);
-        }
+        state = STATE.GALAXYSELECT;
+        Change_SelectUI(state);
 
         yield return new WaitForSeconds(1f);
 
         //--- 初期状態設定 ----------------------------
-
-        //データでの選択状態を読み込み
-        nGalaxySelectNum = DataManager.Instance.playerData.SelectGalaxy;
-        nPlanetSelectNum = DataManager.Instance.playerData.SelectPlanet;
-
+        
         //回転させる対象を設定
         TargetRotObj = GalaxysHolder;
 
         //テキストの設定
+        SetGalaxyLevelText(nGalaxySelectNum + 1);
         GalaxyNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].name;
 
         StarCrystal_CountText.text = DataManager.Instance.playerData.GetStarCrystalNum.ToString("00");
         Crystal_CountText.text = DataManager.Instance.playerData.GetCrystalNum.ToString("00");
+
+        TargetAngle = GALAXY_ROTARION_ANGLE * nGalaxySelectNum;
 
         //Cameraの切り替え
         Set_GalaxyCamera();
@@ -237,12 +236,19 @@ public class StageSelectScene : SceneBase
 
         MySceneManager.Instance.CompleteLoaded();
 
-        yield return null;
+        yield break;
     }
 
     //--- Method --------------------------------------------------------------
 
     //--- 更新 --------------------------------------------
+
+    void TargetRotation()
+    {
+        Quaternion q1 = TargetRotObj.transform.rotation;
+        Quaternion q2 = Quaternion.Euler(0f, TargetAngle, 0f);
+        TargetRotObj.transform.rotation = Quaternion.Lerp(q1, q2, Time.deltaTime * ROTATION_SPEED);
+    }
 
     //--- エリア選択 ----------------------------
     public void GalaxySelect_Update()
@@ -401,9 +407,14 @@ public class StageSelectScene : SceneBase
         PlanetNameText.text = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets[nPlanetSelectNum].name;
 
         //銀河LEVEL名変更
-        GalaxyLevelText.text = "エリア " + (nGalaxySelectNum + 1);
+        SetGalaxyLevelText((nGalaxySelectNum + 1));
         //惑星LEVEL名変更
         PlanetLevelText.text = (nGalaxySelectNum + 1)+ "-" + (nPlanetSelectNum+1);
+    }
+
+    void SetGalaxyLevelText(int nGalaxyNum)
+    {
+        GalaxyLevelText.text = "エリア " + nGalaxyNum;
     }
 
     //LockとUnLockを変更　IsActiveで表示の有効化、無効化
@@ -495,6 +506,7 @@ public class StageSelectScene : SceneBase
         //決定キーが押された
         if (!Input.GetButtonDown(InputManager.Submit)) return false;
         IsInput_PauseTime = ISINPUT_POUSETIME;
+        EnterAnimator.SetTrigger("EnterTrigger");
         
         return true;
     }
