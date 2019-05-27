@@ -43,22 +43,16 @@ public class PlanetScene :SceneBase
     public override void Start ()
     {
         base.Start();
+        crystalHandle = this.GetComponent<CrystalHandle>();
+        starPieceHandle = this.GetComponent<StarPieceHandle>();
+        planetOpening = this.GetComponent<PlanetOpening>();
 
-        state = STATE.MAINGAME;
+        planetResult = this.GetComponent<PlanetResult>();
 
         //-- データ初期化 ---
         InitData();
 
         Invoke("Loaded",4f);
-
-        //--- Component ---
-        crystalHandle = this.GetComponent<CrystalHandle>();
-        starPieceHandle = this.GetComponent<StarPieceHandle>();
-        planetOpening = this.GetComponent<PlanetOpening>();
-
-        planetResult = GetComponent<PlanetResult>();
-
-        
 
         //--- Init status ---
         IsGameClear = false;
@@ -90,17 +84,15 @@ public class PlanetScene :SceneBase
     //--- Method ------------------------------------------------------------------------
 
     //--- ロードを完了させる --------------------
-    public void Loaded()
+    private void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        planetOpening.PopUp_StageLabel();
-        EndOpening();
+        planetOpening.Begin();
     }
 
-    //--- オープニング終了 ----------------------
-    public void EndOpening()
+    public void SetState(STATE state)
     {
-        state = STATE.MAINGAME;
+        this.state = state;
     }
 
     //--- Game ----------------------------------
