@@ -90,18 +90,22 @@ public class PauseScene : SceneBase
                     MySceneManager.Instance.LoadBack_Pause();
                     break;
                 case 1:
+                    AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:
+                    AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
                     break;
                 case 3:
                     MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
+                    AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;
                 default:
+                    AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;
             }
