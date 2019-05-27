@@ -9,6 +9,8 @@ public class PlanetOpening : MonoBehaviour
     [Header("StageName State")]
     [SerializeField]
     private GameObject StageLabel;
+    [SerializeField, Tooltip("エリア名")]
+    private TextMeshProUGUI tm_GalaxyName;
     [SerializeField,Tooltip("ステージ名")]
     private TextMeshProUGUI tm_StageName;
     [SerializeField,Tooltip("PopUpに要する時間")]
@@ -48,6 +50,7 @@ public class PlanetOpening : MonoBehaviour
     //--- StageLabel ------------------------------------------------
     private void Set_StageLabel()
     {
+        tm_GalaxyName.text = MySceneManager.Get_GalaxyName();
         tm_StageName.text = MySceneManager.Get_PlanetName();
         int mag = PopUp_Right ? 1 : -1;
         HidePos = StageLabel.transform.position + (StageLabel.transform.right * PopUp_MaxDistance * mag);
