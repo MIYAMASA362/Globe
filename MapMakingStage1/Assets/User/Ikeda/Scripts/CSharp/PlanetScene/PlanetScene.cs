@@ -131,11 +131,12 @@ public class PlanetScene : Singleton <PlanetScene>
     {
         state = STATE.MAINGAME;
         Invoke("PlayBGM", 1f);
+        planetOpening.End();
     }
 
     public void PopDown()
     {
-        planetOpening.popUpScript.PopDown();
+        planetOpening.End();
     }
 
     //--- Game ----------------------------------
@@ -170,6 +171,7 @@ public class PlanetScene : Singleton <PlanetScene>
         planetData = new PlanetData(DataFile);
         Debug.Log("LoadData:"+planetData.FilePath());
 
+        Debug.Log(planetData.FilePath());
 
         if (DataHandle.FileFind(planetData.FilePath()))
             DataHandle.Load(ref planetData, planetData.FilePath()); //データがあれば読み込み

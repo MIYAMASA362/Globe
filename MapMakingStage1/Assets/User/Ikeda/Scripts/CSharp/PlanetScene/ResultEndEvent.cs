@@ -6,6 +6,7 @@ public class ResultEndEvent : MonoBehaviour
 {
     private PlanetScene planetScene;
     private PlanetResult planetResult;
+    [SerializeField] private ResultRocketSE rocketSE;
 
 	// Use this for initialization
 	void Start ()
@@ -38,5 +39,20 @@ public class ResultEndEvent : MonoBehaviour
     public void HideAxisDevice()
     {
         planetResult.HideAxisDevice();
+    }
+
+    public void IsInputEnable()
+    {
+        planetResult.IsInputEnable();
+    }
+
+    public void PlayRocketAudio()
+    {
+        rocketSE.PlayRocketAudio();
+    }
+
+    public void StopRocketAudio()
+    {
+        rocketSE.StopRocketAudio();
     }
 }
