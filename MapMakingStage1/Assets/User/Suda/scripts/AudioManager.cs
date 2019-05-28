@@ -50,7 +50,6 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_IMPACT_SAND;
     public AudioData SE_IMPACT_SNOW;
 
-
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
     private const string SE_PATH = "Audio/SE";
@@ -75,8 +74,8 @@ public class AudioManager : Singleton<AudioManager>
     private const int BGM_SOURCE_NUM = 1;
 
     private float BGM_curVolume = 0.0f;
-    private float BGM_masterVolume;
-    private float SE_masterVolume;
+    public float BGM_masterVolume;
+    public float SE_masterVolume;
 
     //=================================================================================
     //初期化
