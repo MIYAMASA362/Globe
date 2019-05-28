@@ -39,4 +39,9 @@ public class ResultEndEvent : MonoBehaviour
     {
         planetResult.HideAxisDevice();
     }
+
+    public void IsInputEnable()
+    {
+        planetResult.IsInputEnable();
+    }
 }
