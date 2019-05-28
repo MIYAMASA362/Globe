@@ -23,10 +23,15 @@ public class PopUpScript : MonoBehaviour
 
     //--- MonoBehaviour -------------------------------------------------------
 
-	// Use this for initialization
-	void Start ()
+    private void Awake()
     {
-        PopUpTarget.SetActive(true);
+        
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        this.gameObject.SetActive(true);
         int mag = IsRight ? 1 : -1;
         HidePos = PopUpTarget.transform.position + (PopUpTarget.transform.right * PopUp_Distance * mag);
         PopUpTarget.transform.position = HidePos;

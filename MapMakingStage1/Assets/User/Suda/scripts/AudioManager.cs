@@ -20,6 +20,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData BGM_STAGE2;
     public AudioData BGM_STAGE3;
     public AudioData BGM_STAGE4;
+    public AudioData BGM_END;
 
     [Header("足音")]
     public AudioData SE_FOOTSTEP_GRASS;
