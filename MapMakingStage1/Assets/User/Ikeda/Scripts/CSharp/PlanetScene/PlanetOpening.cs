@@ -33,15 +33,13 @@ public class PlanetOpening : MonoBehaviour
 
     public void Begin()
     {
-        this.GetComponent<PlanetScene>().SetState(PlanetScene.STATE.OPENING);
-
+        PlanetScene.Instance.SetOpening();
         popUpScript.PopUp();
-        Invoke("End", 4f);
     }
 
     public void End()
     {
-        this.GetComponent<PlanetScene>().SetState(PlanetScene.STATE.MAINGAME);
+        PlanetScene.Instance.EndOpening();
         popUpScript.PopDown();
         ItemPopUp.PopUp();
     }

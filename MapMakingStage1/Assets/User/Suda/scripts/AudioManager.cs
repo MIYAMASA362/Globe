@@ -74,6 +74,10 @@ public class AudioManager : Singleton<AudioManager>
     private AudioSource _bgmSource;
     private const int BGM_SOURCE_NUM = 1;
 
+    private float BGM_curVolume = 0.0f;
+    private float BGM_masterVolume;
+    private float SE_masterVolume;
+
     //=================================================================================
     //初期化
     //=================================================================================
@@ -129,13 +133,17 @@ public class AudioManager : Singleton<AudioManager>
             return;
         }
 
+        BGM_curVolume = bgm.volume;
+
         //現在BGMが流れていない時はそのまま流す
         if (!_bgmSource.isPlaying)
         {
+            DataManager data = DataManager.Instance;
+            BGM_masterVolume = (data.commonData.BGM_Volume / 1000);
             _nextBGM.clip = null;
             _nextBGM.volume = 0;
             _bgmSource.clip = bgm.clip;
-            _bgmSource.volume = bgm.volume;
+            _bgmSource.volume = BGM_curVolume * BGM_masterVolume;
             _bgmSource.Play();
         }
         //違うBGMが流れている時は、流れているBGMをフェードアウトさせてから次を流す。同じBGMが流れている時はスルー
@@ -153,8 +161,8 @@ public class AudioManager : Singleton<AudioManager>
             Debug.Log(audioData.clip.name + "という名前のSEがありません");
             return;
         }
-
-        sorce.PlayOneShot(audioData.clip, audioData.volume);
+       
+        sorce.PlayOneShot(audioData.clip, audioData.volume * SE_masterVolume);
     }
 
     public void PlaySE(AudioSource sorce, AudioData audioData)
@@ -166,7 +174,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         sorce.clip = audioData.clip;
-        sorce.volume = audioData.volume;
+        sorce.volume = audioData.volume * SE_masterVolume;
         sorce.Play();
     }
 
@@ -195,13 +203,18 @@ public class AudioManager : Singleton<AudioManager>
 
     private void Update()
     {
+        DataManager data = DataManager.Instance;
+        BGM_masterVolume = (data.commonData.BGM_Volume / 1000);
+        SE_masterVolume = data.commonData.SE_Volume / 100;
+        _bgmSource.volume = BGM_curVolume * BGM_masterVolume;
+
         if (!_isFadeOut)
         {
             return;
         }
 
         //徐々にボリュームを下げていき、ボリュームが0になったらボリュームを戻し次の曲を流す
-        _bgmSource.volume -= Time.deltaTime * _bgmFadeSpeedRate;
+        _bgmSource.volume -= Time.deltaTime * _bgmFadeSpeedRate * BGM_masterVolume;
         if (_bgmSource.volume <= 0)
         {
             _bgmSource.Stop();

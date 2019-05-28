@@ -9,7 +9,7 @@ using DataType;
 [RequireComponent(typeof(StarPieceHandle))]
 [RequireComponent(typeof(PlanetResult))]
 [RequireComponent(typeof(PlanetOpening))]
-public class PlanetScene :SceneBase
+public class PlanetScene : Singleton <PlanetScene>
 {
     public enum STATE
     {
@@ -19,14 +19,29 @@ public class PlanetScene :SceneBase
         RESULT
     }
 
+    public enum BGM
+    {
+        GALAXY_1,
+        GALAXY_2,
+        GALAXY_3,
+        GALAXY_4
+    }
+
+    public BGM bgm;
+
     //--- Attribute ---------------------------------------------------------------------
+    [Header("State")]
+    [SerializeField, Tooltip("このSceneがPause画面を使うか")]
+    private bool IsPausing = true;
+
+    public bool skipOpening = false;
 
     //Component
     private CrystalHandle crystalHandle;
     private StarPieceHandle starPieceHandle;
 
     //Planet系
-    private PlanetOpening planetOpening;
+    [HideInInspector] public PlanetOpening planetOpening;
     private PlanetResult planetResult;
 
     //--- Animator ------------------------------
@@ -40,9 +55,15 @@ public class PlanetScene :SceneBase
 
     //--- MonoBehaviour -----------------------------------------------------------------
 
-    public override void Start ()
+    private void Awake()
     {
-        base.Start();
+        skipOpening = MySceneManager.IsRestart();
+    }
+
+    private void Start ()
+    {
+        if (IsPausing) MySceneManager.Instance.LoadBack_Pause();
+
         crystalHandle = this.GetComponent<CrystalHandle>();
         starPieceHandle = this.GetComponent<StarPieceHandle>();
         planetOpening = this.GetComponent<PlanetOpening>();
@@ -58,7 +79,7 @@ public class PlanetScene :SceneBase
         IsGameClear = false;
     }
     
-    public override void Update ()
+    private void Update ()
     {
         switch (state)
         {
@@ -69,7 +90,7 @@ public class PlanetScene :SceneBase
 
                 break;
             case STATE.MAINGAME:
-                base.Update();
+                OnPause();
 
                 break;
             case STATE.RESULT:
@@ -87,12 +108,34 @@ public class PlanetScene :SceneBase
     private void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
-        planetOpening.Begin();
+
+        if(skipOpening)
+        {
+            state = STATE.MAINGAME;
+            planetOpening.popUpScript.PopUp();
+            Invoke("PopDown", 3f);
+            PlayBGM();
+        }
+        else
+        {
+            planetOpening.Begin();
+        }
     }
 
-    public void SetState(STATE state)
+    public void SetOpening()
     {
-        this.state = state;
+        state = STATE.OPENING;
+    }
+
+    public void EndOpening()
+    {
+        state = STATE.MAINGAME;
+        Invoke("PlayBGM", 1f);
+    }
+
+    public void PopDown()
+    {
+        planetOpening.popUpScript.PopDown();
     }
 
     //--- Game ----------------------------------
@@ -175,4 +218,36 @@ public class PlanetScene :SceneBase
         //MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
 
+    //Pause画面
+    public void OnPause()
+    {
+        if (IsPausing) MySceneManager.Pause(!MySceneManager.IsPausing);
+
+        if (MySceneManager.IsPausing || MySceneManager.IsOption)
+            Time.timeScale = 0.0f;
+        else
+            Time.timeScale = 1.0f;
+    }
+
+    void PlayBGM()
+    {
+        AudioManager audioManager = AudioManager.Instance;
+
+        switch (bgm)
+        {
+            case BGM.GALAXY_1:
+                audioManager.PlayBGM(audioManager.BGM_STAGE1);
+                break;
+            case BGM.GALAXY_2:
+                audioManager.PlayBGM(audioManager.BGM_STAGE2);
+                break;
+            case BGM.GALAXY_3:
+                audioManager.PlayBGM(audioManager.BGM_STAGE3);
+                break;
+            case BGM.GALAXY_4:
+                audioManager.PlayBGM(audioManager.BGM_STAGE4);
+                break;
+        }
+
+    }
 }

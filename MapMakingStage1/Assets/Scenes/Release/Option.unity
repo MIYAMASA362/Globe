@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18256989, g: 0.22828107, b: 0.30719447, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -145,7 +145,7 @@ Camera:
   m_GameObject: {fileID: 1594668350}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -165,7 +165,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -408,6 +408,86 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114810881333215576, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224353924241863888, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224353924241863888, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114810881333215576, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224934496106744264, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170613255903410, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224642542126819442, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224642542126819442, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224318945609750548, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224278853338946186, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114017319206308946, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224567632284051862, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224567632284051862, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384479859538774, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: ChangeValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384479859538774, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: ChangeValueAccel
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384479859538774, guid: 4ab318b3a73ca0141bf19e3ecec0e028,
+        type: 2}
+      propertyPath: ChangeValueMax
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ab318b3a73ca0141bf19e3ecec0e028, type: 2}

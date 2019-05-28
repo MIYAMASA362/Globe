@@ -25,7 +25,7 @@ public class CrystalBase : MonoBehaviour
 	// Update is called once per frame
 	public virtual void Update ()
     {
-        this.transform.rotation *= Quaternion.AngleAxis(RotSpeed, Vector3.up);
+        this.transform.rotation *= Quaternion.AngleAxis(RotSpeed * Time.deltaTime * 80f, Vector3.up);
     }
 
 }

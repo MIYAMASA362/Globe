@@ -64,6 +64,20 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsFadeing { get; private set; }  //Fade中:true
     public static bool IsPause_BackLoad { get; set; }   //背後にPauseがある
 
+    private static bool isRestart = false;
+
+    public static void OnRestart()
+    {
+        isRestart = true;
+    }
+
+    public static bool IsRestart()
+    {
+        bool cur = isRestart;
+        isRestart = false;
+        return cur;
+    }
+
     //--- MonoBehavior --------------------------------------------------------
 
     private void Awake()
@@ -89,10 +103,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void LateUpdate()
     {
-        if (IsPausing)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
+        
     }
 
     //--- Method --------------------------------------------------------------
@@ -124,6 +135,8 @@ public class MySceneManager : Singleton<MySceneManager>
         //入力があるか
         if (!Input.GetButtonDown(InputManager.Menu)) return;
 
+        if (IsOption) return;
+        
         //Pause状態とbEnableが逆であるのか
         if (IsPausing == bEnable) return;
 

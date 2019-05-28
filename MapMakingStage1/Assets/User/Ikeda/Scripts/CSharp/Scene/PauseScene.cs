@@ -91,6 +91,7 @@ public class PauseScene : SceneBase
                     break;
                 case 1:
                     AudioManager.Instance.StopBGM();
+                    MySceneManager.OnRestart();
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:

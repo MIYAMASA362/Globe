@@ -34,9 +34,6 @@ public class OpenigAnimationEvent : MonoBehaviour {
         gameCharacter.transform.rotation = startCharacter.transform.rotation;
         gameCharacter.axisDevice.transform.position = startCharacter.transform.position;
 
-        
-        
-
         gameCharacter.state = StateManager.State.Start;
         gameCharacter.anim.SetTrigger("falling");
     }
