@@ -131,11 +131,12 @@ public class PlanetScene : Singleton <PlanetScene>
     {
         state = STATE.MAINGAME;
         Invoke("PlayBGM", 1f);
+        planetOpening.End();
     }
 
     public void PopDown()
     {
-        planetOpening.popUpScript.PopDown();
+        planetOpening.End();
     }
 
     //--- Game ----------------------------------
