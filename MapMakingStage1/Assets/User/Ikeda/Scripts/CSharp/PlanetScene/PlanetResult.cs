@@ -48,6 +48,8 @@ public class PlanetResult : MonoBehaviour
     private GameObject PlayerChara;
     [SerializeField]
     private GameObject StarsBackGround;
+    [SerializeField]
+    private GameObject AxisDevice;
 
     private float Input_Wait = 0;
 
@@ -141,5 +143,10 @@ public class PlanetResult : MonoBehaviour
     public void UnLoadPlayer()
     {
         PlayerChara.SetActive(false);
+    }
+
+    public void HideAxisDevice()
+    {
+        AxisDevice.SetActive(false);
     }
 }

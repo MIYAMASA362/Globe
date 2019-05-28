@@ -34,4 +34,9 @@ public class ResultEndEvent : MonoBehaviour
     {
         planetResult.UnLoadPlayer();
     }
+
+    public void HideAxisDevice()
+    {
+        planetResult.HideAxisDevice();
+    }
 }
