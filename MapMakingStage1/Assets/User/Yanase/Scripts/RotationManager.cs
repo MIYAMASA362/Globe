@@ -76,7 +76,8 @@ public class RotationManager : Singleton<RotationManager> {
 
     private void PlanetRotation(float angle)
     {
-        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+        if (MySceneManager.IsPausing || MySceneManager.IsOption || 
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return;
 
         // フラグマネージャー取得
         FlagManager flagManager = FlagManager.Instance;
@@ -133,7 +134,8 @@ public class RotationManager : Singleton<RotationManager> {
 
     private void InputRotation()
     {
-        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+        if (MySceneManager.IsPausing || MySceneManager.IsOption ||
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return;
 
         bool left = Input.GetButton(InputManager.Left_AxisRotation);
         bool right = Input.GetButton(InputManager.Right_AxisRotation);

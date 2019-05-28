@@ -64,7 +64,8 @@ public class FlagManager : Singleton<FlagManager> {
                 GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
         }
 
-        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+        if (MySceneManager.IsPausing || MySceneManager.IsOption ||
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return;
 
         if (flagActive)
         {
@@ -91,7 +92,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     public void SetFlag(Vector3 axisPos, FloatType.Type type)
     {
-        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+        if (MySceneManager.IsPausing || MySceneManager.IsOption ||
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return;
 
         if (!flag)
         {
@@ -126,7 +128,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     public bool DestoyFlag(Vector3 axisPos)
     {
-        if (MySceneManager.IsPausing || MySceneManager.IsOption) return false;
+        if (MySceneManager.IsPausing || MySceneManager.IsOption ||
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return false;
 
         if (!flag)
         {
