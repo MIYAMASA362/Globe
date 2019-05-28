@@ -8,6 +8,8 @@ public class PlanetOpening : MonoBehaviour
 {
     [SerializeField]
     public PopUpScript popUpScript;
+    [SerializeField]
+    private ItemUI ItemPopUp;
 
     //--- Attribute -----------------------------------------------------------
     [Header("StageName State")]
@@ -39,6 +41,7 @@ public class PlanetOpening : MonoBehaviour
     {
         PlanetScene.Instance.EndOpening();
         popUpScript.PopDown();
+        ItemPopUp.PopUp();
     }
 
 }

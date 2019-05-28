@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class TitleScene : SceneBase
 {
     //--- Attribute -----------------------------------------------------------
-    private const float IdleTime = 10f;
 
     //--- State -------------------------------------------
     [SerializeField]
@@ -17,7 +16,6 @@ public class TitleScene : SceneBase
     private GameObject[] select = new GameObject[4];
 
     //--- Internal ------------------------------
-    private float IdleCount = 0f;       //Idleカウンタ
     private int SelectNum = 0;          //選択中のもの
     private int MaxSelectNum = 0;       //最大セレクタ数
     private bool bInput = false;        //入力可否
@@ -27,7 +25,6 @@ public class TitleScene : SceneBase
 
     public void Awake()
     {
-        IdleCount = 0f;
         bInput = false;
     }
 
@@ -65,14 +62,8 @@ public class TitleScene : SceneBase
     //オープニングに再帰する
     private void Update_IdleTime()
     {
-        IdleCount += Time.deltaTime;
-
-        //何か入力があれば
-        if (Input.anyKey) { IdleCount = 0f; return; }
-
-        //Idle時間を超えた
-        if (IdleCount < IdleTime) return;
-        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
+        if(Input.GetButtonDown(InputManager.Cancel))
+            MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
     }
 
     //セレクトの初期化
