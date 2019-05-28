@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class GoalScript : MonoBehaviour {
 
-    [SerializeField] private PlanetScene planetScene = null;
+    private PlanetScene planetScene;
     [SerializeField] private GameObject ShipFire = null;
 
     //ファンファーレのAudio
@@ -16,7 +16,7 @@ public class GoalScript : MonoBehaviour {
     {
         ShipFire.SetActive(false);
 
-        if(planetScene == null)planetScene = GameObject.Find("EventSystem").GetComponent<PlanetScene>();
+        if (planetScene == null) planetScene = PlanetScene.Instance;
 
         if (planetScene == null) Debug.LogError("PlanetScene.csが見つかりませんでした。PlanetScene.cs is not find");
 
