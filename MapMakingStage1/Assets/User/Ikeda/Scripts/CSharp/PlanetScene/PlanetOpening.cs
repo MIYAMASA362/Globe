@@ -39,7 +39,6 @@ public class PlanetOpening : MonoBehaviour
 
     public void End()
     {
-        PlanetScene.Instance.EndOpening();
         popUpScript.PopDown();
         ItemPopUp.PopUp();
     }
