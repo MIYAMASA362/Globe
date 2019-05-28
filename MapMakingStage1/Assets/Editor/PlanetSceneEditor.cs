@@ -20,7 +20,6 @@ public class PlanetSceneEditor : Editor
         base.OnInspectorGUI();
 
         var myPlanetScene = target as PlanetScene;
-        var mySceneManager = MySceneManager.Instance;
 
         GUILayout.Space(10);
 
