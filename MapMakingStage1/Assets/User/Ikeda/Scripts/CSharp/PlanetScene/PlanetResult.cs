@@ -83,9 +83,9 @@ public class PlanetResult : MonoBehaviour
 
         Input_Wait += Time.deltaTime;
         
-        if(Input_Wait >= 3.0f)
-            if(Input.GetButtonUp(InputManager.Submit))
-                End();
+
+        if(Input.GetButtonUp(InputManager.Submit) && IsInput)
+            End();
     }
 
     //--- Method --------------------------------------------------------------
@@ -148,5 +148,10 @@ public class PlanetResult : MonoBehaviour
     public void HideAxisDevice()
     {
         AxisDevice.SetActive(false);
+    }
+
+    public void IsInputEnable()
+    {
+        IsInput = true;
     }
 }
