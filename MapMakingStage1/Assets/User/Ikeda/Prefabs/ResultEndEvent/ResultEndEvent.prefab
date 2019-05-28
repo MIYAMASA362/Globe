@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 82635758318658854}
   - component: {fileID: 114381377198838058}
   - component: {fileID: 135615718746463824}
+  - component: {fileID: 114727523775980520}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -2298,7 +2299,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399227749047220}
-  m_LocalRotation: {x: -0.35139886, y: 0.09853908, z: -0.04515164, w: 0.92993027}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15440282, y: 0.15440291, z: 0.15440257}
   m_Children:
@@ -2536,14 +2537,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896856322999522}
-  m_LocalRotation: {x: 0.7732742, y: -0.07024541, z: 0.06651029, w: 0.6266491}
+  m_LocalRotation: {x: 0.45989293, y: -0.00796963, z: -0.038282506, w: 0.88711303}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4407488117697322}
   m_Father: {fileID: 4635275062724460}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 101.906006, y: -4.119995, z: 7.038986}
+  m_LocalEulerAnglesHint: {x: 125.379, y: 175.11, z: 172.532}
 --- !u!4 &4825895572233802
 Transform:
   m_ObjectHideFlags: 1
@@ -3095,8 +3096,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 8a93a5527a63e814a8be264ba496a3ad, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3358,7 +3359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8497bf4ff8bb243a2fd390de93450e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetScene: {fileID: 0}
   ShipFire: {fileID: 1062478596662268}
 --- !u!114 &114448994439357600
 MonoBehaviour:
@@ -3486,6 +3486,17 @@ MonoBehaviour:
   Tag: Rain
   value: 10
   reducedSpeed: 0.1
+--- !u!114 &114727523775980520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196538892534120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f278bae7ffc3e384daecb8606c885a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114841766344018308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3497,7 +3508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c4041fd993f0944a44c75382069710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetScene: {fileID: 0}
+  rocketSE: {fileID: 114727523775980520}
 --- !u!114 &114986340013320916
 MonoBehaviour:
   m_ObjectHideFlags: 1
