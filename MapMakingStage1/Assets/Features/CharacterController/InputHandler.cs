@@ -7,6 +7,7 @@ namespace SA
     public class InputHandler : MonoBehaviour {
 
         private CharacterCamera characterCamera;
+        private SmoothFollow cameraSmoothFollow;
         public PlanetWalker planetWalker;
         public InvisibleWaker invisibleWalker;
         public SmoothFollow backPack;
@@ -32,6 +33,7 @@ namespace SA
             characterCamera = CameraManager.Instance.characterCamera;
             characterCamera.Init(CameraPivot);
             characterCamera.SetInputHandler(this);
+            cameraSmoothFollow = characterCamera.GetComponent<SmoothFollow>();
 
             invisibleWalker.Init(CameraPivot);
 
@@ -43,6 +45,8 @@ namespace SA
 
             delta = Time.fixedDeltaTime;
             states.FixedTick(delta);
+
+            if (PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME) return;
 
             if (states.state == StateManager.State.GameMain)
             {
@@ -104,6 +108,7 @@ namespace SA
         {
             if (isInvisible)
             {
+                cameraSmoothFollow.enabled = false;
                 planetWalker.moveAmount *= 0.8f;
                 planetWalker.horizontal *= 0.8f;
                 planetWalker.vertical *= 0.8f;
@@ -117,6 +122,8 @@ namespace SA
             }
             else
             {
+                cameraSmoothFollow.enabled = true;
+
                 invisibleWalker.OnNotPlay(delta);
                 if(!invisibleWalker.isPlay)
                 {
