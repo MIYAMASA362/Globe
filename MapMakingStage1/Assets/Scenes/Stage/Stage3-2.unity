@@ -238,9 +238,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301116883add6404ab474ef9ad668fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 1
   isChange: 0
   planetCamera: {fileID: 1332202330}
   characterCamera: {fileID: 1772922632}
+  timer: 0
+  isStart: 0
+  goal: {fileID: 0}
 --- !u!114 &78515770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,66 +294,12 @@ MonoBehaviour:
   isStageCreate: 0
   corePlanet: {fileID: 1574497853}
   rotationTarget: {fileID: 2098038766}
-  XBoxVibration: 0.8
   rotationSpeed: 0
   accelSpeed: 3
   maxSpeed: 80
   isRotation: 0
   rotationAngle: 18
   curRotation: 0
---- !u!1 &135205729
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 135205731}
-  - component: {fileID: 135205730}
-  m_Layer: 0
-  m_Name: MySceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &135205730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 135205729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcfa8f90c3436e4469598a5957e4e611, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bInitLoad: 1
-  animator: {fileID: 0}
-  Path_Manager: 
-  Path_Pause: 
-  Path_Opening: 
-  Path_Title: 
-  Path_Option: 
-  Path_BackGround: 
-  Path_DataCheck: 
-  Path_GameStart: 
-  Path_GalaxySelect: 
-  Galaxies: []
-  Path_End: 
---- !u!4 &135205731
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 135205729}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &147297554
 Prefab:
   m_ObjectHideFlags: 0
@@ -484,35 +434,35 @@ Prefab:
     - target: {fileID: 20635126577664040, guid: 3b91607223a1e384f991359d149f0851,
         type: 2}
       propertyPath: field of view
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.75345784
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.4639043
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.13047141
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.44729325
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.7415569
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.7792356
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4784880448598616, guid: 3b91607223a1e384f991359d149f0851, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 5.3316092
+      value: 13.65
       objectReference: {fileID: 0}
     - target: {fileID: 114348541659534542, guid: 3b91607223a1e384f991359d149f0851,
         type: 2}
@@ -539,6 +489,10 @@ Prefab:
       propertyPath: ResultEndAnimator
       value: 
       objectReference: {fileID: 574230584}
+    - target: {fileID: 1055412851188026, guid: 3b91607223a1e384f991359d149f0851, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b91607223a1e384f991359d149f0851, type: 2}
   m_IsPrefabAsset: 0
