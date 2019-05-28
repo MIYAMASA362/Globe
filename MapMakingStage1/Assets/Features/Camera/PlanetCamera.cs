@@ -33,6 +33,7 @@ public class PlanetCamera : MonoBehaviour
     void LateUpdate()
     {
         if (!this.gameObject.activeInHierarchy) return;
+        
 
         targetDir = (corePosition - transform.position).normalized;
 
@@ -42,7 +43,10 @@ public class PlanetCamera : MonoBehaviour
         }
         else
         {
-            InputMove();
+            if (CameraManager.Instance.state == CameraManager.State.Game)
+            {
+                InputMove();
+            }
         }
 
         SetDistance();
@@ -53,6 +57,10 @@ public class PlanetCamera : MonoBehaviour
     {
         float h = Input.GetAxis(InputManager.Camera_Horizontal);
         float v = Input.GetAxis(InputManager.Character_Camera_Vertical);
+
+        DataManager data = DataManager.Instance;
+        if (data.commonData.IsCameraReverseHorizontal) h *= -1f;
+        if (data.commonData.IsCameraReverseVertical) v *= -1f;
 
         holizontal = Mathf.Lerp(holizontal, h, sumooth);
         vertical = Mathf.Lerp(vertical, v, sumooth);
@@ -82,7 +90,7 @@ public class PlanetCamera : MonoBehaviour
 
     private void MoveTarget(Vector3 position, float speed)
     {
-        Vector3 movePos = position - transform.up * 8f;
+        Vector3 movePos = position - transform.up * 5f;
         Vector3 dir = (movePos - corePosition);
         targetPosition = movePos - (dir - (dir.normalized * distance));
 

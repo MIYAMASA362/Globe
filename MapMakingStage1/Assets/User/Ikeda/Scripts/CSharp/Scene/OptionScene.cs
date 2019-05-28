@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using XInputDotNetPure;
 
 public class OptionScene : MonoBehaviour
 {
@@ -57,7 +58,9 @@ public class OptionScene : MonoBehaviour
 
     [Space(10)]
     [Header("State")]
-    [SerializeField] private float ChangeValue = 0.1f;
+    [SerializeField] private float ChangeValue = 0.0f;
+    [SerializeField] private float ChangeValueAccel = 0.1f;
+    [SerializeField] private float ChangeValueMax = 0.5f;
     [SerializeField] private GameObject Config_Value;
     [SerializeField] private GameObject Config_Enable;
 
@@ -204,16 +207,35 @@ public class OptionScene : MonoBehaviour
         ControllerVibration_Setting();
     }
 
+    float AddInputValue()
+    {
+        float Axis = Input.GetAxis(InputManager.X_Selecter);
+        if (Axis >= 0.5f)
+        {
+            if (ChangeValue < 0) ChangeValue = 0f;
+            ChangeValue += ChangeValueAccel;
+        }
+        else if (Axis <= -0.5f)
+        {
+            if (ChangeValue > 0) ChangeValue = 0f;
+            ChangeValue -= ChangeValueAccel;
+        }
+        else
+        {
+            ChangeValue = 0f;
+        }
+
+        ChangeValue = Mathf.Clamp(ChangeValue, -ChangeValueMax, ChangeValueMax);
+
+        return ChangeValue;
+    }
+
     //BGM
     void BGM_Setting()
     {
         ConfigUI(true,true);
 
-        float Axis = Input.GetAxis(InputManager.X_Selecter);
-        if (Axis >= 0.5f)
-            BGM_Volume += ChangeValue;
-        else if (Axis <= -0.5f)
-            BGM_Volume -= ChangeValue;
+        BGM_Volume += AddInputValue();
 
         BGM_Clamp();
         BGM_SetSlider();
@@ -245,11 +267,7 @@ public class OptionScene : MonoBehaviour
     {
         ConfigUI(true,true);
 
-        float Axis = Input.GetAxis(InputManager.X_Selecter);
-        if (Axis >= 0.5f)
-            SE_Volume += ChangeValue;
-        else if(Axis <= -0.5f)
-            SE_Volume -= ChangeValue;
+        SE_Volume += AddInputValue();
 
         SE_Clamp();
         SE_SetSlider();
@@ -335,17 +353,26 @@ public class OptionScene : MonoBehaviour
         if (!IsVibration) return;
 
         ConfigUI(true,true);
-        float Axis = Input.GetAxis(InputManager.X_Selecter);
-        if (Axis >= 0.5f)
-            fVibration += ChangeValue;
-        else if (Axis <= -0.5f)
-            fVibration -= ChangeValue;
+       
+        float value = AddInputValue();
+        fVibration += value;
 
         ControllerVibration_Clamp();
         ControllerVibration_SetSlider();
         ControllerVibration_SetText();
 
         DataManager.Instance.commonData.fVibration = fVibration;
+
+        if (Mathf.Abs(value) > 0)
+        {
+            float vib = RotationManager.XBoxVibration;
+            float vibPer = fVibration / 100;
+            GamePad.SetVibration(PlayerIndex.One, vib * vibPer, vib * vibPer);
+        }
+        else
+        {
+            GamePad.SetVibration(PlayerIndex.One, 0, 0);
+        }
     }
 
     void ControllerVibration_Clamp()

@@ -43,6 +43,9 @@ namespace DataType
         public int SelectGalaxy = 0;
         public int SelectPlanet = 0;
 
+        public int GetCrystalNum = 0;
+        public int GetStarCrystalNum = 0;
+
         public PlayerData() : base("Player", ".player") { }
 
         public override string FilePath()
@@ -64,17 +67,22 @@ namespace DataType
         {
             return DirectoryPath.planets +"/" + base.FilePath();
         }
+
+        public bool IsComplate()
+        {
+            return IsGet_StarCrystal && IsGet_Crystal;
+        }
     }
 
     [System.Serializable]
     public class CommonData:DataBase
     {
-        public float BGM_Volume = 0f;
-        public float SE_Volume = 0f;
+        public float BGM_Volume = 100f;
+        public float SE_Volume = 100f;
         public bool IsCameraReverseVertical = false;
         public bool IsCameraReverseHorizontal = false;
         public bool IsVibration = true;
-        public float fVibration = 0f;
+        public float fVibration = 100f;
 
         public CommonData():base("Common",".data") { }
 

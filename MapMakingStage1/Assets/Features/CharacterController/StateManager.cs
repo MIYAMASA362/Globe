@@ -7,6 +7,15 @@ namespace SA
 
     public class StateManager : MonoBehaviour
     {
+        public enum State
+        {
+            Start,
+            GameMain,
+            End
+        }
+
+        public State state = State.GameMain;
+
         public ParticleSystem circleParticle;
         public AxisDevice axisDevice;
 
@@ -88,9 +97,25 @@ namespace SA
             gravityDirection = (transform.position - gravityCenter.position).normalized;
             delta = d;
 
-            onGround = OnGround();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, gravityDirection) * transform.rotation, delta * 5.0f);
 
-            if (!onGround) rigid.AddForce(gravityDirection * -gravity);
+            onGround = OnGround();
+            
+            if (!onGround)
+                rigid.AddForce(gravityDirection * -gravity);
+
+            if(state == State.Start)
+            {
+                if(onGround)
+                {
+                    anim.SetTrigger("impact");
+
+                    if(anim.GetBool("getUp"))
+                    {
+                        state = State.GameMain;
+                    }
+                }
+            }
 
         }//Tick end
          //------------------------------------------

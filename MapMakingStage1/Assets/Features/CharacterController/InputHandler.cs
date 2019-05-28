@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Klak.Motion;
 
 namespace SA
 {
@@ -8,6 +9,7 @@ namespace SA
         private CharacterCamera characterCamera;
         public PlanetWalker planetWalker;
         public InvisibleWaker invisibleWalker;
+        public SmoothFollow backPack;
         public float vertical;
         public float horizontal;
         public float inputSumooth = 0.2f;
@@ -37,15 +39,32 @@ namespace SA
          //------------------------------------------
         void FixedUpdate()
         {
+            if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+
             delta = Time.fixedDeltaTime;
-            GetInput();
-            UpdateStates();
-            characterCamera.Tick(delta);
+            states.FixedTick(delta);
+
+            if (states.state == StateManager.State.GameMain)
+            {
+                GetInput();
+                UpdateStates();
+                characterCamera.Tick(delta);
+            }
 
         }//Update end
          //------------------------------------------
         void Update()
         {
+            if (MySceneManager.IsPausing || MySceneManager.IsOption)
+            {
+                backPack.enabled = false;
+                return;
+            }
+            else
+            {
+                backPack.enabled = true;
+            }
+
             delta = Time.deltaTime;
             states.Tick(delta);
 
@@ -83,13 +102,13 @@ namespace SA
         //------------------------------------------
         void UpdateStates()
         {
-            states.FixedTick(delta);
-
             if (isInvisible)
             {
                 planetWalker.moveAmount *= 0.8f;
                 planetWalker.horizontal *= 0.8f;
                 planetWalker.vertical *= 0.8f;
+                planetWalker.rigidbody.velocity *= 0.5f;
+                planetWalker.anim.SetFloat("move", planetWalker.moveAmount);
 
                 invisibleWalker.OnPlay(delta);
 

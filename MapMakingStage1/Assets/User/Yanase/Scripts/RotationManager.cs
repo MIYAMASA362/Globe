@@ -10,7 +10,8 @@ public class RotationManager : Singleton<RotationManager> {
     [SerializeField] private Transform corePlanet = null;
     [SerializeField] private Transform rotationTarget = null;
 
-    public float XBoxVibration = 0.8f;
+    public static float XBoxVibration = 0.5f;
+    private float initVibration = 0.0f;
 
     [Header("SE")]
     private AudioSource planetAudio;
@@ -39,6 +40,7 @@ public class RotationManager : Singleton<RotationManager> {
     //Initialize
     private void Start ()
     {
+        initVibration = XBoxVibration;
         planetAudio = corePlanet.GetComponent<AudioSource>();
         if (!planetAudio) planetAudio = corePlanet.gameObject.AddComponent<AudioSource>();
     }
@@ -47,6 +49,17 @@ public class RotationManager : Singleton<RotationManager> {
 	private void Update ()
     {
         PlanetRotation(rotationAngle);
+
+        DataManager data = DataManager.Instance;
+        if (data.commonData.IsVibration)
+        {
+            XBoxVibration = initVibration * (data.commonData.fVibration / 100);
+        }
+        else
+        {
+            XBoxVibration = 0.0f;
+        }
+        
     }
 
     //FixedUpdate
@@ -71,6 +84,8 @@ public class RotationManager : Singleton<RotationManager> {
 
     private void PlanetRotation(float angle)
     {
+        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+
         // フラグマネージャー取得
         FlagManager flagManager = FlagManager.Instance;
 
@@ -126,6 +141,8 @@ public class RotationManager : Singleton<RotationManager> {
 
     private void InputRotation()
     {
+        if (MySceneManager.IsPausing || MySceneManager.IsOption) return;
+
         bool left = Input.GetButton(InputManager.Left_AxisRotation);
         bool right = Input.GetButton(InputManager.Right_AxisRotation);
 

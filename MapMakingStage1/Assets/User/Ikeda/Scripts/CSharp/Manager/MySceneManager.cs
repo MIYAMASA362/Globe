@@ -20,7 +20,8 @@ public class MySceneManager : Singleton<MySceneManager>
     [System.Serializable]
     public class Galaxy
     {
-        [HideInInspector]public string name = "";
+        [HideInInspector] public string name = "";
+        public int UnLockCrystalNum = 0;
         public List<Planet> Planets = new List<Planet>();
     }
 
@@ -63,6 +64,19 @@ public class MySceneManager : Singleton<MySceneManager>
     public static bool IsFadeing { get; private set; }  //Fade中:true
     public static bool IsPause_BackLoad { get; set; }   //背後にPauseがある
 
+    private static bool isRestart = false;
+
+    public static void OnRestart()
+    {
+        isRestart = true;
+    }
+
+    public static bool IsRestart()
+    {
+        bool cur = isRestart;
+        isRestart = false;
+        return cur;
+    }
 
     //--- MonoBehavior --------------------------------------------------------
 
@@ -89,10 +103,7 @@ public class MySceneManager : Singleton<MySceneManager>
 
     private void LateUpdate()
     {
-        if (IsPausing)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
+        
     }
 
     //--- Method --------------------------------------------------------------
@@ -124,6 +135,8 @@ public class MySceneManager : Singleton<MySceneManager>
         //入力があるか
         if (!Input.GetButtonDown(InputManager.Menu)) return;
 
+        if (IsOption) return;
+        
         //Pause状態とbEnableが逆であるのか
         if (IsPausing == bEnable) return;
 
@@ -148,6 +161,13 @@ public class MySceneManager : Singleton<MySceneManager>
         return Instance.Path_GalaxySelect;
     }
 
+    public static string Get_NextGalaxyPlanet()
+    {
+        if (DataManager.Instance.playerData.GetStarCrystalNum >= Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].UnLockCrystalNum)
+            return Get_NowPlanet();
+        return Instance.Path_GalaxySelect;
+    }
+
     //--- Planetの選択に戻る
     public static string Load_PlanetSelect()
     {
@@ -161,15 +181,16 @@ public class MySceneManager : Singleton<MySceneManager>
         DataManager.Instance.playerData.SelectPlanet++;
 
         //最終ステージまでやった
-        if(DataManager.Instance.playerData.SelectPlanet >= Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets.Count)
-        {
-            //次の銀河へ
-            DataManager.Instance.playerData.SelectPlanet = 0;
-            DataManager.Instance.playerData.SelectGalaxy++;
-            return Instance.Path_GalaxySelect;
-        }
+        if(DataManager.Instance.playerData.SelectPlanet < Instance.Galaxies[DataManager.Instance.playerData.SelectGalaxy].Planets.Count)
+            return Get_NowPlanet();
 
-        return Get_NowPlanet();
+        //次の銀河へ
+        DataManager.Instance.playerData.SelectPlanet = 0;
+        DataManager.Instance.playerData.SelectGalaxy++;
+        if (DataManager.Instance.playerData.SelectGalaxy >= Instance.Galaxies.Count)
+            return Instance.Path_End;
+
+        return Get_NextGalaxyPlanet();
     }
 
     //--- エンディング読み込み ------------------

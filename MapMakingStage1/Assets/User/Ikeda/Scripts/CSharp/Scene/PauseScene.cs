@@ -90,6 +90,7 @@ public class PauseScene : SceneBase
                     MySceneManager.Instance.LoadBack_Pause();
                     break;
                 case 1:
+                    MySceneManager.OnRestart();
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:

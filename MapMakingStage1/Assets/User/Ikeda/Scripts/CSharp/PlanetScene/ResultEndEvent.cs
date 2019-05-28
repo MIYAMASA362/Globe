@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ResultEndEvent : MonoBehaviour
 {
-
-    [SerializeField] private PlanetScene planetScene;
+    private PlanetScene planetScene;
     private PlanetResult planetResult;
 
 	// Use this for initialization
 	void Start ()
     {
+        planetScene = PlanetScene.Instance;
         planetResult = planetScene.GetComponent<PlanetResult>();
 	}
 	

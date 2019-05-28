@@ -18,6 +18,7 @@ public class MySceneManagerEditor : Editor
     public class Galaxy
     {
         public string Name = "NONE";
+        public int UnLockCrystalNum = 0;
         public List<Planet> Planets = new List<Planet>();
     }
 
@@ -107,7 +108,9 @@ public class MySceneManagerEditor : Editor
                 {
                     EditorGUI.indentLevel++;    //インデント
                     Galaxies[nGalaxy].Name = EditorGUILayout.TextField("Name",Galaxies[nGalaxy].Name);
+                    Galaxies[nGalaxy].UnLockCrystalNum = EditorGUILayout.IntField("UnLockCrystalNum",Galaxies[nGalaxy].UnLockCrystalNum);
 
+                    EditorGUI.indentLevel++;
                     for (int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
                     {
                         EditorGUILayout.LabelField("Planet:"+(nPlanet+1));
@@ -116,6 +119,7 @@ public class MySceneManagerEditor : Editor
                         Galaxies[nGalaxy].Planets[nPlanet].sceneAsset = EditorGUILayout.ObjectField("SceneAsset", Galaxies[nGalaxy].Planets[nPlanet].sceneAsset, typeof(SceneAsset), true) as SceneAsset;
                         EditorGUI.indentLevel--;
                     }
+                    EditorGUI.indentLevel--;
                     EditorGUI.indentLevel--;    //インデント
                 }
             }
@@ -171,6 +175,7 @@ public class MySceneManagerEditor : Editor
         {
             Galaxy galaxy = new Galaxy();
             galaxy.Name = Galaxy.name;
+            galaxy.UnLockCrystalNum = Galaxy.UnLockCrystalNum;
             foreach(var Planet in Galaxy.Planets)
             {
                 MySceneManagerEditor.Planet add = new MySceneManagerEditor.Planet();
@@ -206,6 +211,7 @@ public class MySceneManagerEditor : Editor
         {
             MySceneManager.Galaxy galaxy = new MySceneManager.Galaxy();
             galaxy.name = Galaxies[nGalaxy].Name;
+            galaxy.UnLockCrystalNum = Galaxies[nGalaxy].UnLockCrystalNum;
             //銀河の惑星参照
             for(int nPlanet = 0; nPlanet < Galaxies[nGalaxy].Planets.Count; nPlanet++)
             {
