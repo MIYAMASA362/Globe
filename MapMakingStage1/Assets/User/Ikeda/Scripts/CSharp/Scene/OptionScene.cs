@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using XInputDotNetPure;
 
-public class OptionScene : MonoBehaviour
+public class OptionScene : SceneBase
 {
     //--- Attribute -----------------------------------------------------------
 
@@ -67,7 +67,7 @@ public class OptionScene : MonoBehaviour
     //--- MonoBehaviour -------------------------------------------------------
 
 	// Use this for initialization
-	void Start ()
+	public override void Start ()
     {
         if(!MySceneManager.IsPause_BackLoad)
             SceneManager.LoadScene(MySceneManager.Instance.Path_BackGround,LoadSceneMode.Additive);
@@ -87,7 +87,7 @@ public class OptionScene : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	public override void Update ()
     {
         //コンテンツ選択
         Content_Selecter();
@@ -117,6 +117,7 @@ public class OptionScene : MonoBehaviour
         if (OldSelect != SelectNum)
         {
             IsInput = false;
+            base.PlayAudio_Select();
             if (!IsVibration && SelectNum == 5)
                 if (OldSelect < SelectNum)
                     SelectNum++;
@@ -162,12 +163,14 @@ public class OptionScene : MonoBehaviour
             case 6:
                 ConfigUI(false,false);
                 if (!Input.GetButtonDown(InputManager.Submit)) return;
+                base.PlayAudio_Success();
                 Default_Setting();
                 break;
             //もどる
             case 7:
                 ConfigUI(false,false);
                 if (!Input.GetButtonDown(InputManager.Submit)) return;
+                base.PlayAudio_Success();
                 DataManager.Instance.CommonData_Save();
                 if (MySceneManager.IsPause_BackLoad)
                 {
@@ -226,7 +229,6 @@ public class OptionScene : MonoBehaviour
         }
 
         ChangeValue = Mathf.Clamp(ChangeValue, -ChangeValueMax, ChangeValueMax);
-
         return ChangeValue;
     }
 
@@ -267,11 +269,22 @@ public class OptionScene : MonoBehaviour
     {
         ConfigUI(true,true);
 
+        float old = Mathf.Floor(SE_Volume);
         SE_Volume += AddInputValue();
 
         SE_Clamp();
         SE_SetSlider();
         SE_SetText();
+        float Axis = Input.GetAxis(InputManager.X_Selecter);
+        if (old != Mathf.Floor(SE_Volume))
+            IsChanged = true; 
+
+        if(IsChanged && Axis == 0f)
+        {
+            base.PlayAudio_Select();
+            IsChanged = false;
+        }
+
 
         DataManager.Instance.commonData.SE_Volume = SE_Volume;
     }
@@ -300,8 +313,10 @@ public class OptionScene : MonoBehaviour
         ConfigUI(true,false);
 
         if (Input.GetButtonDown(InputManager.Submit))
+        {
+            base.PlayAudio_Success();
             IsCR_V = !IsCR_V;
-
+        }
         CameraReverseVertical_SetText();
 
         DataManager.Instance.commonData.IsCameraReverseVertical = IsCR_V;
@@ -316,8 +331,10 @@ public class OptionScene : MonoBehaviour
     void CameraReverseHorizontal_Setting()
     {
         if (Input.GetButtonDown(InputManager.Submit))
+        {
+            base.PlayAudio_Success();
             IsCR_H = !IsCR_H;
-
+        }
         CameraReverseHorizontal_SetText();
 
         DataManager.Instance.commonData.IsCameraReverseHorizontal = IsCR_H;
@@ -334,8 +351,10 @@ public class OptionScene : MonoBehaviour
         ConfigUI(true,false);
 
         if (Input.GetButtonDown(InputManager.Submit))
+        {
+            base.PlayAudio_Success();
             IsVibration = !IsVibration;
-
+        }
         ControllerVibrationEnable_SetText();
 
         DataManager.Instance.commonData.IsVibration = IsVibration;
