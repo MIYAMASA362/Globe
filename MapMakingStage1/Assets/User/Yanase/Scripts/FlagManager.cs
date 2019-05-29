@@ -209,7 +209,6 @@ public class FlagManager : Singleton<FlagManager> {
             if (curFloatType == floatObj.type)
             {
                 floatObj.isFloat = !floatObj.isFloat;
-                floatObj.a = true;
             }
         }
 
