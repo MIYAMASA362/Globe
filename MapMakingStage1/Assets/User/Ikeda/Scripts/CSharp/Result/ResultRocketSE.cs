@@ -20,17 +20,19 @@ public class ResultRocketSE : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        
+    }
 
-	}
+    public void PlayFanfare()
+    {
+        AudioManager.Instance.PlaySEOneShot(RocketAudioSource, AudioManager.Instance.SE_FANFARE);
+        AudioManager.Instance.FadeOutBGM();
+    }
 
     public void PlayRocketAudio()
     {
         ShipFire.SetActive(true);
-        RocketAudioSource.Play();
+        RocketAudioSource.PlayOneShot(RocketAudioSource.clip);
     }
 
-    public void StopRocketAudio()
-    {
-        RocketAudioSource.Stop();
-    }
 }

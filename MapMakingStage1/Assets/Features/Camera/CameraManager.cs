@@ -39,17 +39,19 @@ public class CameraManager : Singleton<CameraManager>
         {
             case State.Start:
                 timer += Time.deltaTime;
-                float time1 = 1.0f;
-                float time2 = 3.0f;
+                float time1 = 1.5f;
+                float time2 = 3.5f;
 
                 if (timer > time1 && timer < time2)
                 {
-                    planetCamera.SetTarget(goal.transform.position, Time.deltaTime * 1f);
-                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, cameraGoalDistance, Time.deltaTime * 1.0f);
+                    if(timer < time2 - 1.0f)
+                        planetCamera.SetTarget(goal.transform.position + planetCamera.transform.forward * 2f, Time.deltaTime * 10f);
+
+                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, cameraGoalDistance, Time.deltaTime * 3.0f);
                 }
                 else if(timer > time2)
                 {
-                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, dist, Time.deltaTime * 10.0f);
+                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, dist, Time.deltaTime * 5.0f);
                     if (timer < time2 + 0.2f) 
                     {
                         planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10f);

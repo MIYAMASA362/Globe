@@ -68,7 +68,7 @@ public class AudioManager : Singleton<AudioManager>
 
     //BGMがフェードするのにかかる時間
     public const float BGM_FADE_SPEED_RATE_HIGH = 0.9f;
-    public const float BGM_FADE_SPEED_RATE_LOW = 0.1f;
+    public const float BGM_FADE_SPEED_RATE_LOW = 1.5f;
     private float _bgmFadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH;
 
     //次流すBGM名、SE名

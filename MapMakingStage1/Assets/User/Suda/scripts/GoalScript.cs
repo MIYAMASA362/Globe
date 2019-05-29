@@ -17,10 +17,6 @@ public class GoalScript : MonoBehaviour
         if (planetScene == null) planetScene = PlanetScene.Instance;
 
         if (planetScene == null) Debug.LogError("PlanetScene.csが見つかりませんでした。PlanetScene.cs is not find");
-
-        audioSource = gameObject.GetComponent<AudioSource>();
-
-        
     }
 
     private void Update()
@@ -29,9 +25,6 @@ public class GoalScript : MonoBehaviour
         {
             if (Input.GetButtonDown(InputManager.Set_EarthAxis))
             {
-                //ゴールファンファーレ
-                AudioManager.Instance.PlaySEOneShot(audioSource, AudioManager.Instance.SE_FANFARE);
-                AudioManager.Instance.FadeOutBGM();
                 planetScene.GameClear();
                 this.enabled = false;
             }
