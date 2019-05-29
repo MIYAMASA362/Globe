@@ -12,6 +12,7 @@ public class ResultRocketSE : MonoBehaviour {
 	void Start ()
     {
         RocketAudioSource = this.GetComponent<AudioSource>();
+        RocketAudioSource.loop = true;
         OldVolume = RocketAudioSource.volume;
         ShipFire.SetActive(false);
     }

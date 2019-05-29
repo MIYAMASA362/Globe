@@ -6,6 +6,7 @@ public class TitleScene : SceneBase
     //--- Attribute -----------------------------------------------------------
 
     //--- State -------------------------------------------
+    [Space(8)]
     [SerializeField]
     private RectTransform Selecter;
 
@@ -96,7 +97,7 @@ public class TitleScene : SceneBase
         //入力があった
         if (old == SelectNum) return;
         bInput = false;
-
+        base.PlayAudio_Select();
         //コンティニュー出来ない
         if (!IsContinue && SelectNum == 1)
         {
@@ -120,6 +121,8 @@ public class TitleScene : SceneBase
     private void Select_Submit()
     {
         if (!Input.GetButtonDown(InputManager.Submit)) return;
+        base.PlayAudio_Success();
+
         switch (SelectNum)
         {
             //Start
