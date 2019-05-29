@@ -50,6 +50,11 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_IMPACT_SAND;
     public AudioData SE_IMPACT_SNOW;
 
+    [Header("選択系")]
+    public AudioData SE_SUCCESS;
+    public AudioData SE_SELECT;
+    public AudioData SE_RETURN;
+
     //オーディオファイルのパス
     private const string BGM_PATH = "Audio/BGM";
     private const string SE_PATH = "Audio/SE";
