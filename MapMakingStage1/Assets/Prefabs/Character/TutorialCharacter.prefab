@@ -1397,11 +1397,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4027004857910292}
   - component: {fileID: 54564896158900840}
-  - component: {fileID: 135620570103101760}
   - component: {fileID: 114416580654533610}
   - component: {fileID: 114051710208873742}
   - component: {fileID: 114071169591995384}
   - component: {fileID: 114077732815855698}
+  - component: {fileID: 136261342576577848}
   m_Layer: 8
   m_Name: TutorialCharacter
   m_TagString: Player
@@ -1850,7 +1850,7 @@ Transform:
   m_GameObject: {fileID: 1938947727256386}
   m_LocalRotation: {x: 0.6830127, y: 0.18301275, z: 0.18301275, w: 0.6830127}
   m_LocalPosition: {x: -0.2, y: 0, z: 0}
-  m_LocalScale: {x: 0.038821124, y: 0.038821146, z: 0.038821146}
+  m_LocalScale: {x: 0.05286526, y: 0.05286526, z: 0.05286526}
   m_Children: []
   m_Father: {fileID: 4585702927934964}
   m_RootOrder: 1
@@ -2019,7 +2019,7 @@ Transform:
   m_GameObject: {fileID: 1902449160612370}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02470668, y: 0.02470668, z: 0.02470668}
+  m_LocalScale: {x: 0.03801617, y: 0.03801617, z: 0.03801617}
   m_Children: []
   m_Father: {fileID: 4051297061259694}
   m_RootOrder: 0
@@ -2272,7 +2272,7 @@ Transform:
   m_GameObject: {fileID: 1119536058353120}
   m_LocalRotation: {x: 0.6830127, y: -0.18301275, z: -0.18301275, w: 0.6830127}
   m_LocalPosition: {x: 0.2, y: 0, z: 0}
-  m_LocalScale: {x: 0.03882391, y: 0.03882391, z: 0.03882391}
+  m_LocalScale: {x: 0.052865256, y: 0.052865256, z: 0.052865256}
   m_Children: []
   m_Father: {fileID: 4585702927934964}
   m_RootOrder: 0
@@ -2354,7 +2354,7 @@ Transform:
   m_GameObject: {fileID: 1290736252465520}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02470668, y: 0.02470668, z: 0.02470668}
+  m_LocalScale: {x: 0.03801617, y: 0.03801617, z: 0.03801617}
   m_Children: []
   m_Father: {fileID: 4454568374996654}
   m_RootOrder: 0
@@ -3097,7 +3097,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &82270522087921886
 AudioSource:
@@ -3480,8 +3480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d727d429bcfcc546bf25c74b5ee83c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorial: {fileID: 0}
-  stateManager: {fileID: 114071169591995384}
   uiA: {fileID: 114161914895450298}
 --- !u!114 &114763525752770124
 MonoBehaviour:
@@ -3524,8 +3522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9252c9c5fe10d304c8f7965fa29cec81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135620570103101760
-SphereCollider:
+--- !u!136 &136261342576577848
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -3533,9 +3531,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.62
-  m_Center: {x: 0, y: -0.77, z: 0}
+  m_Radius: 0.60185313
+  m_Height: 2.0436423
+  m_Direction: 1
+  m_Center: {x: 0.000000007967301, y: -0.3616605, z: 0.018314088}
 --- !u!136 &136546002434130644
 CapsuleCollider:
   m_ObjectHideFlags: 1
