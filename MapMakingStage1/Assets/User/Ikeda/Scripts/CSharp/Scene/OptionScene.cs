@@ -368,6 +368,12 @@ public class OptionScene : SceneBase
 
         DataManager.Instance.commonData.IsVibration = IsVibration;
 
+        if (!IsVibration)
+        {
+            DataManager.Instance.commonData.fVibration = 0f;
+            GamePad.SetVibration(PlayerIndex.One, 0, 0);
+            return;
+        }
     }
 
     void ControllerVibrationEnable_SetText()
@@ -378,7 +384,7 @@ public class OptionScene : SceneBase
     //--- ControllerVibration ---------------------------------------
     void ControllerVibration_Setting()
     {
-        if (!IsVibration) return;
+        if (!IsVibration) { return; }
 
         ConfigUI(true,true);
        
