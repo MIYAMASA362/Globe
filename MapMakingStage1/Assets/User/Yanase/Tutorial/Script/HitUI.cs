@@ -5,8 +5,6 @@ using SA;
 
 public class HitUI : MonoBehaviour {
 
-    public TutorialBase tutorial = null;
-    public StateManager stateManager;
     public Billbord uiA;
     private bool hitGoal;
 
@@ -17,9 +15,7 @@ public class HitUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (tutorial) return;
-
-        if(hitGoal)
+        if(hitGoal && PlanetScene.Instance.state == PlanetScene.STATE.MAINGAME)
         {
             uiA.gameObject.SetActive(true);
         }
