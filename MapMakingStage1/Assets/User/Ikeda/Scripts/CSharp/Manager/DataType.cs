@@ -83,6 +83,7 @@ namespace DataType
         public bool IsCameraReverseHorizontal = false;
         public bool IsVibration = true;
         public float fVibration = 100f;
+        public bool IsSuport = true;
 
         public CommonData():base("Common",".data") { }
 
