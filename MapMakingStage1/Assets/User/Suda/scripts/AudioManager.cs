@@ -50,6 +50,9 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_IMPACT_SAND;
     public AudioData SE_IMPACT_SNOW;
 
+    [Header("ゴール")]
+    public AudioData SE_FANFARE;
+
     [Header("選択系")]
     public AudioData SE_SUCCESS;
     public AudioData SE_SELECT;
@@ -65,7 +68,7 @@ public class AudioManager : Singleton<AudioManager>
 
     //BGMがフェードするのにかかる時間
     public const float BGM_FADE_SPEED_RATE_HIGH = 0.9f;
-    public const float BGM_FADE_SPEED_RATE_LOW = 0.3f;
+    public const float BGM_FADE_SPEED_RATE_LOW = 0.1f;
     private float _bgmFadeSpeedRate = BGM_FADE_SPEED_RATE_HIGH;
 
     //次流すBGM名、SE名
@@ -210,10 +213,11 @@ public class AudioManager : Singleton<AudioManager>
         DataManager data = DataManager.Instance;
         BGM_masterVolume = (data.commonData.BGM_Volume / 1000);
         SE_masterVolume = data.commonData.SE_Volume / 100;
-        _bgmSource.volume = BGM_curVolume * BGM_masterVolume;
+        
 
         if (!_isFadeOut)
         {
+            _bgmSource.volume = BGM_curVolume * BGM_masterVolume;
             return;
         }
 

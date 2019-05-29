@@ -19,7 +19,7 @@ public class HitUI : MonoBehaviour {
 	void Update () {
         if (tutorial) return;
 
-        if(stateManager.OnUI || hitGoal)
+        if(hitGoal)
         {
             uiA.gameObject.SetActive(true);
         }

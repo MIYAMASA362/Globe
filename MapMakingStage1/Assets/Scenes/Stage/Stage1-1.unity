@@ -17163,6 +17163,36 @@ Prefab:
       propertyPath: SE_GETDIAMOND2.volume
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE1.volume
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE2.volume
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE3.volume
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: BGM_STAGE4.volume
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: SE_FANFARE.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4968c61f7b5b4ee4dbf344769fe2b9b7, type: 3}
+    - target: {fileID: 114272157177826192, guid: db68cc05ddcc8944cbe7dadf3feba484,
+        type: 2}
+      propertyPath: SE_FANFARE.volume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db68cc05ddcc8944cbe7dadf3feba484, type: 2}
   m_IsPrefabAsset: 0
@@ -18411,6 +18441,12 @@ Transform:
   m_Father: {fileID: 1796631602}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -30.472002, y: 43.271004, z: -51.796}
+--- !u!114 &978326049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114883974999424666, guid: cfce10bc2112d4144adfc0e7f6386f02,
+    type: 2}
+  m_PrefabInternal: {fileID: 1970520674}
+  m_Script: {fileID: 11500000, guid: e04f5e50cd25d4df6ad5fe43d1f88cca, type: 3}
 --- !u!1 &981705961
 GameObject:
   m_ObjectHideFlags: 0
@@ -24415,7 +24451,7 @@ Transform:
   m_GameObject: {fileID: 1279662588}
   m_LocalRotation: {x: -0.7056306, y: -0.045666765, z: 0.04566678, w: 0.7056306}
   m_LocalPosition: {x: 0, y: 3.797, z: -0}
-  m_LocalScale: {x: 0.104792, y: 0.104792, z: 0.104792}
+  m_LocalScale: {x: 0.13097952, y: 0.13097952, z: 0.13097952}
   m_Children: []
   m_Father: {fileID: 1676624881}
   m_RootOrder: 0
@@ -24430,7 +24466,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 2.4865024
+  m_Radius: 2
   m_Height: 8.247128
   m_Direction: 2
   m_Center: {x: 0.2596826, y: 0.0000043106074, z: 0.11172982}
@@ -24477,7 +24513,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1279662588}
-  m_Mesh: {fileID: 4300000, guid: a58bbfb3133c8794588bfccd49d6d451, type: 3}
+  m_Mesh: {fileID: 4300004, guid: a58bbfb3133c8794588bfccd49d6d451, type: 3}
 --- !u!1 &1282917740
 GameObject:
   m_ObjectHideFlags: 0
@@ -31785,6 +31821,11 @@ Prefab:
       propertyPath: _target
       value: 
       objectReference: {fileID: 1574497853}
+    - target: {fileID: 114768851792538842, guid: cfce10bc2112d4144adfc0e7f6386f02,
+        type: 2}
+      propertyPath: smoothFollow
+      value: 
+      objectReference: {fileID: 978326049}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfce10bc2112d4144adfc0e7f6386f02, type: 2}
   m_IsPrefabAsset: 0
@@ -32513,6 +32554,18 @@ Prefab:
     - target: {fileID: 1196538892534120, guid: 9d882ebe36ba4af4d8c6330542d8c5c7, type: 2}
       propertyPath: m_TagString
       value: Finish
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633359954650488, guid: 9d882ebe36ba4af4d8c6330542d8c5c7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.387
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633359954650488, guid: 9d882ebe36ba4af4d8c6330542d8c5c7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633359954650488, guid: 9d882ebe36ba4af4d8c6330542d8c5c7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114706154686023060, guid: 9d882ebe36ba4af4d8c6330542d8c5c7, type: 2}
