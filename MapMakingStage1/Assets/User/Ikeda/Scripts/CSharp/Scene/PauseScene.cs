@@ -71,6 +71,7 @@ public class PauseScene : SceneBase
         if (SelectNum <= -1) SelectNum = MaxNum - 1;
         if (n != SelectNum)
         {
+            base.PlayAudio_Select();
             SelectNum = SelectNum % MaxNum;
 
             ContentUI[n].position -= KeepContentUI[n].transform.right * PopX;
@@ -87,25 +88,31 @@ public class PauseScene : SceneBase
             switch (SelectNum)
             {
                 case 0:
+                    base.PlayAudio_Return();
                     MySceneManager.Instance.LoadBack_Pause();
                     break;
                 case 1:
+                    base.PlayAudio_Success();
                     AudioManager.Instance.StopBGM();
                     MySceneManager.OnRestart();
                     MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
                     break;
                 case 2:
+                    base.PlayAudio_Success();
                     AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
                     break;
                 case 3:
+                    base.PlayAudio_Success();
                     MySceneManager.Instance.LoadOption();
                     break;
                 case 4:
+                    base.PlayAudio_Success();
                     AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;
                 default:
+                    base.PlayAudio_Success();
                     AudioManager.Instance.StopBGM();
                     MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
                     break;

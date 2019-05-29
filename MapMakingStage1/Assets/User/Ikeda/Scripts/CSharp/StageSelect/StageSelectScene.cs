@@ -273,6 +273,7 @@ public class StageSelectScene : SceneBase
         //選択が更新されている
         if (nOld != nGalaxySelectNum)
         {
+            base.PlayAudio_Select();
             //マイナス値ならば
             if (nGalaxySelectNum <= -1) nGalaxySelectNum = nMaxGalaxyNum - 1;
             if(nMaxGalaxyNum != 0)
@@ -295,6 +296,7 @@ public class StageSelectScene : SceneBase
         //決定キーを確認
         if (Galaxy_Submit())
         {
+            base.PlayAudio_Success();
             nPlanetSelectNum = 0;
 
             //カメラ切り替え
@@ -313,8 +315,11 @@ public class StageSelectScene : SceneBase
             Change_ItemUI(true);
         }
 
-        if(Input.GetButtonDown(InputManager.Cancel))
+        if (Input.GetButtonDown(InputManager.Cancel))
+        {
+            base.PlayAudio_Return();
             MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, false);
+        }    
     }
 
     //--- 惑星選択 ------------------------------
@@ -340,6 +345,7 @@ public class StageSelectScene : SceneBase
         //更新されている
         if (nOld != nPlanetSelectNum)
         {
+            base.PlayAudio_Select();
             //マイナス値ならば
             if (nPlanetSelectNum <= -1) nPlanetSelectNum = nMaxPlanetNum - 1;
             nPlanetSelectNum = nPlanetSelectNum % nMaxPlanetNum;
@@ -361,12 +367,14 @@ public class StageSelectScene : SceneBase
         //決定キーを確認
         if (Planet_Submit())
         {
+            base.PlayAudio_Success();
             LoadPlanetScene();
         }
 
         //戻る
         if (Input.GetButtonDown(InputManager.Cancel))
         {
+            base.PlayAudio_Return();
             state = STATE.GALAXYSELECT;
             Set_GalaxyCamera();
             //UI変更
