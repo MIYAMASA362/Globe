@@ -4,54 +4,34 @@ using UnityEngine;
 
 public class PlanetConfig : MonoBehaviour
 {
-    [SerializeField] private RectTransform ConfigUI;
-    [SerializeField, Range(0.0f, 1.0f)]
-    private float ScaleRatio = 0.2f;
-
-    [Space(8)]
-    [SerializeField,Range(0.0f,1.0f)]
-    private float Disable_Alpha =0f;
+    //--- Attribute -------------------------------------------------
     [SerializeField]
-    private GameObject ConfigUI_Axis;
-    [SerializeField]
-    private GameObject ConfigUI_A;
-    [SerializeField]
-    private GameObject ConfigUI_B;
+    Canvas target =null;
 
-    private Vector3 DefaultScale;
-    private bool IsPlayerScale = false;
+    bool IsEnable = true;
 
-	// Use this for initialization
-	void Start ()
+    //--- MonoBehaviour ---------------------------------------------
+
+    private void Start()
     {
-        DefaultScale = ConfigUI.localScale;
-        IsPlayerScale = false;
-        Set_PlayerViewScale();
-	}
+        if (target == null)
+            target = this.GetComponent<Canvas>();
+    }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
-            Set_PlayerViewScale();
-        else if (Input.GetKeyUp(KeyCode.O))
-            Set_PlanetViewScale();
+        if (!IsEnable) return;
+        
+        if (PlanetScene.Instance.state == PlanetScene.STATE.MAINGAME)
+            target.enabled = true;
+        else
+            target.enabled = false;
     }
 
-    //--- Scaler ------------------------------------------
+    //--- Method ----------------------------------------------------
 
-    [ContextMenu("Set_PlanetViewScale")]
-    public void Set_PlanetViewScale()
+    public void SetEnable(bool enable)
     {
-        if (!IsPlayerScale) return;
-        ConfigUI.transform.localScale = DefaultScale;
-        IsPlayerScale = false;
-    }
-
-    [ContextMenu("Set_PlayerViewScale")]
-    public void Set_PlayerViewScale()
-    {
-        if (IsPlayerScale) return;
-        ConfigUI.transform.localScale = DefaultScale * (1-ScaleRatio);
-        IsPlayerScale = true;
+        IsEnable = enable;
     }
 }
