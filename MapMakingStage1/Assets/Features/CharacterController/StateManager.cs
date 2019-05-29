@@ -35,6 +35,7 @@ namespace SA
         public GroundType.Type groundType;
         public bool onGround = false;
         public bool OnAxis = false;
+        public bool OnUI = false;
 
         public GameObject activeModel;
         public Animator anim;
@@ -140,6 +141,7 @@ namespace SA
                     transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
 
                     // 設置軸の上にいるかどうか
+                    OnUI = false;
                     OnAxis = JudgeAxis(hit.collider.gameObject);
 
                     SetParent(hit.collider.gameObject);
@@ -160,6 +162,11 @@ namespace SA
             if (hitObject.tag != "Axis") return false;
 
             axisTransform = hitObject.transform;
+
+            if (axisObject == axisTransform.parent.gameObject || !FlagManager.Instance.flagActive)
+            {
+                OnUI = true;
+            }
 
             return true;
         }

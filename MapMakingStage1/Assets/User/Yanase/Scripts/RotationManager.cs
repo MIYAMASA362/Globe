@@ -109,7 +109,14 @@ public class RotationManager : Singleton<RotationManager> {
                 // 回転値を合成
                 axisTransform.rotation = quaternion * axisTransform.rotation;
 
-                if(isStageCreate)
+                // キャラクターカメラも回転
+                if (CameraManager.Instance.characterCamera.gameObject.activeInHierarchy)
+                {
+                    Transform camera = CameraManager.Instance.characterCamera.transform;
+                    camera.rotation = quaternion * camera.rotation;
+                }
+
+                if (isStageCreate)
                 {
                     rotationTarget.rotation = quaternion * rotationTarget.rotation;
                 }

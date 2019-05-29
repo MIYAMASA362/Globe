@@ -49,6 +49,10 @@ public class CharacterCamera : MonoBehaviour
         inputHandler = handle;
     }
 
+    private void Update()
+    {
+    }
+
     //------------------------------------------
     void LateUpdate()
     {
