@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResultRocketSE : MonoBehaviour {
 
     private AudioSource RocketAudioSource;
+    [SerializeField] private GameObject ShipFire = null;
     private float OldVolume;
 
 	// Use this for initialization
@@ -12,7 +13,8 @@ public class ResultRocketSE : MonoBehaviour {
     {
         RocketAudioSource = this.GetComponent<AudioSource>();
         OldVolume = RocketAudioSource.volume;
-	}
+        ShipFire.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -22,6 +24,7 @@ public class ResultRocketSE : MonoBehaviour {
 
     public void PlayRocketAudio()
     {
+        ShipFire.SetActive(true);
         RocketAudioSource.Play();
     }
 

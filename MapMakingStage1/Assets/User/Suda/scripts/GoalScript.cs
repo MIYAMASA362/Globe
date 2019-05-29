@@ -3,39 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class GoalScript : MonoBehaviour {
-
+public class GoalScript : MonoBehaviour
+{
+    private bool hit = false;
     private PlanetScene planetScene;
-    [SerializeField] private GameObject ShipFire = null;
 
     //ファンファーレのAudio
     private AudioSource audioSource;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-        ShipFire.SetActive(false);
-
         if (planetScene == null) planetScene = PlanetScene.Instance;
 
         if (planetScene == null) Debug.LogError("PlanetScene.csが見つかりませんでした。PlanetScene.cs is not find");
 
         audioSource = gameObject.GetComponent<AudioSource>();
+
+        
+    }
+
+    private void Update()
+    {
+        if(hit)
+        {
+            if (Input.GetButtonDown(InputManager.Set_EarthAxis))
+            {
+                //ゴールファンファーレ
+                AudioManager.Instance.PlaySEOneShot(audioSource, AudioManager.Instance.SE_COMPLETESTAR);
+                AudioManager.Instance.FadeOutBGM();
+                planetScene.GameClear();
+            }
+        }
     }
 
     //ゴールに触れたとき処理
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collider.gameObject.name== "Character")
+        if (other.gameObject.tag == "Player")
         {
-            //ゴールファンファーレ
-//            audioSource.Play();
-            //ゴール後処理(シーン遷移)
-            Debug.Log("GOOOOOOOOOOOOOOAL!!!!!!!!!!!!!!!");
-            AudioManager.Instance.StopBGM();
-            ShipFire.SetActive(true);
+            hit = true;
+        }
+    }
 
-            planetScene.GameClear();
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            hit = false;
         }
     }
 }

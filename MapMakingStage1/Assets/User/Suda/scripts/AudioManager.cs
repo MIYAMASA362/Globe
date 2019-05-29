@@ -213,11 +213,11 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         //徐々にボリュームを下げていき、ボリュームが0になったらボリュームを戻し次の曲を流す
-        _bgmSource.volume -= Time.deltaTime * _bgmFadeSpeedRate * BGM_masterVolume;
+        _bgmSource.volume -= Time.deltaTime * _bgmFadeSpeedRate;
         if (_bgmSource.volume <= 0)
         {
             _bgmSource.Stop();
-            _bgmSource.volume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, BGM_VOLUME_DEFULT);
+            _bgmSource.volume = 0f;
             _isFadeOut = false;
 
             if (!_nextBGM.clip)
