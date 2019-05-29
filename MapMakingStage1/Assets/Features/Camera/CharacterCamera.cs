@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SA;
-using Klak.Motion;
 
 public class CharacterCamera : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class CharacterCamera : MonoBehaviour
     public Transform followTarget;
     public Transform rotationPivot;
     public Transform cameraTransform;
-    public SmoothFollow smoothFollow;
 
     public float followSpeed = 6;
     public float mouseSpeed = 3;
@@ -53,15 +51,6 @@ public class CharacterCamera : MonoBehaviour
 
     private void Update()
     {
-        if(MySceneManager.IsPausing || MySceneManager.IsOption)
-        {
-            smoothFollow.gameObject.SetActive(false);
-        }
-        else
-        {
-            smoothFollow.gameObject.SetActive(true);
-        }
-        
     }
 
     //------------------------------------------
