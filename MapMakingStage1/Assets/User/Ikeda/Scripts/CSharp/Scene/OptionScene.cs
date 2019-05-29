@@ -53,11 +53,6 @@ public class OptionScene : SceneBase
     [SerializeField] private float fVibration = 0f;
 
     [Space(10)]
-    [Header("SuportUI")]
-    [SerializeField] TextMeshProUGUI SuportUI_ParameterText;
-    [SerializeField] bool IsSuport = false;
-
-    [Space(10)]
     [Header("Register")]
     [SerializeField] private GameObject RegisterMessage;
 
@@ -164,19 +159,15 @@ public class OptionScene : SceneBase
             case 5:
                 ControllerVibration_Setting();
                 break;
-            //SuportUI
-            case 6:
-                SuportUI_Setting();
-                break;
             //デフォルト
-            case 7:
+            case 6:
                 ConfigUI(false,false);
                 if (!Input.GetButtonDown(InputManager.Submit)) return;
                 base.PlayAudio_Success();
                 Default_Setting();
                 break;
             //もどる
-            case 8:
+            case 7:
                 ConfigUI(false,false);
                 if (!Input.GetButtonDown(InputManager.Submit)) return;
                 base.PlayAudio_Success();
@@ -293,7 +284,6 @@ public class OptionScene : SceneBase
             base.PlayAudio_Select();
             IsChanged = false;
         }
-
 
         DataManager.Instance.commonData.SE_Volume = SE_Volume;
     }
@@ -427,25 +417,6 @@ public class OptionScene : SceneBase
         CVibrationValue_ParameterText.text = (int)fVibration + "%";
     }
 
-    //--- SuportUI --------------------------------------------------
-    void SuportUI_Setting()
-    {
-        if (Input.GetButtonDown(InputManager.Submit))
-        {
-            base.PlayAudio_Success();
-            IsSuport = !IsSuport;
-        }
-
-        SuportUI_SetText();
-
-        DataManager.Instance.commonData.IsSuport = IsSuport;
-    }
-
-    void SuportUI_SetText()
-    {
-        SuportUI_ParameterText.text = IsSuport ? "オン" : "オフ";
-    }
-
     //--- Default ---------------------------------------------------
     void Default_Setting()
     {
@@ -463,7 +434,6 @@ public class OptionScene : SceneBase
         CameraReverseHorizontal_SetText();
         ControllerVibrationEnable_SetText();
         ControllerVibration_SetText();
-        SuportUI_SetText();
     }
 
     //--- DataManager -----------------------------------------------
@@ -477,6 +447,5 @@ public class OptionScene : SceneBase
         IsCR_H = data.IsCameraReverseHorizontal;
         IsVibration = data.IsVibration;
         fVibration = data.fVibration;
-        IsSuport = data.IsSuport;
     }
 }
