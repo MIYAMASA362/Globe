@@ -24,9 +24,13 @@ public class CameraManager : Singleton<CameraManager>
 
     public GoalScript goal;
 
+    public float cameraGoalDistance = 8.0f;
+    private float dist = 0.0f;
+
     private void Start()
     {
         isChange = true;
+        dist = planetCamera.distance;
     }
 
     void Update()
@@ -40,10 +44,12 @@ public class CameraManager : Singleton<CameraManager>
 
                 if (timer > time1 && timer < time2)
                 {
-                    planetCamera.SetTarget(goal.transform.position, Time.deltaTime * 10f);
+                    planetCamera.SetTarget(goal.transform.position, Time.deltaTime * 1f);
+                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, cameraGoalDistance, Time.deltaTime * 1.0f);
                 }
                 else if(timer > time2)
                 {
+                    planetCamera.distance = Mathf.Lerp(planetCamera.distance, dist, Time.deltaTime * 10.0f);
                     if (timer < time2 + 0.2f) 
                     {
                         planetCamera.SetTarget(characterCamera.followTarget.position, Time.deltaTime * 10f);

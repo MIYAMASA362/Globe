@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial1 : MonoBehaviour {
+public class Tutorial1 : TutorialBase {
 
     enum Step
     {
@@ -48,19 +48,37 @@ public class Tutorial1 : MonoBehaviour {
                 }
                 break;
             case Step.Step2:
-                if(Input.GetButtonDown(InputManager.Change_AscDes))
+                if (FlagManager.Instance.flagActive)
+                {
+                    uiB.gameObject.SetActive(true);
+                    if (Input.GetButtonDown(InputManager.Change_AscDes))
+                    {
+                        uiB.gameObject.SetActive(false);
+                        uiLBRB.gameObject.SetActive(true);
+                        step = Step.Step3;
+                    }
+                }
+                else
                 {
                     uiB.gameObject.SetActive(false);
-                    uiLBRB.gameObject.SetActive(true);
-                    step = Step.Step3;
                 }
+
                 break;
             case Step.Step3:
-                if (Input.GetButtonDown(InputManager.Left_AxisRotation) ||
+                if (FlagManager.Instance.flagActive)
+                {
+                    uiLBRB.gameObject.SetActive(true);
+
+                    if (Input.GetButtonDown(InputManager.Left_AxisRotation) ||
                     Input.GetButtonDown(InputManager.Right_AxisRotation))
+                    {
+                        uiLBRB.gameObject.SetActive(false);
+                        GameObject.Destroy(this.gameObject);
+                    }
+                }
+                else
                 {
                     uiLBRB.gameObject.SetActive(false);
-                    GameObject.Destroy(this.gameObject);
                 }
                 break;
         }

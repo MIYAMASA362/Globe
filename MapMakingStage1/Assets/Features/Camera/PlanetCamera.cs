@@ -5,7 +5,7 @@ public class PlanetCamera : MonoBehaviour
 {
     public float moveSpeed = 2.0f;
 
-    public float distance = 13f;
+    public float distance = 12f;
 
     Vector3 targetDir = Vector3.zero;
     Vector3 corePosition;

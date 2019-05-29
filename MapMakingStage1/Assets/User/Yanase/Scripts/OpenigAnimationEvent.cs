@@ -40,6 +40,6 @@ public class OpenigAnimationEvent : MonoBehaviour {
 
     public void EndAnimation()
     {
-        GameObject.Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 }
