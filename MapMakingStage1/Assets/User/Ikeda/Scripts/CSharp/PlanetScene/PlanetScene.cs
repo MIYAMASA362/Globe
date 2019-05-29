@@ -195,13 +195,15 @@ public class PlanetScene : Singleton <PlanetScene>
         if (!planetData.IsGet_StarCrystal)
         {
             planetData.IsGet_StarCrystal = starPieceHandle.IsCompleted();   //StarCrystalが完成している
-            DataManager.Instance.playerData.GetStarCrystalNum++;
+            if(planetData.IsGet_StarCrystal)
+                DataManager.Instance.playerData.GetStarCrystalNum++;
         }
 
         if (!planetData.IsGet_Crystal)
         {
             planetData.IsGet_Crystal = crystalHandle.IsGetting();       //Crystalを取得している
-            DataManager.Instance.playerData.GetCrystalNum++;
+            if(planetData.IsGet_Crystal)
+                DataManager.Instance.playerData.GetCrystalNum++;
         }
 
         PlanetData OldData = planetData;

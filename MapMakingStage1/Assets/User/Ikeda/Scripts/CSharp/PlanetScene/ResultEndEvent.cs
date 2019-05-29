@@ -21,6 +21,11 @@ public class ResultEndEvent : MonoBehaviour
 		
 	}
 
+    public void PlayFanfare()
+    {
+        rocketSE.PlayFanfare();
+    }
+
     public void NextScene()
     {
         planetScene.NextScene();
@@ -49,10 +54,5 @@ public class ResultEndEvent : MonoBehaviour
     public void PlayRocketAudio()
     {
         rocketSE.PlayRocketAudio();
-    }
-
-    public void StopRocketAudio()
-    {
-        rocketSE.StopRocketAudio();
     }
 }
