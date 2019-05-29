@@ -19,6 +19,8 @@ public class PlanetOpening : MonoBehaviour
     private TextMeshProUGUI tm_GalaxyName;
     [SerializeField,Tooltip("ステージ名")]
     private TextMeshProUGUI tm_StageName;
+    [SerializeField, Tooltip("ステージ番号")]
+    private TextMeshProUGUI tm_StageNum;
 
     //--- MonoBehaviour -------------------------------------------------------
 
@@ -27,6 +29,7 @@ public class PlanetOpening : MonoBehaviour
     {
         tm_GalaxyName.text = MySceneManager.Get_GalaxyName();
         tm_StageName.text = MySceneManager.Get_PlanetName();
+        tm_StageNum.text = (DataManager.Instance.playerData.SelectGalaxy + 1).ToString("0") + "-" + (DataManager.Instance.playerData.SelectPlanet+1).ToString("0");
     }
 
     //--- Method --------------------------------------------------------------
