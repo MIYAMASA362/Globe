@@ -32,6 +32,7 @@ public class PlanetConfig : MonoBehaviour
 
     public void SetEnable(bool enable)
     {
+        target.enabled = enable;
         IsEnable = enable;
     }
 }
