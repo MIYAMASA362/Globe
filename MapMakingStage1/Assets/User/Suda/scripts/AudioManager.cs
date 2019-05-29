@@ -136,7 +136,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (!bgm.clip)
         {
-            Debug.Log(bgm.clip.name + "という名前のBGMがありません");
+            Debug.Log("BGMがありません");
             return;
         }
 
@@ -165,7 +165,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (!audioData.clip)
         {
-            Debug.Log(audioData.clip.name + "という名前のSEがありません");
+            Debug.Log("SEがありません");
             return;
         }
        
