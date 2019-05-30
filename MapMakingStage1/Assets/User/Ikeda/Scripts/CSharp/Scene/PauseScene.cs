@@ -6,6 +6,7 @@ using TMPro;
 
 public class PauseScene : SceneBase
 {
+    //--- Attribute -------------------------------------------------
     [SerializeField, Tooltip("ステージ名")]
     private TextMeshProUGUI tm_StateName;
 
@@ -19,10 +20,15 @@ public class PauseScene : SceneBase
     [SerializeField]
     private int SelectNum = 0;
 
+    [SerializeField]
+    private TextMeshProUGUI StageNum;
+
     private int MaxNum = 5;
     private float PopX = 30f;
 
     private bool bInput = false;
+
+    //--- MonoBehaviour ---------------------------------------------
 
 	// Use this for initialization
 	public override void Start ()
@@ -41,6 +47,7 @@ public class PauseScene : SceneBase
         SelectNum = 0;
         ContentUI[SelectNum].position += KeepContentUI[SelectNum].transform.right * PopX;
         SelectingUI.position = ContentUI[SelectNum].position;
+        StageNum.text = (DataManager.Instance.playerData.SelectGalaxy + 1).ToString() + "-" + (DataManager.Instance.playerData.SelectPlanet + 1).ToString();
     }
 	
 	// Update is called once per frame
