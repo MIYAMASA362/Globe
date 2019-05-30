@@ -1046,6 +1046,7 @@ GameObject:
   - component: {fileID: 82387354398664950}
   - component: {fileID: 114432937723314780}
   - component: {fileID: 135369354203389036}
+  - component: {fileID: 114862325112216938}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -7397,7 +7398,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013121929344990}
   m_LocalRotation: {x: -0.67336696, y: -0.21581712, z: -0.2158172, w: 0.6733668}
-  m_LocalPosition: {x: -0, y: 3.498, z: 0}
+  m_LocalPosition: {x: -0, y: 3.476, z: 0}
   m_LocalScale: {x: 0.49635845, y: 0.49635866, z: 0.49635866}
   m_Children:
   - {fileID: 4494636850526726}
@@ -19714,10 +19715,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -20162,7 +20163,6 @@ MonoBehaviour:
   isFloat: 1
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114017877414870654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20442,7 +20442,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114163165305724670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20740,7 +20739,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114388608339763054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20852,7 +20850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8497bf4ff8bb243a2fd390de93450e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipFire: {fileID: 1763162005401980}
 --- !u!114 &114435390084681640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21402,7 +21399,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114656753334224872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21621,7 +21617,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114732690312120246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21702,7 +21697,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114790770090357394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21827,6 +21821,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 17408
   myCollider: {fileID: 0}
+--- !u!114 &114862325112216938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1190376087423558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f278bae7ffc3e384daecb8606c885a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipFire: {fileID: 1763162005401980}
 --- !u!114 &114863898602720134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21850,6 +21856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c4041fd993f0944a44c75382069710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rocketSE: {fileID: 114862325112216938}
 --- !u!114 &114869180144037420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21921,7 +21928,6 @@ MonoBehaviour:
   isFloat: 1
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!114 &114900811990376316
 MonoBehaviour:
   m_ObjectHideFlags: 1
