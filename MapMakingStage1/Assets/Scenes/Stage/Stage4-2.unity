@@ -310,7 +310,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &13086134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1313,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &172517318
 GameObject:
   m_ObjectHideFlags: 0
@@ -9157,7 +9155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8497bf4ff8bb243a2fd390de93450e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipFire: {fileID: 1288542319}
 --- !u!1 &535887724
 GameObject:
   m_ObjectHideFlags: 0
@@ -14679,7 +14676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c4041fd993f0944a44c75382069710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketSE: {fileID: 0}
+  rocketSE: {fileID: 1869656020}
 --- !u!1 &697593414
 GameObject:
   m_ObjectHideFlags: 0
@@ -15982,7 +15979,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &824911329
 GameObject:
   m_ObjectHideFlags: 0
@@ -48064,7 +48060,6 @@ MonoBehaviour:
   isFloat: 0
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &1869656016
 GameObject:
   m_ObjectHideFlags: 0
@@ -48077,6 +48072,7 @@ GameObject:
   - component: {fileID: 1869656019}
   - component: {fileID: 531719555}
   - component: {fileID: 1869656018}
+  - component: {fileID: 1869656020}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -48123,10 +48119,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -48208,6 +48204,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1869656020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869656016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f278bae7ffc3e384daecb8606c885a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipFire: {fileID: 1288542319}
 --- !u!1 &1876113141
 GameObject:
   m_ObjectHideFlags: 0
@@ -48882,7 +48890,6 @@ MonoBehaviour:
   isFloat: 1
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &1948436611
 GameObject:
   m_ObjectHideFlags: 0
@@ -55056,7 +55063,6 @@ MonoBehaviour:
   isFloat: 1
   onGround: 0
   isFalse: 0
-  a: 0
 --- !u!1 &2117975805
 GameObject:
   m_ObjectHideFlags: 0
