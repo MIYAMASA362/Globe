@@ -92,4 +92,9 @@ public class FootStepEvent : MonoBehaviour {
                 break;
         }
     }
+
+    void EndNotAnimation()
+    {
+        GetComponent<Animator>().SetBool("not", false);
+    }
 }

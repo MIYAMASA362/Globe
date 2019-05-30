@@ -59,6 +59,15 @@ public class RotationManager : Singleton<RotationManager> {
     {
         if (planetAudio)
         {
+            if (MySceneManager.IsPausing || MySceneManager.IsOption ||
+            PlanetScene.Instance.state != PlanetScene.STATE.MAINGAME)
+            {
+                planetAudio.Stop();
+                corePlanet.GetComponent<Animator>().SetBool("vibration", false);
+                GamePad.SetVibration(PlayerIndex.One, 0.0f, 0.0f);
+                return;
+            }
+
             if (isRotation)
             {
                 if (!planetAudio.isPlaying)

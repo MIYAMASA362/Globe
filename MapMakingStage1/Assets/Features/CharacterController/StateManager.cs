@@ -232,7 +232,9 @@ namespace SA
                             axisDevice.ResetChase();
                             circleParticle.Play();
                         }
+                        else anim.SetBool("not", true);
                     }
+                    else anim.SetBool("not", true);
                 }
                 else
                 {

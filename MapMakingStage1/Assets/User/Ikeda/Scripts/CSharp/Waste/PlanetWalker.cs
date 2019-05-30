@@ -178,6 +178,13 @@ public class PlanetWalker : MonoBehaviour {
         Get_RayCast();
         Move(MoveVec);
 
-        if (anim) anim.SetFloat("move", moveAmount);
+        if (anim)
+        {
+            if(moveAmount > 0.3f)
+            {
+                anim.SetBool("not", false);
+            }
+            anim.SetFloat("move", moveAmount);
+        }
     }
 }
