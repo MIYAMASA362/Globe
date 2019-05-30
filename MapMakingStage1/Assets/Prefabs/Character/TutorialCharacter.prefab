@@ -1162,8 +1162,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4280175565879622}
   - component: {fileID: 137258087131788400}
+  - component: {fileID: 114578638214865752}
   m_Layer: 0
-  m_Name: MouseMesh
+  m_Name: GameCharacterMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1506,8 +1507,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937046546682730}
-  m_LocalRotation: {x: 0.3036173, y: 0.30036315, z: -0.09089156, w: 0.89963174}
-  m_LocalPosition: {x: 1.67, y: 3.1, z: 2}
+  m_LocalRotation: {x: -0.0000001872535, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 1.56, y: 3.66, z: 0.03}
   m_LocalScale: {x: 0.31845012, y: 0.31845033, z: 0.31844985}
   m_Children:
   - {fileID: 4135021222777770}
@@ -1517,7 +1518,7 @@ Transform:
   - {fileID: 4436786448271764}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 36.934002, y: 37.377003, z: 1.3520001}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -0.000015258789}
 --- !u!4 &4043677440345172
 Transform:
   m_ObjectHideFlags: 1
@@ -3481,6 +3482,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiA: {fileID: 114161914895450298}
+--- !u!114 &114578638214865752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694673992341276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8e77436faa94b48966abd17af05fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 7619c09e3181e1e4d9573590ef798945, type: 2}
+  disolveAmount: 0
+  smooth: 1
 --- !u!114 &114763525752770124
 MonoBehaviour:
   m_ObjectHideFlags: 1

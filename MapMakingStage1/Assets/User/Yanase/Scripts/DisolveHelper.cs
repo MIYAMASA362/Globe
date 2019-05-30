@@ -1,80 +1,37 @@
 ﻿
 using UnityEngine;
+using SA;
 
 public class DisolveHelper : MonoBehaviour
 {
-    
-    public Material mat;
-    public float amount;
-    public float smooth;
+    public StateManager stateManager;
+    public Disolve gameCharacter;
+    public Disolve goalCharacter;
+    public Transform devicePivot;
 
-    private bool fade;
-    private bool unfade;
-    [Header("go")]
-    public GameObject[] characters;
+    private void Start()
+    {
+        gameCharacter.SetDisolve(0.0f);
+        goalCharacter.SetDisolve(1.0f);
+    }
 
+    private void Update()
+    {
 
-    public float timer;
-    public bool disolve;
+    }
 
-    private bool end;
+    public void PlayerEnd()
+    {
+        stateManager.state = StateManager.State.End;
+    }
 
-    public DisolveHelper thisS;
-    //------------------------------------
-
-
-    void Update(){
-        if(!end)
-        {
-
-        if(disolve){
-            timer += Time.deltaTime;
-
-             if(timer > .2f && timer < .3f){
-                fade = true;
-                unfade = false;
-            }
-
-             if(timer > 1.1f && timer < 1.2f){
-                characters[0].SetActive(false);
-                characters[1].SetActive(true);
-            }
-
-             if(timer > 1.5f && timer < 1.7f){
-                fade = false;
-                unfade = true;
-            }
-            if(timer > 3)
-            {
-                end = true;
-                Destroy(thisS.gameObject);
-
-            }
-        }//Disolve end
-
-        mat.SetFloat("_DissolveAmount",amount);
-
-        if(fade)
-        {
-            unfade = false;
-            if(amount < .98f){
-                amount += Time.deltaTime * smooth;
-            }else{
-                amount = 1;
-                fade = false;
-            }
-        }
-        else if(unfade)
-        {
-            fade = false;
-            if(amount > .02f){
-                amount -= Time.deltaTime * smooth;
-            }else{
-                amount = 0;
-                unfade = false;
-            }
-
-        }
-        }
-    }//Update end 
+    public void StartFadeUnFade()
+    {
+        gameCharacter.FadeDsiolve();
+        AxisDevice device = stateManager.axisDevice;
+        device.chaseTarget = devicePivot;
+        device.chaseSpeed = 50.0f;
+        device.collider.enabled = false;
+        goalCharacter.UnFadeDsiolve();
+    }
 }

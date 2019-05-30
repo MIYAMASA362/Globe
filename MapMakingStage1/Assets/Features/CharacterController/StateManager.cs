@@ -246,6 +246,11 @@ namespace SA
                 }
             }
         }
+
+        public void EndTick()
+        {
+            anim.SetTrigger("end");
+        }
     }
 
 }//end

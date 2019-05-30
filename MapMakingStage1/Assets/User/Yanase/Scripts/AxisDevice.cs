@@ -8,7 +8,7 @@ public class AxisDevice : MonoBehaviour {
     public Transform chaseTarget;
     private Transform initTransform;
     new private Rigidbody rigidbody;
-    new private Collider collider;
+    new public Collider collider;
     public float chaseSpeed = 1.0f;
     public float setSpeed = 1.0f;
     bool onSet = false;

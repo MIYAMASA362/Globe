@@ -466,8 +466,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4054754052879478}
   - component: {fileID: 137046055716536804}
+  - component: {fileID: 114677702348565998}
   m_Layer: 0
-  m_Name: MouseMesh
+  m_Name: GameCharacterMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2729,7 +2730,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &82520317523471848
 AudioSource:
@@ -3058,6 +3059,20 @@ MonoBehaviour:
   raycastTransform: {fileID: 4045004129870344}
   gravityDirection: {x: 0.32029077, y: 0.72302383, z: 0.6120869}
   gravity: 30
+--- !u!114 &114677702348565998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1398865339605256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8e77436faa94b48966abd17af05fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 7619c09e3181e1e4d9573590ef798945, type: 2}
+  disolveAmount: 0
+  smooth: 1
 --- !u!114 &114779504338099278
 MonoBehaviour:
   m_ObjectHideFlags: 1
