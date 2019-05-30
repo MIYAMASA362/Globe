@@ -123,7 +123,8 @@ public class PlanetResult : MonoBehaviour
         if (!IsEnable) return;
 
         AudioManager.Instance.PlaySEOneShot(ResultEndAnimator.GetComponent<ResultEndEvent>().audioSource, AudioManager.Instance.SE_SUCCESS);
-        IsEnable = true;
+        IsEnable = false;
+        IsInput = false;
         ResultUI.SetActive(false);
         ResultEndAnimator.SetTrigger("EndResult");
     }
