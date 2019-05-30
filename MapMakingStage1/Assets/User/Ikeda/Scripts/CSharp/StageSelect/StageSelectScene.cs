@@ -197,7 +197,7 @@ public class StageSelectScene : SceneBase
 
         //最大数の設定
         nMaxGalaxyNum = MySceneManager.Instance.Galaxies.Count;
-        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nPlanetSelectNum].Planets.Count;
+        nMaxPlanetNum = MySceneManager.Instance.Galaxies[nGalaxySelectNum].Planets.Count;
 
         //UIを初期化
         GalaxySelectUI.SetActive(false);
