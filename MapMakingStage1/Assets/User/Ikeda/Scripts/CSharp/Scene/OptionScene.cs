@@ -133,6 +133,8 @@ public class OptionScene : SceneBase
 
     void Content_Setting()
     {
+        if(SelectNum != 5) GamePad.SetVibration(PlayerIndex.One, 0, 0);
+
         switch (SelectNum)
         {
             //BGMボリューム
@@ -374,7 +376,7 @@ public class OptionScene : SceneBase
     //--- ControllerVibration ---------------------------------------
     void ControllerVibration_Setting()
     {
-        if (!IsVibration) { return; }
+        if (!IsVibration) return;
 
         ConfigUI(true,true);
        
