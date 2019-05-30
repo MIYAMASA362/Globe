@@ -68,7 +68,16 @@ namespace SA
             }
 
             delta = Time.deltaTime;
-            states.Tick(delta);
+
+            if (states.state != StateManager.State.End) 
+            {
+                states.Tick(delta);
+            }
+            else
+            {
+                planetWalker.rigidbody.velocity *= 0.5f;
+                states.EndTick();
+            }
 
             if (Input.GetButtonDown(InputManager.FollowTarget))
             {

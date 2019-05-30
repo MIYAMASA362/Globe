@@ -31,27 +31,20 @@ public class PlanetResult : MonoBehaviour
     [SerializeField]
     private GameObject NotAchievStarCrystalUI;
 
-    [Space(8)]
-    [SerializeField, Tooltip("銀河アンロック表示")]
-    private GameObject GalaxyUnLockUI;
-    [SerializeField]
-    private TextMeshProUGUI UnLockText;
+    //[Space(8)]
+    //[SerializeField, Tooltip("銀河アンロック表示")]
+    //private GameObject GalaxyUnLockUI;
+    //[SerializeField]
+    //private TextMeshProUGUI UnLockText;
 
     [Space(10)]
     [SerializeField]
     private Animator ResultEndAnimator;
     [SerializeField]
-    private GameObject ShipCamera;
-    [SerializeField]
-    private GameObject ResultCamera;
-    [SerializeField]
-    private GameObject PlayerChara;
-    [SerializeField]
     private GameObject StarsBackGround;
-    [SerializeField]
-    private GameObject AxisDevice;
 
-    private float Input_Wait = 0;
+
+    private float InputWait = 0;
 
     private bool IsEnable = false;
     private bool IsInput = false;
@@ -69,9 +62,6 @@ public class PlanetResult : MonoBehaviour
         NotAchievCrystalUI.SetActive(false);
         AchievStarCrystalUI.SetActive(false);
         NotAchievStarCrystalUI.SetActive(false);
-
-        ShipCamera.SetActive(false);
-        ResultCamera.SetActive(false);
         ResultUI.SetActive(false);
     }
 
@@ -79,13 +69,14 @@ public class PlanetResult : MonoBehaviour
     {
         if (!IsEnable) return;
 
-        StarsBackGround.transform.rotation = Quaternion.AngleAxis(-15f * Time.deltaTime,Vector3.right) * StarsBackGround.transform.rotation;
+        StarsBackGround.transform.rotation = Quaternion.AngleAxis(-15f * Time.deltaTime, ResultEndAnimator.transform.right) * StarsBackGround.transform.rotation;
 
-        Input_Wait += Time.deltaTime;
-        
+        InputWait += Time.deltaTime;
 
-        if(Input.GetButtonUp(InputManager.Submit) && IsInput)
+        if (Input.GetButtonUp(InputManager.Submit) && IsInput && InputWait > 0.5f)
+        {
             End();
+        }
     }
 
     //--- Method --------------------------------------------------------------
@@ -101,10 +92,9 @@ public class PlanetResult : MonoBehaviour
         starPieceHandle.Disable_UI();
 
         IsEnable = true;
-        Input_Wait = 0;
+        InputWait = 0;
 
-        ShipCamera.SetActive(true);
-        ResultEndAnimator.SetTrigger("TakeOff");
+        ResultEndAnimator.SetTrigger("Disolve");
 
         ItemPopUp.PopDown();
     }
@@ -112,6 +102,8 @@ public class PlanetResult : MonoBehaviour
     public void Print()
     {
         if (!IsEnable) return;
+
+        ResultUI.SetActive(true);
 
         //取得か非取得で変更
         if (crystalHandle.IsGetting())
@@ -124,30 +116,17 @@ public class PlanetResult : MonoBehaviour
         else
             NotAchievStarCrystalUI.SetActive(true);
 
-        ShipCamera.SetActive(false);
-        ResultCamera.SetActive(true);
-        ResultUI.SetActive(true);
-
     }
 
     public void End()
     {
         if (!IsEnable) return;
 
-        ResultUI.SetActive(false);
+        AudioManager.Instance.PlaySEOneShot(ResultEndAnimator.GetComponent<ResultEndEvent>().audioSource, AudioManager.Instance.SE_SUCCESS);
         IsEnable = false;
-
+        IsInput = false;
+        ResultUI.SetActive(false);
         ResultEndAnimator.SetTrigger("EndResult");
-    }
-
-    public void UnLoadPlayer()
-    {
-        PlayerChara.SetActive(false);
-    }
-
-    public void HideAxisDevice()
-    {
-        AxisDevice.SetActive(false);
     }
 
     public void IsInputEnable()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class AudioData
 {
     public AudioClip clip;
-    public float volume;
+    public float volume = 1f;
 }
 
 /// <summary>
@@ -50,8 +50,10 @@ public class AudioManager : Singleton<AudioManager>
     public AudioData SE_IMPACT_SAND;
     public AudioData SE_IMPACT_SNOW;
 
-    [Header("ゴール")]
+    [Header("ロケット")]
     public AudioData SE_FANFARE;
+    public AudioData SE_ROCKET;
+    public AudioData SE_METAL;
 
     [Header("選択系")]
     public AudioData SE_SUCCESS;
@@ -251,4 +253,9 @@ public class AudioManager : Singleton<AudioManager>
         PlayerPrefs.SetFloat(BGM_VOLUME_KEY, BGMVolume);
     }
 
+
+    public void ChangeSEVolume(AudioSource audioSource, AudioData audioData, float volumePercent)
+    {
+        audioSource.volume = audioData.volume * SE_masterVolume * volumePercent;
+    }
 }

@@ -73,6 +73,8 @@ public class FlagManager : Singleton<FlagManager> {
 
             if (Input.GetButtonDown(InputManager.Change_AscDes))
             {
+                if (RotationManager.Instance.planetTransform.GetComponent<Animator>().GetBool("vibration")) return;
+
                 if (CheckFloatOnGround())
                 {
                     if (flagAudio)

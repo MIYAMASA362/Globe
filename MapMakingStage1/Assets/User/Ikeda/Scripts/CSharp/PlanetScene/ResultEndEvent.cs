@@ -6,14 +6,18 @@ public class ResultEndEvent : MonoBehaviour
 {
     private PlanetScene planetScene;
     private PlanetResult planetResult;
-    [SerializeField] private ResultRocketSE rocketSE;
+    public ParticleSystem fire;
+    public GameObject resultCamera;
+    public AudioSource audioSource;
 
 	// Use this for initialization
 	void Start ()
     {
         planetScene = PlanetScene.Instance;
         planetResult = planetScene.GetComponent<PlanetResult>();
-	}
+        fire.Stop();
+        resultCamera.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -21,9 +25,14 @@ public class ResultEndEvent : MonoBehaviour
 		
 	}
 
-    public void PlayFanfare()
+    public void SetResultCamera()
     {
-        rocketSE.PlayFanfare();
+        resultCamera.SetActive(true);
+    }
+
+    public void PlayFire()
+    {
+        fire.Play();
     }
 
     public void NextScene()
@@ -36,23 +45,18 @@ public class ResultEndEvent : MonoBehaviour
         planetResult.Print();
     }
 
-    public void UnLoadPlayer()
-    {
-        planetResult.UnLoadPlayer();
-    }
-
-    public void HideAxisDevice()
-    {
-        planetResult.HideAxisDevice();
-    }
-
     public void IsInputEnable()
     {
         planetResult.IsInputEnable();
     }
 
-    public void PlayRocketAudio()
+    public void FadeBGM()
     {
-        rocketSE.PlayRocketAudio();
+        AudioManager.Instance.FadeOutBGM();
+    }
+
+    public void PlayFanfare()
+    {
+        AudioManager.Instance.PlaySEOneShot(audioSource, AudioManager.Instance.SE_FANFARE);
     }
 }

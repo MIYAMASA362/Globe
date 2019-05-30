@@ -22,7 +22,7 @@ public class PlanetConfig : MonoBehaviour
     {
         if (!IsEnable) return;
         
-        if (PlanetScene.Instance.state == PlanetScene.STATE.MAINGAME)
+        if (PlanetScene.Instance.state == PlanetScene.STATE.MAINGAME && !MySceneManager.IsOption && !MySceneManager.IsPausing)
             target.enabled = true;
         else
             target.enabled = false;
