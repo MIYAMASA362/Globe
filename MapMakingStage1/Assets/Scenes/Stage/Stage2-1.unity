@@ -372,9 +372,46 @@ Prefab:
       propertyPath: m_Name
       value: Stage2-1
       objectReference: {fileID: 0}
+    - target: {fileID: 114900539859463222, guid: 8ba4e4b12948e404ba50f6e0a005e396,
+        type: 2}
+      propertyPath: rocketSE
+      value: 
+      objectReference: {fileID: 433912217}
+    - target: {fileID: 82090319828592234, guid: 8ba4e4b12948e404ba50f6e0a005e396,
+        type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82090319828592234, guid: 8ba4e4b12948e404ba50f6e0a005e396,
+        type: 2}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ba4e4b12948e404ba50f6e0a005e396, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &433912215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1490509589190862, guid: 8ba4e4b12948e404ba50f6e0a005e396,
+    type: 2}
+  m_PrefabInternal: {fileID: 433912214}
+--- !u!1 &433912216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1115031799307476, guid: 8ba4e4b12948e404ba50f6e0a005e396,
+    type: 2}
+  m_PrefabInternal: {fileID: 433912214}
+--- !u!114 &433912217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 433912216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f278bae7ffc3e384daecb8606c885a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipFire: {fileID: 433912215}
 --- !u!1 &600757073
 GameObject:
   m_ObjectHideFlags: 0
