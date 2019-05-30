@@ -34,10 +34,12 @@ public static class DataHandle
         FileInfo info = new FileInfo(path);
 
         var json = JsonUtility.ToJson(SaveData);
-        var writer = new StreamWriter(path, false);
-        writer.WriteLine(json);
-        writer.Flush();
-        writer.Close();
+        using (StreamWriter writer = new StreamWriter(path, false))
+        {
+            writer.WriteLine(json);
+            writer.Flush();
+            writer.Close();
+        }
 
         return true;
     }
@@ -45,14 +47,15 @@ public static class DataHandle
     //Fileのロード
     public static bool Load<Type>(ref Type LoadData, string FilePath)
     {
-        FileInfo info = new FileInfo(ApplicationPath()+ FilePath);
+        FileInfo info = new FileInfo(ApplicationPath() + FilePath);
         if (!info.Exists || info.Length == 0) return false;
 
-        var render = new StreamReader(info.OpenRead());
-        var json = render.ReadToEnd();
-        if (json == "") return false;
-        LoadData = JsonUtility.FromJson<Type>(json);
-
+        using (var render = new StreamReader(info.OpenRead()))
+        {
+            var json = render.ReadToEnd();
+            if (json == "") return false;
+            LoadData = JsonUtility.FromJson<Type>(json);
+        }
         return true;
     }
 
