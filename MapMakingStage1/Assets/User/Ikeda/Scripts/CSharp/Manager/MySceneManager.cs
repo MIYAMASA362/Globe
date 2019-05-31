@@ -281,7 +281,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public void Start_Load()
     {
         Instance.animator.SetBool("FadeFlag", true);
-        IsLoad_Use = true;
+//        IsLoad_Use = true;
     }
 
     //--- FadeInが完了した ----------------------
