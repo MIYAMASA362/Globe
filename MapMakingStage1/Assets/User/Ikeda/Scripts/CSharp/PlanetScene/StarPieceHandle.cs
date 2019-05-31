@@ -20,7 +20,7 @@ public class StarPieceHandle : MonoBehaviour
     [SerializeField] private Material Disable_material;
 
     [Space(8)]
-    [SerializeField] private int nGetPiece;
+    public int nGetPiece;
 
     AudioSource audioSource;
 
