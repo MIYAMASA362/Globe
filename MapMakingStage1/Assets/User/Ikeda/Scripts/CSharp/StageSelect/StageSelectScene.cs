@@ -235,9 +235,11 @@ public class StageSelectScene : SceneBase
         if (IsLoad_Start_PlanetSelect)
             LoadInit_PlanetSelect();
 
-        IsInput_PauseTime = 1f;
+        IsInput_PauseTime = 0.5f;
 
         MySceneManager.Instance.CompleteLoaded();
+
+        AudioManager.Instance.PlayBGM(AudioManager.Instance.BGM_TITLE);
 
         yield break;
     }

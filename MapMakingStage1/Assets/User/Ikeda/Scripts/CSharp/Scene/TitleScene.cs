@@ -18,7 +18,8 @@ public class TitleScene : SceneBase
 
     [Space(8)]
     [SerializeField]
-    float WaitTime = 10f;
+    float WaitTime = 15f;
+    [SerializeField]
     float Counter = 0f;
 
     //--- Internal ------------------------------
@@ -69,7 +70,15 @@ public class TitleScene : SceneBase
     //オープニングに再帰する
     private void Update_IdleTime()
     {
-        if (Input.GetButton(InputManager.Submit) || Input.GetButton(InputManager.X_Selecter) || Input.GetButton(InputManager.Y_Button) || Input.GetButton(InputManager.X_Button) || Input.GetButton(InputManager.Cancel) || Input.GetButton(InputManager.Y_Selecter) || Input.GetButton(InputManager.Menu))
+        if (Input.GetButton(InputManager.Submit) ||
+            Input.GetAxis(InputManager.X_Selecter) != 0f || 
+            Input.GetAxis(InputManager.Y_Selecter) != 0f || 
+            Input.GetButton(InputManager.Y_Button) || 
+            Input.GetButton(InputManager.X_Button) || 
+            Input.GetButton(InputManager.Cancel) ||
+            Input.GetButton(InputManager.Menu) ||
+            Input.GetAxis(InputManager.Horizontal) != 0f ||
+            Input.GetAxis(InputManager.Vertical) != 0f)
             Counter = 0f;
 
         if (Input.GetButtonDown(InputManager.Cancel) || Counter >= WaitTime)

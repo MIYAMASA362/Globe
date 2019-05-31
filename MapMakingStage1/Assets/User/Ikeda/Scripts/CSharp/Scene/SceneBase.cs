@@ -47,23 +47,17 @@ public class SceneBase : MonoBehaviour
 
     public void PlayAudio_Success()
     {
-        if (SelectSound.isPlaying)
-            SelectSound.Stop();
-        AudioManager.Instance.PlaySE(SelectSound,AudioManager.Instance.SE_SUCCESS);
+        AudioManager.Instance.PlaySEOneShot(SelectSound,AudioManager.Instance.SE_SUCCESS);
     }
 
     public void PlayAudio_Select()
     {
-        if (SelectSound.isPlaying)
-            SelectSound.Stop();
-        AudioManager.Instance.PlaySE(SelectSound, AudioManager.Instance.SE_SELECT);
+        AudioManager.Instance.PlaySEOneShot(SelectSound, AudioManager.Instance.SE_SELECT);
     }
 
     public void PlayAudio_Return()
     {
-        if (SelectSound.isPlaying)
-            SelectSound.Stop();
-        AudioManager.Instance.PlaySE(SelectSound, AudioManager.Instance.SE_RETURN);
+        AudioManager.Instance.PlaySEOneShot(SelectSound, AudioManager.Instance.SE_RETURN);
     }
 
 }
