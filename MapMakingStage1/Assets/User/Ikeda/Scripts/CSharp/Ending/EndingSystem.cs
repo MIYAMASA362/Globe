@@ -27,6 +27,6 @@ public class EndingSystem : MonoBehaviour {
 
     public void NextScene()
     {
-        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,true);
+        MySceneManager.FadeInLoad(MySceneManager.Instance.Path_GalaxySelect,true);
     }
 }
