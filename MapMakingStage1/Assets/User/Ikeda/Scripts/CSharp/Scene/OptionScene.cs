@@ -112,6 +112,10 @@ public class OptionScene : SceneBase
                 SelectNum--;
             else if (selecter <= -0.5f)
                 SelectNum++;
+            else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                SelectNum--;
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+                SelectNum++;
         }
 
         if (OldSelect != SelectNum)
