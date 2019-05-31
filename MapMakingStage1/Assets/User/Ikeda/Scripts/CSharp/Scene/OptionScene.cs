@@ -229,6 +229,16 @@ public class OptionScene : SceneBase
             if (ChangeValue > 0) ChangeValue = 0f;
             ChangeValue -= ChangeValueAccel;
         }
+        else if(Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.RightArrow))
+        {
+            if (ChangeValue < 0) ChangeValue = 0f;
+            ChangeValue += ChangeValueAccel;
+        }
+        else if(Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (ChangeValue > 0) ChangeValue = 0f;
+            ChangeValue -= ChangeValueAccel;
+        }
         else
         {
             ChangeValue = 0f;
