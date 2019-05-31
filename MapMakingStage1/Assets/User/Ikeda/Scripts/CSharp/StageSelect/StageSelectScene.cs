@@ -61,6 +61,9 @@ public class StageSelectScene : SceneBase
     private TextMeshProUGUI StarCrystal_CountText;
     [SerializeField, Tooltip("隠し宝石のカウント")]
     private TextMeshProUGUI Crystal_CountText;
+    [Space(4)]
+    [SerializeField,Tooltip("コンプリート表示")]
+    private GameObject CompleteUI;
 
     [Space(8)]
     [Header("LockUI")]
@@ -443,6 +446,7 @@ public class StageSelectScene : SceneBase
             //ロックされているのか表示
             LockUI.SetActive(true);
             LockUI_Text.text = "あと" + galaxyState.Crtstal_Diffrence(DataManager.Instance.playerData.GetCrystalNum)+"こ";
+            CompleteUI.SetActive(false);
         }
         else
             Change_ItemUI(IsActive);
@@ -468,6 +472,7 @@ public class StageSelectScene : SceneBase
                 ItemUI_Obj_GalaxyText.SetActive(true);
                 ItemUI_Text_Crystal.text = "あと" + galaxyState.Crystal_RemainingNum() + "こ";
                 ItemUI_Text_StarCrystal.text = "あと" + galaxyState.StarCrystal_ReaminingNum() + "こ";
+                CompleteUI.SetActive(galaxyState.IsComplete());
                 break;
             case STATE.PLANETSELECT:
                 PlanetState planetState = galaxyState.Planets[nPlanetSelectNum];
@@ -475,6 +480,8 @@ public class StageSelectScene : SceneBase
                 ItemUI_Obj_PlanetText.SetActive(true);
                 ItemUI_Text_Crystal.text = "あと" + planetState.Crystal_ReaminingNum() + "こ";
                 ItemUI_Text_StarCrystal.text = "あと" + planetState.StarCrystal_ReaminingNum() + "こ";
+
+                CompleteUI.SetActive(planetState.IsComplete());
                 break;
             default:
                 break;

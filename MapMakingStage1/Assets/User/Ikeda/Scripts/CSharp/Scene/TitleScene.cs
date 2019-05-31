@@ -16,6 +16,11 @@ public class TitleScene : SceneBase
     [SerializeField]
     private GameObject[] select = new GameObject[4];
 
+    [Space(8)]
+    [SerializeField]
+    float WaitTime = 10f;
+    float Counter = 0f;
+
     //--- Internal ------------------------------
     private int SelectNum = 0;          //選択中のもの
     private int MaxSelectNum = 0;       //最大セレクタ数
@@ -33,6 +38,7 @@ public class TitleScene : SceneBase
     public override void Start()
     {
         base.Start();
+        Counter = 0f;
 
         MySceneManager.IsPause_BackLoad = false;
         //背景読み込み
@@ -63,8 +69,15 @@ public class TitleScene : SceneBase
     //オープニングに再帰する
     private void Update_IdleTime()
     {
-        if(Input.GetButtonDown(InputManager.Cancel))
+        if (Input.GetButton(InputManager.Submit) || Input.GetButton(InputManager.X_Selecter) || Input.GetButton(InputManager.Y_Button) || Input.GetButton(InputManager.X_Button) || Input.GetButton(InputManager.Cancel) || Input.GetButton(InputManager.Y_Selecter) || Input.GetButton(InputManager.Menu))
+            Counter = 0f;
+
+        if (Input.GetButtonDown(InputManager.Cancel) || Counter >= WaitTime)
+        {
             MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Opening, false);
+        }
+
+        Counter += Time.deltaTime;
     }
 
     //セレクトの初期化

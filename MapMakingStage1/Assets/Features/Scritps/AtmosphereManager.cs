@@ -6,7 +6,7 @@ public class AtmosphereManager : Singleton<AtmosphereManager>
 {
 
     public Transform planetAtmosphere;
-    public GameObject clouds;
+    public GameObject clouds = null;
     public float cloudsScaleSmooth = 5f;
     public float cloudsTargetScale = 5f;
 
@@ -16,21 +16,24 @@ public class AtmosphereManager : Singleton<AtmosphereManager>
 
     void Start()
     {
-        initScale = clouds.transform.localScale;
+        if(clouds != null)
+            initScale = clouds.transform.localScale;
     }
 
     void Update()
     {
         if (CameraManager.Instance.characterCamera.gameObject.activeInHierarchy)
         {
-            targetScale = new Vector3(cloudsTargetScale, cloudsTargetScale, cloudsTargetScale);
+            if(clouds != null)
+                targetScale = new Vector3(cloudsTargetScale, cloudsTargetScale, cloudsTargetScale);
         }
         else
         {
             targetScale = initScale;
         }
 
-        clouds.transform.localScale = Vector3.Lerp(clouds.transform.localScale, initScale, Time.deltaTime * cloudsScaleSmooth);
+        if(clouds != null)
+            clouds.transform.localScale = Vector3.Lerp(clouds.transform.localScale, initScale, Time.deltaTime * cloudsScaleSmooth);
     }
 
     private void LateUpdate()

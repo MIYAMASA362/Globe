@@ -19,12 +19,15 @@ public class OpeningScene : SceneBase {
     [SerializeField]
     private VideoPlayer videoPlayer;
 
+    private AudioSource audio;
+
 
     //--- MonoBehavior ------------------------------------
 
     // Use this for initialization
     public override void Start () {
         base.Start();
+        audio = this.GetComponent<AudioSource>();
         InputObj.SetActive(false);
     }
 	
@@ -38,7 +41,10 @@ public class OpeningScene : SceneBase {
             InputObj.SetActive(true);
 
             if (Input.anyKeyDown)
-                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title,true);
+            {
+                AudioManager.Instance.PlaySEOneShot(audio,AudioManager.Instance.SE_SUCCESS);
+                MySceneManager.FadeInLoad(MySceneManager.Instance.Path_Title, true);
+            }
         }
         else
         {
