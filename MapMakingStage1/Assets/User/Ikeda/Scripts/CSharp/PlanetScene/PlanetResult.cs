@@ -29,7 +29,12 @@ public class PlanetResult : MonoBehaviour
     [SerializeField, Tooltip("リザルト時スタークリスタルUI")]
     private GameObject AchievStarCrystalUI;
     [SerializeField]
-    private GameObject NotAchievStarCrystalUI;
+    private Material getMaterial;
+    [SerializeField]
+    private Material notMaterial;
+    [SerializeField]
+    private GameObject[] StarCrystalUI;
+
 
     //[Space(8)]
     //[SerializeField, Tooltip("銀河アンロック表示")]
@@ -61,7 +66,6 @@ public class PlanetResult : MonoBehaviour
         AchievCrystalUI.SetActive(false);
         NotAchievCrystalUI.SetActive(false);
         AchievStarCrystalUI.SetActive(false);
-        NotAchievStarCrystalUI.SetActive(false);
         ResultUI.SetActive(false);
     }
 
@@ -111,10 +115,22 @@ public class PlanetResult : MonoBehaviour
         else
             NotAchievCrystalUI.SetActive(true);
 
-        if (starPieceHandle.IsCompleted())
-            AchievStarCrystalUI.SetActive(true);
-        else
-            NotAchievStarCrystalUI.SetActive(true);
+        
+        AchievStarCrystalUI.SetActive(true);
+
+        int num = GetComponent<StarPieceHandle>().nGetPiece;
+        foreach(GameObject star in StarCrystalUI)
+        {
+            if (num > 0)
+            {
+                star.GetComponent<MeshRenderer>().material = getMaterial;
+                num--;
+            }
+            else
+            {
+                star.GetComponent<MeshRenderer>().material = notMaterial;
+            }
+        }
 
     }
 

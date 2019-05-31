@@ -112,6 +112,10 @@ public class OptionScene : SceneBase
                 SelectNum--;
             else if (selecter <= -0.5f)
                 SelectNum++;
+            else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                SelectNum--;
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+                SelectNum++;
         }
 
         if (OldSelect != SelectNum)
@@ -221,6 +225,16 @@ public class OptionScene : SceneBase
             ChangeValue += ChangeValueAccel;
         }
         else if (Axis <= -0.5f)
+        {
+            if (ChangeValue > 0) ChangeValue = 0f;
+            ChangeValue -= ChangeValueAccel;
+        }
+        else if(Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.RightArrow))
+        {
+            if (ChangeValue < 0) ChangeValue = 0f;
+            ChangeValue += ChangeValueAccel;
+        }
+        else if(Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow))
         {
             if (ChangeValue > 0) ChangeValue = 0f;
             ChangeValue -= ChangeValueAccel;
