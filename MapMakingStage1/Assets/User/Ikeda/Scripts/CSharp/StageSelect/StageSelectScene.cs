@@ -568,6 +568,8 @@ public class StageSelectScene : SceneBase
         Save_SelectData();
         //シーン遷移
         MySceneManager.FadeInLoad(MySceneManager.Get_NowPlanet(),true);
+
+        AudioManager.Instance.FadeOutBGM();
     }
 
     //GalaxyのCanvasを変更させる
