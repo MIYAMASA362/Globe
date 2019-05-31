@@ -178,7 +178,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (!audioData.clip)
         {
-            Debug.Log(audioData.clip.name + "という名前のSEがありません");
+            Debug.Log("SEがありません");
             return;
         }
 
