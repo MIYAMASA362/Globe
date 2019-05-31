@@ -209,7 +209,14 @@ namespace SA
                 if(!circleParticle.isPlaying)
                 {
                     if (Input.GetButtonDown(InputManager.Change_AscDes))
+                    {
                         circleParticle.Play();
+                        
+                        if(FlagManager.Instance.isFloatFalse)
+                        {
+                            anim.SetBool("not", true);
+                        }
+                    }
 
                     if (Input.GetButton(InputManager.Right_AxisRotation) || Input.GetButton(InputManager.Left_AxisRotation))
                         circleParticle.Play();
@@ -232,7 +239,9 @@ namespace SA
                             axisDevice.ResetChase();
                             circleParticle.Play();
                         }
+                        else anim.SetBool("not", true);
                     }
+                    else anim.SetBool("not", true);
                 }
                 else
                 {
@@ -245,6 +254,11 @@ namespace SA
                     axisObject = axisTransform.parent.gameObject;
                 }
             }
+        }
+
+        public void EndTick()
+        {
+            anim.SetTrigger("end");
         }
     }
 

@@ -63,6 +63,7 @@ public class CameraManager : Singleton<CameraManager>
                         characterCamera.SetAngle(planetCamera.transform.position);
                         isChange = !isChange;
                         state = State.Game;
+                        timer = 0.0f;
                         PlanetScene.Instance.EndOpening();
                     }
                 }
@@ -70,6 +71,8 @@ public class CameraManager : Singleton<CameraManager>
                 break;
             case State.Game:
 
+                timer += Time.deltaTime;
+                if (timer < 1.0f) return;
 
                 if (Input.GetButtonDown(InputManager.View_Swith))
                 {
@@ -80,6 +83,7 @@ public class CameraManager : Singleton<CameraManager>
                         planetCamera.transform.position = RotationManager.Instance.planetTransform.position + dir * planetCamera.distance;
 
                         isChange = !isChange;
+                        timer = 0.0f;
                     }
                     else
                     {
@@ -91,6 +95,7 @@ public class CameraManager : Singleton<CameraManager>
 
                 if (onCharacterCamera && !planetCamera.isMoveTarget)
                 {
+                    timer = 0.0f;
                     isChange = !isChange;
                     onCharacterCamera = false;
                     characterCamera.SetAngle(planetCamera.targetPosition);

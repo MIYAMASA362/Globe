@@ -42,6 +42,8 @@ public class FlagManager : Singleton<FlagManager> {
 
     float vibrationTime = 0.0f;
 
+    public bool isFloatFalse = false;
+
     void Start () {
 
         FindFloatGround();
@@ -71,8 +73,23 @@ public class FlagManager : Singleton<FlagManager> {
         {
             flag.transform.localScale = Vector3.Lerp(flag.transform.localScale, InitScale, Time.deltaTime * flagScaleSpeed);
 
+            isFloatFalse = false;
+            foreach (var floatObj in floatObjects)
+            {
+                if (curFloatType == floatObj.type)
+                {
+                    if (floatObj.onGround)
+                    {
+                        isFloatFalse = true;
+                        break;
+                    }
+                }
+            }
+
             if (Input.GetButtonDown(InputManager.Change_AscDes))
             {
+                if (RotationManager.Instance.planetTransform.GetComponent<Animator>().GetBool("vibration")) return;
+
                 if (CheckFloatOnGround())
                 {
                     if (flagAudio)

@@ -8,10 +8,16 @@ public class AxisDevice : MonoBehaviour {
     public Transform chaseTarget;
     private Transform initTransform;
     new private Rigidbody rigidbody;
-    new private Collider collider;
+    new public Collider collider;
     public float chaseSpeed = 1.0f;
     public float setSpeed = 1.0f;
     bool onSet = false;
+
+    public float randomVelocityForce = 0.1f;
+    public float randomTorqueForce = 0.1f;
+    public float intervalTime = 1.0f;
+    private float intervalTimer = 0.0f;
+    private Vector3 randamDir;
 
     // Use this for initialization
     void Start () {
@@ -21,7 +27,7 @@ public class AxisDevice : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         float delta = Time.deltaTime;
         if (!onSet)
         {
@@ -30,14 +36,21 @@ public class AxisDevice : MonoBehaviour {
 
             float dist = (chaseTarget.position - transform.position).magnitude;
             Vector3 moveForce = (chaseTarget.position - transform.position).normalized * delta * chaseSpeed;
-            if (dist < 4.0f)
+                intervalTimer += Time.deltaTime;
+            if (intervalTimer > intervalTime)
             {
-                rigidbody.AddForceAtPosition(moveForce, transform.position + transform.up * 0.05f);
+                intervalTimer = 0.0f;
+
+                float x = Random.Range(-1.0f, 1.0f);
+                float y = Random.Range(-1.0f, 1.0f);
+                float z = Random.Range(-1.0f, 1.0f);
+                randamDir = new Vector3(x, y, z).normalized;
             }
-            {
-                transform.position = Vector3.Lerp(transform.position, chaseTarget.position, delta * chaseSpeed * 0.1f);
-                rigidbody.velocity = Vector3.zero;
-            }
+            rigidbody.AddForce(randamDir * randomVelocityForce);
+            rigidbody.AddRelativeTorque(randamDir * randomTorqueForce);
+
+            transform.position = Vector3.Lerp(transform.position, chaseTarget.position, delta * chaseSpeed * 0.1f);
+
         }
         else
         {
