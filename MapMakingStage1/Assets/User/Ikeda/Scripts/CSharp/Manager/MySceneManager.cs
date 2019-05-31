@@ -92,7 +92,7 @@ public class MySceneManager : Singleton<MySceneManager>
         //数値の初期化
         Init_Attribute();
         //初期画面
-        if (bInitLoad) SceneManager.LoadScene(Path_Title);   
+        if (bInitLoad) FadeInLoad(Path_Title, true);  
     }
 
     private void Update()
