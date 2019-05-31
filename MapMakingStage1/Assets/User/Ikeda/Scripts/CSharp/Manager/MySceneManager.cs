@@ -188,8 +188,10 @@ public class MySceneManager : Singleton<MySceneManager>
         DataManager.Instance.playerData.SelectPlanet = 0;
         DataManager.Instance.playerData.SelectGalaxy++;
         if (DataManager.Instance.playerData.SelectGalaxy >= Instance.Galaxies.Count)
+        {
+            DataManager.Instance.playerData.SelectGalaxy = 0;
             return Instance.Path_End;
-
+        }
         return Get_NextGalaxyPlanet();
     }
 
