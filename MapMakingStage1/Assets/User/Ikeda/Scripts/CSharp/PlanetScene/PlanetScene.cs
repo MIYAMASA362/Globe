@@ -187,8 +187,6 @@ public class PlanetScene : Singleton <PlanetScene>
 
     private void UnInitData()
     {
-        DataManager.Instance.PlayerData_Save();            //PlayerDataのセーブ 
-
         if(!planetData.IsClear)
             planetData.IsClear = IsGameClear;                           //ステージをクリアしたか
 
@@ -212,6 +210,8 @@ public class PlanetScene : Singleton <PlanetScene>
         this.planetData.IsClear = OldData.IsClear;
         this.planetData.IsGet_Crystal = OldData.IsGet_Crystal;
         this.planetData.IsGet_StarCrystal = OldData.IsGet_StarCrystal;
+
+        DataManager.Instance.PlayerData_Save();            //PlayerDataのセーブ
 
         SaveData();
     }
