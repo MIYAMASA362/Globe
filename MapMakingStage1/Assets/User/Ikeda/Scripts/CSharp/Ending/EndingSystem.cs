@@ -14,6 +14,8 @@ public class EndingSystem : MonoBehaviour {
     {
         audioSource = this.GetComponent<AudioSource>();
         AudioManager.Instance.PlaySE(audioSource,AudioManager.Instance.BGM_END);
+
+        MySceneManager.Instance.CompleteLoaded();
 	}
 	
 	// Update is called once per frame
