@@ -115,4 +115,9 @@ public class GalaxyState : MonoBehaviour
     {
         return nMaxCrystalNum - nGetCrystalNum;
     }
+
+    public bool IsComplete()
+    {
+        return nGetCrystalNum >= 5 && nGetStarCrystalNum >= 5;
+    }
 }

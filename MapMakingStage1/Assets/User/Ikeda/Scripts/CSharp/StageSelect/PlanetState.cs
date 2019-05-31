@@ -68,4 +68,9 @@ public class PlanetState : MonoBehaviour
     {
         return 1 - StarCrystalNum();
     }
+
+    public bool IsComplete()
+    {
+        return planetData.IsComplate();
+    }
 }
