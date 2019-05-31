@@ -456,6 +456,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1714168126734134
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4354576152980332}
+  - component: {fileID: 20090069137919542}
+  - component: {fileID: 81136455651347492}
+  m_Layer: 0
+  m_Name: TutorialCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1728688001516744
 GameObject:
   m_ObjectHideFlags: 1
@@ -751,6 +768,19 @@ Transform:
   m_Father: {fileID: 224708986845153912}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -0.035, y: 0, z: -126}
+--- !u!4 &4354576152980332
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714168126734134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4784880448598616}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4364225031211798
 Transform:
   m_ObjectHideFlags: 1
@@ -802,7 +832,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4784880448598616}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4564695848894878
 Transform:
@@ -863,12 +893,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950615331747042}
   m_LocalRotation: {x: 0.09407062, y: 0.7274641, z: -0.08214573, w: 0.6746843}
-  m_LocalPosition: {x: -2.174, y: 3.757, z: 0.58}
+  m_LocalPosition: {x: -2.13, y: 3.53, z: -0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4484126827160820}
-  - {fileID: 4512417301401800}
+  - {fileID: 4354576152980332}
   - {fileID: 4022309265663780}
+  - {fileID: 4512417301401800}
   - {fileID: 4879331448061128}
   m_Father: {fileID: 4813626135856016}
   m_RootOrder: 2
@@ -939,8 +970,48 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4784880448598616}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20090069137919542
+Camera:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714168126734134}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 131072
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!20 &20621787631735744
 Camera:
   m_ObjectHideFlags: 1
@@ -1694,6 +1765,13 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950615331747042}
   m_Enabled: 1
+--- !u!81 &81136455651347492
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714168126734134}
+  m_Enabled: 1
 --- !u!81 &81285481143744176
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1785,7 +1863,7 @@ Animator:
   m_GameObject: {fileID: 1141767473272782}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ea62c961423b61849aaa0b62c9826cf8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 91b723e468785274797248806e78ad40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2021,7 +2099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c6170e73e92ef4a8caf89c35250913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: 1
+  bgm: 0
   IsPausing: 1
   skipOpening: 0
   planetOpening: {fileID: 0}

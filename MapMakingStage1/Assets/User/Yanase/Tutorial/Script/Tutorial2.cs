@@ -48,7 +48,16 @@ public class Tutorial2 : TutorialBase {
                 }
                 break;
             case Step.Step3:
-                if (Input.GetButtonDown(InputManager.Change_AscDes))
+                if(FlagManager.Instance.flagActive)
+                {
+                    uiB.gameObject.SetActive(true);
+                }
+                else
+                {
+                    uiB.gameObject.SetActive(false);
+                }
+
+                if (Input.GetButtonDown(InputManager.Change_AscDes) && FlagManager.Instance.flagActive)
                 {
                     uiB.gameObject.SetActive(false);
                     step = Step.Step4;
