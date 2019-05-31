@@ -218,6 +218,7 @@ public class PlanetScene : Singleton <PlanetScene>
 
     public void NextScene()
     {
+        AudioManager.Instance.FadeOutBGM();
         MySceneManager.FadeInLoad(MySceneManager.Load_Next_Planet(),true);
         //MySceneManager.FadeInLoad(MySceneManager.Load_PlanetSelect(), true);    //Scene遷移
     }
