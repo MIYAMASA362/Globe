@@ -157,6 +157,8 @@ public class TitleScene : SceneBase
     public void Loaded()
     {
         MySceneManager.Instance.CompleteLoaded();
+
+        AudioManager.Instance.PlayBGM(AudioManager.Instance.BGM_TITLE);
     }
 
 }
