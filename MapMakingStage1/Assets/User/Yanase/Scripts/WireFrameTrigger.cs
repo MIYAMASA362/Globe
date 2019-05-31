@@ -22,7 +22,7 @@ public class WireFrameTrigger : MonoBehaviour
     {
         onTrigger = (triggerList.Count > 0) ? true : false;
 
-        if (onTrigger)
+        if (FlagManager.Instance.isFloatFalse)
         {
             matrial.SetColor("_Color", Color.red);
             matrial.SetColor("_EmissionColor", new Color(1, 0, 0, 1));

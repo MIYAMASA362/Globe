@@ -49,7 +49,7 @@ public class FloatGround : MonoBehaviour
 
                 animator.SetBool("move", true);
 
-                if (wireFrameTrigger.onTrigger)
+                if (FlagManager.Instance.isFloatFalse)
                 {
                     effectRender.material.SetColor("_ShieldPatternColor", Color.red);
                 }
